@@ -4,17 +4,37 @@ import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_skip_icon.dart';
 import 'package:sehatak/core/widget/custom_General_button.dart';
 
-class OnBoardingBody extends StatelessWidget {
+class OnBoardingBody extends StatefulWidget {
   const OnBoardingBody({super.key});
 
   @override
+  State<OnBoardingBody> createState() => _OnBoardingBodyState();
+}
+
+class _OnBoardingBodyState extends State<OnBoardingBody> {
+  PageController? pageController;
+  @override
+  void initState() {
+    pageController = PageController(initialPage: 0)
+      ..addListener(() {
+        setState(() {});
+      });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
-        CustomPageView(),
-        CustomSkipIcon(),
-        ContainerOnboarding(),
-        CustomGeneralButton(),
+        CustomPageView(
+          controller: pageController,
+        ),
+        const CustomSkipIcon(),
+        ContainerOnboarding(
+          dotsIndicator:
+              pageController!.hasClients ? pageController?.page?.round() : 0,
+        ),
+        const CustomGeneralButton(),
       ],
     );
   }
