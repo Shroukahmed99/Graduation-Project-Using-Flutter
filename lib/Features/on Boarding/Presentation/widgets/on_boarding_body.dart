@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/container_onBoarding.dart';
+import 'package:sehatak/Features/Auth/login.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_indicator.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_view.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_skip_icon.dart';
 import 'package:sehatak/core/widget/custom_General_button.dart';
@@ -12,12 +13,21 @@ class OnBoardingBody extends StatefulWidget {
 }
 
 class _OnBoardingBodyState extends State<OnBoardingBody> {
-  PageController? pageController;
+  late PageController pageController;
+  int currentIndex = 0;
+  final List<String> buttonTexts = [
+    "Next",
+    "Next",
+    "Get Started",
+  ];
+
   @override
   void initState() {
     pageController = PageController(initialPage: 0)
       ..addListener(() {
-        setState(() {});
+        setState(() {
+          currentIndex = pageController.page!.round();
+        });
       });
     super.initState();
   }
@@ -29,12 +39,24 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
         CustomPageView(
           controller: pageController,
         ),
+        CustomIndicator(dotsIndex: currentIndex),
         const CustomSkipIcon(),
-        ContainerOnboarding(
-          dotsIndicator:
-              pageController!.hasClients ? pageController?.page?.round() : 0,
+        CustomGeneralButton(
+          text: buttonTexts[currentIndex],
+          onTap: () {
+            if (currentIndex < buttonTexts.length - 1) {
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              );
+            } else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => home()),
+              );
+            }
+          },
         ),
-        const CustomGeneralButton(),
       ],
     );
   }

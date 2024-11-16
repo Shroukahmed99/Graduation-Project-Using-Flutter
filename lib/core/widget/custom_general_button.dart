@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 class CustomGeneralButton extends StatelessWidget {
-  const CustomGeneralButton({super.key});
+  const CustomGeneralButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+  });
+  final String text;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(top: 255),
+        padding: const EdgeInsets.only(top: 320),
         child: Center(
           child: Container(
             width: 211,
@@ -30,9 +36,9 @@ class CustomGeneralButton extends StatelessWidget {
               ),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              'Next',
-              style: TextStyle(
+            child: Text(
+              text,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,

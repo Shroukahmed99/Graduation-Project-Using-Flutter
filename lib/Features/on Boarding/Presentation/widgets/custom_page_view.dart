@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/core/widget/background_image.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_view_page_item.dart';
 
 class CustomPageView extends StatelessWidget {
   const CustomPageView({super.key, required this.controller});
@@ -8,15 +8,24 @@ class CustomPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView(controller: controller, children: const [
-      BackgroundImage(
+      CustomViewPageItem(
           image:
-              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3.png'),
-      BackgroundImage(
+              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3.png',
+          icon: 'assets/images/Vector.png',
+          text1: 'Start your journey towards a',
+          text2: 'more active lifestyle'),
+      CustomViewPageItem(
           image:
-              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3 (1).png'),
-      BackgroundImage(
+              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3 (1).png',
+          icon: 'assets/images/Vector (1).png',
+          text1: 'Find nutrition tips that fit ',
+          text2: 'your lifestyle'),
+      CustomViewPageItem(
           image:
-              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3.png'),
+              'assets/images/beautiful-young-sporty-woman-training-workout-gym 3 (2).png',
+          icon: 'assets/images/Community.png',
+          text1: 'A community for you, ',
+          text2: 'challenge yourself')
     ]);
   }
 }

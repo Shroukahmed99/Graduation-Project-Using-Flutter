@@ -8,20 +8,24 @@ class CustomIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DotsIndicator(
-      dotsCount: 3,
-      position: dotsIndex!,
-      decorator: DotsDecorator(
-        activeSize: const Size(20, 4),
-        size: const Size(20, 4),
-        activeColor: backgroundColor,
-        color: secondaryColor,
-        spacing: const EdgeInsets.symmetric(horizontal: 4),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+    return Positioned(
+      top: 490,
+      left: 135,
+      child: DotsIndicator(
+        dotsCount: 3,
+        position: dotsIndex ?? 0,
+        decorator: DotsDecorator(
+          activeSize: const Size(20, 4),
+          size: const Size(20, 4),
+          activeColor: backgroundColor,
+          color: secondaryColor,
+          spacing: const EdgeInsets.symmetric(horizontal: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          activeShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );
