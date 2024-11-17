@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
 
 class CustomTextQuestion extends StatelessWidget {
-  const CustomTextQuestion({super.key});
+  const CustomTextQuestion({super.key, this.onPress, required this.text});
+  final void Function()? onPress;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,10 @@ class CustomTextQuestion extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {
-            // يمكنك إضافة الإجراء عند الضغط هنا
-          },
-          child: const Text(
-            'Sign Up',
-            style: TextStyle(
+          onPressed: onPress,
+          child: Text(
+            text,
+            style: const TextStyle(
               color: secondaryColor,
               fontFamily: 'League Spartan',
               fontSize: 14,

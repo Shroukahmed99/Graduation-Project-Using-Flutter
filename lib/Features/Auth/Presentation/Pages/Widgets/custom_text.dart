@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
 
 class CustomText extends StatelessWidget {
-  const CustomText({super.key});
+  const CustomText({super.key, this.title, this.subTitle});
+  final String? title;
+  final String? subTitle;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         Text(
-          'Welcome',
-          style: TextStyle(
+          title ?? '',
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Text(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          subTitle ?? "",
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: accentColor,
             fontSize: 14,
             fontWeight: FontWeight.w300,

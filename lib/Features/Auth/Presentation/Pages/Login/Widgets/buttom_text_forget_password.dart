@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/ForgetPassword/forget_password_view.dart';
 import 'package:sehatak/const.dart';
 
 class ButtomTextForgetPassword extends StatelessWidget {
@@ -9,7 +10,12 @@ class ButtomTextForgetPassword extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ForgetPasswordView()),
+          );
+        },
         child: const Text(
           'Forgot Password?',
           style: TextStyle(

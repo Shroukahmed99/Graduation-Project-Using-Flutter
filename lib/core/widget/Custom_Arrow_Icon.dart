@@ -5,10 +5,15 @@ class CustomArrowIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/Arrow.png',
-      height: 11,
-      width: 16,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Image.asset(
+        'assets/images/Arrow.png',
+        height: 11,
+        width: 16,
+      ),
     );
   }
 }

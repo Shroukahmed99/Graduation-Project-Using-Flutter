@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sehatak/Features/splash_view.dart';
+import 'package:sehatak/Features/Splash/Presentation/splash_view.dart';
 
 void main() {
   runApp(const HealthMateApp());
