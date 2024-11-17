@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/Auth/login.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_indicator.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_view.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_skip_icon.dart';
@@ -38,6 +38,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
       children: [
         CustomPageView(
           controller: pageController,
+          onPageChanged: (index) {},
         ),
         CustomIndicator(dotsIndex: currentIndex),
         const CustomSkipIcon(),
@@ -52,7 +53,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
             } else {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => home()),
+                MaterialPageRoute(builder: (context) => LoginView()),
               );
             }
           },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_view_page_item.dart';
 
 class CustomPageView extends StatelessWidget {
-  const CustomPageView({super.key, required this.controller});
+  const CustomPageView({super.key, required this.controller, required Null Function(dynamic index) onPageChanged});
   final PageController? controller;
 
   @override
