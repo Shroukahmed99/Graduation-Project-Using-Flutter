@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Set%20Password/forget_password_view.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and_icon_arrowBack.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
   const ForgetPasswordViewBody({super.key});
@@ -37,7 +37,8 @@ class ForgetPasswordViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: 'example@example.com',
-            onChanged: (String) {},
+            inputType: TextInputType.emailAddress,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 140,

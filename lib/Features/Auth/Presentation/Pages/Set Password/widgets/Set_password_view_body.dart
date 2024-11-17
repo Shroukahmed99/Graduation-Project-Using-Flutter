@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and_icon_arrowBack.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class SetPasswordViewBody extends StatelessWidget {
   const SetPasswordViewBody({super.key});
@@ -35,7 +35,8 @@ class SetPasswordViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '*************',
-            onChanged: (String) {},
+            inputType: TextInputType.visiblePassword,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 10,
@@ -48,7 +49,8 @@ class SetPasswordViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '*************',
-            onChanged: (String) {},
+            inputType: TextInputType.visiblePassword,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 90,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/widgets/custom_text_with_signup.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_icon_buttom.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
@@ -10,6 +9,7 @@ import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_question.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_signUpWith.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class SignupViewBody extends StatelessWidget {
   const SignupViewBody({super.key});
@@ -36,8 +36,9 @@ class SignupViewBody extends StatelessWidget {
             height: 10,
           ),
           CustomTextField(
-            hintText: 'example@example.com',
-            onChanged: (String) {},
+            hintText: 'Shrouk Kaoud',
+            inputType: TextInputType.name,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 10,
@@ -50,7 +51,8 @@ class SignupViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '+020 103 0136 999',
-            onChanged: (String) {},
+            onSaved: (String) {},
+            inputType: TextInputType.number,
           ),
           const SizedBox(
             height: 10,
@@ -63,7 +65,8 @@ class SignupViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '*************',
-            onChanged: (String) {},
+            inputType: TextInputType.visiblePassword,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 10,
@@ -76,7 +79,8 @@ class SignupViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '*************',
-            onChanged: (String) {},
+            inputType: TextInputType.visiblePassword,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 25,

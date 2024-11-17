@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/Widgets/buttom_text_forget_password.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/signup_view.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_icon_buttom.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
@@ -10,6 +9,7 @@ import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_question.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_signUpWith.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -42,7 +42,8 @@ class LoginViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: 'example@example.com',
-            onChanged: (String) {},
+            inputType: TextInputType.emailAddress,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 10,
@@ -55,7 +56,8 @@ class LoginViewBody extends StatelessWidget {
           ),
           CustomTextField(
             hintText: '*************',
-            onChanged: (String) {},
+            inputType: TextInputType.visiblePassword,
+            onSaved: (String) {},
           ),
           const SizedBox(
             height: 20,

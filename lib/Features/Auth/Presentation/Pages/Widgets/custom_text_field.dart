@@ -3,14 +3,18 @@ import 'package:sehatak/const.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
-  final Function(String) onChanged;
+  final TextInputType inputType;
+  final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final Function(String?) onSaved; // Fix: Proper declaration
 
   const CustomTextField({
     super.key,
     required this.hintText,
-    required this.onChanged,
+    this.onChanged,
     this.validator,
+    required this.inputType,
+    required this.onSaved,
   });
 
   @override
@@ -22,13 +26,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 311, // Set the width of the container
-      height: 45, // Set the height of the container
+    return SizedBox(
+      width: 311, // Set width
+      height: 45, // Set height
       child: TextFormField(
         controller: _controller,
+        onSaved: widget.onSaved,
         onChanged: widget.onChanged,
         validator: widget.validator,
+        keyboardType: widget.inputType,
         decoration: InputDecoration(
           hintText: widget.hintText,
           border: OutlineInputBorder(
