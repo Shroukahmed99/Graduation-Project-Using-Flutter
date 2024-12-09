@@ -5,7 +5,6 @@ import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 class CustomTextAndIconArrowback extends StatelessWidget {
   const CustomTextAndIconArrowback({super.key, required this.text});
   final String text;
-
   @override
   Widget build(BuildContext context) {
     return Row(

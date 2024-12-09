@@ -1,13 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sehatak/Features/Questions/Age%20Selection/pages/age_selection_screen.dart';
-import 'package:sehatak/Features/Questions/Gender%20Selection/widgets/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
+
+class CircleIconTextWidget extends StatefulWidget {
+  const CircleIconTextWidget(
+      {super.key,
+      required this.icon,
+      required this.typeOfGender,
+      required this.isSelected,
+      required this.onTap});
+
+  final IconData icon;
+  final String typeOfGender;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  _CircleIconTextWidgetState createState() => _CircleIconTextWidgetState();
+}
+
+class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            width: 140,
+            height: 140,
+            decoration: BoxDecoration(
+              color: widget.isSelected ? kPrimaryColor : backgroundColor,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  offset: const Offset(0, 8),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                ),
+              ],
+            ),
+            child: Icon(
+              widget.icon,
+              size: 90.sp,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        Text(
+          widget.typeOfGender,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: accentColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class GenderSelectionScreen extends StatefulWidget {
   const GenderSelectionScreen({super.key});
@@ -74,11 +132,10 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
             ),
             const Spacer(),
             CustomButton(
-              text: 'Countinue',
-              onTap: () {
-                Get.to(() => const AgeSelectionScreen());
-              },
-            ),
+                text: 'Countinue',
+                onTap: () {
+                  Get.to(() => const GenderSelectionScreen());
+                }),
             CustomSizedBox(height: 40.h),
           ],
         ),

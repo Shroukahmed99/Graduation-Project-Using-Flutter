@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sehatak/Features/Questions/Age%20Selection/pages/age_selection_screen.dart';
 import 'package:sehatak/Features/Questions/Gender%20Selection/widgets/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
@@ -9,8 +8,8 @@ import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class GenderSelectionScreen extends StatefulWidget {
-  const GenderSelectionScreen({super.key});
+class AgeSelectionScreen extends StatefulWidget {
+  const AgeSelectionScreen({super.key});
 
   @override
   _GenderSelectionScreenState createState() => _GenderSelectionScreenState();
@@ -76,7 +75,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
             CustomButton(
               text: 'Countinue',
               onTap: () {
-                Get.to(() => const AgeSelectionScreen());
+                Get.to(() => const GenderSelectionScreen());
               },
             ),
             CustomSizedBox(height: 40.h),
