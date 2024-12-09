@@ -16,35 +16,38 @@ class ContainerOnboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        height: 169,
-        width: 350,
-        color: kPrimaryColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Column(
-            children: [
-              Image.asset(
-                icon,
-                width: 40.51,
-                height: 42.7,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              CustomTextInContainer(
-                text: text1,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              CustomTextInContainer(
-                text: text2,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-            ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1),
+        child: Container(
+          height: 169,
+          width: double.infinity,
+          color: kPrimaryColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: Column(
+              children: [
+                Image.asset(
+                  icon,
+                  width: 40.51,
+                  height: 42.7,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomTextInContainer(
+                  text: text1,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                CustomTextInContainer(
+                  text: text2,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/const.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -59,7 +58,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
           ),
           filled: true,
-          fillColor: usedColor,
+          fillColor: Colors.white,
         ),
       ),
     );

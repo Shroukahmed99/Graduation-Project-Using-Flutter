@@ -20,7 +20,7 @@ class CustomGeneralButton extends StatelessWidget {
             width: 211,
             height: 44,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.25),
+              color: Colors.white.withOpacity(0.1),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.5),

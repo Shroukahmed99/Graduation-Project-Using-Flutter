@@ -24,7 +24,7 @@ class CustomText extends StatelessWidget {
           subTitle ?? "",
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: accentColor,
+            color: usedColor,
             fontSize: 14,
             fontWeight: FontWeight.w300,
             fontFamily: 'League Spartan',

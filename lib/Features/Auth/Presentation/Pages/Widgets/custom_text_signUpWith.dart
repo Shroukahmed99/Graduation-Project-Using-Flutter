@@ -13,7 +13,7 @@ class CustomTextSignupwith extends StatelessWidget {
           fontFamily: 'League Spartan',
           fontSize: 14,
           fontWeight: FontWeight.w300,
-          color: secondaryColor,
+          color: kPrimaryColor,
           height: 1.0,
         ),
       ),

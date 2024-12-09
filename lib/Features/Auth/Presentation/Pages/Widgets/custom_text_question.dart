@@ -27,7 +27,7 @@ class CustomTextQuestion extends StatelessWidget {
           child: Text(
             text,
             style: const TextStyle(
-              color: secondaryColor,
+              color: kPrimaryColor,
               fontFamily: 'League Spartan',
               fontSize: 14,
               fontWeight: FontWeight.w300,

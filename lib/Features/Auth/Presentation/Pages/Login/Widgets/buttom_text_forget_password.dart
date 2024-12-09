@@ -19,7 +19,7 @@ class ButtomTextForgetPassword extends StatelessWidget {
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
-            color: secondaryColor,
+            color: kPrimaryColor,
             fontSize: 12,
             fontWeight: FontWeight.w500,
           ),

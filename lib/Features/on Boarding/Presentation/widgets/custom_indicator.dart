@@ -17,8 +17,8 @@ class CustomIndicator extends StatelessWidget {
         decorator: DotsDecorator(
           activeSize: const Size(20, 4),
           size: const Size(20, 4),
-          activeColor: backgroundColor,
-          color: secondaryColor,
+          activeColor: secondaryColor,
+          color: kPrimaryColor,
           spacing: const EdgeInsets.symmetric(horizontal: 4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

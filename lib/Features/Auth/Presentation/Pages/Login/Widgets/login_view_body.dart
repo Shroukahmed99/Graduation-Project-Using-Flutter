@@ -9,6 +9,7 @@ import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_question.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_signUpWith.dart';
+import 'package:sehatak/Features/Introduction%20Screen/introduction_screen.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -68,7 +69,13 @@ class LoginViewBody extends StatelessWidget {
           ),
           CustomButton(
             text: 'Log In',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const IntroductionScreen()),
+              );
+            },
           ),
           const SizedBox(
             height: 15,

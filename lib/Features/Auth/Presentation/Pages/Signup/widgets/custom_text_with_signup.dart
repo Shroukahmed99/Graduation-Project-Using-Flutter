@@ -32,7 +32,7 @@ class CustomTextWithSignup extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
                 height: 11.96 / 13,
-                color: secondaryColor,
+                color: kPrimaryColor,
               ),
             ),
             Text(
@@ -52,7 +52,7 @@ class CustomTextWithSignup extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
                 height: 11.96 / 13,
-                color: secondaryColor,
+                color: kPrimaryColor,
               ),
             ),
           ],
