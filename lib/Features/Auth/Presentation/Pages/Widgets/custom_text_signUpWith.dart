@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomTextSignupwith extends StatelessWidget {
@@ -6,15 +7,15 @@ class CustomTextSignupwith extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Text(
         'or sign up with',
         style: TextStyle(
           fontFamily: 'League Spartan',
-          fontSize: 14,
+          fontSize: 14.sp,
           fontWeight: FontWeight.w300,
           color: kPrimaryColor,
-          height: 1.0,
+          height: 1.h,
         ),
       ),
     );

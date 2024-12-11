@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomSkipIcon extends StatelessWidget {
@@ -7,23 +8,23 @@ class CustomSkipIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 65, left: 270),
+      padding: EdgeInsets.only(top: 65.h, left: 270.w),
       child: Row(
         children: [
-          const Text(
+          Text(
             'Skip',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontFamily: 'LeagueSpartan',
               fontWeight: FontWeight.bold,
               color: kPrimaryColor,
             ),
           ),
-          const SizedBox(width: 3),
+          SizedBox(width: 3.w),
           Image.asset(
             'assets/images/v.png',
-            height: 11,
-            width: 16,
+            height: 11.h,
+            width: 16.w,
           ),
         ],
       ),

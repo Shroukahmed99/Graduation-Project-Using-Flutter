@@ -56,8 +56,8 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 });
               },
             ),
-            const CustomSizedBox(
-              height: 15,
+             CustomSizedBox(
+              height: 15.h,
             ),
             CircleIconTextWidget(
               icon: Icons.female,

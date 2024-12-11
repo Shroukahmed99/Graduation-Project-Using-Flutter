@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomIconButton extends StatelessWidget {
@@ -8,8 +9,8 @@ class CustomIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 34.4,
-      height: 34.4,
+      width: 34.4.w,
+      height: 34.4.h,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(13.13),
@@ -17,7 +18,7 @@ class CustomIconButton extends StatelessWidget {
       child: Center(
         child: Icon(
           icon,
-          size: 24,
+          size: 24.sp,
           color: kPrimaryColor,
         ),
       ),

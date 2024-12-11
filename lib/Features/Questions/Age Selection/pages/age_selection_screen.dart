@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:sehatak/Features/Questions/Gender%20Selection/widgets/circle_icon_text_widget.dart';
+import 'package:sehatak/Features/Questions/Age%20Selection/widgets/custom_slider_widget.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
@@ -12,75 +11,47 @@ class AgeSelectionScreen extends StatefulWidget {
   const AgeSelectionScreen({super.key});
 
   @override
-  _GenderSelectionScreenState createState() => _GenderSelectionScreenState();
+  _AgeSelectionScreenState createState() => _AgeSelectionScreenState();
 }
 
-class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
-  bool isMaleSelected = false;
-  bool isFemaleSelected = false;
-
+class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
+  int selectedDate = 25;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 32.h,
-          left: 24.w,
-        ),
-        child: Column(
-          children: [
-            const CustomArrowBack(text: 'Back'),
-            CustomSizedBox(
-              height: 25.h,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: 32.h,
+              left: 24.w,
             ),
-            const CustomQuestionAndAswer(
-              question: 'What’s Your Gender',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-            ),
-            const CustomSizedBox(
-              height: 15,
-            ),
-            CircleIconTextWidget(
-              icon: Icons.male,
-              typeOfGender: 'Male',
-              isSelected: isMaleSelected,
-              onTap: () {
-                setState(() {
-                  isMaleSelected = !isMaleSelected;
-                  if (isMaleSelected) {
-                    isFemaleSelected = false;
-                  }
-                });
-              },
-            ),
-            const CustomSizedBox(
-              height: 15,
-            ),
-            CircleIconTextWidget(
-              icon: Icons.female,
-              typeOfGender: 'Female',
-              isSelected: isFemaleSelected,
-              onTap: () {
-                setState(() {
-                  isFemaleSelected = !isFemaleSelected;
-                  if (isFemaleSelected) {
-                    isMaleSelected = false;
-                  }
-                });
-              },
-            ),
-            const Spacer(),
-            CustomButton(
-              text: 'Countinue',
-              onTap: () {
-                Get.to(() => const GenderSelectionScreen());
-              },
-            ),
-            CustomSizedBox(height: 40.h),
-          ],
-        ),
+            child: const CustomArrowBack(text: 'Back'),
+          ),
+          SizedBox(
+            height: 50.h,
+          ),
+          const CustomQuestionAndAswer(
+            question: 'What’s Your Age?',
+            answer:
+                'Lorem ipsum dolor sit amet,consectetur adipiscing elit consectetur adipiscing elit',
+          ),
+          CustomSizedBox(height: 35.h),
+          CustomSliderWidget(
+            dates: List.generate(125, (index) => index + 8),
+            selectedDate: selectedDate,
+            onDateSelected: (date) {
+              setState(() {
+                selectedDate = date;
+              });
+            },
+          ),
+          const Spacer(),
+          CustomButton(text: 'Continue', onTap: () {}),
+          CustomSizedBox(height: 40.h),
+        ],
       ),
     );
   }

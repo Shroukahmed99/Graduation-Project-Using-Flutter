@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 
@@ -15,11 +16,11 @@ class CustomTextAndIconArrowback extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style:  TextStyle(
               color: kPrimaryColor,
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w700,
-              height: 30 / 20,
+              height: 30 / 20 .h,
             ),
           ),
         ),

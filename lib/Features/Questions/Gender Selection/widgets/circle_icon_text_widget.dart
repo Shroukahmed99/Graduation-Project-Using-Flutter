@@ -33,8 +33,8 @@ class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
         GestureDetector(
           onTap: widget.onTap,
           child: Container(
-            width: 140,
-            height: 140,
+            width: 140.w,
+            height: 140.h,
             decoration: BoxDecoration(
               color: widget.isSelected ? kPrimaryColor : backgroundColor,
               shape: BoxShape.circle,
@@ -53,11 +53,11 @@ class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
             ),
           ),
         ),
-        const SizedBox(height: 10.0),
+         SizedBox(height: 10.h),
         Text(
           widget.typeOfGender,
-          style: const TextStyle(
-            fontSize: 16.0,
+          style:  TextStyle(
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
             color: accentColor,
           ),
@@ -114,8 +114,8 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 });
               },
             ),
-            const CustomSizedBox(
-              height: 15,
+             CustomSizedBox(
+              height: 15.h,
             ),
             CircleIconTextWidget(
               icon: Icons.female,

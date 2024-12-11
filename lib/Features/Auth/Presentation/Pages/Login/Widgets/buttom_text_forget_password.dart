@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/ForgetPassword/forget_password_view.dart';
 import 'package:sehatak/const.dart';
 
@@ -16,11 +17,11 @@ class ButtomTextForgetPassword extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ForgetPasswordView()),
           );
         },
-        child: const Text(
+        child:  Text(
           'Forgot Password?',
           style: TextStyle(
             color: kPrimaryColor,
-            fontSize: 12,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w500,
           ),
         ),

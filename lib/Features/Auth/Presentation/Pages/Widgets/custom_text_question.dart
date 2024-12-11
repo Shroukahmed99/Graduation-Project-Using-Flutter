@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomTextQuestion extends StatelessWidget {
@@ -11,14 +12,14 @@ class CustomTextQuestion extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
+         Text(
           "Don't have an account?",
           style: TextStyle(
             color: kPrimaryColor,
             fontFamily: 'League Spartan',
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w300,
-            height: 1.0,
+            height: 1.h,
             decoration: TextDecoration.none,
           ),
         ),
@@ -26,10 +27,10 @@ class CustomTextQuestion extends StatelessWidget {
           onPressed: onPress,
           child: Text(
             text,
-            style: const TextStyle(
+            style:  TextStyle(
               color: kPrimaryColor,
               fontFamily: 'League Spartan',
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w300,
             ),
           ),

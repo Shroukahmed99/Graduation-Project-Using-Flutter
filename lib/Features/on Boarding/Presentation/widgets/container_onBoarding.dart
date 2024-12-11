@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_text_in_container.dart';
 import 'package:sehatak/const.dart';
 
@@ -19,7 +20,7 @@ class ContainerOnboarding extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1),
         child: Container(
-          height: 169,
+          height: 169.h,
           width: double.infinity,
           color: kPrimaryColor,
           child: Padding(
@@ -28,23 +29,23 @@ class ContainerOnboarding extends StatelessWidget {
               children: [
                 Image.asset(
                   icon,
-                  width: 40.51,
-                  height: 42.7,
+                  width: 40.51.w,
+                  height: 42.7.h,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
                 CustomTextInContainer(
                   text: text1,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
                 CustomTextInContainer(
                   text: text2,
                 ),
-                const SizedBox(
-                  height: 5,
+                SizedBox(
+                  height: 5.h,
                 ),
               ],
             ),

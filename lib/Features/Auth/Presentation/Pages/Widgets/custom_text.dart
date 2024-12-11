@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomText extends StatelessWidget {
@@ -12,23 +13,23 @@ class CustomText extends StatelessWidget {
       children: [
         Text(
           title ?? '',
-          style: const TextStyle(
-            fontSize: 20,
+          style:  TextStyle(
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(
-          height: 15,
+         SizedBox(
+          height: 15.h,
         ),
         Text(
           subTitle ?? "",
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style:  TextStyle(
             color: usedColor,
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w300,
             fontFamily: 'League Spartan',
-            height: 14 / 14,
+            height: 14 / 14 .h,
             decoration: TextDecoration.none,
           ),
         )

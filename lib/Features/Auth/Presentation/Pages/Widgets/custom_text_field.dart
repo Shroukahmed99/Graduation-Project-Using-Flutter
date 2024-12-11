@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -26,8 +27,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 311, // Set width
-      height: 45, // Set height
+      width: 311.w, // Set width
+      height: 45.h, // Set height
       child: TextFormField(
         controller: _controller,
         onSaved: widget.onSaved,

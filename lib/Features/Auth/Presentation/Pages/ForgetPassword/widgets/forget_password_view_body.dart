@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Set%20Password/forget_password_view.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
@@ -12,36 +13,36 @@ class ForgetPasswordViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 25),
+      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
       child: ListView(
         children: [
           const CustomTextAndIconArrowback(
             text: 'Forgotten Password',
           ),
-          const SizedBox(
-            height: 60,
+          SizedBox(
+            height: 60.h,
           ),
           const CustomText(
             title: "Forgot Password?",
             subTitle:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
           ),
-          const SizedBox(
-            height: 60,
+          SizedBox(
+            height: 60.h,
           ),
           const CustomSubTitle(
             subTitle: 'Enter your email address',
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           CustomTextField(
             hintText: 'example@example.com',
             inputType: TextInputType.emailAddress,
             onSaved: (String) {},
           ),
-          const SizedBox(
-            height: 140,
+          SizedBox(
+            height: 140.h,
           ),
           CustomButton(
             text: 'Continue',

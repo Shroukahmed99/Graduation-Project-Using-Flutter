@@ -59,7 +59,7 @@ class IntroductionScreen extends StatelessWidget {
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: usedColor.withOpacity(0.6),
-                  height: 1.0,
+                  height: 1.h,
                 ),
                 textAlign: TextAlign.center,
               )),

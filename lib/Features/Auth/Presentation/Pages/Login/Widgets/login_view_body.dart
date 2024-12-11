@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/Widgets/buttom_text_forget_password.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/signup_view.dart';
@@ -18,54 +19,54 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 25),
+      padding:  EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
       child: ListView(
         children: [
           const CustomTextAndIconArrowback(
             text: 'Log In',
           ),
-          const SizedBox(
-            height: 60,
+           SizedBox(
+            height: 60.h,
           ),
           const CustomText(
             title: 'Welcome',
             subTitle:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
           ),
-          const SizedBox(
-            height: 60,
+          SizedBox(
+            height: 60.h,
           ),
           const CustomSubTitle(
             subTitle: 'Username or email',
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           CustomTextField(
             hintText: 'example@example.com',
             inputType: TextInputType.emailAddress,
             onSaved: (String) {},
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           const CustomSubTitle(
             subTitle: 'Password',
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           CustomTextField(
             hintText: '*************',
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           const ButtomTextForgetPassword(),
-          const SizedBox(
-            height: 25,
+           SizedBox(
+            height: 25.h,
           ),
           CustomButton(
             text: 'Log In',
@@ -77,16 +78,16 @@ class LoginViewBody extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(
-            height: 15,
+           SizedBox(
+            height: 15.h,
           ),
           const CustomTextSignupwith(),
-          const SizedBox(
-            height: 15,
+           SizedBox(
+            height: 15.h,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 100),
-            child: Row(
+           Padding(
+            padding: EdgeInsets.symmetric(horizontal: 100.w),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomIconButton(

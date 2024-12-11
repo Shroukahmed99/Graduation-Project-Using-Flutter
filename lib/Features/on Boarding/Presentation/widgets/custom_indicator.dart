@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomIndicator extends StatelessWidget {
@@ -9,22 +10,22 @@ class CustomIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 490,
-      left: 135,
+      top: 550.h,
+      left: 150.w,
       child: DotsIndicator(
         dotsCount: 3,
         position: dotsIndex ?? 0,
         decorator: DotsDecorator(
-          activeSize: const Size(20, 4),
-          size: const Size(20, 4),
+          activeSize: Size(20.w, 4.h),
+          size: Size(20.w, 4.h),
           activeColor: secondaryColor,
           color: kPrimaryColor,
-          spacing: const EdgeInsets.symmetric(horizontal: 4),
+          spacing: EdgeInsets.symmetric(horizontal: 4.w),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           activeShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
         ),
       ),

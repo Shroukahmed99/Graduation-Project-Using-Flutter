@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and_icon_arrowBack.dart';
@@ -11,49 +12,49 @@ class SetPasswordViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 25),
+      padding:  EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
       child: ListView(
         children: [
           const CustomTextAndIconArrowback(
             text: 'Set Password',
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           const CustomText(
             subTitle:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
           ),
-          const SizedBox(
-            height: 60,
+           SizedBox(
+            height: 60.h,
           ),
           const CustomSubTitle(
             subTitle: 'Password',
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           CustomTextField(
             hintText: '*************',
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           const CustomSubTitle(
             subTitle: ' Confirm Password',
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           CustomTextField(
             hintText: '*************',
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-          const SizedBox(
-            height: 90,
+           SizedBox(
+            height: 90.h,
           ),
           CustomButton(
             text: 'Reset Password',

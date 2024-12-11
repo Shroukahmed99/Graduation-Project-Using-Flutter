@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomSubTitle extends StatelessWidget {
   const CustomSubTitle({super.key, required this.subTitle});
@@ -10,9 +11,9 @@ class CustomSubTitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10),
       child: Text(
         subTitle,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'League Spartan',
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w500,
           height: 16.56 / 18,
           decoration: TextDecoration.none,
