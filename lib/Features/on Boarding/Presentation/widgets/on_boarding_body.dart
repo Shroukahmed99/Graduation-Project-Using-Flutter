@@ -5,16 +5,12 @@ import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_skip_icon.dart';
 import 'package:sehatak/core/widget/custom_General_button.dart';
 
-class OnBoardingBody extends StatefulWidget {
-  const OnBoardingBody({super.key});
+class OnBoardingBody extends StatelessWidget {
+  OnBoardingBody({super.key});
 
-  @override
-  State<OnBoardingBody> createState() => _OnBoardingBodyState();
-}
+  final PageController pageController = PageController(initialPage: 0);
+  final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
 
-class _OnBoardingBodyState extends State<OnBoardingBody> {
-  late PageController pageController;
-  int currentIndex = 0;
   final List<String> buttonTexts = [
     "Next",
     "Next",
@@ -22,40 +18,43 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
   ];
 
   @override
-  void initState() {
-    pageController = PageController(initialPage: 0)
-      ..addListener(() {
-        setState(() {
-          currentIndex = pageController.page!.round();
-        });
-      });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    pageController.addListener(() {
+      currentIndexNotifier.value = pageController.page!.round();
+    });
+
     return Stack(
       children: [
         CustomPageView(
           controller: pageController,
           onPageChanged: (index) {},
         ),
-        CustomIndicator(dotsIndex: currentIndex),
+        ValueListenableBuilder<int>(
+          valueListenable: currentIndexNotifier,
+          builder: (context, currentIndex, child) {
+            return CustomIndicator(dotsIndex: currentIndex);
+          },
+        ),
         const CustomSkipIcon(),
-        CustomGeneralButton(
-          text: buttonTexts[currentIndex],
-          onTap: () {
-            if (currentIndex < buttonTexts.length - 1) {
-              pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              );
-            } else {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginView()),
-              );
-            }
+        ValueListenableBuilder<int>(
+          valueListenable: currentIndexNotifier,
+          builder: (context, currentIndex, child) {
+            return CustomGeneralButton(
+              text: buttonTexts[currentIndex],
+              onTap: () {
+                if (currentIndex < buttonTexts.length - 1) {
+                  pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginView()),
+                  );
+                }
+              },
+            );
           },
         ),
       ],
