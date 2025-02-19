@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sehatak/Features/Splash/Presentation/widgets/first_splash_screen.dart';
+import 'package:sehatak/const.dart';
 
 void main() {
   runApp(const HealthMateApp());
@@ -20,6 +21,7 @@ class HealthMateApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 fontFamily: 'Poppins',
+                scaffoldBackgroundColor: backgroundColor,
               ),
               home: const FirstSplashScreen(),
             ));

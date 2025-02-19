@@ -50,7 +50,7 @@ class OnBoardingBody extends StatelessWidget {
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginView()),
+                    MaterialPageRoute(builder: (context) => const LoginView()),
                   );
                 }
               },

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sehatak/Features/Questions/Age%20Selection/widgets/custom_slider_widget.dart';
+import 'package:sehatak/Features/Questions/weight%20selection/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
@@ -49,7 +52,11 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
             },
           ),
           const Spacer(),
-          CustomButton(text: 'Continue', onTap: () {}),
+          CustomButton(
+              text: 'Continue',
+              onTap: () {
+                Get.to(() => const WieghtViews());
+              }),
           CustomSizedBox(height: 40.h),
         ],
       ),
