@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/background_image.dart';
-
-import '../../../on Boarding/Presentation/on_boarding_view.dart';
 
 class SecondSplashScreen extends StatelessWidget {
   const SecondSplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.to(
-        () => const OnBoardingView(),
-        transition: Transition.fade,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
-      );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      goToOnBoarding(context);
     });
 
     return Scaffold(
@@ -63,4 +57,11 @@ class SecondSplashScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+// ✅ استبدال Get.to بـ go_router
+void goToOnBoarding(BuildContext context) {
+  Future.delayed(const Duration(seconds: 3), () {
+    GoRouter.of(context).push(AppRouter.kOnBoardingView);
+  });
 }

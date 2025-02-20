@@ -19,13 +19,13 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
+      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
       child: ListView(
         children: [
           const CustomTextAndIconArrowback(
             text: 'Log In',
           ),
-           SizedBox(
+          SizedBox(
             height: 60.h,
           ),
           const CustomText(
@@ -39,7 +39,7 @@ class LoginViewBody extends StatelessWidget {
           const CustomSubTitle(
             subTitle: 'Username or email',
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           CustomTextField(
@@ -47,13 +47,13 @@ class LoginViewBody extends StatelessWidget {
             inputType: TextInputType.emailAddress,
             onSaved: (String) {},
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           const CustomSubTitle(
             subTitle: 'Password',
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           CustomTextField(
@@ -61,11 +61,11 @@ class LoginViewBody extends StatelessWidget {
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-           SizedBox(
+          SizedBox(
             height: 20.h,
           ),
           const ButtomTextForgetPassword(),
-           SizedBox(
+          SizedBox(
             height: 25.h,
           ),
           CustomButton(
@@ -78,14 +78,14 @@ class LoginViewBody extends StatelessWidget {
               );
             },
           ),
-           SizedBox(
+          SizedBox(
             height: 15.h,
           ),
           const CustomTextSignupwith(),
-           SizedBox(
+          SizedBox(
             height: 15.h,
           ),
-           Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 100.w),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

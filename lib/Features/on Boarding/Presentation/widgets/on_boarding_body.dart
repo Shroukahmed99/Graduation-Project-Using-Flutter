@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_indicator.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_view.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_skip_icon.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/widget/custom_skip_icon.dart';
 import 'package:sehatak/core/widget/custom_General_button.dart';
 
-class OnBoardingBody extends StatelessWidget {
-  OnBoardingBody({super.key});
+class OnBoardingBody extends StatefulWidget {
+  const OnBoardingBody({super.key});
 
-  final PageController pageController = PageController(initialPage: 0);
+  @override
+  State<OnBoardingBody> createState() => _OnBoardingBodyState();
+}
+
+class _OnBoardingBodyState extends State<OnBoardingBody> {
+  late final PageController pageController;
   final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
 
   final List<String> buttonTexts = [
@@ -18,11 +24,27 @@ class OnBoardingBody extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: 0);
     pageController.addListener(() {
       currentIndexNotifier.value = pageController.page!.round();
     });
+  }
 
+  @override
+  void dispose() {
+    pageController.dispose();
+    currentIndexNotifier.dispose();
+    super.dispose();
+  }
+
+  void navigateToLogin(BuildContext context) {
+    context.go(AppRouter.kLoginView); // ✅ الانتقال باستخدام GoRouter
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: [
         CustomPageView(
@@ -48,10 +70,7 @@ class OnBoardingBody extends StatelessWidget {
                     curve: Curves.easeIn,
                   );
                 } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginView()),
-                  );
+                  navigateToLogin(context); // ✅ استدعاء الدالة بعد آخر صفحة
                 }
               },
             );

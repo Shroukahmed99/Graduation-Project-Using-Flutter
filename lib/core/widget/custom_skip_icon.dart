@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/weight%20selection/presentation/views/weight_views.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 
 class CustomSkipIcon extends StatelessWidget {
   const CustomSkipIcon({super.key});
@@ -13,7 +14,7 @@ class CustomSkipIcon extends StatelessWidget {
       padding: EdgeInsets.only(top: 65.h, left: 270.w),
       child: GestureDetector(
         onTap: () {
-          Get.off(() => const LoginView());
+          GoRouter.of(context).push(AppRouter.kLoginView);
         },
         child: Row(
           children: [

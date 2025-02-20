@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:sehatak/Features/Splash/Presentation/widgets/second_splash_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 
 class FirstSplashScreen extends StatelessWidget {
   const FirstSplashScreen({Key? key}) : super(key: key);
@@ -10,8 +10,9 @@ class FirstSplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      goToSecondSplashScreen();
+      goToSecondSplashScreen(context);
     });
+
     return Scaffold(
       body: Stack(
         children: [
@@ -110,13 +111,8 @@ class FirstSplashScreen extends StatelessWidget {
   }
 }
 
-void goToSecondSplashScreen() {
+void goToSecondSplashScreen(BuildContext context) {
   Future.delayed(const Duration(seconds: 2), () {
-    Get.to(
-      () => const SecondSplashScreen(),
-      transition: Transition.fade,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
+    GoRouter.of(context).push(AppRouter.kSecondSplashScreen);
   });
 }

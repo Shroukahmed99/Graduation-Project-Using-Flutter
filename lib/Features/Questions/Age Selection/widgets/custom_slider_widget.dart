@@ -5,13 +5,15 @@ import 'package:sehatak/const.dart';
 class CustomSliderWidget extends StatefulWidget {
   final List<int> dates;
   final int selectedDate;
-  final Function(int) onDateSelected;
+  final Function(int)? onDateSelected; // جعلها اختيارية
+  final String? unitSymbol; // رمز الرقم
 
   const CustomSliderWidget({
     Key? key,
     required this.dates,
     required this.selectedDate,
-    required this.onDateSelected,
+    this.onDateSelected,
+    this.unitSymbol,
   }) : super(key: key);
 
   @override
@@ -75,12 +77,29 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          _currentSelectedDate.toString(),
-          style: TextStyle(
-            fontSize: 58.sp,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              _currentSelectedDate.toString(),
+              style: TextStyle(
+                fontSize: 58.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (widget.unitSymbol != null) // إضافة رمز الرقم إن وجد
+              Padding(
+                padding: EdgeInsets.only(left: 8.w),
+                child: Text(
+                  widget.unitSymbol!,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+          ],
         ),
         SizedBox(height: 4.h),
         const Icon(
@@ -105,7 +124,9 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                       setState(() {
                         _currentSelectedDate = date;
                       });
-                      widget.onDateSelected(date);
+                      if (widget.onDateSelected != null) {
+                        widget.onDateSelected!(date);
+                      }
                     },
                     child: Container(
                       width: 60.w,

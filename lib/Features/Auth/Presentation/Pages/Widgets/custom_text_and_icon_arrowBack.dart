@@ -16,11 +16,11 @@ class CustomTextAndIconArrowback extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style:  TextStyle(
+            style: TextStyle(
               color: kPrimaryColor,
               fontSize: 20.sp,
               fontWeight: FontWeight.w700,
-              height: 30 / 20 .h,
+              height: 30 / 20.h,
             ),
           ),
         ),

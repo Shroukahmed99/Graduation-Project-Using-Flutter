@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/Age%20Selection/pages/age_selection_screen.dart';
 import 'package:sehatak/Features/Questions/Gender%20Selection/widgets/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -56,7 +57,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 });
               },
             ),
-             CustomSizedBox(
+            CustomSizedBox(
               height: 15.h,
             ),
             CircleIconTextWidget(
@@ -76,7 +77,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
             CustomButton(
               text: 'Countinue',
               onTap: () {
-                Get.to(() => const AgeSelectionScreen());
+                GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
               },
             ),
             CustomSizedBox(height: 40.h),

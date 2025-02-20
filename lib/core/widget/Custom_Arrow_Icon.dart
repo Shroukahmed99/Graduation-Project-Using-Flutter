@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
 
 class CustomArrowIcon extends StatelessWidget {
@@ -7,9 +8,13 @@ class CustomArrowIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
-        Navigator.pop(context);
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          debugPrint('Cannot go back, no previous page');
+        }
       },
       child: Image.asset(
         'assets/images/Arrow.png',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
@@ -53,10 +52,10 @@ class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
             ),
           ),
         ),
-         SizedBox(height: 10.h),
+        SizedBox(height: 10.h),
         Text(
           widget.typeOfGender,
-          style:  TextStyle(
+          style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
             color: accentColor,
@@ -114,7 +113,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                 });
               },
             ),
-             CustomSizedBox(
+            CustomSizedBox(
               height: 15.h,
             ),
             CircleIconTextWidget(
@@ -134,7 +133,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
             CustomButton(
                 text: 'Countinue',
                 onTap: () {
-                  Get.to(() => const GenderSelectionScreen());
+                  //Get.to(() => const GenderSelectionScreen());
                 }),
             CustomSizedBox(height: 40.h),
           ],

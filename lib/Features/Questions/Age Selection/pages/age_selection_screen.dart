@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:sehatak/Features/Questions/Age%20Selection/widgets/custom_slider_widget.dart';
-import 'package:sehatak/Features/Questions/weight%20selection/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -26,13 +26,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: 32.h,
-              left: 24.w,
-            ),
-            child: const CustomArrowBack(text: 'Back'),
-          ),
+          const CustomArrowBack(text: 'Back'),
           SizedBox(
             height: 50.h,
           ),
@@ -55,7 +49,7 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
           CustomButton(
               text: 'Continue',
               onTap: () {
-                Get.to(() => const WieghtViews());
+                GoRouter.of(context).push(AppRouter.kWieghtViews);
               }),
           CustomSizedBox(height: 40.h),
         ],
