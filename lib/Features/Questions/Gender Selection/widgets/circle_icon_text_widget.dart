@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
-import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class CircleIconTextWidget extends StatefulWidget {
-  const CircleIconTextWidget(
-      {super.key,
-      required this.icon,
-      required this.typeOfGender,
-      required this.isSelected,
-      required this.onTap});
+class CircleImageTextWidget extends StatelessWidget {
+  const CircleImageTextWidget({
+    super.key,
+    this.images,
+    required this.text,
+    required this.isSelected,
+    required this.onTap,
+  });
 
-  final IconData icon;
-  final String typeOfGender;
+  final List<ImageProvider>? images;
+  final String text;
   final bool isSelected;
   final VoidCallback onTap;
 
-  @override
-  _CircleIconTextWidgetState createState() => _CircleIconTextWidgetState();
-}
-
-class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: widget.onTap,
+          onTap: onTap,
           child: Container(
             width: 140.w,
             height: 140.h,
             decoration: BoxDecoration(
-              color: widget.isSelected ? kPrimaryColor : backgroundColor,
+              color: isSelected ? kPrimaryColor : backgroundColor,
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -46,15 +38,58 @@ class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
                 ),
               ],
             ),
-            child: Icon(
-              widget.icon,
-              size: 90.sp,
-            ),
+            child: images != null && images!.length == 3
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // الصورة العلوية (التغذية)
+                      Positioned(
+                        top: 20.h,
+                        child: Image(
+                          image: images![0],
+                          width: 40.w,
+                          height: 40.h,
+                          color: isSelected ? Colors.white : kPrimaryColor,
+                        ),
+                      ),
+                      // الصورة السفلية اليسرى (العلاج الطبيعي)
+                      Positioned(
+                        bottom: 25.h,
+                        left: 20.w,
+                        child: Image(
+                          image: images![1],
+                          width: 40.w,
+                          height: 40.h,
+                          color: isSelected ? Colors.white : kPrimaryColor,
+                        ),
+                      ),
+                      // الصورة السفلية اليمنى (الجيم)
+                      Positioned(
+                        bottom: 25.h,
+                        right: 20.w,
+                        child: Image(
+                          image: images![2],
+                          width: 40.w,
+                          height: 40.h,
+                          color: isSelected ? Colors.white : kPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  )
+                : images != null && images!.isNotEmpty
+                    ? Center(
+                        child: Image(
+                          image: images!.first,
+                          width: 90.w,
+                          height: 90.h,
+                          color: isSelected ? Colors.white : kPrimaryColor,
+                        ),
+                      )
+                    : Container(), // في حالة عدم تمرير أي صورة
           ),
         ),
         SizedBox(height: 10.h),
-        Text(
-          widget.typeOfGender,
+        Text(text,
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
@@ -66,79 +101,4 @@ class _CircleIconTextWidgetState extends State<CircleIconTextWidget> {
   }
 }
 
-class GenderSelectionScreen extends StatefulWidget {
-  const GenderSelectionScreen({super.key});
 
-  @override
-  _GenderSelectionScreenState createState() => _GenderSelectionScreenState();
-}
-
-class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
-  bool isMaleSelected = false;
-  bool isFemaleSelected = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 32.h,
-          left: 24.w,
-        ),
-        child: Column(
-          children: [
-            const CustomArrowBack(text: 'Back'),
-            CustomSizedBox(
-              height: 25.h,
-            ),
-            const CustomQuestionAndAswer(
-              question: 'What’s Your Gender',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-            ),
-            const CustomSizedBox(
-              height: 15,
-            ),
-            CircleIconTextWidget(
-              icon: Icons.male,
-              typeOfGender: 'Male',
-              isSelected: isMaleSelected,
-              onTap: () {
-                setState(() {
-                  isMaleSelected = !isMaleSelected;
-                  if (isMaleSelected) {
-                    isFemaleSelected = false;
-                  }
-                });
-              },
-            ),
-            CustomSizedBox(
-              height: 15.h,
-            ),
-            CircleIconTextWidget(
-              icon: Icons.female,
-              typeOfGender: 'Female',
-              isSelected: isFemaleSelected,
-              onTap: () {
-                setState(() {
-                  isFemaleSelected = !isFemaleSelected;
-                  if (isFemaleSelected) {
-                    isMaleSelected = false;
-                  }
-                });
-              },
-            ),
-            const Spacer(),
-            CustomButton(
-                text: 'Countinue',
-                onTap: () {
-                  //Get.to(() => const GenderSelectionScreen());
-                }),
-            CustomSizedBox(height: 40.h),
-          ],
-        ),
-      ),
-    );
-  }
-}
