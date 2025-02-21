@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
 import 'package:sehatak/Features/Questions/Age%20Selection/pages/age_selection_screen.dart';
 import 'package:sehatak/Features/Questions/Gender%20Selection/pages/gender_selection_screen.dart';
+import 'package:sehatak/Features/Questions/Hieght%20Selection/presentation/views/height_views.dart';
 import 'package:sehatak/Features/Questions/weight%20selection/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Splash/Presentation/widgets/first_splash_screen.dart';
 import 'package:sehatak/Features/Splash/Presentation/widgets/second_splash_screen.dart';
@@ -13,7 +14,8 @@ abstract class AppRouter {
   static const kLoginView = '/LoginView';
   static const kGenderSelectionScreen = '/GenderSelectionScreen';
   static const kAgeSelectionScreen = '/AgeSelectionScreen';
-  static const kWieghtViews = '/ WieghtViews';
+  static const kWieghtViews = '/WieghtViews';
+  static const kHieghtViews = '/HieghtViews';
 
   static final router = GoRouter(
     routes: [
@@ -43,7 +45,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kWieghtViews,
-        builder: (context, state) => const WieghtViews(),
+        builder: (context, state) => const WeightViews(),
+      ),
+      GoRoute(
+        path: kHieghtViews,
+        builder: (context, state) => const HeightViews(),
       ),
     ],
   );
