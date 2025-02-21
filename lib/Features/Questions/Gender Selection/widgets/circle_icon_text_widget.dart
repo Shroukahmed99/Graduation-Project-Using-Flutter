@@ -93,7 +93,7 @@ class CircleImageTextWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
-            color: accentColor,
+            color: Colors.red,
           ),
         ),
       ],
