@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/Login/views/login_view.dart';
 import 'package:sehatak/Features/Questions/Gender%20Selection/widgets/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/widgets/custom_question_and_aswer.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -42,12 +44,12 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
             const CustomSizedBox(
               height: 15,
             ),
-           CircleImageTextWidget(
-  images: [
-    AssetImage('assets/images/22.png'),
-    AssetImage('assets/images/apple.png'), 
-    AssetImage('assets/images/medical.png'), 
-  ],
+            CircleImageTextWidget(
+              images: [
+                AssetImage('assets/images/22.png'),
+                AssetImage('assets/images/apple.png'),
+                AssetImage('assets/images/medical.png'),
+              ],
               text: 'Service Provider',
               isSelected: isPoviderSelected,
               onTap: () {
@@ -63,7 +65,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
               height: 15.h,
             ),
             CircleImageTextWidget(
-  images: [AssetImage('assets/images/running.png')],
+              images: [AssetImage('assets/images/running.png')],
               text: 'Client',
               isSelected: isClientSelected,
               onTap: () {
@@ -79,10 +81,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
             CustomButton(
               text: 'Countinue',
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginView()),
-                );
+                GoRouter.of(context).push(AppRouter.kLoginView);
               },
             ),
             CustomSizedBox(height: 40.h),

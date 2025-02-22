@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/widgets/signup_view_body.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/views/widgets/signup_view_body.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SignupViewBody());
+    return const Scaffold(
+      body: SignupViewBody(),
+    );
   }
 }

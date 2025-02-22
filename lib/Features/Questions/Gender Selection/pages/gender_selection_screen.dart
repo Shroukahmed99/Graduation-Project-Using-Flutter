@@ -24,7 +24,6 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: Padding(
         padding: EdgeInsets.only(
           top: 32.h,
@@ -45,7 +44,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
               height: 15,
             ),
             CircleImageTextWidget(
-  images: [AssetImage('assets/images/male.png')], 
+              images: [AssetImage('assets/images/male.png')],
               text: 'Male',
               isSelected: isMaleSelected,
               onTap: () {
@@ -61,7 +60,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
               height: 15.h,
             ),
             CircleImageTextWidget(
-  images: [AssetImage('assets/images/female.png')],
+              images: [AssetImage('assets/images/female.png')],
               text: 'Female',
               isSelected: isFemaleSelected,
               onTap: () {

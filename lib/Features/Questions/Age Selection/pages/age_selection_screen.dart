@@ -22,13 +22,18 @@ class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomArrowBack(text: 'Back'),
-          SizedBox(
-            height: 50.h,
+          Padding(
+            padding: EdgeInsets.only(
+              top: 32.h,
+              left: 24.w,
+            ),
+            child: const CustomArrowBack(text: 'Back'),
+          ),
+          CustomSizedBox(
+            height: 25.h,
           ),
           const CustomQuestionAndAswer(
             question: 'What’s Your Age?',

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Login/login_view.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/widgets/custom_text_with_signup.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/Login/views/login_view.dart';
+import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/views/widgets/custom_text_with_signup.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_icon_buttom.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text.dart';
@@ -24,7 +24,7 @@ class SignupViewBody extends StatelessWidget {
           const CustomTextAndIconArrowback(
             text: 'Create Account',
           ),
-           SizedBox(
+          SizedBox(
             height: 60.h,
           ),
           const CustomText(
@@ -33,15 +33,15 @@ class SignupViewBody extends StatelessWidget {
           const CustomSubTitle(
             subTitle: 'Full name',
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           CustomTextField(
-            hintText: 'Shrouk Kaoud',
+            hintText: 'email',
             inputType: TextInputType.name,
             onSaved: (String) {},
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           const CustomSubTitle(
@@ -55,7 +55,7 @@ class SignupViewBody extends StatelessWidget {
             onSaved: (String) {},
             inputType: TextInputType.number,
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           const CustomSubTitle(
@@ -69,13 +69,13 @@ class SignupViewBody extends StatelessWidget {
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           const CustomSubTitle(
             subTitle: ' Confirm Password',
           ),
-           SizedBox(
+          SizedBox(
             height: 10.h,
           ),
           CustomTextField(
@@ -83,27 +83,27 @@ class SignupViewBody extends StatelessWidget {
             inputType: TextInputType.visiblePassword,
             onSaved: (String) {},
           ),
-           SizedBox(
+          SizedBox(
             height: 25.h,
           ),
           const CustomTextWithSignup(),
-           SizedBox(
+          SizedBox(
             height: 20.h,
           ),
           CustomButton(
             text: 'Sign Up',
             onTap: () {},
           ),
-           SizedBox(
+          SizedBox(
             height: 15.h,
           ),
           const CustomTextSignupwith(),
-           SizedBox(
+          SizedBox(
             height: 15.h,
           ),
-           Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 100.w),
-            child:const Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomIconButton(

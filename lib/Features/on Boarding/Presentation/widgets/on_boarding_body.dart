@@ -40,7 +40,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
   }
 
   void navigateToLogin(BuildContext context) {
-    context.go(AppRouter.kLoginView); // ✅ الانتقال باستخدام GoRouter
+    GoRouter.of(context).push(AppRouter.kRoleSelectionScreen);
   }
 
   @override

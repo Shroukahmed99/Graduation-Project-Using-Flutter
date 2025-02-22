@@ -23,8 +23,16 @@ class _WeightViewsBodyState extends State<WeightViewsBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomArrowBack(text: 'Back'),
-        const SizedBox(height: 50),
+        Padding(
+          padding: EdgeInsets.only(
+            top: 32.h,
+            left: 24.w,
+          ),
+          child: const CustomArrowBack(text: 'Back'),
+        ),
+        CustomSizedBox(
+          height: 25.h,
+        ),
         const CustomQuestionAndAswer(
             question: 'What Is Your Weight?',
             answer:
