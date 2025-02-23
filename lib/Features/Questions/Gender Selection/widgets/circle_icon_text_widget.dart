@@ -89,16 +89,15 @@ class CircleImageTextWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-        Text(text,
+        Text(
+          text,
           style: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.red,
+            color: Colors.black,
           ),
         ),
       ],
     );
   }
 }
-
-

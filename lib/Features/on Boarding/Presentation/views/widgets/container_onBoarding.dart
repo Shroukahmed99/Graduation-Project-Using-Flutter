@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_text_in_container.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/views/widgets/custom_text_in_container.dart';
 import 'package:sehatak/const.dart';
 
 class ContainerOnboarding extends StatelessWidget {

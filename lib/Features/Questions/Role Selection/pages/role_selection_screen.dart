@@ -65,7 +65,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
               height: 15.h,
             ),
             CircleImageTextWidget(
-              images: [AssetImage('assets/images/running.png')],
+              images: const [AssetImage('assets/images/running.png')],
               text: 'Client',
               isSelected: isClientSelected,
               onTap: () {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_indicator.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/custom_page_view.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/views/widgets/custom_indicator.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/views/widgets/custom_page_view.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/custom_skip_icon.dart';
 import 'package:sehatak/core/widget/custom_General_button.dart';

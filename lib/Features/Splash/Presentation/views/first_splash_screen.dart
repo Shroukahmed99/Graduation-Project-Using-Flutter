@@ -5,7 +5,7 @@ import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 
 class FirstSplashScreen extends StatelessWidget {
-  const FirstSplashScreen({Key? key}) : super(key: key);
+  const FirstSplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

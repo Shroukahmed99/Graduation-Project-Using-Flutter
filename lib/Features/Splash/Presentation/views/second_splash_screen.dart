@@ -59,7 +59,6 @@ class SecondSplashScreen extends StatelessWidget {
   }
 }
 
-// ✅ استبدال Get.to بـ go_router
 void goToOnBoarding(BuildContext context) {
   Future.delayed(const Duration(seconds: 3), () {
     GoRouter.of(context).push(AppRouter.kOnBoardingView);

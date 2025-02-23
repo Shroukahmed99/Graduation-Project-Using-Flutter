@@ -37,7 +37,7 @@ class PhysicalActivityViewBody extends StatelessWidget {
         CustomButton(
             text: 'Continue',
             onTap: () {
-              GoRouter.of(context).push(AppRouter.kWhatGoalViews);
+              GoRouter.of(context).push(AppRouter.kSuccessViews);
             }),
         CustomSizedBox(height: 40.h),
       ],

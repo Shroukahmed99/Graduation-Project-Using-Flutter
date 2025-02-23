@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/on%20Boarding/Presentation/widgets/container_onBoarding.dart';
+import 'package:sehatak/Features/on%20Boarding/Presentation/views/widgets/container_onBoarding.dart';
 import 'package:sehatak/core/widget/background_image.dart';
 
 class CustomViewPageItem extends StatelessWidget {
