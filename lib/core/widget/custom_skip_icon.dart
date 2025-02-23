@@ -13,7 +13,7 @@ class CustomSkipIcon extends StatelessWidget {
       padding: EdgeInsets.only(top: 65.h, left: 270.w),
       child: GestureDetector(
         onTap: () {
-          GoRouter.of(context).push(AppRouter.kRoleSelectionScreen);
+          GoRouter.of(context).push(AppRouter.kLoginView);
         },
         child: Row(
           children: [

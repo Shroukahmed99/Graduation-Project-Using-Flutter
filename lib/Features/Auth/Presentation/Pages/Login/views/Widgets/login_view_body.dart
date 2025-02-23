@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/views/Widgets/buttom_text_forget_password.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/views/signup_view.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
@@ -11,6 +12,7 @@ import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_fie
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_question.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_signUpWith.dart';
 import 'package:sehatak/Features/Introduction%20Screen/introduction_screen.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -101,10 +103,7 @@ class LoginViewBody extends StatelessWidget {
           ),
           CustomTextQuestion(
             onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SignupView()),
-              );
+              GoRouter.of(context).push(AppRouter.kRoleSelectionScreen);
             },
             text: 'Sign Up',
           ),

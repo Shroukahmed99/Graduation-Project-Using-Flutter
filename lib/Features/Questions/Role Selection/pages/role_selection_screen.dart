@@ -81,7 +81,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
             CustomButton(
               text: 'Countinue',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kLoginView);
+                GoRouter.of(context).push(AppRouter.kSignupView);
               },
             ),
             CustomSizedBox(height: 40.h),

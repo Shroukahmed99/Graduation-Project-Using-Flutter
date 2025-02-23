@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Login/views/login_view.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/views/widgets/custom_text_with_signup.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/Custom_sub_title.dart';
@@ -10,6 +11,7 @@ import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_and
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_field.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_question.dart';
 import 'package:sehatak/Features/Auth/Presentation/Pages/Widgets/custom_text_signUpWith.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class SignupViewBody extends StatelessWidget {
@@ -92,7 +94,9 @@ class SignupViewBody extends StatelessWidget {
           ),
           CustomButton(
             text: 'Sign Up',
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.kGenderSelectionScreen);
+            },
           ),
           SizedBox(
             height: 15.h,
