@@ -160,7 +160,6 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                     color: Colors.white,
                     width: 2.w,
                   ),
-                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),

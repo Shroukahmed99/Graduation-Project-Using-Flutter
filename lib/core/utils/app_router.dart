@@ -3,10 +3,10 @@ import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.da
 import 'package:sehatak/Features/login_signIn_forget/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/login_signIn_forget/Presentation/views/signup_view.dart';
 import 'package:sehatak/Features/success%20register/introduction_screen.dart';
-import 'package:sehatak/Features/Questions/presentation/views/age_selection_screen.dart';
-import 'package:sehatak/Features/Questions/presentation/views/gender_selection_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/age_selection_views.dart';
+import 'package:sehatak/Features/Questions/presentation/views/gender_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/height_views.dart';
-import 'package:sehatak/Features/Questions/presentation/views/role_selection_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/role_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/physical_activity_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Splash/Presentation/views/first_splash_screen.dart';
@@ -48,11 +48,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kGenderSelectionScreen,
-        builder: (context, state) => const GenderSelectionScreen(),
+        builder: (context, state) => const GenderSelectionViews(),
       ),
       GoRoute(
         path: kAgeSelectionScreen,
-        builder: (context, state) => const AgeSelectionScreen(),
+        builder: (context, state) => const AgeSelectionViews(),
       ),
       GoRoute(
         path: kWieghtViews,
@@ -64,7 +64,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kRoleSelectionScreen,
-        builder: (context, state) => const RoleSelectionScreen(),
+        builder: (context, state) => const RoleSelectionViews(),
       ),
       GoRoute(
         path: kWhatGoalViews,

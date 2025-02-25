@@ -4,20 +4,19 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_slider_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
-import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class AgeSelectionScreen extends StatefulWidget {
-  const AgeSelectionScreen({super.key});
+class AgeSelectionViews extends StatefulWidget {
+  const AgeSelectionViews({super.key});
 
   @override
-  _AgeSelectionScreenState createState() => _AgeSelectionScreenState();
+  _AgeSelectionViewsState createState() => _AgeSelectionViewsState();
 }
 
-class _AgeSelectionScreenState extends State<AgeSelectionScreen> {
+class _AgeSelectionViewsState extends State<AgeSelectionViews> {
   int selectedDate = 25;
   @override
   Widget build(BuildContext context) {

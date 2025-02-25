@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
-import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class RoleSelectionScreen extends StatefulWidget {
-  const RoleSelectionScreen({super.key});
+class GenderSelectionViews extends StatefulWidget {
+  const GenderSelectionViews({super.key});
 
   @override
-  _RoleSelectionScreenState createState() => _RoleSelectionScreenState();
+  _GenderSelectionViewsState createState() => _GenderSelectionViewsState();
 }
 
-class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
-  bool isPoviderSelected = false;
-  bool isClientSelected = false;
+class _GenderSelectionViewsState extends State<GenderSelectionViews> {
+  bool isMaleSelected = false;
+  bool isFemaleSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: Padding(
         padding: EdgeInsets.only(
           top: 32.h,
@@ -37,26 +34,22 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
               height: 25.h,
             ),
             const CustomQuestionAndAswer(
-              question: 'What’s Your Role',
+              question: 'What’s Your Gender',
               answer:
-                  'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
             ),
             const CustomSizedBox(
               height: 15,
             ),
             CircleImageTextWidget(
-              images: [
-                AssetImage('assets/images/22.png'),
-                AssetImage('assets/images/apple.png'),
-                AssetImage('assets/images/medical.png'),
-              ],
-              text: 'Service Provider',
-              isSelected: isPoviderSelected,
+              images: const [AssetImage('assets/images/male.png')],
+              text: 'Male',
+              isSelected: isMaleSelected,
               onTap: () {
                 setState(() {
-                  isPoviderSelected = !isPoviderSelected;
-                  if (isPoviderSelected) {
-                    isClientSelected = false;
+                  isMaleSelected = !isMaleSelected;
+                  if (isMaleSelected) {
+                    isFemaleSelected = false;
                   }
                 });
               },
@@ -65,14 +58,14 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
               height: 15.h,
             ),
             CircleImageTextWidget(
-              images: const [AssetImage('assets/images/running.png')],
-              text: 'Client',
-              isSelected: isClientSelected,
+              images: const [AssetImage('assets/images/female.png')],
+              text: 'Female',
+              isSelected: isFemaleSelected,
               onTap: () {
                 setState(() {
-                  isClientSelected = !isClientSelected;
-                  if (isClientSelected) {
-                    isPoviderSelected = false;
+                  isFemaleSelected = !isFemaleSelected;
+                  if (isFemaleSelected) {
+                    isMaleSelected = false;
                   }
                 });
               },
@@ -81,7 +74,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
             CustomButton(
               text: 'Countinue',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kSignupView);
+                GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
               },
             ),
             CustomSizedBox(height: 40.h),
