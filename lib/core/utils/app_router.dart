@@ -1,17 +1,17 @@
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Login/views/login_view.dart';
-import 'package:sehatak/Features/Auth/Presentation/Pages/Signup/views/signup_view.dart';
-import 'package:sehatak/Features/Introduction%20Screen/introduction_screen.dart';
-import 'package:sehatak/Features/Questions/Age%20Selection/pages/age_selection_screen.dart';
-import 'package:sehatak/Features/Questions/Gender%20Selection/pages/gender_selection_screen.dart';
-import 'package:sehatak/Features/Questions/Hieght%20Selection/presentation/views/height_views.dart';
-import 'package:sehatak/Features/Questions/Role%20Selection/pages/role_selection_screen.dart';
-import 'package:sehatak/Features/Questions/Physical%20Activity/views/physical_activity_view.dart';
-import 'package:sehatak/Features/Questions/What%20Goal/views/what_goal_views.dart';
-import 'package:sehatak/Features/Questions/weight%20selection/presentation/views/weight_views.dart';
+import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
+import 'package:sehatak/Features/login_signIn_forget/Presentation/views/login_view.dart';
+import 'package:sehatak/Features/login_signIn_forget/Presentation/views/signup_view.dart';
+import 'package:sehatak/Features/success%20register/introduction_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/age_selection_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/gender_selection_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/height_views.dart';
+import 'package:sehatak/Features/Questions/presentation/views/role_selection_screen.dart';
+import 'package:sehatak/Features/Questions/presentation/views/physical_activity_view.dart';
+import 'package:sehatak/Features/Questions/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Splash/Presentation/views/first_splash_screen.dart';
 import 'package:sehatak/Features/Splash/Presentation/views/second_splash_screen.dart';
-import 'package:sehatak/Features/Splash/success_viwes.dart';
+import 'package:sehatak/Features/success%20register/success_viwes.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
 
 abstract class AppRouter {

@@ -13,12 +13,12 @@ class CustomPageView extends StatelessWidget {
     return PageView(controller: controller, children: const [
       CustomViewPageItem(
           image: 'assets/images/1.png',
-          icon: 'assets/images/Vector (1).png',
+          icon: 'assets/images/WorkOut.png',
           text1: 'Start your journey towards a',
           text2: 'more active lifestyle'),
       CustomViewPageItem(
           image: 'assets/images/2.png',
-          icon: 'assets/images/Vector (1).png',
+          icon: 'assets/images/apple.png',
           text1: 'Find nutrition tips that fit ',
           text2: 'your lifestyle'),
       CustomViewPageItem(
