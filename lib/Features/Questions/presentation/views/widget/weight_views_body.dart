@@ -7,6 +7,7 @@ import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WeightViewsBody extends StatefulWidget {
   const WeightViewsBody({super.key});
@@ -16,6 +17,14 @@ class WeightViewsBody extends StatefulWidget {
 }
 
 class _WeightViewsBodyState extends State<WeightViewsBody> {
+  Future<void> saveData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    await sharedPreferences.setString('weight', selectedDate.toString as String);
+
+    print("Data Saved Successfully ✅");
+  }
+
   int selectedDate = 25;
 
   @override
@@ -52,6 +61,7 @@ class _WeightViewsBodyState extends State<WeightViewsBody> {
         CustomButton(
             text: 'Continue',
             onTap: () {
+              saveData();
               GoRouter.of(context).push(AppRouter.kHieghtViews);
             }),
         CustomSizedBox(height: 40.h),

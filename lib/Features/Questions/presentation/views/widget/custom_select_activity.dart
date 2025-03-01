@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
+import'package:shared_preferences/shared_preferences.dart';
 
 class CustomSelectGoal extends StatefulWidget {
   final List<String> options;
@@ -10,6 +11,14 @@ class CustomSelectGoal extends StatefulWidget {
 }
 
 class _CustomSelectGoalState extends State<CustomSelectGoal> {
+
+  Future<void> saveData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    await sharedPreferences.setString('physicalActivityLevel', selectedIndex.toString as String);
+
+    print("Data Saved Successfully ✅");
+  }
   int? selectedIndex;
 
   @override
@@ -30,6 +39,7 @@ class _CustomSelectGoalState extends State<CustomSelectGoal> {
                   setState(() {
                     selectedIndex = index;
                   });
+                  saveData();
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),

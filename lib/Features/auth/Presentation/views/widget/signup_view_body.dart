@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/auth/Presentation/manger/signup/signup_cubit.dart';
 import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_with_signup.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_icon_buttom.dart';
@@ -15,88 +14,83 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_sign
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class SignupViewBody extends StatelessWidget {
-  const SignupViewBody({super.key});
+  SignupViewBody({super.key});
+  
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileNumberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
+  final GlobalKey<FormState> signupKey = GlobalKey();
+
+  Future<void> saveData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    
+    await sharedPreferences.setString('fullName', fullNameController.text);
+    await sharedPreferences.setString('email', emailController.text);
+    await sharedPreferences.setString('mobileNumber', mobileNumberController.text);
+    await sharedPreferences.setString('password', passwordController.text);
+    await sharedPreferences.setString('passwordConfirm', passwordConfirmController.text);
+    
+    print("Data Saved Successfully ✅");
+  }
 
   @override
   Widget build(BuildContext context) {
-    final signupCubit = context.read<SignupCubit>();
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
       child: Form(
-        key: signupCubit.signupKey, // ✅ استخدام `GlobalKey<FormState>`
+        key: signupKey,
         child: ListView(
           children: [
             const CustomTextAndIconArrowback(text: 'Create Account'),
             SizedBox(height: 20.h),
             const CustomText(title: "Let's start!"),
-
-            /// ✅ **ربط الحقول بـ `SignupCubit`**
             CustomTextField(
               title: 'Full name',
               hintText: 'Enter your name',
-              controller: signupCubit.fullNameController,
+              controller: fullNameController,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Email',
               hintText: 'Enter your email',
-              controller: signupCubit.emailController,
+              controller: emailController,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Mobile number',
               hintText: '+020 103 0136 999',
-              controller: signupCubit.mobileNumberController,
+              controller: mobileNumberController,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Password',
               hintText: '*************',
               obscureText: true,
-              controller: signupCubit.passwordController,
+              controller: passwordController,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Confirm Password',
               hintText: '*************',
               obscureText: true,
-              controller: signupCubit.passwordConfirmController,
+              controller: passwordConfirmController,
             ),
             SizedBox(height: 20.h),
-
-            const CustomTextWithSignup(),
-            SizedBox(height: 20.h),
-
-            /// ✅ **زر الانتقال إلى الصفحة التالية بدون إرسال البيانات**
             CustomButton(
               text: 'Sign Up',
               onTap: () {
-                if (signupCubit.signupKey.currentState!.validate()) {
-                  /// **الانتقال إلى الصفحة التالية بدون إرسال البيانات**
+                if (signupKey.currentState!.validate()) {
+                  saveData(); // ✅ هنا بنخزن البيانات
                   GoRouter.of(context).push(AppRouter.kGenderSelectionScreen);
                 }
               },
             ),
-
             SizedBox(height: 15.h),
-            const CustomTextSignupwith(),
-            SizedBox(height: 15.h),
-
-            /// ✅ **أيقونات التسجيل عبر منصات خارجية**
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100.w),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomIconButton(icon: FontAwesomeIcons.google),
-                  CustomIconButton(icon: Icons.facebook),
-                ],
-              ),
-            ),
-
-            /// ✅ **زر الانتقال إلى تسجيل الدخول**
             CustomTextQuestion(
               text: 'Login In',
               onPress: () {

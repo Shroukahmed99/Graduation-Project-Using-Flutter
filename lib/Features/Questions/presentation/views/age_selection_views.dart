@@ -8,6 +8,7 @@ import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AgeSelectionViews extends StatefulWidget {
   const AgeSelectionViews({super.key});
@@ -17,6 +18,14 @@ class AgeSelectionViews extends StatefulWidget {
 }
 
 class _AgeSelectionViewsState extends State<AgeSelectionViews> {
+  Future<void> saveData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    await sharedPreferences.setString('age', selectedDate.toString as String);
+
+    print("Data Saved Successfully ✅");
+  }
+
   int selectedDate = 25;
   @override
   Widget build(BuildContext context) {
@@ -53,6 +62,7 @@ class _AgeSelectionViewsState extends State<AgeSelectionViews> {
           CustomButton(
               text: 'Continue',
               onTap: () {
+                saveData();
                 GoRouter.of(context).push(AppRouter.kWieghtViews);
               }),
           CustomSizedBox(height: 40.h),

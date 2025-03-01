@@ -9,7 +9,7 @@ import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
 class WhatGoalViewsBody extends StatelessWidget {
-  const WhatGoalViewsBody({super.key});
+  WhatGoalViewsBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +27,28 @@ class WhatGoalViewsBody extends StatelessWidget {
           height: 25.h,
         ),
         const CustomQuestionAndAswer(
-            question: 'What Is Your Goal?',
-            answer:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
+          question: 'What Is Your Goal?',
+          answer:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ),
         CustomSizedBox(height: 35.h),
-        const CustomSelectGoal(
+        CustomSelectGoal(
           options: [
             'Lose Weight',
             'Gain Weight',
             'Muscle Mass Gain',
             'Shape Body',
-            'Others'
+            'Others',
           ],
         ),
         const Spacer(),
         CustomButton(
-            text: 'Continue',
-            onTap: () {
-              GoRouter.of(context).push(AppRouter.kPhysicalActivityView);
-            }),
+          text: 'Continue',
+          onTap: () {
+  
+            GoRouter.of(context).push(AppRouter.kPhysicalActivityView);
+          },
+        ),
         CustomSizedBox(height: 40.h),
       ],
     );

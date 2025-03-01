@@ -1,46 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity%20copy.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/auth/login%20cubits/sign_up_cubit.dart';
+import 'package:sehatak/Features/auth/login%20cubits/sign_up_state.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class PhysicalActivityViewBody extends StatelessWidget {
+class PhysicalActivityViewBody extends StatefulWidget {
   const PhysicalActivityViewBody({super.key});
 
   @override
+  State<PhysicalActivityViewBody> createState() => _PhysicalActivityViewBodyState();
+}
+
+class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
+  int? selectedIndex;
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            top: 32.h,
-            left: 24.w,
+    return BlocListener<SignUpCubit, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Success')),
+          );
+          GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
+        } else if (state is SignUpFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.errorMessage)),
+          );
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 32.h, left: 24.w),
+            child: const CustomArrowBack(text: 'Back'),
           ),
-          child: const CustomArrowBack(text: 'Back'),
-        ),
-        CustomSizedBox(
-          height: 25.h,
-        ),
-        const CustomQuestionAndAswer(
-            question: 'Physical Activity Level',
-            answer:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
-        CustomSizedBox(height: 35.h),
-        const CustomSelectActivity(
-            options: ['Beginner', 'Intermediate', 'Advance']),
-        const Spacer(),
-        CustomButton(
-            text: 'Continue',
-            onTap: () {
-              GoRouter.of(context).push(AppRouter.kSuccessViews);
-            }),
-        CustomSizedBox(height: 40.h),
-      ],
+          CustomSizedBox(height: 25.h),
+          const Text(
+            'Physical Activity Level',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          CustomSizedBox(height: 35.h),
+          CustomSelectActivity(
+            options: ['Beginner', 'Intermediate', 'Advance'],
+            onSelect: (index) {
+              selectedIndex = index;
+            },
+          ),
+          const Spacer(),
+          BlocBuilder<SignUpCubit, SignUpState>(
+            builder: (context, state) {
+              return CustomButton(
+                text: state is SignUpLoading ? 'Loading...' : 'Continue',
+                onTap: state is SignUpLoading
+                    ? null
+                    : () {
+                        if (selectedIndex != null) {
+                          context.read<SignUpCubit>().signUpUser();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Please select activity level')),
+                          );
+                        }
+                      },
+              );
+            },
+          ),
+          CustomSizedBox(height: 40.h),
+        ],
+      ),
     );
   }
 }

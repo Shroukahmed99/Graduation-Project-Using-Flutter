@@ -5,8 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/Features/auth/data/repo/signup_repo_impl.dart';
-import 'package:sehatak/Features/auth/Presentation/manger/signup/signup_cubit.dart';
 
 void main() {
   runApp(const HealthMateApp());
@@ -22,20 +20,12 @@ class HealthMateApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) =>
-                  SignupCubit(SignupRepoImpl(ApiService(Dio()))),
-            ),
-          ],
-          child: MaterialApp.router(
-            routerConfig: AppRouter.router,
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Poppins',
-              scaffoldBackgroundColor: backgroundColor,
-            ),
+        return MaterialApp.router(
+          routerConfig: AppRouter.router,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+            scaffoldBackgroundColor: backgroundColor,
           ),
         );
       },
