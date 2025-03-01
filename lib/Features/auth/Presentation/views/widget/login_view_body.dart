@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/buttom_text_forget_password.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/Custom_sub_title.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_icon_buttom.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_field.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_question.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_signUpWith.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/buttom_text_forget_password.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_icon_buttom.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_question.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_signUpWith.dart';
 import 'package:sehatak/Features/success%20register/introduction_screen.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
@@ -37,30 +36,16 @@ class LoginViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          const CustomSubTitle(
-            subTitle: 'Username or email',
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
           CustomTextField(
+            title: 'Username or email',
             hintText: 'example@example.com',
-            inputType: TextInputType.emailAddress,
-            onSaved: (String) {},
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          const CustomSubTitle(
-            subTitle: 'Password',
           ),
           SizedBox(
             height: 10.h,
           ),
           CustomTextField(
+            title: 'Password',
             hintText: '*************',
-            inputType: TextInputType.visiblePassword,
-            onSaved: (String) {},
           ),
           SizedBox(
             height: 20.h,

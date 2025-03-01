@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/Custom_sub_title.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/custom_text_field.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class SetPasswordViewBody extends StatelessWidget {
@@ -28,30 +27,16 @@ class SetPasswordViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          const CustomSubTitle(
-            subTitle: 'Password',
+          CustomTextField(
+            title: 'Password',
+            hintText: '*************',
           ),
           SizedBox(
             height: 10.h,
           ),
           CustomTextField(
+            title: 'Confirm Password',
             hintText: '*************',
-            inputType: TextInputType.visiblePassword,
-            onSaved: (String) {},
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          const CustomSubTitle(
-            subTitle: ' Confirm Password',
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextField(
-            hintText: '*************',
-            inputType: TextInputType.visiblePassword,
-            onSaved: (String) {},
           ),
           SizedBox(
             height: 90.h,

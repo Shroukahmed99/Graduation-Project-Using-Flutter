@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/login_view.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/signup_view.dart';
+import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
+import 'package:sehatak/Features/auth/Presentation/views/signup_view.dart';
 import 'package:sehatak/Features/success%20register/introduction_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/age_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/gender_selection_views.dart';

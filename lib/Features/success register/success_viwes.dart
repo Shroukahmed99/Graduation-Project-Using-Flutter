@@ -20,7 +20,7 @@ class SuccessViews extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/Vector.png',
+                'assets/images/success.png',
                 width: 150,
                 height: 150,
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/Set_password_view_body.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
 
 class SetPasswordView extends StatelessWidget {
   const SetPasswordView({super.key});

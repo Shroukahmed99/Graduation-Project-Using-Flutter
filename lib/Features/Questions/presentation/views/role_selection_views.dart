@@ -41,7 +41,7 @@ class _RoleSelectionViewsState extends State<RoleSelectionViews> {
                   'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach',
             ),
             const CustomSizedBox(
-              height: 15,
+              height: 62,
             ),
             CircleImageTextWidget(
               images: const [
@@ -61,13 +61,14 @@ class _RoleSelectionViewsState extends State<RoleSelectionViews> {
               },
             ),
             CustomSizedBox(
-              height: 15.h,
+              height: 48.h,
             ),
             CircleImageTextWidget(
               images: const [AssetImage('assets/images/running.png')],
               text: 'Client',
               isSelected: isClientSelected,
               onTap: () {
+                GoRouter.of(context).push(AppRouter.kSignupView);
                 setState(() {
                   isClientSelected = !isClientSelected;
                   if (isClientSelected) {
@@ -76,14 +77,6 @@ class _RoleSelectionViewsState extends State<RoleSelectionViews> {
                 });
               },
             ),
-            const Spacer(),
-            CustomButton(
-              text: 'Countinue',
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kSignupView);
-              },
-            ),
-            CustomSizedBox(height: 40.h),
           ],
         ),
       ),

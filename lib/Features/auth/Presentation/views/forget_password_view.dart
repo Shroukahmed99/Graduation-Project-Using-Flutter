@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/widget/forget_password_view_body.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/forget_password_view_body.dart';
 
 class ForgetPasswordView extends StatelessWidget {
   const ForgetPasswordView({super.key});

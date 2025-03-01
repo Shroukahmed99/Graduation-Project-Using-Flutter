@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/login_signIn_forget/Presentation/views/forget_password_view.dart';
+import 'package:sehatak/Features/auth/Presentation/views/forget_password_view.dart';
 import 'package:sehatak/const.dart';
 
 class ButtomTextForgetPassword extends StatelessWidget {
