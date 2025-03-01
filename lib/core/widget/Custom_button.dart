@@ -5,15 +5,16 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.text,
-    required this.onTap,
+    this.onTap, // ✅ جعل onTap اختياريًا
   });
+
   final String text;
-  final void Function() onTap;
+  final void Function()? onTap; // ✅ دعم الدوال الاختيارية
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap, // ✅ لن يحدث خطأ إذا كان null
       child: Center(
         child: Container(
           width: 211,

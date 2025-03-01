@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/Features/auth/data/repo/signup_repo_impl.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/signup/signup_cubit.dart';
 
 void main() {
   runApp(const HealthMateApp());
@@ -13,16 +18,27 @@ class HealthMateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(393, 852),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) => MaterialApp.router(
-              routerConfig: AppRouter.router,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                fontFamily: 'Poppins',
-                scaffoldBackgroundColor: backgroundColor,
-              ),
-            ));
+      designSize: const Size(393, 852),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) =>
+                  SignupCubit(SignupRepoImpl(ApiService(Dio()))),
+            ),
+          ],
+          child: MaterialApp.router(
+            routerConfig: AppRouter.router,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Poppins',
+              scaffoldBackgroundColor: backgroundColor,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

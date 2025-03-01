@@ -29,10 +29,10 @@ class ForgetPasswordViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          CustomTextField(
-            title: 'Enter your email address',
-            hintText: 'example@example.com',
-          ),
+          // CustomTextField(
+          //   title: 'Enter your email address',
+          //   hintText: 'example@example.com',
+          // ),
           SizedBox(
             height: 140.h,
           ),

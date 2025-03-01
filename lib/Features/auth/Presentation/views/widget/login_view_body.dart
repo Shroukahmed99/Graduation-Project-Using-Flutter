@@ -36,17 +36,17 @@ class LoginViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          CustomTextField(
-            title: 'Username or email',
-            hintText: 'example@example.com',
-          ),
+          // CustomTextField(
+          //   title: 'Username or email',
+          //   hintText: 'example@example.com',
+          // ),
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            title: 'Password',
-            hintText: '*************',
-          ),
+          // CustomTextField(
+          //   title: 'Password',
+          //   hintText: '*************',
+          // ),
           SizedBox(
             height: 20.h,
           ),
