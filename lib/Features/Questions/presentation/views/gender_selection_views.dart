@@ -11,78 +11,89 @@ import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GenderSelectionView extends StatelessWidget {
+class GenderSelectionView extends StatefulWidget {
   const GenderSelectionView({super.key});
+
+  @override
+  State<GenderSelectionView> createState() => _GenderSelectionViewState();
+}
+
+class _GenderSelectionViewState extends State<GenderSelectionView> {
+  String? selectedGender;
+
+  Future<void> saveData() async {
+    if (selectedGender != null) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString('gender', selectedGender!);
+      print("Data Saved Successfully ✅");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GenderCubit(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Select Your Gender'),
-          centerTitle: true,
-        ),
-        body: BlocBuilder<GenderCubit, GenderState>(
-          builder: (context, state) {
-            var cubit = BlocProvider.of<GenderCubit>(context);
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Choose your Gender:',
-                  style: TextStyle(fontSize: 22),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () => cubit.selectGender('Male'),
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: state is GenderSelected && state.gender == 'Male'
-                              ? Colors.blue
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Text('Male'),
+        body: Padding(
+          padding: EdgeInsets.only(top: 32.h, left: 24.w),
+          child: Column(
+            children: [
+              const CustomArrowBack(text: 'Back'),
+              CustomSizedBox(height: 25.h),
+              const CustomQuestionAndAswer(
+                question: 'What’s Your Gender',
+                answer:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              ),
+              const CustomSizedBox(height: 15),
+              BlocBuilder<GenderCubit, GenderState>(
+                builder: (context, state) {
+                  if (state is GenderSelected) {
+                    selectedGender = state.gender;
+                  }
+                  return Column(
+                    children: [
+                      CircleImageTextWidget(
+                        images: const [AssetImage('assets/images/male.png')],
+                        text: 'Male',
+                        isSelected: selectedGender == 'male',
+                        onTap: () {
+                          context.read<GenderCubit>().selectGender('male');
+                        },
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () => cubit.selectGender('Female'),
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: state is GenderSelected && state.gender == 'Female'
-                              ? Colors.pink
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Text('Female'),
+                      CustomSizedBox(height: 15.h),
+                      CircleImageTextWidget(
+                        images: const [AssetImage('assets/images/female.png')],
+                        text: 'Female',
+                        isSelected: selectedGender == 'Female',
+                        onTap: () {
+                          context.read<GenderCubit>().selectGender('Female');
+                        },
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: () {
-                    if (state is GenderSelected) {
-              GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please select your gender'),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text('Continue'),
-                ),
-              ],
-            );
-          },
+                    ],
+                  );
+                },
+              ),
+              const Spacer(),
+              BlocBuilder<GenderCubit, GenderState>(
+                builder: (context, state) {
+                  bool isButtonEnabled = state is GenderSelected;
+                  return CustomButton(
+                    text: 'Continue',
+                    onTap: isButtonEnabled
+                        ? () {
+                            saveData();
+                            GoRouter.of(context)
+                                .push(AppRouter.kAgeSelectionScreen);
+                          }
+                        : null,
+                  );
+                },
+              ),
+              CustomSizedBox(height: 40.h),
+            ],
+          ),
         ),
       ),
     );

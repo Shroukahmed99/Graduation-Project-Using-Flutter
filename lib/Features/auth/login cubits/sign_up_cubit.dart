@@ -12,58 +12,48 @@ class SignUpCubit extends Cubit<SignUpState> {
   final SignUpRepo signUpRepo;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController fullNameController = TextEditingController(text: 'Ahmed Ali');
-  final TextEditingController emailController = TextEditingController(text: 'ahmedali@gmail.com');
-  final TextEditingController mobileNumberController = TextEditingController(text: '01012345678');
-  final TextEditingController passwordController = TextEditingController(text: 'Ahmed@123');
-  final TextEditingController passwordConfirmController = TextEditingController(text: 'Ahmed@123');
-  final TextEditingController genderController = TextEditingController(text: 'male');
-  final TextEditingController ageController = TextEditingController(text: '25');
-  final TextEditingController weightController = TextEditingController(text: '75');
-  final TextEditingController heightController = TextEditingController(text: '180');
-  final TextEditingController goalController = TextEditingController(text: 'lose weight');
-  final TextEditingController physicalActivityLevelController = TextEditingController(text: 'Intermediate');
+
   SignUpCubit(this.signUpRepo) : super(SignUpInitial());
 
   Future<void> signUpUser() async {
-    if (!formKey.currentState!.validate()) return;
+    // ✅ التحقق من صحة الفورم قبل إرسال البيانات
+    if (formKey.currentState == null || !formKey.currentState!.validate()) {
+      print("❌ الفورم غير صالح أو غير موجود");
+      return;
+    }
 
     emit(SignUpLoading());
 
+    // ✅ جلب البيانات من SharedPreferences
     SaveUserData saveUserData = SaveUserData();
     Map<String, dynamic> userData = await saveUserData.getUserData();
-  print('User Data Before Sending to Server: $userData');
+    print('User Data Before Sending to Server: $userData');
+
+    // ✅ إرسال البيانات المسترجعة بدلاً من استخدام TextEditingController
     Either<Failure, LoginModel> result = await signUpRepo.SignUpUser(
-       fullName: fullNameController.text,
-      email: emailController.text,
-      mobileNumber: mobileNumberController.text,
-      password: passwordController.text,
-      passwordConfirm: passwordConfirmController.text,
-      gender: genderController.text,
-      age: ageController.text ,
-      weight: weightController.text ,
-      height: heightController.text,
-      goal: goalController.text,
-      physicalActivityLevel: physicalActivityLevelController.text,
+      fullName: userData['fullName'] ?? '',
+      email: userData['email'] ?? '',
+      mobileNumber: userData['mobileNumber'] ?? '',
+      password: userData['password'] ?? '',
+      passwordConfirm: userData['passwordConfirm'] ?? '',
+      gender: userData['gender'] ?? '',
+      age: userData['age'] ?? '',
+      weight: userData['weight'] ?? '',
+      height: userData['height'] ?? '',
+      goal: userData['goal'] ?? '',
+      physicalActivityLevel: userData['physicalActivityLevel'] ?? '',
     );
 
     result.fold(
       (failure) {
-        print('Error: ${failure.errorMessage}');
+        print('❌ Error: ${failure.errorMessage}');
         emit(SignUpFailure(failure.errorMessage));
       },
       (loginModel) async {
-        print('SignUp Success');
+        print('✅ SignUp Success');
         await CacheHelper.saveData(key: 'token', value: loginModel.id);
         emit(SignUpSuccess(loginModel));
       },
     );
-  }
-
-  Future<void> getUserData() async {
-    SaveUserData saveUserData = SaveUserData();
-    Map<String, dynamic> userData = await saveUserData.getUserData();
-
-    print('User Data Loaded Successfully ✅');
   }
 }

@@ -17,15 +17,18 @@ class WeightViewsBody extends StatefulWidget {
 }
 
 class _WeightViewsBodyState extends State<WeightViewsBody> {
+  int selectedWeight = 25;
+
   Future<void> saveData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    await sharedPreferences.setString('weight', selectedDate.toString as String);
-
-    print("Data Saved Successfully ✅");
+    try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString('weight', selectedWeight.toString());
+      print("✅ الوزن محفوظ بنجاح: $selectedWeight كجم");
+    } catch (e) {
+      print("❌ حدث خطأ أثناء حفظ الوزن: $e");
+    }
   }
-
-  int selectedDate = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -33,37 +36,34 @@ class _WeightViewsBodyState extends State<WeightViewsBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            top: 32.h,
-            left: 24.w,
-          ),
+          padding: EdgeInsets.only(top: 32.h, left: 24.w),
           child: const CustomArrowBack(text: 'Back'),
         ),
-        CustomSizedBox(
-          height: 25.h,
-        ),
+        CustomSizedBox(height: 25.h),
         const CustomQuestionAndAswer(
-            question: 'What Is Your Weight?',
-            answer:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
+          question: 'What Is Your Weight?',
+          answer:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ),
         CustomSizedBox(height: 35.h),
         CustomSliderWidget(
           unitSymbol: 'Kg',
           dates: List.generate(125, (index) => index + 8),
-          selectedDate: selectedDate,
-          onDateSelected: (date) {
+          selectedDate: selectedWeight,
+          onDateSelected: (weight) {
             setState(() {
-              selectedDate = date;
+              selectedWeight = weight;
             });
           },
         ),
         const Spacer(),
         CustomButton(
-            text: 'Continue',
-            onTap: () {
-              saveData();
-              GoRouter.of(context).push(AppRouter.kHieghtViews);
-            }),
+          text: 'Continue',
+          onTap: () {
+            saveData();
+            GoRouter.of(context).push(AppRouter.kHieghtViews);
+          },
+        ),
         CustomSizedBox(height: 40.h),
       ],
     );

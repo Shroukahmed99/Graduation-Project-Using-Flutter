@@ -16,7 +16,8 @@ class PhysicalActivityViewBody extends StatefulWidget {
   const PhysicalActivityViewBody({super.key});
 
   @override
-  State<PhysicalActivityViewBody> createState() => _PhysicalActivityViewBodyState();
+  State<PhysicalActivityViewBody> createState() =>
+      _PhysicalActivityViewBodyState();
 }
 
 class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
@@ -37,46 +38,60 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
           );
         }
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 32.h, left: 24.w),
-            child: const CustomArrowBack(text: 'Back'),
-          ),
-          CustomSizedBox(height: 25.h),
-          const Text(
-            'Physical Activity Level',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          CustomSizedBox(height: 35.h),
-          CustomSelectActivity(
-            options: ['Beginner', 'Intermediate', 'Advance'],
-            onSelect: (index) {
-              selectedIndex = index;
-            },
-          ),
-          const Spacer(),
-          BlocBuilder<SignUpCubit, SignUpState>(
-            builder: (context, state) {
-              return CustomButton(
-                text: state is SignUpLoading ? 'Loading...' : 'Continue',
-                onTap: state is SignUpLoading
-                    ? null
-                    : () {
-                        if (selectedIndex != null) {
-                          context.read<SignUpCubit>().signUpUser();
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Please select activity level')),
-                          );
-                        }
-                      },
-              );
-            },
-          ),
-          CustomSizedBox(height: 40.h),
-        ],
+      child: Form(
+        // ✅ أضف Form هنا واستخدم formKey من SignUpCubit
+        key: context.read<SignUpCubit>().formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 32.h, left: 24.w),
+              child: const CustomArrowBack(text: 'Back'),
+            ),
+            CustomSizedBox(height: 25.h),
+            const Text(
+              'Physical Activity Level',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            CustomSizedBox(height: 35.h),
+            CustomSelectActivity(
+              options: ['Beginner', 'Intermediate', 'Advance'],
+              onSelect: (index) {
+                selectedIndex = index;
+              },
+            ),
+            const Spacer(),
+            BlocBuilder<SignUpCubit, SignUpState>(
+              builder: (context, state) {
+                return CustomButton(
+                  text: state is SignUpLoading ? 'Loading...' : 'Continue',
+                  onTap: state is SignUpLoading
+                      ? null
+                      : () {
+                          if (context
+                              .read<SignUpCubit>()
+                              .formKey
+                              .currentState!
+                              .validate()) {
+                            if (selectedIndex != null) {
+                              context.read<SignUpCubit>().signUpUser();
+                              GoRouter.of(context)
+                                  .push(AppRouter.kSuccessViews);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('Please select activity level')),
+                              );
+                            }
+                          }
+                        },
+                );
+              },
+            ),
+            CustomSizedBox(height: 40.h),
+          ],
+        ),
       ),
     );
   }

@@ -12,38 +12,60 @@ class SignUpRepoImpl implements SignUpRepo {
   SignUpRepoImpl(this.apiService);
 
   @override
-   Future<Either<Failure, LoginModel>> SignUpUser({required String fullName, required String password, required String email, required String mobileNumber, required String passwordConfirm, required String gender, required String age, required String weight, required String goal, required String physicalActivityLevel, required String height})async {
-
+  Future<Either<Failure, LoginModel>> SignUpUser({
+    required String fullName,
+    required String password,
+    required String email,
+    required String mobileNumber,
+    required String passwordConfirm,
+    required String gender,
+    required String age,
+    required String weight,
+    required String goal,
+    required String physicalActivityLevel,
+    required String height,
+  }) async {
     try {
+      // ✅ طباعة البيانات قبل الإرسال
+      print("🚀 Sending Data: {"
+          "fullName: $fullName, email: $email, mobileNumber: $mobileNumber, "
+          "password: $password, passwordConfirm: $passwordConfirm, gender: $gender, "
+          "age: $age, weight: $weight, height: $height, "
+          "goal: $goal, physicalActivityLevel: $physicalActivityLevel}");
+
       Response response = await apiService.post(
         endpoint: "clientSignUp",
         data: {
-         "fullName":fullName,
-"email":email,
-"mobileNumber":mobileNumber,
-"password":password,
-"passwordConfirm": passwordConfirm,
-"gender":gender,
-"age":age,
-"weight":weight,
-"height": height,
-"goal":goal,
-"physicalActivityLevel":physicalActivityLevel
+          "fullName": fullName,
+          "email": email,
+          "mobileNumber": mobileNumber,
+          "password": password,
+          "passwordConfirm": passwordConfirm,
+          "gender": gender,
+          "age": age,
+          "weight": weight,
+          "height": height,
+          "goal": goal,
+          "physicalActivityLevel": physicalActivityLevel
         },
       );
+
+      // ✅ طباعة الاستجابة من الخادم
+      print("📤 API Response: ${response.data}");
 
       if (response.data["status"] == "success") {
         String token = CacheHelper.getData(key: "token") ?? "";
 
-        LoginModel signUpModel = LoginModel.fromJson(response.data["data"], token);
+        LoginModel signUpModel =
+            LoginModel.fromJson(response.data["data"], token);
         return Right(signUpModel);
       } else {
         return Left(ServerFailure(response.data["message"]));
       }
     } catch (e) {
+      // ✅ طباعة الخطأ عند حدوث مشكلة
+      print("❌ API Error: $e");
       return Left(ServerFailure(e.toString()));
     }
   }
-  
-
 }

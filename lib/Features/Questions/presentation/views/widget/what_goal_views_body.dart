@@ -45,7 +45,6 @@ class WhatGoalViewsBody extends StatelessWidget {
         CustomButton(
           text: 'Continue',
           onTap: () {
-  
             GoRouter.of(context).push(AppRouter.kPhysicalActivityView);
           },
         ),

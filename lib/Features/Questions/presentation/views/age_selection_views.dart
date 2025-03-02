@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_slider_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -18,15 +17,20 @@ class AgeSelectionViews extends StatefulWidget {
 }
 
 class _AgeSelectionViewsState extends State<AgeSelectionViews> {
+  int selectedDate = 25;
+
   Future<void> saveData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool isSaved =
+        await sharedPreferences.setString('age', selectedDate.toString());
 
-    await sharedPreferences.setString('age', selectedDate.toString as String);
-
-    print("Data Saved Successfully ✅");
+    if (isSaved) {
+      print("Data Saved Successfully ✅");
+    } else {
+      print("Failed to save data ❌");
+    }
   }
 
-  int selectedDate = 25;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +38,13 @@ class _AgeSelectionViewsState extends State<AgeSelectionViews> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(
-              top: 32.h,
-              left: 24.w,
-            ),
+            padding: EdgeInsets.only(top: 32.h, left: 24.w),
             child: const CustomArrowBack(text: 'Back'),
           ),
-          CustomSizedBox(
-            height: 25.h,
-          ),
+          CustomSizedBox(height: 25.h),
           const CustomQuestionAndAswer(
             question: 'What’s Your Age?',
-            answer:
-                'Lorem ipsum dolor sit amet,consectetur adipiscing elit consectetur adipiscing elit',
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
           ),
           CustomSizedBox(height: 35.h),
           CustomSliderWidget(
@@ -60,11 +58,12 @@ class _AgeSelectionViewsState extends State<AgeSelectionViews> {
           ),
           const Spacer(),
           CustomButton(
-              text: 'Continue',
-              onTap: () {
-                saveData();
-                GoRouter.of(context).push(AppRouter.kWieghtViews);
-              }),
+            text: 'Continue',
+            onTap: () {
+              saveData();
+              GoRouter.of(context).push(AppRouter.kWieghtViews);
+            },
+          ),
           CustomSizedBox(height: 40.h),
         ],
       ),

@@ -1,24 +1,25 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class SaveUserData {
   late SharedPreferences sharedPreferences;
 
   Future<void> saveUserData(Map<String, dynamic> userData) async {
     sharedPreferences = await SharedPreferences.getInstance();
 
-    await sharedPreferences.setString('fullName', userData['fullName']??'');
-    await sharedPreferences.setString('email', userData['email']??'');
-    await sharedPreferences.setString('mobileNumber', userData['mobileNumber']??'');
-    await sharedPreferences.setString('password', userData['password']??'');
-    await sharedPreferences.setString('passwordConfirm', userData['passwordConfirm']??'');
-    await sharedPreferences.setString('gender', userData['gender']??'');
-    await sharedPreferences.setString('age', userData['age']??'');
-    await sharedPreferences.setString('weight', userData['weight']??'');
-    await sharedPreferences.setString('height', userData['height']??'');
-    await sharedPreferences.setString('goal', userData['goal']??'');
-    await sharedPreferences.setString('physicalActivityLevel', userData['physicalActivityLevel']??'');
+    await sharedPreferences.setString('fullName', userData['fullName'] ?? '');
+    await sharedPreferences.setString('email', userData['email'] ?? '');
+    await sharedPreferences.setString(
+        'mobileNumber', userData['mobileNumber'] ?? '');
+    await sharedPreferences.setString('password', userData['password'] ?? '');
+    await sharedPreferences.setString(
+        'passwordConfirm', userData['passwordConfirm'] ?? '');
+    await sharedPreferences.setString('gender', userData['gender'] ?? '');
+    await sharedPreferences.setString('age', userData['age'] ?? '');
+    await sharedPreferences.setString('weight', userData['weight'] ?? '');
+    await sharedPreferences.setString('height', userData['height'] ?? '');
+    await sharedPreferences.setString('goal', userData['goal'] ?? '');
+    await sharedPreferences.setString(
+        'physicalActivityLevel', userData['physicalActivityLevel'] ?? '');
 
     print("Data Saved Successfully ✅");
   }
@@ -37,7 +38,8 @@ class SaveUserData {
       "weight": sharedPreferences.getString('weight') ?? '',
       "height": sharedPreferences.getString('height') ?? '',
       "goal": sharedPreferences.getString('goal') ?? '',
-      "physicalActivityLevel": sharedPreferences.getString('physicalActivityLevel') ?? ''
+      "physicalActivityLevel":
+          sharedPreferences.getString('physicalActivityLevel') ?? ''
     };
 
     print("Data Retrieved Successfully ✅");

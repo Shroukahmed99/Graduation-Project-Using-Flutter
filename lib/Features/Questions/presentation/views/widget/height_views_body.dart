@@ -17,16 +17,18 @@ class HeightViewsBody extends StatefulWidget {
 }
 
 class _HeightViewsBodyState extends State<HeightViewsBody> {
+  int selectedHeight = 145; // القيمة الافتراضية في المنتصف
+
   Future<void> saveData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    await sharedPreferences.setString(
-        'height', selectedDate.toString as String);
-
-    print("Data Saved Successfully ✅");
+    try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString('height', selectedHeight.toString());
+      print("✅ الطول محفوظ بنجاح: $selectedHeight سم");
+    } catch (e) {
+      print("❌ حدث خطأ أثناء حفظ الطول: $e");
+    }
   }
-
-  int selectedDate = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -34,33 +36,35 @@ class _HeightViewsBodyState extends State<HeightViewsBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            top: 32.h,
-            left: 24.w,
-          ),
+          padding: EdgeInsets.only(top: 32.h, left: 24.w),
           child: const CustomArrowBack(text: 'Back'),
         ),
-        CustomSizedBox(
-          height: 25.h,
-        ),
+        CustomSizedBox(height: 25.h),
         const CustomQuestionAndAswer(
-            question: 'What Is Your height?',
-            answer:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
+          question: 'What Is Your Height?',
+          answer:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        ),
         CustomSizedBox(height: 35.h),
         CustomSliderHeight(
           dates:
               List.generate(50, (index) => 120 + index), // أرقام من 120 إلى 169
-          selectedDate: 145, // القيمة الافتراضية في المنتصف
+          selectedDate: selectedHeight,
           unitSymbol: "cm",
+          onDateSelected: (height) {
+            setState(() {
+              selectedHeight = height;
+            });
+          },
         ),
         const Spacer(),
         CustomButton(
-            text: 'Continue',
-            onTap: () {
-              saveData();
-              GoRouter.of(context).push(AppRouter.kWhatGoalViews);
-            }),
+          text: 'Continue',
+          onTap: () {
+            saveData();
+            GoRouter.of(context).push(AppRouter.kWhatGoalViews);
+          },
+        ),
         CustomSizedBox(height: 40.h),
       ],
     );
