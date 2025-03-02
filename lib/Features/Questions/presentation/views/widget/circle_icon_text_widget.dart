@@ -42,7 +42,6 @@ class CircleImageTextWidget extends StatelessWidget {
                 ? Stack(
                     alignment: Alignment.center,
                     children: [
-                      // الصورة العلوية (التغذية)
                       Positioned(
                         bottom: 20.h,
                         child: Image(
@@ -52,7 +51,6 @@ class CircleImageTextWidget extends StatelessWidget {
                           color: isSelected ? Colors.white : kPrimaryColor,
                         ),
                       ),
-                      // الصورة السفلية اليسرى (العلاج الطبيعي)
                       Positioned(
                         top: 25.h,
                         left: 20.w,
@@ -63,7 +61,6 @@ class CircleImageTextWidget extends StatelessWidget {
                           color: isSelected ? Colors.white : kPrimaryColor,
                         ),
                       ),
-                      // الصورة السفلية اليمنى (الجيم)
                       Positioned(
                         top: 25.h,
                         right: 20.w,
@@ -85,7 +82,7 @@ class CircleImageTextWidget extends StatelessWidget {
                           color: isSelected ? Colors.white : kPrimaryColor,
                         ),
                       )
-                    : Container(), // في حالة عدم تمرير أي صورة
+                    : Container(),
           ),
         ),
         SizedBox(height: 10.h),

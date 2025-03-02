@@ -1,71 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/manger/age%20cubit/age_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_slider_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AgeSelectionViews extends StatefulWidget {
+class AgeSelectionViews extends StatelessWidget {
   const AgeSelectionViews({super.key});
 
   @override
-  _AgeSelectionViewsState createState() => _AgeSelectionViewsState();
-}
-
-class _AgeSelectionViewsState extends State<AgeSelectionViews> {
-  int selectedDate = 25;
-
-  Future<void> saveData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool isSaved =
-        await sharedPreferences.setString('age', selectedDate.toString());
-
-    if (isSaved) {
-      print("Data Saved Successfully ✅");
-    } else {
-      print("Failed to save data ❌");
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 32.h, left: 24.w),
-            child: const CustomArrowBack(text: 'Back'),
-          ),
-          CustomSizedBox(height: 25.h),
-          const CustomQuestionAndAswer(
-            question: 'What’s Your Age?',
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          ),
-          CustomSizedBox(height: 35.h),
-          CustomSliderWidget(
-            dates: List.generate(125, (index) => index + 8),
-            selectedDate: selectedDate,
-            onDateSelected: (date) {
-              setState(() {
-                selectedDate = date;
-              });
-            },
-          ),
-          const Spacer(),
-          CustomButton(
-            text: 'Continue',
-            onTap: () {
-              saveData();
-              GoRouter.of(context).push(AppRouter.kWieghtViews);
-            },
-          ),
-          CustomSizedBox(height: 40.h),
-        ],
+    return BlocProvider(
+      create: (context) => AgeCubit(),
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 32.h, left: 24.w),
+              child: const CustomArrowBack(text: 'Back'),
+            ),
+            CustomSizedBox(height: 25.h),
+            const CustomQuestionAndAswer(
+              question: 'What’s Your Age?',
+              answer:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            ),
+            CustomSizedBox(height: 35.h),
+            BlocBuilder<AgeCubit, AgeState>(
+              builder: (context, state) {
+                int selectedAge = state is AgeSelected ? state.age : 25;
+
+                return CustomSliderWidget(
+                  dates: List.generate(125, (index) => index + 8),
+                  selectedDate: selectedAge,
+                  onDateSelected: (date) {
+                    context.read<AgeCubit>().selectAge(date);
+                  },
+                );
+              },
+            ),
+            const Spacer(),
+            BlocBuilder<AgeCubit, AgeState>(
+              builder: (context, state) {
+                return CustomButton(
+                  text: 'Continue',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kWieghtViews);
+                  },
+                );
+              },
+            ),
+            CustomSizedBox(height: 40.h),
+          ],
+        ),
       ),
     );
   }

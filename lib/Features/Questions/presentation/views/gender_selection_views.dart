@@ -2,33 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Questions/presentation/manger/gender/gender_cubit.dart';
+import 'package:sehatak/Features/Questions/presentation/manger/gender%20cubit/gender_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class GenderSelectionView extends StatefulWidget {
+class GenderSelectionView extends StatelessWidget {
   const GenderSelectionView({super.key});
-
-  @override
-  State<GenderSelectionView> createState() => _GenderSelectionViewState();
-}
-
-class _GenderSelectionViewState extends State<GenderSelectionView> {
-  String? selectedGender;
-
-  Future<void> saveData() async {
-    if (selectedGender != null) {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      await sharedPreferences.setString('gender', selectedGender!);
-      print("Data Saved Successfully ✅");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,26 +32,26 @@ class _GenderSelectionViewState extends State<GenderSelectionView> {
               const CustomSizedBox(height: 15),
               BlocBuilder<GenderCubit, GenderState>(
                 builder: (context, state) {
-                  if (state is GenderSelected) {
-                    selectedGender = state.gender;
-                  }
+                  String? selectedGender =
+                      (state is GenderSelected) ? state.gender : null;
+
                   return Column(
                     children: [
                       CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/male.png')],
+                        images: const [AssetImage('assets/images/female.png')],
                         text: 'Male',
                         isSelected: selectedGender == 'male',
                         onTap: () {
                           context.read<GenderCubit>().selectGender('male');
                         },
                       ),
-                      CustomSizedBox(height: 15.h),
+                      CustomSizedBox(height: 40.h),
                       CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/female.png')],
+                        images: const [AssetImage('assets/images/male.png')],
                         text: 'Female',
-                        isSelected: selectedGender == 'Female',
+                        isSelected: selectedGender == 'female',
                         onTap: () {
-                          context.read<GenderCubit>().selectGender('Female');
+                          context.read<GenderCubit>().selectGender('female');
                         },
                       ),
                     ],
@@ -83,7 +66,6 @@ class _GenderSelectionViewState extends State<GenderSelectionView> {
                     text: 'Continue',
                     onTap: isButtonEnabled
                         ? () {
-                            saveData();
                             GoRouter.of(context)
                                 .push(AppRouter.kAgeSelectionScreen);
                           }

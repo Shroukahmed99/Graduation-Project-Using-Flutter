@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity%20copy.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_goal.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/Features/auth/login%20cubits/sign_up_cubit.dart';
 import 'package:sehatak/Features/auth/login%20cubits/sign_up_state.dart';
@@ -45,17 +45,22 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 32.h, left: 24.w),
+              padding: EdgeInsets.only(
+                top: 32.h,
+                left: 24.w,
+              ),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(height: 25.h),
-            const Text(
-              'Physical Activity Level',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            CustomSizedBox(
+              height: 25.h,
             ),
+            const CustomQuestionAndAswer(
+                question: 'Physical Activity Level',
+                answer:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
             CustomSizedBox(height: 35.h),
             CustomSelectActivity(
-              options: ['Beginner', 'Intermediate', 'Advance'],
+              options: const ['Beginner', 'Intermediate', 'Advance'],
               onSelect: (index) {
                 selectedIndex = index;
               },

@@ -48,7 +48,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kGenderSelectionScreen,
-        builder: (context, state) =>  GenderSelectionView(),
+        builder: (context, state) => const GenderSelectionView(),
       ),
       GoRoute(
         path: kAgeSelectionScreen,
@@ -72,7 +72,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kPhysicalActivityView,
-        builder: (context, state) =>  PhysicalActivityView(),
+        builder: (context, state) => PhysicalActivityView(),
       ),
       GoRoute(
         path: kSignupView,

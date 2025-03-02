@@ -18,23 +18,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupViewBody extends StatelessWidget {
   SignupViewBody({super.key});
-  
+
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController = TextEditingController();
+  final TextEditingController passwordConfirmController =
+      TextEditingController();
   final GlobalKey<FormState> signupKey = GlobalKey();
 
   Future<void> saveData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    
+
     await sharedPreferences.setString('fullName', fullNameController.text);
     await sharedPreferences.setString('email', emailController.text);
-    await sharedPreferences.setString('mobileNumber', mobileNumberController.text);
+    await sharedPreferences.setString(
+        'mobileNumber', mobileNumberController.text);
     await sharedPreferences.setString('password', passwordController.text);
-    await sharedPreferences.setString('passwordConfirm', passwordConfirmController.text);
-    
+    await sharedPreferences.setString(
+        'passwordConfirm', passwordConfirmController.text);
+
     print("Data Saved Successfully ✅");
   }
 
@@ -81,6 +84,9 @@ class SignupViewBody extends StatelessWidget {
               controller: passwordConfirmController,
             ),
             SizedBox(height: 20.h),
+
+            const CustomTextWithSignup(),
+            SizedBox(height: 20.h),
             CustomButton(
               text: 'Sign Up',
               onTap: () {
@@ -91,6 +97,22 @@ class SignupViewBody extends StatelessWidget {
               },
             ),
             SizedBox(height: 15.h),
+            const CustomTextSignupwith(),
+            SizedBox(height: 15.h),
+
+            /// ✅ **أيقونات التسجيل عبر منصات خارجية**
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100.w),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomIconButton(icon: FontAwesomeIcons.google),
+                  CustomIconButton(icon: Icons.facebook),
+                ],
+              ),
+            ),
+
+            /// ✅ **زر الانتقال إلى تسجيل الدخول**
             CustomTextQuestion(
               text: 'Login In',
               onPress: () {
