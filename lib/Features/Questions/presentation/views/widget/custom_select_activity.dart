@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomSelectActivity extends StatefulWidget {

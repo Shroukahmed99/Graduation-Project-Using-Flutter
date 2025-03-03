@@ -38,18 +38,20 @@ class GenderSelectionView extends StatelessWidget {
                   return Column(
                     children: [
                       CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/female.png')],
+                        images: const [AssetImage('assets/images/male.png')],
                         text: 'Male',
-                        isSelected: selectedGender == 'male',
+                        isSelected: selectedGender ==
+                            'male', // ✅ لا يكون محدد عند البداية
                         onTap: () {
                           context.read<GenderCubit>().selectGender('male');
                         },
                       ),
                       CustomSizedBox(height: 40.h),
                       CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/male.png')],
+                        images: const [AssetImage('assets/images/female.png')],
                         text: 'Female',
-                        isSelected: selectedGender == 'female',
+                        isSelected: selectedGender ==
+                            'female', // ✅ لا يكون محدد عند البداية
                         onTap: () {
                           context.read<GenderCubit>().selectGender('female');
                         },
@@ -69,7 +71,7 @@ class GenderSelectionView extends StatelessWidget {
                             GoRouter.of(context)
                                 .push(AppRouter.kAgeSelectionScreen);
                           }
-                        : null,
+                        : null, // ✅ الزر يكون معطلاً حتى يختار المستخدم الجنس
                   );
                 },
               ),

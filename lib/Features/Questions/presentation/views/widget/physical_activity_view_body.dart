@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
-import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_goal.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
-import 'package:sehatak/Features/auth/login%20cubits/sign_up_cubit.dart';
-import 'package:sehatak/Features/auth/login%20cubits/sign_up_state.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_cubit.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_state.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
@@ -58,7 +57,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
                 question: 'Physical Activity Level',
                 answer:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
-            CustomSizedBox(height: 35.h),
+            CustomSizedBox(height: 120.h),
             CustomSelectActivity(
               options: const ['Beginner', 'Intermediate', 'Advance'],
               onSelect: (index) {

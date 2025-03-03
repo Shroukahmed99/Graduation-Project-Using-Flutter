@@ -50,7 +50,7 @@ class RoleSelectionViews extends StatelessWidget {
                           AssetImage('assets/images/medical.png'),
                         ],
                         text: 'Service Provider',
-                        isSelected: isProviderSelected,
+                        isSelected: isProviderSelected, // ✅ غير محدد في البداية
                         onTap: () {
                           context
                               .read<RoleCubit>()
@@ -61,7 +61,7 @@ class RoleSelectionViews extends StatelessWidget {
                       CircleImageTextWidget(
                         images: const [AssetImage('assets/images/running.png')],
                         text: 'Client',
-                        isSelected: isClientSelected,
+                        isSelected: isClientSelected, // ✅ غير محدد في البداية
                         onTap: () {
                           context.read<RoleCubit>().selectRole('Client');
                           GoRouter.of(context).push(AppRouter.kSignupView);

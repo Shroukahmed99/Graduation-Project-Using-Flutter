@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -11,9 +10,9 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_question.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_signUpWith.dart';
+import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupViewBody extends StatelessWidget {
@@ -56,18 +55,21 @@ class SignupViewBody extends StatelessWidget {
               title: 'Full name',
               hintText: 'Enter your name',
               controller: fullNameController,
+              validator: validateFullName,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Email',
               hintText: 'Enter your email',
               controller: emailController,
+              validator: validateEmail,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
               title: 'Mobile number',
-              hintText: '+020 103 0136 999',
+              hintText: 'Enter your number',
               controller: mobileNumberController,
+              validator: validatePhone,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
@@ -75,6 +77,7 @@ class SignupViewBody extends StatelessWidget {
               hintText: '*************',
               obscureText: true,
               controller: passwordController,
+              validator: validatePassword,
             ),
             SizedBox(height: 5.h),
             CustomTextField(
@@ -82,16 +85,24 @@ class SignupViewBody extends StatelessWidget {
               hintText: '*************',
               obscureText: true,
               controller: passwordConfirmController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Password confirmation is required';
+                }
+                if (value != passwordController.text) {
+                  return 'Passwords do not match';
+                }
+                return null;
+              },
             ),
             SizedBox(height: 20.h),
-
             const CustomTextWithSignup(),
             SizedBox(height: 20.h),
             CustomButton(
               text: 'Sign Up',
               onTap: () {
                 if (signupKey.currentState!.validate()) {
-                  saveData(); // ✅ هنا بنخزن البيانات
+                  saveData();
                   GoRouter.of(context).push(AppRouter.kGenderSelectionScreen);
                 }
               },
@@ -99,8 +110,6 @@ class SignupViewBody extends StatelessWidget {
             SizedBox(height: 15.h),
             const CustomTextSignupwith(),
             SizedBox(height: 15.h),
-
-            /// ✅ **أيقونات التسجيل عبر منصات خارجية**
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 100.w),
               child: const Row(
@@ -111,8 +120,6 @@ class SignupViewBody extends StatelessWidget {
                 ],
               ),
             ),
-
-            /// ✅ **زر الانتقال إلى تسجيل الدخول**
             CustomTextQuestion(
               text: 'Login In',
               onPress: () {

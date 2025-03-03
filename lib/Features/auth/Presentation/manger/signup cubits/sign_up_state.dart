@@ -1,6 +1,4 @@
-import 'package:sehatak/Features/auth/model/login_model.dart';
-
-
+import 'package:sehatak/Features/auth/data/model/login_model.dart';
 
 abstract class SignUpState {}
 

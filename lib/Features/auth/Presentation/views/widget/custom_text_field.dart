@@ -8,14 +8,16 @@ class CustomTextField extends StatelessWidget {
     required this.title,
     this.onChanged,
     this.obscureText = false,
-    required this.controller, // ✅ إضافة الـ controller
+    required this.controller,
+    this.validator,
   });
 
   final String? hintText;
   final String title;
   final Function(String)? onChanged;
   final bool obscureText;
-  final TextEditingController controller; // ✅ متغير للتحكم في النص
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +35,12 @@ class CustomTextField extends StatelessWidget {
         SizedBox(height: 8.h), // مسافة بين العنوان والحقل
         SizedBox(
           width: 320.w, // عرض الحقل
-          height: 45.h, // ارتفاع الحقل
+          height: 45.h, // ✅ زيادة الارتفاع لمنع الانكماش
           child: TextFormField(
             controller: controller, // ✅ استخدام الـ controller
             obscureText: obscureText,
-            validator: (data) {
-              if (data == null || data.isEmpty) {
-                return 'Field is required';
-              }
-              return null; // لا توجد أخطاء
-            },
+            validator:
+                validator, // ✅ استخدام `validator` القادم من `SignupViewBody`
             onChanged: onChanged,
             decoration: InputDecoration(
               hintText: hintText,

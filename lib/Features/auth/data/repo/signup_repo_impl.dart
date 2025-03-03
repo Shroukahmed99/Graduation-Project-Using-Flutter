@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:sehatak/Features/auth/data/repo/sign_up_repo.dart';
-import 'package:sehatak/Features/auth/model/login_model.dart';
+import 'package:sehatak/Features/auth/data/model/login_model.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
@@ -26,7 +26,6 @@ class SignUpRepoImpl implements SignUpRepo {
     required String height,
   }) async {
     try {
-      // ✅ طباعة البيانات قبل الإرسال
       print("🚀 Sending Data: {"
           "fullName: $fullName, email: $email, mobileNumber: $mobileNumber, "
           "password: $password, passwordConfirm: $passwordConfirm, gender: $gender, "
@@ -50,7 +49,6 @@ class SignUpRepoImpl implements SignUpRepo {
         },
       );
 
-      // ✅ طباعة الاستجابة من الخادم
       print("📤 API Response: ${response.data}");
 
       if (response.data["status"] == "success") {
@@ -63,7 +61,6 @@ class SignUpRepoImpl implements SignUpRepo {
         return Left(ServerFailure(response.data["message"]));
       }
     } catch (e) {
-      // ✅ طباعة الخطأ عند حدوث مشكلة
       print("❌ API Error: $e");
       return Left(ServerFailure(e.toString()));
     }

@@ -4,9 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'role_state.dart';
 
 class RoleCubit extends Cubit<RoleState> {
-  RoleCubit() : super(RoleInitial()) {
-    loadSavedRole();
-  }
+  RoleCubit() : super(RoleInitial()); // ✅ لا يوجد اختيار مبدئي
 
   Future<void> loadSavedRole() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -16,6 +14,8 @@ class RoleCubit extends Cubit<RoleState> {
       emit(RoleSelected(isProvider: true, isClient: false));
     } else if (savedRole == 'Client') {
       emit(RoleSelected(isProvider: false, isClient: true));
+    } else {
+      emit(RoleInitial()); // ✅ إذا لم يكن هناك دور محفوظ، تبقى الحالة كما هي
     }
   }
 
