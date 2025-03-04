@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/cubit/sign_in_cubit.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/cubit/sign_in_state.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_cubit.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_state.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
@@ -27,12 +29,12 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
-        if (state is SignUpSuccess) {
+        if (state is SignupSuccess) {
           customSnackBar(context, 'Success');
           Future.delayed(const Duration(seconds: 2), () {
             GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
           });
-        } else if (state is SignUpFailure) {
+        } else if (state is SignupFailure) {
           customSnackBar(context, state.errorMessage);
           Future.delayed(const Duration(seconds: 2), () {
             GoRouter.of(context).pushReplacement(AppRouter.kSignupView);
@@ -66,7 +68,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
             const Spacer(),
             BlocBuilder<SignUpCubit, SignUpState>(
               builder: (context, state) {
-                bool isLoading = state is SignUpLoading;
+                bool isLoading = state is SignupLoading;
 
                 return isLoading
                     ? const Center(

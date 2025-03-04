@@ -8,83 +8,57 @@ class ApiService {
   ApiService(this.dio) {
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (response, handler) {
-        try {
-          // ✅ استخراج جميع الـ Cookies من الاستجابة وتخزينها
-          List<String>? cookies = response.headers['set-cookie'];
-          if (cookies != null && cookies.isNotEmpty) {
-            String allCookies =
-                cookies.join('; '); // دمج جميع الكوكيز في String واحد
-            print("✅ Cookies from Response: $allCookies");
-            CacheHelper.saveData(key: 'cookies', value: allCookies);
+        String? cookies = response.headers['set-cookie']?.first;
+        if (cookies != null) {
+          String? token = cookies.split(';').firstWhere(
+                (element) => element.contains('jwt'),
+                orElse: () => "",
+              );
+          if (token.isNotEmpty) {
+            token = token.split('=').last;
+            print("Token from Cookies: \$token");
+            CacheHelper.saveData(key: 'token', value: token);
           }
-        } catch (e) {
-          print("⚠️ Cookie Extraction Error: $e");
         }
         handler.next(response);
       },
     ));
   }
 
-  Future<Response> post({
-    required String endpoint,
-    required Map<String, dynamic> data,
-  }) async {
+  Future<Response> post(
+      {required String endpoint, required Map<String, dynamic> data}) async {
     try {
-      // ✅ استرجاع الكوكيز المخزنة
-      String? cookies = CacheHelper.getData(key: 'cookies');
-
       Response response = await dio.post(
         "$baseUrl$endpoint",
-        data: data, // ✅ إرسال البيانات فقط بدون الكوكيز في Body
+        data: data,
         options: Options(
           headers: {
             "Content-Type": "application/json",
-            if (cookies != null && cookies.isNotEmpty)
-              "Cookie": cookies, // ✅ إرسال الكوكيز في الهيدر
           },
-          validateStatus: (status) =>
-              status != null, // ✅ السماح لكل الرموز HTTP بالمرور
         ),
       );
 
-      // ✅ طباعة الاستجابة
-      print("📤 API Response [${response.statusCode}]: ${response.data}");
-
       return response;
-    } on DioException catch (e) {
-      // ✅ طباعة الخطأ مع التفاصيل
-      print(
-          "❌ API Error [${e.response?.statusCode}]: ${e.response?.data ?? e.message}");
+    } catch (e) {
+      print("API Error: \$e");
       throw Exception("Failed to connect to API");
     }
   }
 
   Future<Response> get({required String endpoint}) async {
     try {
-      // ✅ استرجاع الكوكيز المخزنة
-      String? cookies = CacheHelper.getData(key: 'cookies');
-
       Response response = await dio.get(
         "$baseUrl$endpoint",
         options: Options(
           headers: {
             "Content-Type": "application/json",
-            if (cookies != null && cookies.isNotEmpty)
-              "Cookie": cookies, // ✅ إرسال الكوكيز في الهيدر
           },
-          validateStatus: (status) =>
-              status != null, // ✅ السماح لكل الرموز HTTP بالمرور
         ),
       );
 
-      // ✅ طباعة الاستجابة
-      print("📤 API Response [${response.statusCode}]: ${response.data}");
-
       return response;
-    } on DioException catch (e) {
-      // ✅ طباعة الخطأ مع التفاصيل
-      print(
-          "❌ API Error [${e.response?.statusCode}]: ${e.response?.data ?? e.message}");
+    } catch (e) {
+      print("API Error: \$e");
       throw Exception("Failed to connect to API");
     }
   }

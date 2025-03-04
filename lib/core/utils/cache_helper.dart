@@ -7,11 +7,11 @@ class CacheHelper {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static Future<void> saveData({required String key, required dynamic value}) async {
-  await _sharedPreferences?.setString(key, value);
-  print("$key => $value");
-}
-
+  static Future<void> saveData(
+      {required String key, required dynamic value}) async {
+    await _sharedPreferences?.setString(key, value);
+    print("$key => $value");
+  }
 
   static String? getData({required String key}) {
     return _sharedPreferences?.getString(key);
@@ -20,5 +20,4 @@ class CacheHelper {
   static Future<void> removeData({required String key}) async {
     await _sharedPreferences?.remove(key);
   }
-  
 }

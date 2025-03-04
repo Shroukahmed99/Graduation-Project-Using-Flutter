@@ -6,13 +6,13 @@ import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:dio/dio.dart';
 
-class SignUpRepoImpl implements SignUpRepo {
+class UsersRepoImpl implements UsersRepo {
   final ApiService apiService;
 
-  SignUpRepoImpl(this.apiService);
+  UsersRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, LoginModel>> SignUpUser({
+  Future<Either<Failure, UsersModel>> signUpUser({
     required String fullName,
     required String password,
     required String email,
@@ -54,14 +54,41 @@ class SignUpRepoImpl implements SignUpRepo {
       if (response.data["status"] == "success") {
         String token = CacheHelper.getData(key: "token") ?? "";
 
-        LoginModel signUpModel =
-            LoginModel.fromJson(response.data["data"], token);
+        UsersModel signUpModel =
+            UsersModel.fromJson(response.data["data"], token);
         return Right(signUpModel);
       } else {
         return Left(ServerFailure(response.data["message"]));
       }
     } catch (e) {
       print("❌ API Error: $e");
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, UsersModel>> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      Response response = await apiService.post(
+        endpoint: "login",
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
+
+      if (response.data["status"] == "success") {
+        String token = CacheHelper.getData(key: "token") ?? "";
+
+        UsersModel loginModel =
+            UsersModel.fromJson(response.data["data"], token);
+        return Right(loginModel);
+      } else {
+        return Left(ServerFailure(response.data["message"]));
+      }
+    } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }

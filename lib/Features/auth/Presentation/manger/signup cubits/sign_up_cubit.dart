@@ -9,11 +9,11 @@ import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/utils/shared_preferences.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  final SignUpRepo signUpRepo;
+  final UsersRepo usersRepo;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  SignUpCubit(this.signUpRepo) : super(SignUpInitial());
+  SignUpCubit(this.usersRepo) : super(SignupInitial());
 
   Future<void> signUpUser() async {
     // ✅ التحقق من صحة الفورم قبل إرسال البيانات
@@ -22,7 +22,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       return;
     }
 
-    emit(SignUpLoading());
+    emit(SignupLoading());
 
     // ✅ جلب البيانات من SharedPreferences
     SaveUserData saveUserData = SaveUserData();
@@ -30,7 +30,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     print('User Data Before Sending to Server: $userData');
 
     // ✅ إرسال البيانات المسترجعة بدلاً من استخدام TextEditingController
-    Either<Failure, LoginModel> result = await signUpRepo.SignUpUser(
+    Either<Failure, UsersModel> result = await usersRepo.signUpUser(
       fullName: userData['fullName'] ?? '',
       email: userData['email'] ?? '',
       mobileNumber: userData['mobileNumber'] ?? '',
@@ -47,12 +47,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     result.fold(
       (failure) {
         print('❌ Error: ${failure.errorMessage}');
-        emit(SignUpFailure(failure.errorMessage));
+        emit(SignupFailure(failure.errorMessage));
       },
-      (loginModel) async {
+      (UsrersModel) async {
         print('✅ SignUp Success');
-        await CacheHelper.saveData(key: 'token', value: loginModel.id);
-        emit(SignUpSuccess(loginModel));
+        await CacheHelper.saveData(key: 'token', value: UsrersModel.token);
+        emit(SignupSuccess(UsrersModel));
       },
     );
   }

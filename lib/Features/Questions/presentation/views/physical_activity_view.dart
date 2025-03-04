@@ -14,7 +14,7 @@ class PhysicalActivityView extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) {
         return SignUpCubit(
-          SignUpRepoImpl(
+          UsersRepoImpl(
             ApiService(
               Dio(),
             ),
