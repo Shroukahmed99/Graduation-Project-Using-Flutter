@@ -6,6 +6,7 @@ import 'package:sehatak/Features/Questions/presentation/views/widget/custom_sele
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_cubit.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/sign_up_state.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
@@ -27,51 +28,53 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Success')),
-          );
-          GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
+          customSnackBar(context, 'Success');
+          Future.delayed(const Duration(seconds: 2), () {
+            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
+          });
         } else if (state is SignUpFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
+          customSnackBar(context, state.errorMessage);
+          Future.delayed(const Duration(seconds: 2), () {
+            GoRouter.of(context).pushReplacement(AppRouter.kSignupView);
+          });
         }
       },
       child: Form(
-        // ✅ أضف Form هنا واستخدم formKey من SignUpCubit
         key: context.read<SignUpCubit>().formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(
-                top: 32.h,
-                left: 24.w,
-              ),
+              padding: EdgeInsets.only(top: 32.h, left: 24.w),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(
-              height: 25.h,
-            ),
+            CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
-                question: 'Physical Activity Level',
-                answer:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
+              question: 'Physical Activity Level',
+              answer:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            ),
             CustomSizedBox(height: 120.h),
             CustomSelectActivity(
               options: const ['Beginner', 'Intermediate', 'Advance'],
               onSelect: (index) {
-                selectedIndex = index;
+                setState(() {
+                  selectedIndex = index;
+                });
               },
             ),
             const Spacer(),
             BlocBuilder<SignUpCubit, SignUpState>(
               builder: (context, state) {
-                return CustomButton(
-                  text: state is SignUpLoading ? 'Loading...' : 'Continue',
-                  onTap: state is SignUpLoading
-                      ? null
-                      : () {
+                bool isLoading = state is SignUpLoading;
+
+                return isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : CustomButton(
+                        text: 'Continue',
+                        onTap: () {
                           if (context
                               .read<SignUpCubit>()
                               .formKey
@@ -79,18 +82,13 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
                               .validate()) {
                             if (selectedIndex != null) {
                               context.read<SignUpCubit>().signUpUser();
-                              GoRouter.of(context)
-                                  .push(AppRouter.kSuccessViews);
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text('Please select activity level')),
-                              );
+                              customSnackBar(
+                                  context, 'Please select activity level');
                             }
                           }
                         },
-                );
+                      );
               },
             ),
             CustomSizedBox(height: 40.h),

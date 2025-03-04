@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sehatak/Features/Questions/presentation/manger/what%20goal%20cubit/goal_cubit.dart';
 import 'package:sehatak/const.dart';
 
 class CustomSelectGoal extends StatelessWidget {
   final List<String> options;
-  final String? selectedOption; // ✅ إضافة معامل جديد
-  final Function(String) onSelect; // ✅ تمرير دالة عند الاختيار
+  final String? selectedOption;
+  final Function(String) onSelect;
 
   const CustomSelectGoal({
     super.key,
@@ -58,8 +56,7 @@ class CustomSelectGoal extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.black, width: 2),
-                        color: selectedOption ==
-                                options[index] // ✅ استخدام المتغير الجديد
+                        color: selectedOption == options[index]
                             ? Colors.orange
                             : Colors.transparent,
                       ),

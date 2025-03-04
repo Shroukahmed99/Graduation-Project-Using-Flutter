@@ -5,8 +5,8 @@ import 'package:sehatak/const.dart';
 class CustomSliderWidget extends StatefulWidget {
   final List<int> dates;
   final int selectedDate;
-  final Function(int)? onDateSelected; // جعلها اختيارية
-  final String? unitSymbol; // رمز الرقم
+  final Function(int)? onDateSelected;
+  final String? unitSymbol;
 
   const CustomSliderWidget({
     Key? key,

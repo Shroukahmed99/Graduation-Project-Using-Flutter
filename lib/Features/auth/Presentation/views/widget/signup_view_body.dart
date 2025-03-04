@@ -49,7 +49,7 @@ class SignupViewBody extends StatelessWidget {
         child: ListView(
           children: [
             const CustomTextAndIconArrowback(text: 'Create Account'),
-            SizedBox(height: 20.h),
+            SizedBox(height: 12.h),
             const CustomText(title: "Let's start!"),
             CustomTextField(
               title: 'Full name',
@@ -95,9 +95,9 @@ class SignupViewBody extends StatelessWidget {
                 return null;
               },
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 18.h),
             const CustomTextWithSignup(),
-            SizedBox(height: 20.h),
+            SizedBox(height: 18.h),
             CustomButton(
               text: 'Sign Up',
               onTap: () {

@@ -12,9 +12,18 @@ class PhysicalActivityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) {
-          return SignUpCubit(SignUpRepoImpl(ApiService(Dio())));
-        },
-        child: const Scaffold(body: PhysicalActivityViewBody()));
+      create: (BuildContext context) {
+        return SignUpCubit(
+          SignUpRepoImpl(
+            ApiService(
+              Dio(),
+            ),
+          ),
+        );
+      },
+      child: const Scaffold(
+        body: PhysicalActivityViewBody(),
+      ),
+    );
   }
 }
