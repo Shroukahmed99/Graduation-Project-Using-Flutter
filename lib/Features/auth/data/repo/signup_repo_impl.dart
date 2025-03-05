@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:sehatak/Features/auth/data/repo/sign_up_repo.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
+import 'package:sehatak/Features/auth/data/repo/sign_up_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
@@ -54,8 +54,9 @@ class UsersRepoImpl implements UsersRepo {
       if (response.data["status"] == "success") {
         String token = CacheHelper.getData(key: "token") ?? "";
 
-        UsersModel signUpModel =
-            UsersModel.fromJson(response.data["data"], token);
+        UsersModel signUpModel = UsersModel.fromJson(
+          response.data["data"],
+        );
         return Right(signUpModel);
       } else {
         return Left(ServerFailure(response.data["message"]));
@@ -82,8 +83,7 @@ class UsersRepoImpl implements UsersRepo {
       if (response.data["status"] == "success") {
         String token = CacheHelper.getData(key: "token") ?? "";
 
-        UsersModel loginModel =
-            UsersModel.fromJson(response.data["data"], token);
+        UsersModel loginModel = UsersModel.fromJson(response.data["data"]);
         return Right(loginModel);
       } else {
         return Left(ServerFailure(response.data["message"]));

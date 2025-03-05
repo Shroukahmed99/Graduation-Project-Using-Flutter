@@ -13,13 +13,13 @@ class UsersModel {
     required this.token,
   });
 
-  factory UsersModel.fromJson(Map<String, dynamic> json, String token) {
+  factory UsersModel.fromJson(Map<String, dynamic> json, {String? token}) {
     return UsersModel(
       email: json['user']['email'] ?? '',
       role: json['user']['role'] ?? '',
       createdAt: json['user']['createdAt'] ?? '',
       id: json['user']['_id'] ?? '',
-      token: token,
+      token: token ?? '',
     );
   }
 }

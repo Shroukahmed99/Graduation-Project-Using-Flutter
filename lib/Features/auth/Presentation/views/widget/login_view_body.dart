@@ -12,7 +12,6 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_question.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_signUpWith.dart';
-import 'package:sehatak/Features/success%20register/introduction_screen.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -21,26 +20,28 @@ import 'package:sehatak/core/widget/Custom_button.dart';
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
 
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final GlobalKey<FormState> loginKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          customSnackBar(context, 'Success');
+          customSnackBar(context, 'Login Successful');
           Future.delayed(const Duration(seconds: 2), () {
             GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
           });
+        } else if (state is LoginFailure) {
+          customSnackBar(
+            context,
+            state.errorMessage,
+          );
         }
       },
       builder: (context, state) {
+        var cubit = context.read<LoginCubit>();
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
           child: Form(
-            key: loginKey,
+            key: cubit.formKey,
             child: ListView(
               children: [
                 const CustomTextAndIconArrowback(
@@ -56,7 +57,7 @@ class LoginViewBody extends StatelessWidget {
                 CustomTextField(
                   title: 'Email',
                   hintText: 'Enter your email',
-                  controller: emailController,
+                  controller: cubit.emailController,
                   validator: validateEmail,
                 ),
                 SizedBox(height: 10.h),
@@ -64,30 +65,20 @@ class LoginViewBody extends StatelessWidget {
                   title: 'Password',
                   hintText: '*************',
                   obscureText: true,
-                  controller: passwordController,
+                  controller: cubit.passwordController,
                   validator: validatePassword,
                 ),
                 SizedBox(height: 20.h),
                 const ButtomTextForgetPassword(),
                 SizedBox(height: 25.h),
-
-                // عرض لودينج أثناء تسجيل الدخول
                 state is LoginLoading
                     ? const Center(child: CircularProgressIndicator())
                     : CustomButton(
                         text: 'Log In',
                         onTap: () {
-                          if (loginKey.currentState == null) {
-                            print("⚠️ تحذير: formKey غير متصل بنموذج Form!");
-                            return;
-                          }
-
-                          if (!loginKey.currentState!.validate()) {
-                            print("❌ بيانات الإدخال غير صالحة");
-                            return;
-                          }
-                        }),
-
+                          cubit.loginUser();
+                        },
+                      ),
                 SizedBox(height: 15.h),
                 const CustomTextSignupwith(),
                 SizedBox(height: 15.h),
@@ -111,18 +102,6 @@ class LoginViewBody extends StatelessWidget {
                   },
                   text: 'Sign Up',
                 ),
-
-                // عرض رسالة خطأ إذا حدثت مشكلة
-                if (state is LoginFailure)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Center(
-                      child: Text(
-                        state.errorMessage,
-                        style: TextStyle(color: Colors.red, fontSize: 16),
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),
