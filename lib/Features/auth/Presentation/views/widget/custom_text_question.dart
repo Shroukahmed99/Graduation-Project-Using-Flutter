@@ -3,19 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomTextQuestion extends StatelessWidget {
-  const CustomTextQuestion({super.key, this.onPress, required this.text});
+  const CustomTextQuestion(
+      {super.key, this.onPress, required this.text, required this.title});
   final void Function()? onPress;
   final String text;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         Text(
-          "Don't have an account?",
+        Text(
+          title,
           style: TextStyle(
-            color: kPrimaryColor,
+            color: Colors.black,
             fontFamily: 'League Spartan',
             fontSize: 14.sp,
             fontWeight: FontWeight.w300,
@@ -27,7 +29,7 @@ class CustomTextQuestion extends StatelessWidget {
           onPressed: onPress,
           child: Text(
             text,
-            style:  TextStyle(
+            style: TextStyle(
               color: kPrimaryColor,
               fontFamily: 'League Spartan',
               fontSize: 14.sp,

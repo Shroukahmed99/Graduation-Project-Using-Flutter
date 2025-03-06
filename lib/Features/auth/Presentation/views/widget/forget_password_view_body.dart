@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/auth/Presentation/views/forget_password_views.dart';
+import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
@@ -29,20 +30,20 @@ class ForgetPasswordViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          // CustomTextField(
-          //   title: 'Enter your email address',
-          //   hintText: 'example@example.com',
-          // ),
+          CustomTextField(
+            controller: TextEditingController(),
+            title: 'Enter your email address',
+            hintText: 'example@example.com',
+          ),
           SizedBox(
             height: 140.h,
           ),
           CustomButton(
-            text: 'Continue',
+            text: 'Send code',
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const SetPasswordView()),
+                MaterialPageRoute(builder: (context) => const OtpView()),
               );
             },
           ),

@@ -27,7 +27,7 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginSuccess) {
           customSnackBar(context, 'Login Successful');
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
+            GoRouter.of(context).pushReplacement(AppRouter.kSuccessView);
           });
         } else if (state is LoginFailure) {
           customSnackBar(
@@ -55,7 +55,7 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 60.h),
                 CustomTextField(
-                  title: 'Email',
+                  title: 'Username or email',
                   hintText: 'Enter your email',
                   controller: cubit.emailController,
                   validator: validateEmail,
@@ -97,6 +97,7 @@ class LoginViewBody extends StatelessWidget {
                   ),
                 ),
                 CustomTextQuestion(
+                  title: 'Don’t have an account? ',
                   onPress: () {
                     GoRouter.of(context).push(AppRouter.kRoleSelectionScreen);
                   },

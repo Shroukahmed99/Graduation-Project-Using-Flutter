@@ -32,7 +32,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
         if (state is SignupSuccess) {
           customSnackBar(context, 'Success');
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViews);
+            GoRouter.of(context).pushReplacement(AppRouter.kSuccessView);
           });
         } else if (state is SignupFailure) {
           customSnackBar(context, state.errorMessage);

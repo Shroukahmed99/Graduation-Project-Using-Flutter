@@ -121,6 +121,7 @@ class SignupViewBody extends StatelessWidget {
               ),
             ),
             CustomTextQuestion(
+              title: 'Already have an account?',
               text: 'Login In',
               onPress: () {
                 Navigator.push(

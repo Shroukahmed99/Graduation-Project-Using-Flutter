@@ -1,8 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
+import 'package:sehatak/Features/auth/Presentation/views/forget_password_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
+import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view.dart';
-import 'package:sehatak/Features/success%20register/introduction_screen.dart';
+import 'package:sehatak/Features/success%20register/otp_success.dart';
+import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
+import 'package:sehatak/Features/Questions/presentation/views/introduction_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/age_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/gender_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/height_views.dart';
@@ -11,7 +15,8 @@ import 'package:sehatak/Features/Questions/presentation/views/physical_activity_
 import 'package:sehatak/Features/Questions/presentation/views/weight_views.dart';
 import 'package:sehatak/Features/Splash/Presentation/views/first_splash_screen.dart';
 import 'package:sehatak/Features/Splash/Presentation/views/second_splash_screen.dart';
-import 'package:sehatak/Features/success%20register/success_viwes.dart';
+import 'package:sehatak/Features/success%20register/set_password_success.dart';
+import 'package:sehatak/Features/success%20register/success_view.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
 
 abstract class AppRouter {
@@ -26,8 +31,14 @@ abstract class AppRouter {
   static const kWhatGoalViews = '/WhatGoalViews';
   static const kPhysicalActivityView = '/PhysicalActivityView';
   static const kSignupView = '/SignupView';
-  static const kSuccessViews = '/SuccessViews';
+  static const kSuccessView = '/SuccessView';
   static const kIntroductionScreen = '/IntroductionScreen';
+  static const kOtpView = '/OtpView';
+  static const kSetPasswordViewBody = '/SetPasswordViewBody';
+  static const kOtpSuccess = '/OtpSuccess';
+  static const kSetPasswordView = '/SetPasswordView';
+  static const kSetPasswordSuccess = '/SetPasswordSuccess';
+
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -79,12 +90,32 @@ abstract class AppRouter {
         builder: (context, state) => const SignupView(),
       ),
       GoRoute(
-        path: kSuccessViews,
-        builder: (context, state) => const SuccessViews(),
+        path: kSuccessView,
+        builder: (context, state) => const SuccessView(),
       ),
       GoRoute(
         path: kIntroductionScreen,
         builder: (context, state) => const IntroductionScreen(),
+      ),
+      GoRoute(
+        path: kOtpView,
+        builder: (context, state) => const OtpView(),
+      ),
+      GoRoute(
+        path: kSetPasswordViewBody,
+        builder: (context, state) => const SetPasswordViewBody(),
+      ),
+      GoRoute(
+        path: kOtpSuccess,
+        builder: (context, state) => const OtpSuccess(),
+      ),
+      GoRoute(
+        path: kSetPasswordView,
+        builder: (context, state) => const SetPasswordView(),
+      ),
+      GoRoute(
+        path: kSetPasswordSuccess,
+        builder: (context, state) => const SetPasswordSuccess(),
       ),
     ],
   );

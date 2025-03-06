@@ -5,8 +5,7 @@ import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
-import '../../core/widget/Custom_Arrow_Icon.dart';
-
+import '../../../../core/widget/Custom_Arrow_Icon.dart';
 
 class IntroductionScreen extends StatelessWidget {
   const IntroductionScreen({super.key});
