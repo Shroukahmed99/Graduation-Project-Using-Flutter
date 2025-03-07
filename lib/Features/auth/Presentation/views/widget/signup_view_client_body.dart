@@ -15,8 +15,8 @@ import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SignupViewBody extends StatelessWidget {
-  SignupViewBody({super.key});
+class SignupViewClientBody extends StatelessWidget {
+  SignupViewClientBody({super.key});
 
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();

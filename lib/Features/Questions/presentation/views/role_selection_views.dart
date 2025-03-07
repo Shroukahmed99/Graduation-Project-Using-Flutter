@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/role%20cubit/role_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
-import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -18,7 +17,6 @@ class RoleSelectionViews extends StatelessWidget {
     return BlocProvider(
       create: (context) => RoleCubit(),
       child: Scaffold(
-        backgroundColor: backgroundColor,
         body: Padding(
           padding: EdgeInsets.only(
             top: 32.h,
@@ -55,6 +53,8 @@ class RoleSelectionViews extends StatelessWidget {
                           context
                               .read<RoleCubit>()
                               .selectRole('Service Provider');
+                          GoRouter.of(context)
+                              .push(AppRouter.kSignupViewService);
                         },
                       ),
                       CustomSizedBox(height: 48.h),
@@ -64,7 +64,8 @@ class RoleSelectionViews extends StatelessWidget {
                         isSelected: isClientSelected, // ✅ غير محدد في البداية
                         onTap: () {
                           context.read<RoleCubit>().selectRole('Client');
-                          GoRouter.of(context).push(AppRouter.kSignupView);
+                          GoRouter.of(context)
+                              .push(AppRouter.kSignupViewClient);
                         },
                       ),
                     ],

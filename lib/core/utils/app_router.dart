@@ -1,9 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/forget_password_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
-import 'package:sehatak/Features/auth/Presentation/views/signup_view.dart';
+import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
+import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
 import 'package:sehatak/Features/success%20register/otp_success.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
 import 'package:sehatak/Features/Questions/presentation/views/introduction_screen.dart';
@@ -30,7 +32,7 @@ abstract class AppRouter {
   static const kRoleSelectionScreen = '/RoleSelectionScreen';
   static const kWhatGoalViews = '/WhatGoalViews';
   static const kPhysicalActivityView = '/PhysicalActivityView';
-  static const kSignupView = '/SignupView';
+  static const kSignupViewClient = '/SignupViewClient';
   static const kSuccessView = '/SuccessView';
   static const kIntroductionScreen = '/IntroductionScreen';
   static const kOtpView = '/OtpView';
@@ -38,6 +40,18 @@ abstract class AppRouter {
   static const kOtpSuccess = '/OtpSuccess';
   static const kSetPasswordView = '/SetPasswordView';
   static const kSetPasswordSuccess = '/SetPasswordSuccess';
+  static const kSignupViewService = '/SignupViewService';
+  static const kJopSelectionView = '/JopSelectionView';
+
+  // static const kLoginView = '/LoginView';
+
+  // static const kLoginView = '/LoginView';
+
+  // static const kLoginView = '/LoginView';
+
+  // static const kLoginView = '/LoginView';
+
+  // static const kLoginView = '/LoginView';
 
   static final router = GoRouter(
     routes: [
@@ -86,8 +100,8 @@ abstract class AppRouter {
         builder: (context, state) => PhysicalActivityView(),
       ),
       GoRoute(
-        path: kSignupView,
-        builder: (context, state) => const SignupView(),
+        path: kSignupViewClient,
+        builder: (context, state) => const SignupViewClient(),
       ),
       GoRoute(
         path: kSuccessView,
@@ -116,6 +130,14 @@ abstract class AppRouter {
       GoRoute(
         path: kSetPasswordSuccess,
         builder: (context, state) => const SetPasswordSuccess(),
+      ),
+      GoRoute(
+        path: kSignupViewService,
+        builder: (context, state) => const SignupViewService(),
+      ),
+      GoRoute(
+        path: kJopSelectionView,
+        builder: (context, state) => const JopSelectionView(),
       ),
     ],
   );

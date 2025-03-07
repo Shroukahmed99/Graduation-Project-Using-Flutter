@@ -89,8 +89,9 @@ class CircleImageTextWidget extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            fontSize: 16.sp,
+            fontSize: 20.sp,
             fontWeight: FontWeight.bold,
+            fontFamily: 'League Spartan',
             color: Colors.black,
           ),
         ),
