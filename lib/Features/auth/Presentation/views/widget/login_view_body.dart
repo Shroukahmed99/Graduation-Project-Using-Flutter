@@ -27,7 +27,7 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginSuccess) {
           customSnackBar(context, 'Login Successful');
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSuccessView);
+            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViewClient);
           });
         } else if (state is LoginFailure) {
           customSnackBar(

@@ -46,7 +46,7 @@ class InsertDataViewBody extends StatelessWidget {
           CustomButton(
             text: 'Continue',
             onTap: () {
-              GoRouter.of(context).push(AppRouter.kInsertDataView);
+              GoRouter.of(context).push(AppRouter.kPriceSelectionView);
             },
           ),
           CustomSizedBox(height: 40.h),
