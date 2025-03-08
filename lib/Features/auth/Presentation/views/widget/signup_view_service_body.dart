@@ -28,50 +28,36 @@ class SignupViewServiceBody extends StatelessWidget {
             const CustomTextAndIconArrowback(text: 'Create Account'),
             SizedBox(height: 12.h),
             const CustomText(title: "Let's start!"),
-            // CustomTextField(
-            //   title: 'Full name',
-            //   hintText: 'Enter your name',
-            //   controller: fullNameController,
-            //   validator: validateFullName,
-            // ),
+            CustomTextField(
+              width: 320.w,
+              title: 'Full name',
+              hintText: 'Enter your name',
+            ),
             SizedBox(height: 5.h),
-            // CustomTextField(
-            //   title: 'Email',
-            //   hintText: 'Enter your email',
-            //   controller: emailController,
-            //   validator: validateEmail,
-            // ),
+            CustomTextField(
+              width: 320.w,
+              title: 'Email',
+              hintText: 'Enter your email',
+            ),
             SizedBox(height: 5.h),
-            // CustomTextField(
-            //   title: 'Mobile number',
-            //   hintText: 'Enter your number',
-            //   controller: mobileNumberController,
-            //   validator: validatePhone,
-            // ),
+            CustomTextField(
+              width: 320.w,
+              title: 'Mobile number',
+              hintText: 'Enter your number',
+            ),
             SizedBox(height: 5.h),
-            // CustomTextField(
-            //   title: 'Password',
-            //   hintText: '*************',
-            //   obscureText: true,
-            //   controller: passwordController,
-            //   validator: validatePassword,
-            // ),
+            CustomTextField(
+              width: 320.w,
+              title: 'Password',
+              hintText: '*************',
+              obscureText: true,
+            ),
             SizedBox(height: 5.h),
-            // CustomTextField(
-            //   title: 'Confirm Password',
-            //   hintText: '*************',
-            //   obscureText: true,
-            //   controller: passwordConfirmController,
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Password confirmation is required';
-            //     }
-            //     if (value != passwordController.text) {
-            //       return 'Passwords do not match';
-            //     }
-            //     return null;
-            //   },
-            // ),
+            CustomTextField(
+              width: 320.w,
+              title: 'Confirm Password',
+              hintText: '*************',
+            ),
             SizedBox(height: 18.h),
             const CustomTextWithSignup(),
             SizedBox(height: 18.h),

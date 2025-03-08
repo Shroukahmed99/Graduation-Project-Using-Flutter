@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Questions/presentation/manger/role%20cubit/role_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -26,27 +24,30 @@ class JopSelectionViewBody extends StatelessWidget {
             answer:
                 'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach',
           ),
-          const CustomSizedBox(height: 62),
-          Row(
-            children: [
-              CircleImageTextWidget(
-                images: const [AssetImage('assets/images/medical-big.png')],
-                text: ' physical therapy',
-                isSelected: false,
-                onTap: () {
-                  //  GoRouter.of(context).push(AppRouter.kSignupViewClient);
-                },
-              ),
-              SizedBox(width: 47.w),
-              CircleImageTextWidget(
-                images: const [AssetImage('assets/images/applebig.png')],
-                text: 'NUTIRION',
-                isSelected: false,
-                onTap: () {
-                  // GoRouter.of(context).push(AppRouter.kSignupViewClient);
-                },
-              ),
-            ],
+          const CustomSizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Row(
+              children: [
+                CircleImageTextWidget(
+                  images: const [AssetImage('assets/images/medical-big.png')],
+                  text: ' physical therapy',
+                  isSelected: false,
+                  onTap: () {
+                    //  GoRouter.of(context).push(AppRouter.kSignupViewClient);
+                  },
+                ),
+                SizedBox(width: 23.w),
+                CircleImageTextWidget(
+                  images: const [AssetImage('assets/images/applebig.png')],
+                  text: 'NUTIRION',
+                  isSelected: false,
+                  onTap: () {
+                    // GoRouter.of(context).push(AppRouter.kSignupViewClient);
+                  },
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 30.h),
           CircleImageTextWidget(
@@ -61,7 +62,7 @@ class JopSelectionViewBody extends StatelessWidget {
           CustomButton(
             text: 'Continue',
             onTap: () {
-              GoRouter.of(context).push(AppRouter.kHieghtViews);
+              GoRouter.of(context).push(AppRouter.kGenderSelectionViewService);
             },
           ),
           CustomSizedBox(height: 40.h),

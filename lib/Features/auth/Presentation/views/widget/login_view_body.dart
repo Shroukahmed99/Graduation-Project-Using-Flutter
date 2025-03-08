@@ -55,6 +55,7 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 60.h),
                 CustomTextField(
+                  width: 320.w,
                   title: 'Username or email',
                   hintText: 'Enter your email',
                   controller: cubit.emailController,
@@ -62,6 +63,7 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 SizedBox(height: 10.h),
                 CustomTextField(
+                  width: 320.w,
                   title: 'Password',
                   hintText: '*************',
                   obscureText: true,

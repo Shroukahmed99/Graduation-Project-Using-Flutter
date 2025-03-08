@@ -29,17 +29,19 @@ class SetPasswordViewBody extends StatelessWidget {
           SizedBox(
             height: 60.h,
           ),
-          // CustomTextField(
-          //   title: 'Password',
-          //   hintText: '*************',
-          // ),
+          CustomTextField(
+            width: 320.w,
+            title: 'Password',
+            hintText: '*************',
+          ),
           SizedBox(
             height: 10.h,
           ),
-          // CustomTextField(
-          //   title: 'Confirm Password',
-          //   hintText: '*************',
-          // ),
+          CustomTextField(
+            width: 320.w,
+            title: 'Confirm Password',
+            hintText: '*************',
+          ),
           SizedBox(
             height: 90.h,
           ),

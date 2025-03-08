@@ -15,6 +15,7 @@ class CustomQuestionAndAswer extends StatelessWidget {
         Text(
           question,
           style: TextStyle(
+            fontFamily: 'League Spartan',
             fontSize: 30.sp,
             fontWeight: FontWeight.bold,
             color: kPrimaryColor,

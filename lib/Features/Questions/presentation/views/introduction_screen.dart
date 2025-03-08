@@ -67,7 +67,7 @@ class IntroductionScreen extends StatelessWidget {
           CustomButton(
               text: 'Next',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kGenderSelectionScreen);
+                //   GoRouter.of(context).push(AppRouter.kGenderSelectionView);
               }),
           SizedBox(height: 40.h),
         ],

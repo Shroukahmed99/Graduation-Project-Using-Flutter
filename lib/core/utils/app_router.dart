@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/views/gender_selection_view_service.dart';
+import 'package:sehatak/Features/Questions/presentation/views/insert_cv_view.dart';
+import 'package:sehatak/Features/Questions/presentation/views/insert_data_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/forget_password_views.dart';
@@ -10,7 +13,7 @@ import 'package:sehatak/Features/success%20register/otp_success.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
 import 'package:sehatak/Features/Questions/presentation/views/introduction_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/age_selection_views.dart';
-import 'package:sehatak/Features/Questions/presentation/views/gender_selection_views.dart';
+import 'package:sehatak/Features/Questions/presentation/views/gender_selection_view_client.dart';
 import 'package:sehatak/Features/Questions/presentation/views/height_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/role_selection_views.dart';
 import 'package:sehatak/Features/Questions/presentation/views/physical_activity_view.dart';
@@ -25,7 +28,7 @@ abstract class AppRouter {
   static const kSecondSplashScreen = "/SecondSplashScreen";
   static const kOnBoardingView = '/OnBoardingView';
   static const kLoginView = '/LoginView';
-  static const kGenderSelectionScreen = '/GenderSelectionScreen';
+  static const kGenderSelectionViewClient = '/GenderSelectionViewClient';
   static const kAgeSelectionScreen = '/AgeSelectionScreen';
   static const kWieghtViews = '/WieghtViews';
   static const kHieghtViews = '/HieghtViews';
@@ -42,12 +45,11 @@ abstract class AppRouter {
   static const kSetPasswordSuccess = '/SetPasswordSuccess';
   static const kSignupViewService = '/SignupViewService';
   static const kJopSelectionView = '/JopSelectionView';
+  static const kGenderSelectionViewService = '/GenderSelectionViewService';
 
-  // static const kLoginView = '/LoginView';
+  static const kInsertCvView = '/InsertCvView';
 
-  // static const kLoginView = '/LoginView';
-
-  // static const kLoginView = '/LoginView';
+  static const kInsertDataView = '/InsertDataView';
 
   // static const kLoginView = '/LoginView';
 
@@ -72,8 +74,8 @@ abstract class AppRouter {
         builder: (context, state) => const LoginView(),
       ),
       GoRoute(
-        path: kGenderSelectionScreen,
-        builder: (context, state) => const GenderSelectionView(),
+        path: kGenderSelectionViewClient,
+        builder: (context, state) => const GenderSelectionViewClient(),
       ),
       GoRoute(
         path: kAgeSelectionScreen,
@@ -138,6 +140,18 @@ abstract class AppRouter {
       GoRoute(
         path: kJopSelectionView,
         builder: (context, state) => const JopSelectionView(),
+      ),
+      GoRoute(
+        path: kGenderSelectionViewService,
+        builder: (context, state) => const GenderSelectionViewService(),
+      ),
+      GoRoute(
+        path: kInsertCvView,
+        builder: (context, state) => const InsertCvView(),
+      ),
+      GoRoute(
+        path: kInsertDataView,
+        builder: (context, state) => const InsertDataView(),
       ),
     ],
   );

@@ -52,6 +52,7 @@ class SignupViewClientBody extends StatelessWidget {
             SizedBox(height: 12.h),
             const CustomText(title: "Let's start!"),
             CustomTextField(
+              width: 320.w,
               title: 'Full name',
               hintText: 'Enter your name',
               controller: fullNameController,
@@ -59,6 +60,7 @@ class SignupViewClientBody extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             CustomTextField(
+              width: 320.w,
               title: 'Email',
               hintText: 'Enter your email',
               controller: emailController,
@@ -66,6 +68,7 @@ class SignupViewClientBody extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             CustomTextField(
+              width: 320.w,
               title: 'Mobile number',
               hintText: 'Enter your number',
               controller: mobileNumberController,
@@ -73,6 +76,7 @@ class SignupViewClientBody extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             CustomTextField(
+              width: 320.w,
               title: 'Password',
               hintText: '*************',
               obscureText: true,
@@ -81,6 +85,7 @@ class SignupViewClientBody extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             CustomTextField(
+              width: 320.w,
               title: 'Confirm Password',
               hintText: '*************',
               obscureText: true,
@@ -103,7 +108,8 @@ class SignupViewClientBody extends StatelessWidget {
               onTap: () {
                 if (signupKey.currentState!.validate()) {
                   saveData();
-                  GoRouter.of(context).push(AppRouter.kGenderSelectionScreen);
+                  GoRouter.of(context)
+                      .push(AppRouter.kGenderSelectionViewClient);
                 }
               },
             ),

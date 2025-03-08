@@ -8,21 +8,23 @@ class CustomTextField extends StatelessWidget {
     required this.title,
     this.onChanged,
     this.obscureText = false,
-    required this.controller,
+    this.controller,
     this.validator,
+    required this.width,
   });
 
   final String? hintText;
   final String title;
   final Function(String)? onChanged;
   final bool obscureText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final double width; // ✅ متغير لعرض الحقل
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // محاذاة النص للحقل
+      crossAxisAlignment: CrossAxisAlignment.start, // ✅ ضمان بدء النص من اليسار
       children: [
         Text(
           title,
@@ -32,66 +34,69 @@ class CustomTextField extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 5.h), // مسافة بين العنوان والحقل
-        SizedBox(
-          width: 320.w, // عرض الحقل
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 45.h, // ✅ تثبيت الارتفاع حتى عند ظهور رسالة الخطأ
-                child: TextFormField(
-                  controller: controller,
-                  obscureText: obscureText,
-                  validator: validator,
-                  onChanged: onChanged,
-                  decoration: InputDecoration(
-                    hintText: hintText,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.white,
-                        width: 1,
+        SizedBox(height: 5.h),
+        Align(
+          alignment:
+              AlignmentDirectional.centerStart, // ✅ بداية العنصر من اليسار
+          child: SizedBox(
+            width: width, // ✅ عرض الحقل القابل للتخصيص
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 45.h,
+                  child: TextFormField(
+                    controller: controller,
+                    obscureText: obscureText,
+                    validator: validator,
+                    onChanged: onChanged,
+                    textAlign: TextAlign.start, // ✅ ضمان أن النص يبدأ من اليسار
+                    decoration: InputDecoration(
+                      hintText: hintText,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.white,
-                        width: 1,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
                       ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.white,
-                        width: 1,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        ),
                       ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.red, // ✅ لون أحمر عند الخطأ
-                        width: 1,
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                          width: 1,
+                        ),
                       ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 12.h, // ✅ إبقاء الحقل بنفس الارتفاع دائمًا
-                    ),
-                    errorStyle: TextStyle(
-                      fontSize: 12.sp, // ✅ تثبيت حجم الخطأ حتى لا يكبر الحقل
-                      height: 0.4, // ✅ تقليل المسافة بين الحقل والخطأ
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 12.h,
+                      ),
+                      errorStyle: TextStyle(
+                        fontSize: 12.sp,
+                        height: 0.4,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                  height:
-                      5.h), // ✅ مسافة صغيرة لرسالة الخطأ دون التأثير على الحقل
-            ],
+                SizedBox(height: 5.h),
+              ],
+            ),
           ),
         ),
       ],

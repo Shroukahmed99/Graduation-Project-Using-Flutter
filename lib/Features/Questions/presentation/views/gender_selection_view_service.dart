@@ -10,8 +10,8 @@ import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class GenderSelectionView extends StatelessWidget {
-  const GenderSelectionView({super.key});
+class GenderSelectionViewService extends StatelessWidget {
+  const GenderSelectionViewService({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,7 @@ class GenderSelectionView extends StatelessWidget {
                     text: 'Continue',
                     onTap: isButtonEnabled
                         ? () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kAgeSelectionScreen);
+                            GoRouter.of(context).push(AppRouter.kInsertCvView);
                           }
                         : null, // ✅ الزر يكون معطلاً حتى يختار المستخدم الجنس
                   );
