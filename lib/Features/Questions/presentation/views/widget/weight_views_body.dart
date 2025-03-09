@@ -34,12 +34,10 @@ class WeightViewsBody extends StatelessWidget {
             ),
             CustomSizedBox(height: 35.h),
             CustomSliderWidget(
-              start: 20, // يبدأ من 10
-              end: 400, // ينتهي عند 100
-              step: 1, // يزيد كل مرة بمقدار 5
-              unitSymbol: 'Kg',
-
+              dates: List.generate(
+                  381, (index) => 20 + index), // توليد الأرقام من 20 إلى 400
               selectedDate: selectedWeight,
+              unitSymbol: 'Kg',
               onDateSelected: (weight) {
                 context.read<WeightCubit>().selectWeight(weight);
               },

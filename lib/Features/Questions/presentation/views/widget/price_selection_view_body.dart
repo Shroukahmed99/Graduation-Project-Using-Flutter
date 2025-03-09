@@ -33,16 +33,16 @@ class PriceSelectionViewBody extends StatelessWidget {
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             ),
             CustomSizedBox(height: 35.h),
-            CustomSliderWidget(
-              start: 2000, // يبدأ من 10
-              end: 90000, // ينتهي عند 100
-              step: 100, // يزيد كل مرة بمقدار 5
+            // CustomSliderWidget(
+            //   start: 2000, // يبدأ من 10
+            //   end: 90000, // ينتهي عند 100
+            //   step: 100, // يزيد كل مرة بمقدار 5
 
-              selectedDate: selectedWeight,
-              onDateSelected: (weight) {
-                context.read<WeightCubit>().selectWeight(weight);
-              },
-            ),
+            //   selectedDate: selectedWeight,
+            //   onDateSelected: (weight) {
+            //     context.read<WeightCubit>().selectWeight(weight);
+            //   },
+            // ),
             const Spacer(),
             CustomButton(
               text: 'Continue',

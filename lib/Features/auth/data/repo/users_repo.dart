@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
+import 'package:sehatak/Features/auth/data/model/otp_model.dart';
+import 'package:sehatak/Features/auth/data/model/set_password.dart';
 import 'package:sehatak/core/error/failure.dart';
 
 @override
@@ -20,5 +23,17 @@ abstract class UsersRepo {
   Future<Either<Failure, UsersModel>> loginUser({
     required String email,
     required String password,
+  });
+  Future<Either<Failure, ForgetPasswordModel>> forgetUser({
+    required String email,
+  });
+  Future<Either<Failure, OtpModel>> otpUser({
+    required String resetCode,
+  });
+  Future<Either<Failure, SetPassword>> setPassword({
+    // ✅ تعديل الاسم لـ setPassword
+    required String password,
+    required String passwordConfirm,
+    //required String userId,
   });
 }

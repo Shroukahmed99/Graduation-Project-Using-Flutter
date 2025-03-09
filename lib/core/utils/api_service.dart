@@ -87,4 +87,24 @@ class ApiService {
       throw Exception("Failed to connect to API");
     }
   }
+
+  Future<Response> patch(
+      {required String endpoint, required Map<String, dynamic> data}) async {
+    try {
+      String fullUrl = "$baseUrl$endpoint"; // دمج `baseUrl` مع `endpoint`
+      print("📡 PATCH request to: $fullUrl");
+      print("📦 Data sent: $data");
+
+      Response response = await dio.patch(
+        fullUrl,
+        data: data,
+        options: Options(headers: {"Content-Type": "application/json"}),
+      );
+
+      return response;
+    } catch (e) {
+      print("❌ API Error: $e");
+      throw Exception("Failed to connect to API");
+    }
+  }
 }

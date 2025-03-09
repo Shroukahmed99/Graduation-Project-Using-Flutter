@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sehatak/Features/auth/Presentation/manger/cubit/sign_in_state.dart';
+import 'package:sehatak/Features/auth/Presentation/manger/sign%20in/sign_in_state.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
-import 'package:sehatak/Features/auth/data/repo/sign_up_repo.dart';
+import 'package:sehatak/Features/auth/data/repo/users_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 

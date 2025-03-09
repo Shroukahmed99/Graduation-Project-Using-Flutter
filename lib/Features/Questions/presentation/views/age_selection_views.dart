@@ -37,9 +37,8 @@ class AgeSelectionViews extends StatelessWidget {
                 int selectedAge = state is AgeSelected ? state.age : 25;
 
                 return CustomSliderWidget(
-                  start: 10,
-                  end: 80,
-                  step: 1,
+                  dates: List.generate(381,
+                      (index) => 20 + index), // توليد الأرقام من 20 إلى 400
                   selectedDate: selectedAge,
                   onDateSelected: (date) {
                     context.read<AgeCubit>().selectAge(date);

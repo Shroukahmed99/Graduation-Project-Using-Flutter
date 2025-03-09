@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // ✅ ضمان بدء النص من اليسار
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
@@ -36,10 +36,9 @@ class CustomTextField extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Align(
-          alignment:
-              AlignmentDirectional.centerStart, // ✅ بداية العنصر من اليسار
+          alignment: AlignmentDirectional.centerStart,
           child: SizedBox(
-            width: width, // ✅ عرض الحقل القابل للتخصيص
+            width: width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,7 +49,7 @@ class CustomTextField extends StatelessWidget {
                     obscureText: obscureText,
                     validator: validator,
                     onChanged: onChanged,
-                    textAlign: TextAlign.start, // ✅ ضمان أن النص يبدأ من اليسار
+                    textAlign: TextAlign.start,
                     decoration: InputDecoration(
                       hintText: hintText,
                       border: OutlineInputBorder(

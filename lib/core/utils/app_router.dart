@@ -5,7 +5,7 @@ import 'package:sehatak/Features/Questions/presentation/views/insert_data_view.d
 import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/price_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
-import 'package:sehatak/Features/auth/Presentation/views/forget_password_views.dart';
+import 'package:sehatak/Features/auth/Presentation/views/set_password_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
@@ -116,7 +116,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kSetPasswordViewBody,
-        builder: (context, state) => const SetPasswordViewBody(),
+        builder: (context, state) => SetPasswordViewBody(),
       ),
       GoRoute(
         path: kOtpSuccess,

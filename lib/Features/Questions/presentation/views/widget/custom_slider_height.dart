@@ -17,12 +17,12 @@ class CustomSliderHeight extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomSliderWidgetState createState() => _CustomSliderWidgetState();
+  _CustomSliderHeightState createState() => _CustomSliderHeightState();
 }
 
-class _CustomSliderWidgetState extends State<CustomSliderHeight> {
+class _CustomSliderHeightState extends State<CustomSliderHeight> {
   late ScrollController _scrollController;
-  int _currentSelectedDate = 0;
+  late int _currentSelectedDate;
 
   @override
   void initState() {
@@ -31,20 +31,15 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
     _currentSelectedDate = widget.selectedDate;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final double itemHeight = 60.h;
-      final double middlePosition =
-          (widget.dates.indexOf(_currentSelectedDate) * itemHeight);
-      _scrollController.jumpTo(middlePosition - 150.h + (itemHeight / 2));
+      _jumpToInitialPosition();
     });
-
-    _scrollController.addListener(_updateSelectedDate);
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_updateSelectedDate);
-    _scrollController.dispose();
-    super.dispose();
+  void _jumpToInitialPosition() {
+    final double itemHeight = 60.h;
+    final double middlePosition =
+        (widget.dates.indexOf(_currentSelectedDate) * itemHeight);
+    _scrollController.jumpTo(middlePosition - 150.h + (itemHeight / 2));
   }
 
   void _updateSelectedDate() {
@@ -66,6 +61,9 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
 
     setState(() {
       _currentSelectedDate = closestDate;
+      if (widget.onDateSelected != null) {
+        widget.onDateSelected!(_currentSelectedDate);
+      }
     });
   }
 
@@ -110,7 +108,6 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-
             SizedBox(
               height: 300.h,
               child: NotificationListener<ScrollNotification>(
@@ -127,12 +124,7 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     final date = widget.dates[index];
-                    final int distanceFromCenter =
-                        (date - _currentSelectedDate).abs();
-
-                    double opacity = distanceFromCenter == 0
-                        ? 1.0
-                        : (1.0 - (distanceFromCenter * 0.15)).clamp(0.3, 0.8);
+                    final bool isSelected = date == _currentSelectedDate;
 
                     return Center(
                       child: Text(
@@ -140,9 +132,7 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                         style: TextStyle(
                           fontSize: 32.sp,
                           fontWeight: FontWeight.bold,
-                          color: date == _currentSelectedDate
-                              ? secondaryColor
-                              : Colors.black,
+                          color: isSelected ? secondaryColor : Colors.black,
                         ),
                       ),
                     );
@@ -150,7 +140,6 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                 ),
               ),
             ),
-
             Positioned(
               child: Container(
                 width: 100.w,
@@ -163,8 +152,6 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
                 ),
               ),
             ),
-
-            // **السهم في منتصف يمين الشاشة**
             Positioned(
               right: 90.w,
               child: const Icon(
@@ -177,5 +164,11 @@ class _CustomSliderWidgetState extends State<CustomSliderHeight> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

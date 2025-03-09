@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
-import 'package:sehatak/Features/auth/data/repo/sign_up_repo.dart';
+import 'package:sehatak/Features/auth/data/model/otp_model.dart';
+import 'package:sehatak/Features/auth/data/model/set_password.dart';
+import 'package:sehatak/Features/auth/data/repo/users_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
@@ -85,6 +88,92 @@ class UsersRepoImpl implements UsersRepo {
 
         UsersModel loginModel = UsersModel.fromJson(response.data["data"]);
         return Right(loginModel);
+      } else {
+        return Left(ServerFailure(response.data["message"]));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ForgetPasswordModel>> forgetUser({
+    required String email,
+  }) async {
+    try {
+      Response response = await apiService.post(
+        endpoint: "forgetPassword",
+        data: {
+          "email": email,
+        },
+      );
+
+      if (response.data["status"] == "success") {
+        ForgetPasswordModel forgetPasswordModel =
+            ForgetPasswordModel.fromJson(response.data);
+        return Right(forgetPasswordModel);
+      } else {
+        return Left(ServerFailure(response.data["message"]));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  /// ✅ تنفيذ التحقق من كود OTP
+  @override
+  Future<Either<Failure, OtpModel>> otpUser({required String resetCode}) async {
+    try {
+      Response response = await apiService.post(
+        endpoint: "verifyOTP",
+        data: {
+          "resetCode": resetCode,
+        },
+      );
+
+      if (response.data["status"] == "success") {
+        OtpModel otpModel = OtpModel.fromJson(response.data);
+
+        // ✅ حفظ userId
+        CacheHelper.saveData(key: 'userId', value: otpModel.userId);
+
+        // ✅ طباعة القيم المخزنة للتأكد
+        String? checkUserId = CacheHelper.getData(key: 'userId');
+        print("✅ Verified userId after saving: $checkUserId");
+
+        return Right(otpModel);
+      } else {
+        return Left(ServerFailure(response.data["message"]));
+      }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, SetPassword>> setPassword({
+    required String password,
+    required String passwordConfirm,
+  }) async {
+    try {
+      String? userId = CacheHelper.getData(key: 'userId');
+      print("🔍 Retrieved userId before sending request: $userId");
+
+      if (userId == null || userId.isEmpty) {
+        print("❌ Error: User ID is missing or invalid!");
+        return Left(ServerFailure("User ID is invalid"));
+      }
+
+      Response response = await apiService.patch(
+        endpoint: "resetPassword/$userId",
+        data: {
+          "password": password,
+          "passwordConfirm": passwordConfirm,
+        },
+      );
+
+      if (response.data["status"] == "success") {
+        print("✅ Password reset successful!");
+        return Right(SetPassword.fromJson(response.data));
       } else {
         return Left(ServerFailure(response.data["message"]));
       }
