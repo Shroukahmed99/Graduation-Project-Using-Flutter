@@ -8,6 +8,7 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
@@ -39,6 +40,7 @@ class SetPasswordViewBody extends StatelessWidget {
             title: 'Password',
             hintText: '*************',
             obscureText: true,
+            validator: validatePassword,
           ),
           SizedBox(height: 10.h),
           CustomTextField(
@@ -47,6 +49,15 @@ class SetPasswordViewBody extends StatelessWidget {
             title: 'Confirm Password',
             hintText: '*************',
             obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Password confirmation is required';
+              }
+              if (value != passwordController.text) {
+                return 'Passwords do not match';
+              }
+              return null;
+            },
           ),
           SizedBox(height: 90.h),
           BlocConsumer<SetPasswordCubit, SetPasswordState>(

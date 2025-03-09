@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +45,15 @@ class InsertDataViewBody extends StatelessWidget {
             width: 320,
             hintText: 'Add Text',
           ),
+          CVUploader(
+            onFileSelected: (File? file) {
+              if (file != null) {
+                print("تم اختيار الملف: ${file.path}");
+              } else {
+                print("لم يتم اختيار أي ملف");
+              }
+            },
+          ),
           const Spacer(),
           CustomButton(
             text: 'Continue',
@@ -52,6 +64,71 @@ class InsertDataViewBody extends StatelessWidget {
           CustomSizedBox(height: 40.h),
         ],
       ),
+    );
+  }
+}
+
+class CVUploader extends StatefulWidget {
+  final Function(File?) onFileSelected; // تمرير الملف المُختار
+
+  const CVUploader({Key? key, required this.onFileSelected}) : super(key: key);
+
+  @override
+  _CVUploaderState createState() => _CVUploaderState();
+}
+
+class _CVUploaderState extends State<CVUploader> {
+  File? _cvFile; // تخزين الملف المختار
+
+  Future<void> _pickCVFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx'], // السماح بملفات CV فقط
+    );
+
+    if (result != null) {
+      setState(() {
+        _cvFile = File(result.files.single.path!);
+      });
+      widget.onFileSelected(_cvFile); // إرجاع الملف للمُستدعي
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // 🔹 عرض اسم الملف أو رسالة في حالة عدم الاختيار
+        _cvFile != null
+            ? ListTile(
+                leading: Icon(Icons.insert_drive_file,
+                    size: 50, color: Colors.white),
+                title: Text(_cvFile!.path.split('/').last), // عرض اسم الملف فقط
+                subtitle: Text("File selected successfully"),
+              )
+            : Text("No file selected", style: TextStyle(fontSize: 16)),
+
+        SizedBox(height: 10),
+
+        // 🔹 زر رفع الملف
+        ElevatedButton.icon(
+          icon: Icon(Icons.upload_file),
+          label: Text(
+            "Upload CV",
+            style: TextStyle(color: Colors.black),
+          ),
+          onPressed: _pickCVFile,
+        ),
+
+        // 🔹 زر لإعادة تحميل ملف آخر
+        if (_cvFile != null) ...[
+          SizedBox(height: 10),
+          TextButton(
+            child: Text("Select Another File"),
+            onPressed: _pickCVFile,
+          ),
+        ],
+      ],
     );
   }
 }

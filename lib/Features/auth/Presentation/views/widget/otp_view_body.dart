@@ -37,16 +37,7 @@ class _OtpViewBodyState extends State<OtpViewBody> {
                 'Yorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,',
           ),
           SizedBox(height: 43.h),
-
-          /// ✅ استخدام `OtpForm` مع تمرير دالة `onOtpComplete`
-          OtpForm(
-            onOtpComplete: (code) {
-              setState(() {
-                otpCode = code;
-              });
-            },
-          ),
-
+          const OtpForm(),
           SizedBox(height: 43.h),
           BlocConsumer<OtpCubit, OtpState>(
             listener: (context, state) {
@@ -62,14 +53,7 @@ class _OtpViewBodyState extends State<OtpViewBody> {
                 onTap: state is OtpLoading
                     ? null
                     : () {
-                        if (otpCode.length == 5) {
-                          context.read<OtpCubit>().verifyOtp(otpCode);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Please enter a valid OTP')),
-                          );
-                        }
+                        context.read<OtpCubit>().verifyOtp();
                       },
               );
             },

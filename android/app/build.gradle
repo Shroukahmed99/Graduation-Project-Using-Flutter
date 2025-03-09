@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    compileSdk = 35
     namespace = "com.example.sehatak"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
