@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/views/age_selection_view_service.dart';
 import 'package:sehatak/Features/Questions/presentation/views/gender_selection_view_service.dart';
-import 'package:sehatak/Features/Questions/presentation/views/insert_cv_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/insert_data_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/price_selection_view.dart';
@@ -47,10 +47,10 @@ abstract class AppRouter {
   static const kSignupViewService = '/SignupViewService';
   static const kJopSelectionView = '/JopSelectionView';
   static const kGenderSelectionViewService = '/GenderSelectionViewService';
-  static const kInsertCvView = '/InsertCvView';
   static const kInsertDataView = '/InsertDataView';
   static const kSuccessViewService = '/SuccessViewService';
   static const kPriceSelectionView = '/PriceSelectionView';
+  static const kAgeSelectionViewService = '/AgeSelectionViewService';
 
   static final router = GoRouter(
     routes: [
@@ -143,10 +143,6 @@ abstract class AppRouter {
         builder: (context, state) => const GenderSelectionViewService(),
       ),
       GoRoute(
-        path: kInsertCvView,
-        builder: (context, state) => const InsertCvView(),
-      ),
-      GoRoute(
         path: kInsertDataView,
         builder: (context, state) => const InsertDataView(),
       ),
@@ -157,6 +153,10 @@ abstract class AppRouter {
       GoRoute(
         path: kPriceSelectionView,
         builder: (context, state) => const PriceSelectionView(),
+      ),
+      GoRoute(
+        path: kAgeSelectionViewService,
+        builder: (context, state) => const AgeSelectionViewService(),
       ),
     ],
   );

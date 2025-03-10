@@ -2,45 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_slider_widget.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class InsertCvViewBody extends StatelessWidget {
-  const InsertCvViewBody({super.key});
+class AgeSelectionViewService extends StatelessWidget {
+  const AgeSelectionViewService({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 32.h, left: 24.w),
-      child: Column(
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomArrowBack(text: 'Back'),
+          Padding(
+            padding: EdgeInsets.only(top: 32.h, left: 24.w),
+            child: const CustomArrowBack(text: 'Back'),
+          ),
           CustomSizedBox(height: 25.h),
           const CustomQuestionAndAswer(
-            question: 'Insert your cv and  certificates',
+            question: 'What’s Your Age?',
             answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
           ),
-          SizedBox(
-            height: 105.h,
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/cv.png',
-                    width: 144,
-                    height: 144,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          CustomSizedBox(height: 35.h),
+          // CustomSliderWidget(
+          //   dates: List.generate(381, (index) => 20 + index),
+          //   selectedDate: selectedAge,
+          //   onDateSelected: (date) {
+          //     // هنا يمكن استدعاء دالة لتحديث العمر المختار بدون Bloc
+          //   },
+          // ),
           const Spacer(),
           CustomButton(
             text: 'Continue',

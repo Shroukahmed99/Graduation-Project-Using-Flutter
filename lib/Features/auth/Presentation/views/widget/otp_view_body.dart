@@ -12,15 +12,8 @@ import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
-class OtpViewBody extends StatefulWidget {
+class OtpViewBody extends StatelessWidget {
   const OtpViewBody({super.key});
-
-  @override
-  _OtpViewBodyState createState() => _OtpViewBodyState();
-}
-
-class _OtpViewBodyState extends State<OtpViewBody> {
-  String otpCode = "";
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +30,7 @@ class _OtpViewBodyState extends State<OtpViewBody> {
                 'Yorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,',
           ),
           SizedBox(height: 43.h),
-          const OtpForm(),
+          OtpForm(),
           SizedBox(height: 43.h),
           BlocConsumer<OtpCubit, OtpState>(
             listener: (context, state) {

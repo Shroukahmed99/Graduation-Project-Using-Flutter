@@ -68,7 +68,8 @@ class GenderSelectionViewService extends StatelessWidget {
                     text: 'Continue',
                     onTap: isButtonEnabled
                         ? () {
-                            GoRouter.of(context).push(AppRouter.kInsertCvView);
+                            GoRouter.of(context)
+                                .push(AppRouter.kAgeSelectionViewService);
                           }
                         : null, // ✅ الزر يكون معطلاً حتى يختار المستخدم الجنس
                   );
