@@ -4,25 +4,30 @@ import 'package:sehatak/core/utils/cache_helper.dart';
 part 'age_state.dart';
 
 class AgeCubit extends Cubit<AgeState> {
+  int _selectedAge = 25; // ✅ متغير لتخزين القيمة المحددة حاليًا
+
   AgeCubit() : super(AgeInitial()) {
-    loadSavedAge(); // ✅ تحميل العمر عند تشغيل التطبيق
+    loadSavedAge();
   }
 
   Future<void> loadSavedAge() async {
     String? savedAgeData = CacheHelper.getData(key: 'age') as String?;
-    print('🔹 Retrieved Age from Cache: $savedAgeData'); 
-
-    int savedAge = int.tryParse(savedAgeData ?? '') ?? 25; // تحويل String إلى int مع قيمة افتراضية
-    emit(AgeSelected(savedAge)); 
+    int savedAge = int.tryParse(savedAgeData ?? '') ?? 25;
+    _selectedAge = savedAge; // ✅ تحديث القيمة الافتراضية
+    print('🔹 Retrieved Age from Cache: $_selectedAge');
+    emit(AgeSelected(_selectedAge));
   }
 
-  Future<void> selectAge(int age) async {
-    String ageString = age.toString(); // ✅ تحويل العمر إلى String قبل التخزين
-    bool isSaved = await CacheHelper.saveData(key: 'age', value: ageString);
-    print('✅ Age Saved: $isSaved, Value: $ageString');
+  void updateSelectedAge(int age) {
+    _selectedAge = age; // ✅ تحديث القيمة المخزنة
+    print('📌 Selected Age: $_selectedAge');
+    emit(AgeSelected(_selectedAge)); // ✅ تحديث الواجهة
+  }
 
+  Future<void> saveSelectedAge() async {
+    bool isSaved = await CacheHelper.saveData(key: 'age', value: _selectedAge.toString());
     if (isSaved) {
-      emit(AgeSelected(age)); // ✅ تحديث الحالة عند نجاح الحفظ
+      print('✅ Saved Age in Cache: $_selectedAge'); // ✅ طباعة العمر الفعلي المخزن
     } else {
       print('❌ Failed to save age');
     }

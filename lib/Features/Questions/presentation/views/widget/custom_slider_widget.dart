@@ -67,9 +67,14 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
       }
     }
 
-    setState(() {
-      _currentSelectedDate = closestDate;
-    });
+    if (_currentSelectedDate != closestDate) {
+      setState(() {
+        _currentSelectedDate = closestDate;
+      });
+      if (widget.onDateSelected != null) {
+        widget.onDateSelected!(_currentSelectedDate);
+      }
+    }
   }
 
   @override
@@ -87,7 +92,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            if (widget.unitSymbol != null) // إضافة رمز الرقم إن وجد
+            if (widget.unitSymbol != null)
               Padding(
                 padding: EdgeInsets.only(left: 8.w),
                 child: Text(
@@ -119,27 +124,17 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                 itemCount: widget.dates.length,
                 itemBuilder: (context, index) {
                   final date = widget.dates[index];
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _currentSelectedDate = date;
-                      });
-                      if (widget.onDateSelected != null) {
-                        widget.onDateSelected!(date);
-                      }
-                    },
-                    child: Container(
-                      width: 60.w,
-                      alignment: Alignment.center,
-                      child: Text(
-                        date.toString(),
-                        style: TextStyle(
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.bold,
-                          color: date == _currentSelectedDate
-                              ? secondaryColor
-                              : Colors.black,
-                        ),
+                  return Container(
+                    width: 60.w,
+                    alignment: Alignment.center,
+                    child: Text(
+                      date.toString(),
+                      style: TextStyle(
+                        fontSize: 30.sp,
+                        fontWeight: FontWeight.bold,
+                        color: date == _currentSelectedDate
+                            ? secondaryColor
+                            : Colors.black,
                       ),
                     ),
                   );

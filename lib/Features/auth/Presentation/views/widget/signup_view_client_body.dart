@@ -21,18 +21,22 @@ class SignupViewClientBody extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController = TextEditingController();
+  final TextEditingController passwordConfirmController =
+      TextEditingController();
   final GlobalKey<FormState> signupKey = GlobalKey();
 
   Future<void> saveData(BuildContext context) async {
     await CacheHelper.saveData(key: 'fullName', value: fullNameController.text);
     await CacheHelper.saveData(key: 'email', value: emailController.text);
-    await CacheHelper.saveData(key: 'mobileNumber', value: mobileNumberController.text);
+    await CacheHelper.saveData(
+        key: 'mobileNumber', value: mobileNumberController.text);
     await CacheHelper.saveData(key: 'password', value: passwordController.text);
+    await CacheHelper.saveData(
+        key: 'passwordConfirm', value: passwordConfirmController.text);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Sign-up successful! ✅")),
-    );
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   const SnackBar(content: Text("Sign-up successful! ✅")),
+    // );
 
     // ✅ تنظيف الحقول بعد التسجيل
     fullNameController.clear();
@@ -92,6 +96,10 @@ class SignupViewClientBody extends StatelessWidget {
               hintText: '*************',
               obscureText: true,
               controller: passwordConfirmController,
+              onChanged: (value) {
+                debugPrint(
+                    "Updated Confirm Password: $value"); // ✅ للتأكد إنه بيتحدث
+              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Password confirmation is required';
@@ -110,7 +118,11 @@ class SignupViewClientBody extends StatelessWidget {
               onTap: () {
                 if (signupKey.currentState!.validate()) {
                   saveData(context);
-                  GoRouter.of(context).push(AppRouter.kGenderSelectionViewClient);
+                  debugPrint("Password: ${passwordController.text}");
+                  debugPrint(
+                      "Confirm Password: ${passwordConfirmController.text}");
+                  GoRouter.of(context)
+                      .push(AppRouter.kGenderSelectionViewClient);
                 }
               },
             ),

@@ -31,30 +31,37 @@ class AgeSelectionViews extends StatelessWidget {
               answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             ),
             CustomSizedBox(height: 35.h),
+
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
                 int selectedAge = state is AgeSelected ? state.age : 25;
 
                 return CustomSliderWidget(
-                  dates: List.generate(381, (index) => 20 + index), 
+                  dates: List.generate(381, (index) => 20 + index),
                   selectedDate: selectedAge,
                   onDateSelected: (date) {
-                    context.read<AgeCubit>().selectAge(date);
+                    context.read<AgeCubit>().updateSelectedAge(date); // ✅ تحديث العمر المختار
                   },
                 );
               },
             ),
+
             const Spacer(),
+
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
                 return CustomButton(
                   text: 'Continue',
-                  onTap: () {
+                  onTap: () async {
+                    final ageCubit = context.read<AgeCubit>();
+                    await ageCubit.saveSelectedAge();
+                    print('🚀 Navigating with Saved Age: ${(state as AgeSelected).age}');
                     GoRouter.of(context).push(AppRouter.kWieghtViews);
                   },
                 );
               },
             ),
+
             CustomSizedBox(height: 40.h),
           ],
         ),
