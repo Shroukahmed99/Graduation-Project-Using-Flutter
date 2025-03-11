@@ -19,6 +19,7 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8  // تغيير إلى 17
     }
+}
 //delete
 // android {
 //     namespace = "com.example.sehatak"
@@ -53,7 +54,7 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
-}
+
 
 flutter {
     source = "../.."

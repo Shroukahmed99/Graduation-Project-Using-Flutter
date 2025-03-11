@@ -66,17 +66,23 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
 
     result.fold(
-      (failure) {
-        print('❌ Error: ${failure.errorMessage}');
-        emit(SignupFailure(failure.errorMessage));
-      },
-      (usersModel) async {
-        print('✅ SignUp Success');
-        await CacheHelper.saveData(key: 'token', value: usersModel.token);
-        print("✅ Token saved successfully!");
-           print("Token sent to server: ${usersModel.token}");
-        emit(SignupSuccess(usersModel));
-      },
-    );
+  (failure) {
+    if (failure.errorMessage.contains("duplicate key error")) {
+      print("❌ هذا الرقم مسجل مسبقًا");
+    } else {
+      print('❌ Error: ${failure.errorMessage}');
+    }
+    emit(SignupFailure(failure.errorMessage));
+  },
+  (usersModel) async {
+    print('✅ SignUp Success');
+    await CacheHelper.saveData(key: 'token', value: usersModel.token);
+    print("✅ Token saved successfully!");
+    print("Token sent to server: ${usersModel.token}");
+    emit(SignupSuccess(usersModel));
+  },
+);
+
+
   }
 }
