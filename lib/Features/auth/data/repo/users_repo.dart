@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
@@ -35,5 +37,21 @@ abstract class UsersRepo {
     required String password,
     required String passwordConfirm,
     //required String userId,
+  });
+   Future<Either<Failure, UsersModel>> signUpProvider({
+    required String fullName,
+    required String password,
+    required String email,
+    required String mobileNumber,
+    required String passwordConfirm,
+    required String gender,
+    required String age,
+    required String job,
+    required String yearsOfExperience,
+    required String jobTitle,
+    required String bio,
+     required String priceRange,
+      required File identifier,
+     
   });
 }

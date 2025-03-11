@@ -1,26 +1,30 @@
 import 'package:bloc/bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 part 'age_state.dart';
 
 class AgeCubit extends Cubit<AgeState> {
   AgeCubit() : super(AgeInitial()) {
-    loadSavedAge();
+    loadSavedAge(); // ✅ تحميل العمر عند تشغيل التطبيق
   }
 
   Future<void> loadSavedAge() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? savedAgeData = CacheHelper.getData(key: 'age') as String?;
+    print('🔹 Retrieved Age from Cache: $savedAgeData'); 
 
-    String savedAgeString = sharedPreferences.getString('age') ?? '25';
-    int savedAge = int.tryParse(savedAgeString) ?? 25;
-
-    emit(AgeSelected(savedAge));
+    int savedAge = int.tryParse(savedAgeData ?? '') ?? 25; // تحويل String إلى int مع قيمة افتراضية
+    emit(AgeSelected(savedAge)); 
   }
 
   Future<void> selectAge(int age) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String ageString = age.toString(); // ✅ تحويل العمر إلى String قبل التخزين
+    bool isSaved = await CacheHelper.saveData(key: 'age', value: ageString);
+    print('✅ Age Saved: $isSaved, Value: $ageString');
 
-    await sharedPreferences.setString('age', age.toString());
-    emit(AgeSelected(age));
+    if (isSaved) {
+      emit(AgeSelected(age)); // ✅ تحديث الحالة عند نجاح الحفظ
+    } else {
+      print('❌ Failed to save age');
+    }
   }
 }

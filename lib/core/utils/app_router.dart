@@ -79,6 +79,10 @@ abstract class AppRouter {
         builder: (context, state) => const AgeSelectionViews(),
       ),
       GoRoute(
+        path: kAgeSelectionViewService,
+        builder: (context, state) => const AgeSelectionProviderScreen(),
+      ),
+      GoRoute(
         path: kWieghtViews,
         builder: (context, state) => const WeightViews(),
       ),
@@ -154,10 +158,7 @@ abstract class AppRouter {
         path: kPriceSelectionView,
         builder: (context, state) => const PriceSelectionView(),
       ),
-      GoRoute(
-        path: kAgeSelectionViewService,
-        builder: (context, state) => const AgeSelectionViewService(),
-      ),
+     
     ],
   );
 }

@@ -4,13 +4,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
-import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
-import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 
 class InsertDataViewBody extends StatelessWidget {
   const InsertDataViewBody({super.key});
@@ -50,9 +50,10 @@ class InsertDataViewBody extends StatelessWidget {
           CVUploader(
             onFileSelected: (File? file) {
               if (file != null) {
-                print("تم اختيار الملف: ${file.path}");
+                // تخزين الصورة كـ Base64 باستخدام CacheHelper
+                CacheHelper.saveData(key: 'user_cv_image', value: file);
               } else {
-                print("لم يتم اختيار أي ملف");
+                print("No file selected");
               }
             },
           ),
@@ -86,61 +87,49 @@ class _CVUploaderState extends State<CVUploader> {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
-        allowedExtensions: ['pdf', 'doc', 'docx'],
+        allowedExtensions: ['jpg', 'jpeg', 'png'],
       );
 
       if (result != null && result.files.single.path != null) {
         File selectedFile = File(result.files.single.path!);
 
-        if (!['pdf', 'doc', 'docx']
-            .contains(selectedFile.path.split('.').last.toLowerCase())) {
-          customSnackBar(
-              context, 'An error occurred while selecting the file❌');
-          return;
-        }
-
+        // تخزين الصورة كـ Base64
+        widget.onFileSelected(selectedFile);
+        
         setState(() {
           _cvFile = selectedFile;
         });
-
-        widget.onFileSelected(_cvFile);
       }
     } catch (e) {
-      print("❌ حدث خطأ أثناء اختيار الملف: $e");
+      print("❌ Error selecting file: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.topLeft, // محاذاة المحتوى للأعلى واليسار
+      alignment: Alignment.topLeft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min, // عدم تمديد العمود بالكامل
         children: [
-          // 🔹 زر اختيار الملف (في البداية)
           ElevatedButton.icon(
             icon: const Icon(Icons.upload_file, color: Colors.black),
             label: const Text(
-              "Upload CV",
+              "Upload Image",
               style: TextStyle(color: Colors.black),
             ),
             onPressed: _pickCVFile,
           ),
-
-          // 🔹 عرض الملف إذا تم اختياره
           if (_cvFile != null) ...[
             const SizedBox(height: 10),
             ListTile(
-              leading: const Icon(Icons.insert_drive_file, size: 30),
+              leading: const Icon(Icons.image, size: 30),
               title: Text(
                 _cvFile!.path.split('/').last,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: const Text("✅ File selected successfully"),
             ),
-
-            // 🔹 زر تغيير الملف
             TextButton(
               child: const Text("Select Another File"),
               onPressed: _pickCVFile,

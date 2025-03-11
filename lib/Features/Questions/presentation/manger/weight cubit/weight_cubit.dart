@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 part 'weight_state.dart';
 
@@ -10,15 +10,21 @@ class WeightCubit extends Cubit<WeightState> {
   }
 
   Future<void> loadSavedWeight() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    int savedWeight =
-        int.tryParse(sharedPreferences.getString('weight') ?? '25') ?? 25;
-    emit(WeightSelected(savedWeight));
+    var savedWeight = CacheHelper.getData(key: 'weight');
+    
+    // تأكد من تحويل القيمة إلى int بشكل آمن
+    int weight = (savedWeight is int) ? savedWeight : int.tryParse(savedWeight?.toString() ?? '') ?? 70;
+    
+    emit(WeightSelected(weight));
   }
 
   Future<void> selectWeight(int weight) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('weight', weight.toString());
-    emit(WeightSelected(weight));
+    bool success = await CacheHelper.saveData(key: 'weight', value: weight);
+    if (success) {
+      print("✅ Weight saved successfully: $weight");
+      emit(WeightSelected(weight));
+    } else {
+      print("❌ Failed to save weight");
+    }
   }
 }

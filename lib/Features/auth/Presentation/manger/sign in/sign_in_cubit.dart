@@ -24,19 +24,42 @@ class LoginCubit extends Cubit<LoginState> {
 
     emit(LoginLoading());
 
-    Either<Failure, UsersModel> result = await usersRepo.loginUser(
-      email: emailController.text,
-      password: passwordController.text,
-    );
+    try {
+       print("Email: ${emailController.text.trim()}");
+    print("Password: ${passwordController.text.trim()}");
+      Either<Failure, UsersModel> result = await usersRepo.loginUser(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-    result.fold(
-      (failure) {
-        emit(LoginFailure(failure.errorMessage));
-      },
-      (loginModel) async {
-        await CacheHelper.saveData(key: 'token', value: loginModel.token);
-        emit(LoginSuccess(loginModel));
-      },
-    );
+      result.fold(
+        (failure) {
+          print("❌ Login Failed: ${failure.errorMessage}");
+          emit(LoginFailure(failure.errorMessage));
+        },
+        (loginModel) async {
+          await CacheHelper.saveData(key: 'token', value: loginModel.token);
+
+          // ✅ تنظيف الحقول بعد تسجيل الدخول
+          emailController.clear();
+          passwordController.clear();
+
+          print("✅ Login Successful - Token: ${loginModel.token}");
+          emit(LoginSuccess(loginModel));
+          print("Token sent to server: ${loginModel.token}");
+        },
+      );
+    } catch (e) {
+      print("🚨 Unexpected Error: $e");
+      emit(LoginFailure("Something went wrong. Please try again."));
+    }
+  }
+
+  @override
+  Future<void> close() {
+    // ✅ تحرير الموارد عند إغلاق الكابت
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
   }
 }

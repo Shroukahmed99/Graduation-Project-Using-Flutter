@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
@@ -178,6 +180,66 @@ class UsersRepoImpl implements UsersRepo {
         return Left(ServerFailure(response.data["message"]));
       }
     } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+   Future<Either<Failure, UsersModel>> signUpProvider({
+    required String fullName,
+    required String password,
+    required String email,
+    required String mobileNumber,
+    required String passwordConfirm,
+    required String gender,
+    required String age,
+    required String job,
+    required String yearsOfExperience,
+    required String jobTitle,
+    required String bio,
+     required String priceRange,
+      required File identifier,
+  }) async {
+    try {
+      print("🚀 Sending Data: {"
+          "fullName: $fullName, email: $email, mobileNumber: $mobileNumber, "
+          "password: $password, passwordConfirm: $passwordConfirm, gender: $gender, "
+          "age: $age, job: $job, yearsOfExperience: $yearsOfExperience, "
+          "bio: $bio, priceRange: $priceRange}");
+
+      Response response = await apiService.post(
+        endpoint: "serviceProviderSignUp",
+        data: {
+          "fullName": fullName,
+          "email": email,
+          "mobileNumber": mobileNumber,
+          "password": password,
+          "passwordConfirm": passwordConfirm,
+          "gender": gender,
+          "age": age,
+          "job": job,
+          "yearsOfExperience": yearsOfExperience,
+          "bio": bio,
+          "priceRange": priceRange,
+          "identifier":identifier
+
+        },
+      );
+
+      print("📤 API Response: ${response.data}");
+
+      if (response.data["status"] == "success") {
+        String token = CacheHelper.getData(key: "token") ?? "";
+
+        UsersModel signUpModel = UsersModel.fromJson(
+          response.data["data"],
+        );
+        return Right(signUpModel);
+      } else {
+        return Left(ServerFailure(response.data["message"]));
+      }
+    } catch (e) {
+      print("❌ API Error: $e");
       return Left(ServerFailure(e.toString()));
     }
   }

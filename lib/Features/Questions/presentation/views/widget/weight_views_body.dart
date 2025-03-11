@@ -15,44 +15,47 @@ class WeightViewsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeightCubit, WeightState>(
-      builder: (context, state) {
-        int selectedWeight = (state is WeightSelected) ? state.weight : 25;
+    return BlocProvider(
+      create: (context) => WeightCubit(),
+      child: BlocBuilder<WeightCubit, WeightState>(
+        builder: (context, state) {
+          int selectedWeight = (state is WeightSelected) ? state.weight : 25;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 32.h, left: 24.w),
-              child: const CustomArrowBack(text: 'Back'),
-            ),
-            CustomSizedBox(height: 25.h),
-            const CustomQuestionAndAswer(
-              question: 'What Is Your Weight?',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-            ),
-            CustomSizedBox(height: 35.h),
-            CustomSliderWidget(
-              dates: List.generate(
-                  381, (index) => 20 + index), // توليد الأرقام من 20 إلى 400
-              selectedDate: selectedWeight,
-              unitSymbol: 'Kg',
-              onDateSelected: (weight) {
-                context.read<WeightCubit>().selectWeight(weight);
-              },
-            ),
-            const Spacer(),
-            CustomButton(
-              text: 'Continue',
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kHieghtViews);
-              },
-            ),
-            CustomSizedBox(height: 40.h),
-          ],
-        );
-      },
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 32.h, left: 24.w),
+                child: const CustomArrowBack(text: 'Back'),
+              ),
+              CustomSizedBox(height: 25.h),
+              const CustomQuestionAndAswer(
+                question: 'What Is Your Weight?',
+                answer:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              ),
+              CustomSizedBox(height: 35.h),
+              CustomSliderWidget(
+                dates: List.generate(
+                    381, (index) => 20 + index), // توليد الأرقام من 20 إلى 400
+                selectedDate: selectedWeight,
+                unitSymbol: 'Kg',
+                onDateSelected: (weight) {
+                  context.read<WeightCubit>().selectWeight(weight);
+                },
+              ),
+              const Spacer(),
+              CustomButton(
+                text: 'Continue',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kHieghtViews);
+                },
+              ),
+              CustomSizedBox(height: 40.h),
+            ],
+          );
+        },
+      ),
     );
   }
 }

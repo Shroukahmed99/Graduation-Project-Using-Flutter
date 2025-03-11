@@ -7,66 +7,79 @@ class ApiService {
 
   ApiService(this.dio) {
     dio.interceptors.add(InterceptorsWrapper(
-      onResponse: (response, handler) {
-        print("Response Headers: ${response.headers}");
+      onRequest: (options, handler) async {
+        // ✅ تحميل التوكن وإضافته إلى كل الطلبات
+        String? token = await CacheHelper.getData(key: 'token');
+        if (token != null && token.isNotEmpty) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
 
-        // استخراج التوكن من الكوكيز
-        String? cookies = response.headers['set-cookie']?.first;
+        print("📤 Sending request to: ${options.uri}");
+        print("📦 Headers: ${options.headers}");
+
+        handler.next(options);
+      },
+      onResponse: (response, handler) {
+        print("✅ Response Received from: ${response.requestOptions.uri}");
+        print("📦 Response Data: ${response.data}");
+
+        // ✅ استخراج التوكن من الكوكيز أو جسم الاستجابة
         String? token;
+        String? cookies = response.headers['set-cookie']?.first;
 
         if (cookies != null) {
           try {
             token = cookies.split(';').firstWhere(
                   (element) => element.contains('jwt'),
                   orElse: () => "",
-                );
-
-            if (token.isNotEmpty) {
-              token = token.split('=').last;
-              print("✅ Token from Cookies: $token");
-            }
+                ).split('=').last;
           } catch (e) {
             print("⚠️ Error extracting token from cookies: $e");
           }
         }
 
-        // استخراج التوكن من جسم الاستجابة إذا لم يكن في الكوكيز
+        // ✅ التحقق من وجود التوكن في جسم الاستجابة
         if (token == null || token.isEmpty) {
-          if (response.data.containsKey('token')) {
-            token = response.data['token'];
-            print("✅ Token from Response Body: $token");
-          }
+          token = response.data['token'];
         }
 
-        // حفظ التوكن في الكاش إذا لم يكن فارغًا
+        // ✅ حفظ التوكن إذا لم يكن فارغًا
         if (token != null && token.isNotEmpty) {
           CacheHelper.saveData(key: 'token', value: token);
-        } else {
-          print("⚠️ Warning: Attempted to save empty/null token");
+          print("🔐 Token saved: $token");
         }
 
         handler.next(response);
       },
+      onError: (DioException e, handler) {
+        print("❌ API Error: ${e.message}");
+        print("📡 Request: ${e.requestOptions.uri}");
+
+        // ✅ طباعة تفاصيل الخطأ لمساعدتك في التصحيح
+        if (e.response != null) {
+          print("🛑 Error Response Data: ${e.response?.data}");
+          print("🔴 Status Code: ${e.response?.statusCode}");
+        }
+
+        handler.next(e);
+      },
     ));
   }
 
-  Future<Response> post(
-      {required String endpoint, required Map<String, dynamic> data}) async {
+  Future<Response> post({
+    required String endpoint,
+    required Map<String, dynamic> data,
+  }) async {
     try {
-      Response response = await dio.post(
-        "$baseUrl$endpoint",
-        data: data,
-        options: Options(
-          headers: {
-            "Content-Type": "application/json",
-          },
-        ),
-      );
+      Response response = await dio.post("$baseUrl$endpoint",
+          data: data,
+          options: Options(
+            headers: {"Content-Type": "application/json"},
+          ));
 
       return response;
     } catch (e) {
-      print("❌ API Error: $e");
-      throw Exception("Failed to connect to API");
+      throw Exception("🚨 API Error: $e");
     }
   }
 
@@ -74,37 +87,27 @@ class ApiService {
     try {
       Response response = await dio.get(
         "$baseUrl$endpoint",
-        options: Options(
-          headers: {
-            "Content-Type": "application/json",
-          },
-        ),
+        options: Options(headers: {"Content-Type": "application/json"}),
       );
-
       return response;
     } catch (e) {
-      print("❌ API Error: $e");
-      throw Exception("Failed to connect to API");
+      throw Exception("🚨 API Error: $e");
     }
   }
 
-  Future<Response> patch(
-      {required String endpoint, required Map<String, dynamic> data}) async {
+  Future<Response> patch({
+    required String endpoint,
+    required Map<String, dynamic> data,
+  }) async {
     try {
-      String fullUrl = "$baseUrl$endpoint"; // دمج `baseUrl` مع `endpoint`
-      print("📡 PATCH request to: $fullUrl");
-      print("📦 Data sent: $data");
-
       Response response = await dio.patch(
-        fullUrl,
+        "$baseUrl$endpoint",
         data: data,
         options: Options(headers: {"Content-Type": "application/json"}),
       );
-
       return response;
     } catch (e) {
-      print("❌ API Error: $e");
-      throw Exception("Failed to connect to API");
+      throw Exception("🚨 API Error: $e");
     }
   }
 }

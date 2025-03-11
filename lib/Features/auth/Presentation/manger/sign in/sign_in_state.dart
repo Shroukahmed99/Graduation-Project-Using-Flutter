@@ -1,3 +1,4 @@
+
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
 
 abstract class LoginState {}

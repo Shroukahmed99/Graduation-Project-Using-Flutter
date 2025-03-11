@@ -1,21 +1,20 @@
 import 'package:bloc/bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart'; // ✅ استيراد CacheHelper
 
 part 'goal_state.dart';
 
 class GoalCubit extends Cubit<GoalState> {
-  GoalCubit() : super(GoalSelected("")); // ✅ جعل القيمة فارغة عند البدء
+  GoalCubit() : super(GoalSelected("")) {
+    loadSavedGoal();
+  }
 
   Future<void> loadSavedGoal() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String savedGoal = sharedPreferences.getString('goal') ??
-        ""; // ✅ التأكد أن القيمة فارغة إذا لم تكن محفوظة
+    String savedGoal = CacheHelper.getData(key: 'goal') ?? "";
     emit(GoalSelected(savedGoal));
   }
 
   Future<void> selectGoal(String goal) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('goal', goal);
+    await CacheHelper.saveData(key: 'goal', value: goal);
     emit(GoalSelected(goal));
   }
 }

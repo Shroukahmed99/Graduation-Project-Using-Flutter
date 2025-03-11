@@ -1,24 +1,20 @@
 import 'package:bloc/bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:sehatak/core/utils/cache_helper.dart';
 part 'gender_state.dart';
 
 class GenderCubit extends Cubit<GenderState> {
-  GenderCubit() : super(GenderInitial()); // ✅ الحالة الافتراضية بدون تحديد جنس
+  GenderCubit() : super(GenderInitial());
 
   Future<void> loadSavedGender() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? savedGender = sharedPreferences.getString('gender');
+    String? savedGender = CacheHelper.getData(key: 'gender');
 
     if (savedGender != null) {
-      emit(
-          GenderSelected(savedGender)); // ✅ تحديد الجنس فقط إذا كان مخزن مسبقًا
+      emit(GenderSelected(savedGender)); // ✅ تحديد الجنس إذا كان مخزن مسبقًا
     }
   }
 
   Future<void> selectGender(String gender) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('gender', gender);
+    await CacheHelper.saveData(key: 'gender', value: gender);
     emit(GenderSelected(gender)); // ✅ تحديث الحالة عند اختيار الجنس
   }
 }

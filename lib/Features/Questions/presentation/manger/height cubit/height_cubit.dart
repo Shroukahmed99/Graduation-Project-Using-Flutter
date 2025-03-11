@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 part 'height_state.dart';
 
@@ -10,15 +10,19 @@ class HeightCubit extends Cubit<HeightState> {
   }
 
   Future<void> loadSavedHeight() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    int savedHeight =
-        int.tryParse(sharedPreferences.getString('height') ?? '145') ?? 145;
-    emit(HeightSelected(savedHeight));
+    int savedHeight = CacheHelper.getData(key: 'height') != null
+        ? int.tryParse(CacheHelper.getData(key: 'height').toString()) ?? 145
+        : 145;
+    emit(HeightSelected(savedHeight)); // تأكدنا أن القيمة من النوع int
   }
 
   Future<void> selectHeight(int height) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('height', height.toString());
-    emit(HeightSelected(height));
+    bool success = await CacheHelper.saveData(key: 'height', value: height);
+    if (success) {
+      print("✅ Height saved successfully: $height");
+      emit(HeightSelected(height));
+    } else {
+      print("❌ Failed to save height");
+    }
   }
 }

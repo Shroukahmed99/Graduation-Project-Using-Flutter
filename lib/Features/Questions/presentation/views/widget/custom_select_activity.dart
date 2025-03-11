@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class CustomSelectActivity extends StatefulWidget {
   final List<String> options;
@@ -17,11 +17,9 @@ class _CustomSelectActivityState extends State<CustomSelectActivity> {
   int? selectedIndex;
 
   Future<void> saveData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (selectedIndex != null) {
-      await sharedPreferences.setString(
-          'physicalActivityLevel', widget.options[selectedIndex!]);
-      print("Data Saved Successfully ✅");
+      await CacheHelper.saveData(
+          key: 'physicalActivityLevel', value: widget.options[selectedIndex!]);
     }
   }
 

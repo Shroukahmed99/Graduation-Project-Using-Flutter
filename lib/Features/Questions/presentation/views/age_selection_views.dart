@@ -28,8 +28,7 @@ class AgeSelectionViews extends StatelessWidget {
             CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
               question: 'What’s Your Age?',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             ),
             CustomSizedBox(height: 35.h),
             BlocBuilder<AgeCubit, AgeState>(
@@ -37,8 +36,7 @@ class AgeSelectionViews extends StatelessWidget {
                 int selectedAge = state is AgeSelected ? state.age : 25;
 
                 return CustomSliderWidget(
-                  dates: List.generate(381,
-                      (index) => 20 + index), // توليد الأرقام من 20 إلى 400
+                  dates: List.generate(381, (index) => 20 + index), 
                   selectedDate: selectedAge,
                   onDateSelected: (date) {
                     context.read<AgeCubit>().selectAge(date);

@@ -1,48 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/Questions/presentation/manger/age%20cubit/age_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_slider_widget.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class AgeSelectionViewService extends StatelessWidget {
-  const AgeSelectionViewService({super.key});
+class AgeSelectionProviderScreen extends StatelessWidget {
+  const AgeSelectionProviderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 32.h, left: 24.w),
-            child: const CustomArrowBack(text: 'Back'),
-          ),
-          CustomSizedBox(height: 25.h),
-          const CustomQuestionAndAswer(
-            question: 'What’s Your Age?',
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          ),
-          CustomSizedBox(height: 35.h),
-          // CustomSliderWidget(
-          //   dates: List.generate(381, (index) => 20 + index),
-          //   selectedDate: selectedAge,
-          //   onDateSelected: (date) {
-          //     // هنا يمكن استدعاء دالة لتحديث العمر المختار بدون Bloc
-          //   },
-          // ),
-          const Spacer(),
-          CustomButton(
-            text: 'Continue',
-            onTap: () {
-              GoRouter.of(context).push(AppRouter.kInsertDataView);
-            },
-          ),
-          CustomSizedBox(height: 40.h),
-        ],
+    return BlocProvider(
+      create: (context) => AgeCubit(),
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 32.h, left: 24.w),
+              child: const CustomArrowBack(text: 'Back'),
+            ),
+            CustomSizedBox(height: 25.h),
+            const CustomQuestionAndAswer(
+              question: 'What’s Your Age?',
+              answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            ),
+            CustomSizedBox(height: 35.h),
+            BlocBuilder<AgeCubit, AgeState>(
+              builder: (context, state) {
+                int selectedAge = state is AgeSelected ? state.age : 25;
+
+                return CustomSliderWidget(
+                  dates: List.generate(381, (index) => 20 + index), 
+                  selectedDate: selectedAge,
+                  onDateSelected: (date) {
+                    context.read<AgeCubit>().selectAge(date);
+                  },
+                );
+              },
+            ),
+            const Spacer(),
+            BlocBuilder<AgeCubit, AgeState>(
+              builder: (context, state) {
+                return CustomButton(
+                  text: 'Continue',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kInsertDataView);
+                  },
+                );
+              },
+            ),
+            CustomSizedBox(height: 40.h),
+          ],
+        ),
       ),
     );
   }

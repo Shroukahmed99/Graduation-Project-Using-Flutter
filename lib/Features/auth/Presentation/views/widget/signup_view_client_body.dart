@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_with_signup.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_icon_buttom.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
@@ -13,7 +12,7 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_sign
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sehatak/core/utils/cache_helper.dart'; // ✅ استيراد CacheHelper
 
 class SignupViewClientBody extends StatelessWidget {
   SignupViewClientBody({super.key});
@@ -22,22 +21,25 @@ class SignupViewClientBody extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController passwordConfirmController =
-      TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
   final GlobalKey<FormState> signupKey = GlobalKey();
 
-  Future<void> saveData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  Future<void> saveData(BuildContext context) async {
+    await CacheHelper.saveData(key: 'fullName', value: fullNameController.text);
+    await CacheHelper.saveData(key: 'email', value: emailController.text);
+    await CacheHelper.saveData(key: 'mobileNumber', value: mobileNumberController.text);
+    await CacheHelper.saveData(key: 'password', value: passwordController.text);
 
-    await sharedPreferences.setString('fullName', fullNameController.text);
-    await sharedPreferences.setString('email', emailController.text);
-    await sharedPreferences.setString(
-        'mobileNumber', mobileNumberController.text);
-    await sharedPreferences.setString('password', passwordController.text);
-    await sharedPreferences.setString(
-        'passwordConfirm', passwordConfirmController.text);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Sign-up successful! ✅")),
+    );
 
-    print("Data Saved Successfully ✅");
+    // ✅ تنظيف الحقول بعد التسجيل
+    fullNameController.clear();
+    emailController.clear();
+    mobileNumberController.clear();
+    passwordController.clear();
+    passwordConfirmController.clear();
   }
 
   @override
@@ -107,9 +109,8 @@ class SignupViewClientBody extends StatelessWidget {
               text: 'Sign Up',
               onTap: () {
                 if (signupKey.currentState!.validate()) {
-                  saveData();
-                  GoRouter.of(context)
-                      .push(AppRouter.kGenderSelectionViewClient);
+                  saveData(context);
+                  GoRouter.of(context).push(AppRouter.kGenderSelectionViewClient);
                 }
               },
             ),
@@ -130,10 +131,7 @@ class SignupViewClientBody extends StatelessWidget {
               title: 'Already have an account?',
               text: 'Login In',
               onPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginView()),
-                );
+                GoRouter.of(context).push(AppRouter.kLoginView);
               },
             ),
           ],

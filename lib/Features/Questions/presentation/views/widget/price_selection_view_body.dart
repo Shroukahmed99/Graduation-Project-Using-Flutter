@@ -34,7 +34,7 @@ class PriceSelectionViewBody extends StatelessWidget {
         //   onDateSelected: (weight) {
         //     context.read<WeightCubit>().selectWeight(weight);
         //   },
-        // ),
+        // )weight,
         const Spacer(),
         CustomButton(
           text: 'Continue',
