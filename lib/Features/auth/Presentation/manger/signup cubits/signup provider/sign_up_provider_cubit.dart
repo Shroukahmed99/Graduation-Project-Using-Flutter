@@ -80,17 +80,23 @@ File? identifier = filePath != null && filePath.isNotEmpty ? File(filePath) : nu
     );
 
     result.fold(
-      (failure) {
-        print('❌ Error: ${failure.errorMessage}');
-        emit(SignUpProviderFailure(failure.errorMessage));
-      },
-      (usersModel) async {
-        print('✅ SignUp Success');
-        await CacheHelper.saveData(key: 'token', value: usersModel.token);
-        print("✅ Token saved successfully!");
-        print("Token sent to server: ${usersModel.token}");
-        emit(SignUpProviderSuccess(usersModel));
-      },
-    );
+  (failure) {
+    print('❌ Error: ${failure.errorMessage}');
+    emit(SignUpProviderFailure(failure.errorMessage));
+  },
+  (usersModel) async {
+    if (usersModel.token != null) {
+      print('✅ SignUp Success');
+      await CacheHelper.saveData(key: 'token', value: usersModel.token);
+      print("✅ Token saved successfully!");
+      print("Token sent to server: ${usersModel.token}");
+      emit(SignUpProviderSuccess(usersModel));
+    } else {
+      print("❌ API Response missing token!");
+      emit(SignUpProviderFailure("API Response missing token!"));
+    }
+  },
+);
+
   }
 }

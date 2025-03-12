@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
@@ -66,19 +67,23 @@ class ApiService {
     ));
   }
 
-  Future<Response> post({
+   Future<Response> post({
     required String endpoint,
-    required Map<String, dynamic> data,
+    required dynamic data,
   }) async {
     try {
-      Response response = await dio.post("$baseUrl$endpoint",
-          data: data,
-          options: Options(
-            headers: {"Content-Type": "application/json"},
-          ));
-
+      Options options = Options(
+        headers: {
+          "Content-Type": (data is FormData)
+              ? "multipart/form-data"
+              : "application/json",
+        },
+      );
+      Response response =
+          await dio.post("$baseUrl$endpoint", data: data, options: options);
       return response;
     } catch (e) {
+      print("🚨 API Error: $e");
       throw Exception("🚨 API Error: $e");
     }
   }

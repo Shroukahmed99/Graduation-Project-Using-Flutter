@@ -187,161 +187,113 @@ class UsersRepoImpl implements UsersRepo {
   }
   
   @override
-  Future<Either<Failure, UsersModel>> signUpProvider({required String fullName, required String password, required String email, required String mobileNumber, required String passwordConfirm, required String gender, required String age, required String job, required String yearsOfExperience, required String jobTiltle, required String bio, required String priceRange, required File identifier}) {
-    // TODO: implement signUpProvider
-    throw UnimplementedError();
+
+
+Future<Either<Failure, UsersModel>> signUpProvider({
+  required String fullName,
+  required String email,
+  required String mobileNumber,
+  required String password,
+  required String passwordConfirm,
+  required String gender,
+  required String age,
+  required String job,
+  required String yearsOfExperience,
+  required String jobTiltle, // ✅ تأكد إن الاسم متطابق مع الـ API
+  required String bio,
+  required String priceRange,
+  required File identifier,
+}) async {
+  try {
+    // ✅ تجهيز الصورة كـ MultipartFile مع التأكد من وجود الملف
+    MultipartFile? multipartFile;
+    if (identifier != null && await identifier.exists()) {
+      String mimeType = getMimeType(identifier.path);
+      multipartFile = await MultipartFile.fromFile(
+        identifier.path,
+        filename: identifier.path.split('/').last,
+        contentType: MediaType(mimeType.split('/')[0], mimeType.split('/')[1]),
+      );
+    }
+
+    // ✅ تجهيز FormData
+    FormData formData = FormData.fromMap({
+      'fullName': fullName,
+      'email': email,
+      'mobileNumber': mobileNumber,
+      'password': password,
+      'passwordConfirm': passwordConfirm,
+      'gender': gender,
+      'age': age,
+      'job': job,
+      'yearsOfExperience': yearsOfExperience,
+      'jobTiltle': jobTiltle, // ✅ تأكد من التسمية
+      'bio': bio,
+      'priceRange': priceRange,
+      if (multipartFile != null) 'identifier': multipartFile, // ✅ تأكد أن الملف موجود
+    });
+
+    // ✅ طباعة البيانات قبل الإرسال
+    print('====================');
+    print('📤 Sending FormData:');
+    formData.fields.forEach((field) {
+      print('📝 ${field.key}: ${field.value}');
+    });
+    formData.files.forEach((file) {
+      print('📸 ${file.key}: ${file.value.filename}');
+    });
+    print('====================');
+
+    // ✅ إرسال البيانات
+    Response response = await apiService.post(
+  endpoint: 'serviceProviderSignUp',
+  data: formData,
+);
+
+print('✅ Response: ${response.data}'); // ✅ طباعة الاستجابة
+
+final responseData = response.data;
+
+// **تحقق من أن الاستجابة تحتوي على البيانات المطلوبة**
+if (responseData == null) {
+  return Left(ServerFailure("❌ API Response is null"));
+}
+if (!responseData.containsKey('data')) {
+  return Left(ServerFailure("❌ API Response does not contain 'data' key"));
+}
+if (!responseData['data'].containsKey('user')) {
+  return Left(ServerFailure("❌ API Response does not contain 'user' key"));
+}
+
+// ✅ مرر الـ `responseData` بالكامل وليس فقط `user`
+return Right(UsersModel.fromJson(responseData));
+
+  } catch (e) {
+    print('❌ Error: $e'); // ✅ طباعة الخطأ
+    return Left(ServerFailure(e.toString()));
   }
-
-  // @override
-  //  Future<Either<Failure, UsersModel>> signUpProvider({
-  //   required String fullName,
-  //   required String password,
-  //   required String email,
-  //   required String mobileNumber,
-  //   required String passwordConfirm,
-  //   required String gender,
-  //   required String age,
-  //   required String job,
-  //   required String yearsOfExperience,
-  //   required String jobTitle,
-  //   required String bio,
-  //    required String priceRange,
-  //     required File identifier,
-  // }) async {
-  //   try {
-  //     print("🚀 Sending Data: {"
-  //         "fullName: $fullName, email: $email, mobileNumber: $mobileNumber, "
-  //         "password: $password, passwordConfirm: $passwordConfirm, gender: $gender, "
-  //         "age: $age, job: $job, yearsOfExperience: $yearsOfExperience, "
-  //         "bio: $bio, priceRange: $priceRange}");
-
-  //     Response response = await apiService.post(
-  //       endpoint: "serviceProviderSignUp",
-  //       data: {
-  //         "fullName": fullName,
-  //         "email": email,
-  //         "mobileNumber": mobileNumber,
-  //         "password": password,
-  //         "passwordConfirm": passwordConfirm,
-  //         "gender": gender,
-  //         "age": age,
-  //         "job": job,
-  //         "yearsOfExperience": yearsOfExperience,
-  //         "bio": bio,
-  //         "priceRange": priceRange,
-  //         "identifier":identifier
-
-  //       },
-  //     );
-
-  //     print("📤 API Response: ${response.data}");
-
-  //     if (response.data["status"] == "success") {
-  //       String token = CacheHelper.getData(key: "token") ?? "";
-
-  //       UsersModel signUpModel = UsersModel.fromJson(
-  //         response.data["data"],
-  //       );
-  //       return Right(signUpModel);
-  //     } else {
-  //       return Left(ServerFailure(response.data["message"]));
-  //     }
-  //   } catch (e) {
-  //     print("❌ API Error: $e");
-  //     return Left(ServerFailure(e.toString()));
-  //   }
-  // }
+}
 
 
-
-
-
-// Future<Either<Failure, UsersModel>> signUpProvider({
-//   required String fullName,
-//   required String email,
-//   required String mobileNumber,
-//   required String password,
-//   required String passwordConfirm,
-//   required String gender,
-//   required String age,
-//   required String job,
-//   required String yearsOfExperience,
-//   required String jobTiltle, // ✅ تعديل الاسم الصحيح
-//   required String bio,
-//   required String priceRange,
-//   required File? identifier,
-// }) async {
-//   try {
-//     // ✅ تجهيز الصورة كـ MultipartFile مع التأكد من وجود الملف
-//     MultipartFile? multipartFile;
-//     if (identifier != null && await identifier.exists()) {
-//       String mimeType = getMimeType(identifier.path); // ✅ استخراج نوع الصورة
-//       multipartFile = await MultipartFile.fromFile(
-//         identifier.path,
-//         filename: identifier.path.split('/').last,
-//         contentType: MediaType(mimeType.split('/')[0], mimeType.split('/')[1]), // ✅ دعم أنواع مختلفة من الصور
-//       );
-//     } else {
-//       print('❌ No image selected or file does not exist');
-//     }
-
-//     // ✅ تجهيز FormData
-//     FormData formData = FormData.fromMap({
-//       'fullName': fullName,
-//       'email': email,
-//       'mobileNumber': mobileNumber,
-//       'password': password,
-//       'passwordConfirm': passwordConfirm,
-//       'gender': gender,
-//       'age': age,
-//       'job': job,
-//       'yearsOfExperience': yearsOfExperience,
-//       'jobTiltle': jobTiltle, // ✅ استخدام الاسم الصحيح
-//       'bio': bio,
-//       'priceRange': priceRange,
-//       if (multipartFile != null) 'identifier': multipartFile, // ✅ التأكد من وجود الصورة
-//     });
-
-//     // ✅ طباعة البيانات قبل الإرسال
-//     formData.fields.forEach((field) {
-//       print('📝 Field: ${field.key} = ${field.value}');
-//     });
-//     formData.files.forEach((file) {
-//       print('📸 File: ${file.key} = ${file.value.filename}');
-//     });
-
-//     // ✅ إرسال البيانات
-//     Response response = await apiService.post(
-//       endpoint: 'serviceProviderSignUp',
-//       data: formData,
-//       options: Options(headers: {"Content-Type": "multipart/form-data"}),
-//     );
-
-//     return Right(UsersModel.fromJson(response.data));
-//   } catch (e) {
-//     return Left(ServerFailure(e.toString()));
-//   }
-// }
-
-// // ✅ دالة استخراج نوع الصورة تلقائيًا
-// String getMimeType(String filePath) {
-//   String extension = filePath.split('.').last.toLowerCase();
-//   switch (extension) {
-//     case 'jpg':
-//     case 'jpeg':
-//       return 'image/jpeg';
-//     case 'png':
-//       return 'image/png';
-//     case 'gif':
-//       return 'image/gif';
-//     case 'bmp':
-//       return 'image/bmp';
-//     case 'webp':
-//       return 'image/webp';
-//     default:
-//       return 'application/octet-stream'; // 🔴 في حالة عدم التعرف على النوع
-//   }
-// }
+// ✅ دالة استخراج نوع الصورة تلقائيًا
+String getMimeType(String filePath) {
+  String extension = filePath.split('.').last.toLowerCase();
+  switch (extension) {
+    case 'jpg':
+    case 'jpeg':
+      return 'image/jpeg';
+    case 'png':
+      return 'image/png';
+    case 'gif':
+      return 'image/gif';
+    case 'bmp':
+      return 'image/bmp';
+    case 'webp':
+      return 'image/webp';
+    default:
+      return 'application/octet-stream';
+  }
+}
 
 
 
