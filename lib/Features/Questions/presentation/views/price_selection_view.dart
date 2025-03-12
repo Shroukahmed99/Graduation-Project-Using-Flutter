@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/Questions/presentation/manger/price%20cubit/price_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/weight%20cubit/weight_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/price_selection_view_body.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/signup%20cubits/signup%20client/sign_up_client_cubit.dart';
@@ -15,7 +16,7 @@ class PriceSelectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => WeightCubit()),
+        BlocProvider(create: (context) => PriceCubit()),
         BlocProvider(create: (context) => SignUpProviderCubit(UsersRepoImpl(ApiService(Dio())))),
       ],
       child: const Scaffold(
