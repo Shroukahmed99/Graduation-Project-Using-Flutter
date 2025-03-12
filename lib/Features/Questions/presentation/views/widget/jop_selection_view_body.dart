@@ -6,6 +6,7 @@ import 'package:sehatak/Features/Questions/presentation/manger/job%20cubit/job_c
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -39,9 +40,9 @@ class JopSelectionViewBody extends StatelessWidget {
                       return CircleImageTextWidget(
                         images: const [AssetImage('assets/images/medical-big.png')],
                         text: 'Physical Therapy',
-                        isSelected: selectedJob == 'physical therapy', // Check if selected
+                        isSelected: selectedJob == 'Physical Therapy', // Check if selected
                         onTap: () {
-                          context.read<JobCubit>().selectJob('physical therapy'); // Update selection
+                          context.read<JobCubit>().selectJob('Physical Therapy'); // Update selection
                         },
                       );
                     },
@@ -53,9 +54,9 @@ class JopSelectionViewBody extends StatelessWidget {
                       return CircleImageTextWidget(
                         images: const [AssetImage('assets/images/applebig.png')],
                         text: 'Nutrition',
-                        isSelected: selectedJob == 'NUTRITION', // Check if selected
+                        isSelected: selectedJob == 'Nutirion', // Check if selected
                         onTap: () {
-                          context.read<JobCubit>().selectJob('NUTRITION'); // Update selection
+                          context.read<JobCubit>().selectJob('Nutirion'); // Update selection
                         },
                       );
                     },
@@ -70,9 +71,9 @@ class JopSelectionViewBody extends StatelessWidget {
                 return CircleImageTextWidget(
                   images: const [AssetImage('assets/images/Vector-big.png')],
                   text: 'Work Out',
-                  isSelected: selectedJob == 'work out', // Check if selected
+                  isSelected: selectedJob == 'Work Out', // Check if selected
                   onTap: () {
-                    context.read<JobCubit>().selectJob('work out'); // Update selection
+                    context.read<JobCubit>().selectJob('Work Out'); // Update selection
                   },
                 );
               },
@@ -81,6 +82,10 @@ class JopSelectionViewBody extends StatelessWidget {
             CustomButton(
               text: 'Continue',
               onTap: () {
+                 
+            String? selectedJob =  CacheHelper.getData(key: 'job'); // جلب البيانات باستخدام key "job"
+            print("🔹 Selected Job: $selectedJob");
+          
                 // Navigate to the next screen
                 GoRouter.of(context).push(AppRouter.kGenderSelectionViewService);
               },

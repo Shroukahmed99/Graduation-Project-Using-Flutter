@@ -122,7 +122,7 @@ class SignupViewServiceBody extends StatelessWidget {
                   debugPrint(
                       "Confirm Password: ${passwordConfirmController.text}");
                   GoRouter.of(context)
-                      .push(AppRouter.kAgeSelectionProviderScreen);
+                      .push(AppRouter.kJopSelectionView);
                 }
               },
             ),

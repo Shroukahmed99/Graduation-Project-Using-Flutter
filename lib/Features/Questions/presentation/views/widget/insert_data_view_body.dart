@@ -36,13 +36,7 @@ class InsertDataViewBody extends StatelessWidget {
                         'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach',
                   ),
                   const CustomSizedBox(height: 54),
-                   CustomTextField(
-                   title: 'Job',
-                    width: 146,
-                    hintText: 'Add Text',
-                    controller: cubit.jobController,
-                    onChanged: (value) => cubit.saveData('job', value),
-                  ),
+                  
                   const CustomSizedBox(height: 10),
                   /// Years of Experience
                   CustomTextField(

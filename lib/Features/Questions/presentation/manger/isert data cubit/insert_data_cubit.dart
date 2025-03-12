@@ -12,7 +12,6 @@ class InsertDataCubit extends Cubit<InsertDataState> {
 
   final TextEditingController yearsController = TextEditingController();
   final TextEditingController jobTitleController = TextEditingController();
-  final TextEditingController jobController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
 
   File? selectedFile;
@@ -21,7 +20,6 @@ class InsertDataCubit extends Cubit<InsertDataState> {
   Future<void> loadSavedData() async {
     yearsController.text = CacheHelper.getData(key: 'yearsOfExperience') ?? '';
     jobTitleController.text = CacheHelper.getData(key: 'jobTiltle') ?? '';
-     jobTitleController.text = CacheHelper.getData(key: 'job') ?? '';
     bioController.text = CacheHelper.getData(key: 'bio') ?? '';
 
     String? savedPath = CacheHelper.getData(key: 'identifier');
