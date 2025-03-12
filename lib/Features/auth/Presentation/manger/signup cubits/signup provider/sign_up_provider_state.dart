@@ -3,20 +3,20 @@ import 'package:sehatak/Features/auth/data/model/login_model.dart';
 
 abstract class SignUpProviderState {}
 
-class SignupInitial extends SignUpProviderState {
+class SignUpProviderInitial extends SignUpProviderState {
 }
 
-class SignupLoading extends SignUpProviderState {
+class SignUpProviderLoading extends SignUpProviderState {
 }
 
-class SignupSuccess extends SignUpProviderState {
+class SignUpProviderSuccess extends SignUpProviderState {
   final UsersModel usersModel;
   
-  SignupSuccess(this.usersModel);
+  SignUpProviderSuccess(this.usersModel);
 }
 
-class SignupFailure extends SignUpProviderState {
+class SignUpProviderFailure extends SignUpProviderState {
   final String errorMessage;
 
-  SignupFailure(this.errorMessage);
+  SignUpProviderFailure(this.errorMessage);
 }

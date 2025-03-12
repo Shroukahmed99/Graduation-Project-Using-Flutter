@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/Features/Questions/presentation/views/age_selection_view_service.dart';
+import 'package:sehatak/Features/Questions/presentation/views/age_selection_provider_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/gender_selection_view_service.dart';
 import 'package:sehatak/Features/Questions/presentation/views/insert_data_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
@@ -50,7 +50,7 @@ abstract class AppRouter {
   static const kInsertDataView = '/InsertDataView';
   static const kSuccessViewService = '/SuccessViewService';
   static const kPriceSelectionView = '/PriceSelectionView';
-  static const kAgeSelectionViewService = '/AgeSelectionViewService';
+  static const kAgeSelectionProviderScreen = '/AgeSelectionProviderScreen';
 
   static final router = GoRouter(
     routes: [
@@ -78,10 +78,10 @@ abstract class AppRouter {
         path: kAgeSelectionScreen,
         builder: (context, state) => const AgeSelectionViews(),
       ),
-      // GoRoute(
-      //   path: kAgeSelectionViewService,
-      //   builder: (context, state) => const AgeSelectionProviderScreen(),
-      // ),
+      GoRoute(
+        path: kAgeSelectionProviderScreen,
+        builder: (context, state) => const AgeSelectionProviderScreen(),
+      ),
       GoRoute(
         path: kWieghtViews,
         builder: (context, state) => const WeightViews(),

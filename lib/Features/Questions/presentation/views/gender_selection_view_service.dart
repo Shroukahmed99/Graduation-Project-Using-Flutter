@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/gender%20cubit/gender_cubit.dart';
+import 'package:sehatak/Features/Questions/presentation/views/age_selection_provider_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -69,7 +70,7 @@ class GenderSelectionViewService extends StatelessWidget {
                     onTap: isButtonEnabled
                         ? () {
                             GoRouter.of(context)
-                                .push(AppRouter.kAgeSelectionViewService);
+                                .push(AppRouter.kAgeSelectionProviderScreen);
                           }
                         : null, // ✅ الزر يكون معطلاً حتى يختار المستخدم الجنس
                   );

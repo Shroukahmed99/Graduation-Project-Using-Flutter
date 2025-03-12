@@ -48,7 +48,7 @@ abstract class UsersRepo {
     required String age,
     required String job,
     required String yearsOfExperience,
-    required String jobTitle,
+    required String jobTiltle,
     required String bio,
      required String priceRange,
       required File identifier,
