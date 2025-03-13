@@ -10,7 +10,7 @@ class PriceCubit extends Cubit<PriceState> {
   }
 
   Future<void> loadSavedPrice() async {
-    var savedPrice = CacheHelper.getData(key: 'price');
+    var savedPrice = CacheHelper.getData(key: 'priceRange');
 
     int price = (savedPrice is int) ? savedPrice : int.tryParse(savedPrice?.toString() ?? '') ?? 100;
 
@@ -18,7 +18,7 @@ class PriceCubit extends Cubit<PriceState> {
   }
 
   Future<void> selectPrice(int price) async {
-    bool success = await CacheHelper.saveData(key: 'price', value: price);
+    bool success = await CacheHelper.saveData(key: 'priceRange', value: price);
     if (success) {
       print("✅ Price saved successfully: $price");
       emit(PriceSelected(price));

@@ -39,7 +39,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
         (CacheHelper.getData(key: 'yearsOfExperience') ?? '').toString();
     String jobTiltle = CacheHelper.getData(key: 'jobTiltle') ?? '';
     String bio = CacheHelper.getData(key: 'bio') ?? '';
-    String priceRange = (CacheHelper.getData(key: 'priceRange') ?? '').toString();
+    String priceRange = (CacheHelper.getData(key: 'priceRange') ?? '450').toString();
 
     // استرجاع ملف الـ identifier (بشكل اختياري)
     String? filePath = CacheHelper.getData(key: 'identifier');

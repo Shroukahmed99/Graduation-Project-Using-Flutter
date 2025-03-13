@@ -37,7 +37,7 @@ class PriceSelectionViewBody extends StatelessWidget {
         builder: (context, state) {
           int selectedPrice = (state is PriceSelected) 
               ? state.price 
-              : int.tryParse(CacheHelper.getData(key: 'price') ?? '100') ?? 100;
+              : int.tryParse(CacheHelper.getData(key: 'priceRange') ?? '100') ?? 100;
 
           return Form(
             key: context.read<SignUpProviderCubit>().formKey,
@@ -59,7 +59,7 @@ class PriceSelectionViewBody extends StatelessWidget {
                   selectedDate: selectedPrice,
                   unitSymbol: '\$',
                   onDateSelected: (price) {
-                    CacheHelper.saveData(key: 'price', value: price.toString());
+                    CacheHelper.saveData(key: 'priceRange', value: price.toString());
                     context.read<PriceCubit>().selectPrice(price);
                   },
                 ),
