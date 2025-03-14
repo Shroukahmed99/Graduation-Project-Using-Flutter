@@ -15,9 +15,9 @@ import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class SignupViewServiceBody extends StatelessWidget {
-   SignupViewServiceBody({super.key});
+  SignupViewServiceBody({super.key});
 
- final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -34,11 +34,6 @@ class SignupViewServiceBody extends StatelessWidget {
     await CacheHelper.saveData(
         key: 'passwordConfirm', value: passwordConfirmController.text);
 
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   const SnackBar(content: Text("Sign-up successful! ✅")),
-    // );
-
-    // ✅ تنظيف الحقول بعد التسجيل
     fullNameController.clear();
     emailController.clear();
     mobileNumberController.clear();
@@ -96,10 +91,6 @@ class SignupViewServiceBody extends StatelessWidget {
               hintText: '*************',
               obscureText: true,
               controller: passwordConfirmController,
-              onChanged: (value) {
-                debugPrint(
-                    "Updated Confirm Password: $value"); // ✅ للتأكد إنه بيتحدث
-              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Password confirmation is required';
@@ -118,11 +109,8 @@ class SignupViewServiceBody extends StatelessWidget {
               onTap: () {
                 if (signupKey.currentState!.validate()) {
                   saveData(context);
-                  debugPrint("Password: ${passwordController.text}");
-                  debugPrint(
-                      "Confirm Password: ${passwordConfirmController.text}");
-                  GoRouter.of(context)
-                      .push(AppRouter.kJopSelectionView);
+
+                  GoRouter.of(context).push(AppRouter.kJopSelectionView);
                 }
               },
             ),

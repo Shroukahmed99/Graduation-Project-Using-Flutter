@@ -18,13 +18,9 @@ class WhatGoalViewsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GoalCubit, GoalState>(
       builder: (context, state) {
-        String? selectedGoal;
-
-        if (state is GoalSelected) {
-          selectedGoal = (state.goal != null && state.goal!.isNotEmpty)
-              ? state.goal
-              : null; // ✅ التأكد من أن القيمة ليست null قبل فحصها
-        }
+        String? selectedGoal = (state is GoalSelected && state.goal.isNotEmpty)
+            ? state.goal
+            : null;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

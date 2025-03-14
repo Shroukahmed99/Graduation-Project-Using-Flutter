@@ -3,14 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomSliderWidget extends StatefulWidget {
-  final List<int> dates;
+  final int initialValue;
+  final int step;
+  final int maxValue;
   final int selectedDate;
   final Function(int)? onDateSelected;
   final String? unitSymbol;
 
   const CustomSliderWidget({
     Key? key,
-    required this.dates,
+    required this.initialValue,
+    required this.step,
+    required this.maxValue,
     required this.selectedDate,
     this.onDateSelected,
     this.unitSymbol,
@@ -23,6 +27,8 @@ class CustomSliderWidget extends StatefulWidget {
 class _CustomSliderWidgetState extends State<CustomSliderWidget> {
   late ScrollController _scrollController;
   int _currentSelectedDate = 0;
+  late List<int> _generatedDates;
+  late double _dynamicWidth; // متغير لتحديد المسافة بين الأرقام
 
   @override
   void initState() {
@@ -30,13 +36,25 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
     _scrollController = ScrollController();
     _currentSelectedDate = widget.selectedDate;
 
+    // توليد القيم بناءً على المعطيات
+    _generatedDates = List.generate(
+      ((widget.maxValue - widget.initialValue) ~/ widget.step) + 1,
+      (index) => widget.initialValue + (index * widget.step),
+    );
+
+    // تحديد عرض العناصر بناءً على حجم الخطوة
+    _dynamicWidth = (widget.step > 10) ? 80.w : 60.w;
+    if (widget.step > 50)
+      _dynamicWidth = 100.w; // إذا كانت الخطوة كبيرة جدًا، نزيد المسافة
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final double itemWidth = 60.w;
       final double middlePosition =
-          (widget.dates.indexOf(_currentSelectedDate) * itemWidth);
-      _scrollController.jumpTo(middlePosition -
-          (MediaQuery.of(context).size.width / 2) +
-          (itemWidth / 2));
+          (_generatedDates.indexOf(_currentSelectedDate) * _dynamicWidth);
+      _scrollController.jumpTo(
+        middlePosition -
+            (MediaQuery.of(context).size.width / 2) +
+            (_dynamicWidth / 2),
+      );
     });
 
     _scrollController.addListener(_updateSelectedDate);
@@ -50,20 +68,19 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
   }
 
   void _updateSelectedDate() {
-    final double itemWidth = 60.w;
     final double middlePosition =
         _scrollController.offset + (MediaQuery.of(context).size.width / 2);
-    int closestDate = widget.dates[0];
-    double minDistance = (middlePosition - (0 + itemWidth / 2)).abs();
+    int closestDate = _generatedDates[0];
+    double minDistance = (middlePosition - (0 + _dynamicWidth / 2)).abs();
 
-    for (int i = 1; i < widget.dates.length; i++) {
-      final double datePosition = i * itemWidth;
+    for (int i = 1; i < _generatedDates.length; i++) {
+      final double datePosition = i * _dynamicWidth;
       final double distance =
-          (middlePosition - (datePosition + itemWidth / 2)).abs();
+          (middlePosition - (datePosition + _dynamicWidth / 2)).abs();
 
       if (distance < minDistance) {
         minDistance = distance;
-        closestDate = widget.dates[i];
+        closestDate = _generatedDates[i];
       }
     }
 
@@ -75,6 +92,16 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
         widget.onDateSelected!(_currentSelectedDate);
       }
     }
+  }
+
+  void scrollToStartOrEnd(bool toEnd) {
+    double targetPosition =
+        toEnd ? (_generatedDates.length - 1) * _dynamicWidth : 0.0;
+    _scrollController.animateTo(
+      targetPosition,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -121,11 +148,11 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
               child: ListView.builder(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.dates.length,
+                itemCount: _generatedDates.length,
                 itemBuilder: (context, index) {
-                  final date = widget.dates[index];
+                  final date = _generatedDates[index];
                   return Container(
-                    width: 60.w,
+                    width: _dynamicWidth,
                     alignment: Alignment.center,
                     child: Text(
                       date.toString(),
@@ -143,7 +170,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
             ),
             Positioned(
               top: 0,
-              left: MediaQuery.of(context).size.width / 2 - 30.w,
+              left: MediaQuery.of(context).size.width / 2 - (_dynamicWidth / 2),
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -158,6 +185,20 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                   ),
                 ),
               ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: secondaryColor),
+              onPressed: () => scrollToStartOrEnd(false), // الرجوع لأول قيمة
+            ),
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_ios, color: secondaryColor),
+              onPressed: () => scrollToStartOrEnd(true), // الانتقال لآخر قيمة
             ),
           ],
         ),

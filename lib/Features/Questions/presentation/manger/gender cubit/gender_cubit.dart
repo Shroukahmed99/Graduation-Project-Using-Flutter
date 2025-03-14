@@ -9,12 +9,12 @@ class GenderCubit extends Cubit<GenderState> {
     String? savedGender = CacheHelper.getData(key: 'gender');
 
     if (savedGender != null) {
-      emit(GenderSelected(savedGender)); // ✅ تحديد الجنس إذا كان مخزن مسبقًا
+      emit(GenderSelected(savedGender));
     }
   }
 
   Future<void> selectGender(String gender) async {
     await CacheHelper.saveData(key: 'gender', value: gender);
-    emit(GenderSelected(gender)); // ✅ تحديث الحالة عند اختيار الجنس
+    emit(GenderSelected(gender));
   }
 }

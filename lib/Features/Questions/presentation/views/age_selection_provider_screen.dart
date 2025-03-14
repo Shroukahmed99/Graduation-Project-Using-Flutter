@@ -28,26 +28,26 @@ class AgeSelectionProviderScreen extends StatelessWidget {
             CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
               question: 'What’s Your Age?',
-              answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              answer:
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             ),
             CustomSizedBox(height: 35.h),
-
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
                 int selectedAge = state is AgeSelected ? state.age : 25;
 
                 return CustomSliderWidget(
-                  dates: List.generate(381, (index) => 20 + index),
+                  initialValue: 10, // القيمة الابتدائية
+                  step: 1, // قيمة التزايد
+                  maxValue: 60, // القيمة النهائية
                   selectedDate: selectedAge,
                   onDateSelected: (date) {
-                    context.read<AgeCubit>().updateSelectedAge(date); // ✅ تحديث العمر المختار
+                    context.read<AgeCubit>().updateSelectedAge(date);
                   },
                 );
               },
             ),
-
             const Spacer(),
-
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
                 return CustomButton(
@@ -55,13 +55,12 @@ class AgeSelectionProviderScreen extends StatelessWidget {
                   onTap: () async {
                     final ageCubit = context.read<AgeCubit>();
                     await ageCubit.saveSelectedAge();
-                    print('🚀 Navigating with Saved Age: ${(state as AgeSelected).age}');
+
                     GoRouter.of(context).push(AppRouter.kInsertDataView);
                   },
                 );
               },
             ),
-
             CustomSizedBox(height: 40.h),
           ],
         ),

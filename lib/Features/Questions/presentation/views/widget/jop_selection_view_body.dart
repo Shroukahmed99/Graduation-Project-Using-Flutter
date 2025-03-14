@@ -10,6 +10,7 @@ import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class JopSelectionViewBody extends StatelessWidget {
   const JopSelectionViewBody({super.key});
@@ -18,81 +19,95 @@ class JopSelectionViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 32.h, left: 24.w),
-      child: BlocProvider(
-        create: (context) => JobCubit(), // Providing the Cubit
-        child: Column(
-          children: [
-            const CustomArrowBack(text: 'Back'),
-            CustomSizedBox(height: 25.h),
-            const CustomQuestionAndAswer(
-              question: 'What’s Your job',
-              answer:
-                  'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach',
-            ),
-            const CustomSizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Row(
-                children: [
-                  BlocBuilder<JobCubit, JobState>(  // Fix the BlocBuilder
-                    builder: (context, state) {
-                      String selectedJob = (state is JobSelected) ? state.selectedJob : '';
-                      return CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/medical-big.png')],
-                        text: 'Physical Therapy',
-                        isSelected: selectedJob == 'Physical Therapy', // Check if selected
-                        onTap: () {
-                          context.read<JobCubit>().selectJob('Physical Therapy'); // Update selection
-                        },
-                      );
-                    },
-                  ),
-                  SizedBox(width: 23.w),
-                  BlocBuilder<JobCubit, JobState>(  // Fix the BlocBuilder
-                    builder: (context, state) {
-                      String selectedJob = (state is JobSelected) ? state.selectedJob : '';
-                      return CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/applebig.png')],
-                        text: 'Nutrition',
-                        isSelected: selectedJob == 'Nutirion', // Check if selected
-                        onTap: () {
-                          context.read<JobCubit>().selectJob('Nutirion'); // Update selection
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 30.h),
-            BlocBuilder<JobCubit, JobState>(  // Fix the BlocBuilder
-              builder: (context, state) {
-                String selectedJob = (state is JobSelected) ? state.selectedJob : '';
-                return CircleImageTextWidget(
-                  images: const [AssetImage('assets/images/Vector-big.png')],
-                  text: 'Work Out',
-                  isSelected: selectedJob == 'Work Out', // Check if selected
-                  onTap: () {
-                    context.read<JobCubit>().selectJob('Work Out'); // Update selection
+      child: Column(
+        children: [
+          const CustomArrowBack(text: 'Back'),
+          CustomSizedBox(height: 25.h),
+          const CustomQuestionAndAswer(
+            question: 'What’s Your Job?',
+            answer:
+                'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach.',
+          ),
+          const CustomSizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Row(
+              children: [
+                BlocBuilder<JobCubit, JobState>(
+                  builder: (context, state) {
+                    String selectedJob =
+                        (state is JobSelected) ? state.selectedJob : '';
+                    return CircleImageTextWidget(
+                      images: const [
+                        AssetImage('assets/images/medical-big.png')
+                      ],
+                      text: 'Physical Therapy',
+                      isSelected: selectedJob == 'Physical Therapy',
+                      onTap: () {
+                        context.read<JobCubit>().selectJob('Physical Therapy');
+                        CacheHelper.saveData(
+                            key: 'job', value: 'Physical Therapy');
+                      },
+                    );
                   },
-                );
-              },
+                ),
+                SizedBox(width: 23.w),
+                BlocBuilder<JobCubit, JobState>(
+                  builder: (context, state) {
+                    String selectedJob =
+                        (state is JobSelected) ? state.selectedJob : '';
+                    return CircleImageTextWidget(
+                      images: const [AssetImage('assets/images/applebig.png')],
+                      text: 'Nutirion',
+                      isSelected: selectedJob == 'Nutirion',
+                      onTap: () {
+                        context.read<JobCubit>().selectJob('Nutirion');
+                        CacheHelper.saveData(key: 'job', value: 'Nutirion');
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
-            const Spacer(),
-            CustomButton(
-              text: 'Continue',
-              onTap: () {
-                 
-            String? selectedJob =  CacheHelper.getData(key: 'job'); // جلب البيانات باستخدام key "job"
-            print("🔹 Selected Job: $selectedJob");
-          
-                // Navigate to the next screen
-                GoRouter.of(context).push(AppRouter.kGenderSelectionViewService);
-              },
-            ),
-            CustomSizedBox(height: 40.h),
-          ],
-        ),
+          ),
+          SizedBox(height: 30.h),
+          BlocBuilder<JobCubit, JobState>(
+            builder: (context, state) {
+              String selectedJob =
+                  (state is JobSelected) ? state.selectedJob : '';
+              return CircleImageTextWidget(
+                images: const [AssetImage('assets/images/Vector-big.png')],
+                text: 'Work Out',
+                isSelected: selectedJob == 'Work Out',
+                onTap: () {
+                  context.read<JobCubit>().selectJob('Work Out');
+                  CacheHelper.saveData(key: 'job', value: 'Work Out');
+                },
+              );
+            },
+          ),
+          const Spacer(),
+          BlocBuilder<JobCubit, JobState>(
+            builder: (context, state) {
+              String? selectedJob =
+                  (state is JobSelected) ? state.selectedJob : null;
+
+              return CustomButton(
+                text: 'Continue',
+                onTap: () {
+                  if (selectedJob == null || selectedJob.isEmpty) {
+                    customSnackBar(
+                        context, 'Please choose a job before continuing!');
+                  } else {
+                    GoRouter.of(context)
+                        .push(AppRouter.kGenderSelectionViewService);
+                  }
+                },
+              );
+            },
+          ),
+          CustomSizedBox(height: 40.h),
+        ],
       ),
     );
   }

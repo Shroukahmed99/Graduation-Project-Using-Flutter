@@ -8,25 +8,21 @@ import 'package:sehatak/core/utils/cache_helper.dart';
 part 'insert_data_state.dart';
 
 class InsertDataCubit extends Cubit<InsertDataState> {
-  InsertDataCubit() : super(InsertDataInitial());
+  InsertDataCubit() : super(InsertDataInitial()) {
+    _resetFields(); // ✅ تعيين القيم الافتراضية دون تحميل البيانات المخزنة
+  }
 
   final TextEditingController yearsController = TextEditingController();
   final TextEditingController jobTitleController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
-
   File? selectedFile;
 
-  /// تحميل البيانات المخزنة
-  Future<void> loadSavedData() async {
-    yearsController.text = CacheHelper.getData(key: 'yearsOfExperience') ?? '';
-    jobTitleController.text = CacheHelper.getData(key: 'jobTiltle') ?? '';
-    bioController.text = CacheHelper.getData(key: 'bio') ?? '';
-
-    String? savedPath = CacheHelper.getData(key: 'identifier');
-    if (savedPath != null && File(savedPath).existsSync()) {
-      selectedFile = File(savedPath);
-    }
-    emit(InsertDataLoaded());
+  /// **إعادة تعيين الحقول للقيم الافتراضية**
+  void _resetFields() {
+    yearsController.text = ''; // ✅ ترك الحقول فارغة عند بدء التطبيق
+    jobTitleController.text = '';
+    bioController.text = '';
+    selectedFile = null;
   }
 
   /// حفظ البيانات عند إدخالها
@@ -44,11 +40,18 @@ class InsertDataCubit extends Cubit<InsertDataState> {
 
       if (result != null && result.files.single.path != null) {
         selectedFile = File(result.files.single.path!);
-        await CacheHelper.saveData(key: 'identifier', value: selectedFile!.path);
         emit(InsertDataLoaded());
       }
     } catch (e) {
       print("❌ Error selecting file: $e");
     }
+  }
+
+  /// التحقق من اكتمال جميع البيانات قبل الانتقال
+  bool isAllDataFilled() {
+    return yearsController.text.isNotEmpty &&
+        jobTitleController.text.isNotEmpty &&
+        bioController.text.isNotEmpty &&
+        selectedFile != null;
   }
 }

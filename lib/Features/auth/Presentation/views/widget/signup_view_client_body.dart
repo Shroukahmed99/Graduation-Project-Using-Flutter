@@ -12,11 +12,10 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_sign
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
-import 'package:sehatak/core/utils/cache_helper.dart'; // ✅ استيراد CacheHelper
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class SignupViewClientBody extends StatelessWidget {
   SignupViewClientBody({super.key});
-
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
@@ -33,12 +32,6 @@ class SignupViewClientBody extends StatelessWidget {
     await CacheHelper.saveData(key: 'password', value: passwordController.text);
     await CacheHelper.saveData(
         key: 'passwordConfirm', value: passwordConfirmController.text);
-
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   const SnackBar(content: Text("Sign-up successful! ✅")),
-    // );
-
-    // ✅ تنظيف الحقول بعد التسجيل
     fullNameController.clear();
     emailController.clear();
     mobileNumberController.clear();
@@ -96,10 +89,6 @@ class SignupViewClientBody extends StatelessWidget {
               hintText: '*************',
               obscureText: true,
               controller: passwordConfirmController,
-              onChanged: (value) {
-                debugPrint(
-                    "Updated Confirm Password: $value"); // ✅ للتأكد إنه بيتحدث
-              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Password confirmation is required';
@@ -118,9 +107,6 @@ class SignupViewClientBody extends StatelessWidget {
               onTap: () {
                 if (signupKey.currentState!.validate()) {
                   saveData(context);
-                  debugPrint("Password: ${passwordController.text}");
-                  debugPrint(
-                      "Confirm Password: ${passwordConfirmController.text}");
                   GoRouter.of(context)
                       .push(AppRouter.kGenderSelectionViewClient);
                 }

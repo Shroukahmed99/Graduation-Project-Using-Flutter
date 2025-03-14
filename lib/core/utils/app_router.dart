@@ -158,7 +158,6 @@ abstract class AppRouter {
         path: kPriceSelectionView,
         builder: (context, state) => const PriceSelectionView(),
       ),
-     
     ],
   );
 }

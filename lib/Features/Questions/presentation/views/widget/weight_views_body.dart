@@ -36,8 +36,9 @@ class WeightViewsBody extends StatelessWidget {
               ),
               CustomSizedBox(height: 35.h),
               CustomSliderWidget(
-                dates: List.generate(
-                    381, (index) => 20 + index), // توليد الأرقام من 20 إلى 400
+                initialValue: 40,
+                step: 1,
+                maxValue: 300, //
                 selectedDate: selectedWeight,
                 unitSymbol: 'Kg',
                 onDateSelected: (weight) {

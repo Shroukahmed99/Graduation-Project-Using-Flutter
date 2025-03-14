@@ -12,7 +12,7 @@ import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
-import 'package:sehatak/core/utils/cache_helper.dart'; 
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class PriceSelectionViewBody extends StatelessWidget {
   const PriceSelectionViewBody({super.key});
@@ -35,10 +35,10 @@ class PriceSelectionViewBody extends StatelessWidget {
       },
       child: BlocBuilder<PriceCubit, PriceState>(
         builder: (context, state) {
-          int selectedPrice = (state is PriceSelected) 
-              ? state.price 
-              : int.tryParse(CacheHelper.getData(key: 'priceRange') ?? '100') ?? 100;
-
+          int selectedPrice = (state is PriceSelected)
+              ? state.price
+              : int.tryParse(CacheHelper.getData(key: 'priceRange') ?? '100') ??
+                  100;
           return Form(
             key: context.read<SignUpProviderCubit>().formKey,
             child: Column(
@@ -50,28 +50,53 @@ class PriceSelectionViewBody extends StatelessWidget {
                 ),
                 CustomSizedBox(height: 25.h),
                 const CustomQuestionAndAswer(
-                  question: 'What Is Your Price?',
-                  answer: 'Lorem ipsum dolor sit amet...',
+                  question: 'What is your price range?',
+                  answer:
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 ),
                 CustomSizedBox(height: 35.h),
                 CustomSliderWidget(
-                  dates: List.generate(19, (index) => 100 + (index * 50)),
+                  initialValue: 0, // القيمة الابتدائية
+                  step: 50, // قيمة التزايد
+                  maxValue: 900, // القيمة النهائية
                   selectedDate: selectedPrice,
                   unitSymbol: '\$',
                   onDateSelected: (price) {
-                    CacheHelper.saveData(key: 'priceRange', value: price.toString());
+                    CacheHelper.saveData(
+                      key: 'priceRange',
+                      value: price.toString(),
+                    );
                     context.read<PriceCubit>().selectPrice(price);
                   },
                 ),
                 const Spacer(),
-                CustomButton(
-                  text: 'Continue',
-                  onTap: () {
-                    if (context.read<SignUpProviderCubit>().formKey.currentState!.validate()) {
-                      context.read<SignUpProviderCubit>().signUpUser();
-                    } else {
-                      customSnackBar(context, 'Please fill in all required fields');
-                    }
+                BlocBuilder<SignUpProviderCubit, SignUpProviderState>(
+                  builder: (context, state) {
+                    bool isLoading = state is SignUpProviderLoading;
+
+                    return isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : CustomButton(
+                            text: 'Continue',
+                            onTap: () {
+                              if (context
+                                  .read<SignUpProviderCubit>()
+                                  .formKey
+                                  .currentState!
+                                  .validate()) {
+                                if (selectedPrice != null) {
+                                  context
+                                      .read<SignUpProviderCubit>()
+                                      .signUpUser();
+                                } else {
+                                  customSnackBar(
+                                      context, 'Please select activity level');
+                                }
+                              }
+                            },
+                          );
                   },
                 ),
                 CustomSizedBox(height: 40.h),

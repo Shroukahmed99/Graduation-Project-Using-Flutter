@@ -37,9 +37,13 @@ class _CustomSliderHeightState extends State<CustomSliderHeight> {
 
   void _jumpToInitialPosition() {
     final double itemHeight = 60.h;
-    final double middlePosition =
-        (widget.dates.indexOf(_currentSelectedDate) * itemHeight);
-    _scrollController.jumpTo(middlePosition - 150.h + (itemHeight / 2));
+    final int selectedIndex = widget.dates.indexOf(_currentSelectedDate);
+    if (selectedIndex != -1) {
+      final double middlePosition =
+          (selectedIndex * itemHeight) - ((300.h - itemHeight) / 2);
+      _scrollController.jumpTo(
+          middlePosition.clamp(0, _scrollController.position.maxScrollExtent));
+    }
   }
 
   void _updateSelectedDate() {
@@ -144,6 +148,7 @@ class _CustomSliderHeightState extends State<CustomSliderHeight> {
               child: Container(
                 width: 100.w,
                 height: 60.h,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.white,

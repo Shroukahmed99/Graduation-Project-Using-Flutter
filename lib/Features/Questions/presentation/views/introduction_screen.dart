@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 import '../../../../core/widget/Custom_Arrow_Icon.dart';
