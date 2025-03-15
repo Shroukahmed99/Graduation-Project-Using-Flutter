@@ -10,28 +10,28 @@ class ServerFailure extends Failure {
   ServerFailure(super.errorMessage);
 
   factory ServerFailure.fromDioError(DioException dioError) {
+    // التقاط الأخطاء من Dio أو من الـ API
+    if (dioError.response != null) {
+      String message = dioError.response?.data?['message'] ??
+          'An unexpected error occurred.';
+      return ServerFailure(message);
+    }
+
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
         return ServerFailure(
             'Connection to the server timed out. Please check your internet connection.');
-
       case DioExceptionType.sendTimeout:
         return ServerFailure('Failed to send data. Please try again.');
-
       case DioExceptionType.receiveTimeout:
         return ServerFailure('Failed to receive data. Please try again.');
-
       case DioExceptionType.badResponse:
-        return ServerFailure.fromResponse(
-            dioError.response?.statusCode, dioError.response?.data);
-
+        return ServerFailure('Bad response from the server.');
       case DioExceptionType.cancel:
         return ServerFailure('The request was canceled. Please try again.');
-
       case DioExceptionType.unknown:
         return ServerFailure(
             'No internet connection. Please check your network.');
-
       default:
         return ServerFailure('An unexpected error occurred. Please try again.');
     }

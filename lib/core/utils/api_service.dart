@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
@@ -30,10 +29,14 @@ class ApiService {
 
         if (cookies != null) {
           try {
-            token = cookies.split(';').firstWhere(
+            token = cookies
+                .split(';')
+                .firstWhere(
                   (element) => element.contains('jwt'),
                   orElse: () => "",
-                ).split('=').last;
+                )
+                .split('=')
+                .last;
           } catch (e) {
             print("⚠️ Error extracting token from cookies: $e");
           }
@@ -67,25 +70,16 @@ class ApiService {
     ));
   }
 
-   Future<Response> post({
-    required String endpoint,
-    required dynamic data,
-  }) async {
-    try {
-      Options options = Options(
-        headers: {
-          "Content-Type": (data is FormData)
-              ? "multipart/form-data"
-              : "application/json",
-        },
-      );
-      Response response =
-          await dio.post("$baseUrl$endpoint", data: data, options: options);
-      return response;
-    } catch (e) {
-      print("🚨 API Error: $e");
-      throw Exception("🚨 API Error: $e");
-    }
+  Future<Map<String, dynamic>> post({required endpoint, required data}) async {
+    Options options = Options(
+      headers: {
+        "Content-Type":
+            (data is FormData) ? "multipart/form-data" : "application/json",
+      },
+    );
+    var response =
+        await dio.post("$baseUrl$endpoint", data: data, options: options);
+    return response.data;
   }
 
   Future<Response> get({required String endpoint}) async {
@@ -100,18 +94,22 @@ class ApiService {
     }
   }
 
-  Future<Response> patch({
+  Future<Map<String, dynamic>> patch({
     required String endpoint,
     required Map<String, dynamic> data,
   }) async {
     try {
+      // إرسال الطلب باستخدام dio
       Response response = await dio.patch(
         "$baseUrl$endpoint",
         data: data,
         options: Options(headers: {"Content-Type": "application/json"}),
       );
-      return response;
+
+      // إرجاع البيانات المستلمة من الاستجابة
+      return response.data;
     } catch (e) {
+      // في حال حدوث خطأ، إلقاء استثناء
       throw Exception("🚨 API Error: $e");
     }
   }

@@ -39,7 +39,8 @@ class UsersRepoImpl implements UsersRepo {
           "age: $age, weight: $weight, height: $height, "
           "goal: $goal, physicalActivityLevel: $physicalActivityLevel}");
 
-      Response response = await apiService.post(
+      // إرسال الطلب عبر apiService
+      var data = await apiService.post(
         endpoint: "clientSignUp",
         data: {
           "fullName": fullName,
@@ -52,51 +53,52 @@ class UsersRepoImpl implements UsersRepo {
           "weight": weight,
           "height": height,
           "goal": goal,
-          "physicalActivityLevel": physicalActivityLevel
+          "physicalActivityLevel": physicalActivityLevel,
         },
       );
 
-      print("📤 API Response: ${response.data}");
+      print("📤 API Response: $data");
 
-      if (response.data["status"] == "success") {
+      if (data["status"] == "success") {
+        // استخراج بيانات المستخدم وتخزين التوكن
         String token = CacheHelper.getData(key: "token") ?? "";
 
-        UsersModel signUpModel = UsersModel.fromJson(
-          response.data["data"],
-        );
-        return Right(signUpModel);
+        UsersModel signUpModel = UsersModel.fromJson(data["data"]);
+        return Right(signUpModel); // إرجاع النتيجة بنجاح
       } else {
-        return Left(ServerFailure(response.data["message"]));
+        return Left(ServerFailure(
+            data["message"])); // في حال وجود خطأ في الاستجابة من السيرفر
       }
     } catch (e) {
       print("❌ API Error: $e");
-      return Left(ServerFailure(e.toString()));
+      if (e is DioException) {
+        return Left(
+            ServerFailure.fromDioError(e)); // في حال كان الخطأ من نوع Dio
+      }
+      return Left(ServerFailure(e.toString())); // في حال وجود أي خطأ آخر
     }
   }
 
-  Future<Either<Failure, UsersModel>> loginUser({
-    required String email,
-    required String password,
-  }) async {
+  Future<Either<Failure, UsersModel>> loginUser(
+      {required email, required password}) async {
     try {
-      Response response = await apiService.post(
+      var data = await apiService.post(
         endpoint: "login",
         data: {
           "email": email,
           "password": password,
         },
       );
-
-      if (response.data["status"] == "success") {
-        String token = CacheHelper.getData(key: "token") ?? "";
-
-        UsersModel loginModel = UsersModel.fromJson(response.data["data"]);
-        return Right(loginModel);
-      } else {
-        return Left(ServerFailure(response.data["message"]));
-      }
+      return right(UsersModel.fromJson(data));
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(
+        ServerFailure(
+          e.toString(),
+        ),
+      );
     }
   }
 
@@ -105,52 +107,58 @@ class UsersRepoImpl implements UsersRepo {
     required String email,
   }) async {
     try {
-      Response response = await apiService.post(
+      var responseData = await apiService.post(
         endpoint: "forgetPassword",
         data: {
           "email": email,
         },
       );
 
-      if (response.data["status"] == "success") {
+      if (responseData["status"] == "success") {
         ForgetPasswordModel forgetPasswordModel =
-            ForgetPasswordModel.fromJson(response.data);
-        return Right(forgetPasswordModel);
+            ForgetPasswordModel.fromJson(responseData);
+        return Right(forgetPasswordModel); // إرجاع النتيجة بنجاح
       } else {
-        return Left(ServerFailure(response.data["message"]));
+        return Left(
+            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
       }
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      // التعامل مع الأخطاء الخاصة بـ Dio
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString())); // في حال وجود أي أخطاء أخرى
     }
   }
 
-  /// ✅ تنفيذ التحقق من كود OTP
-  @override
-  Future<Either<Failure, OtpModel>> otpUser({required String resetCode}) async {
+  Future<Either<Failure, OtpModel>> otpUser({
+    required String resetCode,
+  }) async {
     try {
-      Response response = await apiService.post(
+      var responseData = await apiService.post(
         endpoint: "verifyOTP",
         data: {
           "resetCode": resetCode,
         },
       );
 
-      if (response.data["status"] == "success") {
-        OtpModel otpModel = OtpModel.fromJson(response.data);
+      if (responseData["status"] == "success") {
+        OtpModel otpModel = OtpModel.fromJson(responseData);
 
-        // ✅ حفظ userId
+        // ✅ حفظ userId في الكاش
         CacheHelper.saveData(key: 'userId', value: otpModel.userId);
 
-        // ✅ طباعة القيم المخزنة للتأكد
-        String? checkUserId = CacheHelper.getData(key: 'userId');
-        print("✅ Verified userId after saving: $checkUserId");
-
-        return Right(otpModel);
+        return Right(otpModel); // إرجاع النتيجة بنجاح
       } else {
-        return Left(ServerFailure(response.data["message"]));
+        return Left(
+            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
       }
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      // التعامل مع الأخطاء الخاصة بـ Dio
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString())); // في حال وجود أي أخطاء أخرى
     }
   }
 
@@ -160,14 +168,11 @@ class UsersRepoImpl implements UsersRepo {
   }) async {
     try {
       String? userId = CacheHelper.getData(key: 'userId');
-      print("🔍 Retrieved userId before sending request: $userId");
-
       if (userId == null || userId.isEmpty) {
-        print("❌ Error: User ID is missing or invalid!");
         return Left(ServerFailure("User ID is invalid"));
       }
 
-      Response response = await apiService.patch(
+      var responseData = await apiService.patch(
         endpoint: "resetPassword/$userId",
         data: {
           "password": password,
@@ -175,126 +180,99 @@ class UsersRepoImpl implements UsersRepo {
         },
       );
 
-      if (response.data["status"] == "success") {
-        print("✅ Password reset successful!");
-        return Right(SetPassword.fromJson(response.data));
+      if (responseData["status"] == "success") {
+        return Right(SetPassword.fromJson(responseData)); // إرجاع النتيجة بنجاح
       } else {
-        return Left(ServerFailure(response.data["message"]));
+        return Left(
+            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
       }
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      // التعامل مع الأخطاء
+      return Left(ServerFailure(e.toString())); // إرجاع الأخطاء
     }
   }
-  
-  @override
 
+  Future<Either<Failure, UsersModel>> signUpProvider({
+    required String fullName,
+    required String email,
+    required String mobileNumber,
+    required String password,
+    required String passwordConfirm,
+    required String gender,
+    required String age,
+    required String job,
+    required String yearsOfExperience,
+    required String jobTiltle,
+    required String bio,
+    required String priceRange,
+    required File identifier,
+  }) async {
+    try {
+      // تجهيز الصورة كـ MultipartFile إذا كانت موجودة
+      MultipartFile? multipartFile;
+      if (identifier.existsSync()) {
+        String mimeType = getMimeType(identifier.path);
+        multipartFile = await MultipartFile.fromFile(
+          identifier.path,
+          filename: identifier.path.split('/').last,
+          contentType:
+              MediaType(mimeType.split('/')[0], mimeType.split('/')[1]),
+        );
+      }
 
-Future<Either<Failure, UsersModel>> signUpProvider({
-  required String fullName,
-  required String email,
-  required String mobileNumber,
-  required String password,
-  required String passwordConfirm,
-  required String gender,
-  required String age,
-  required String job,
-  required String yearsOfExperience,
-  required String jobTiltle, // ✅ تأكد إن الاسم متطابق مع الـ API
-  required String bio,
-  required String priceRange,
-  required File identifier,
-}) async {
-  try {
-    // ✅ تجهيز الصورة كـ MultipartFile مع التأكد من وجود الملف
-    MultipartFile? multipartFile;
-    if (identifier != null && await identifier.exists()) {
-      String mimeType = getMimeType(identifier.path);
-      multipartFile = await MultipartFile.fromFile(
-        identifier.path,
-        filename: identifier.path.split('/').last,
-        contentType: MediaType(mimeType.split('/')[0], mimeType.split('/')[1]),
+      FormData formData = FormData.fromMap({
+        'fullName': fullName,
+        'email': email,
+        'mobileNumber': mobileNumber,
+        'password': password,
+        'passwordConfirm': passwordConfirm,
+        'gender': gender,
+        'age': age,
+        'job': job,
+        'yearsOfExperience': yearsOfExperience,
+        'jobTiltle': jobTiltle,
+        'bio': bio,
+        'priceRange': priceRange,
+        if (multipartFile != null) 'identifier': multipartFile,
+      });
+
+      var responseData = await apiService.post(
+        endpoint: 'serviceProviderSignUp',
+        data: formData,
       );
+
+      if (responseData == null || !responseData.containsKey('data')) {
+        return Left(ServerFailure("❌ API Response is null or missing data"));
+      }
+
+      if (!responseData['data'].containsKey('user')) {
+        return Left(
+            ServerFailure("❌ API Response does not contain 'user' key"));
+      }
+
+      return Right(UsersModel.fromJson(responseData)); // إرجاع النتيجة بنجاح
+    } catch (e) {
+      return Left(ServerFailure(e.toString())); // إرجاع الأخطاء
     }
-
-    // ✅ تجهيز FormData
-    FormData formData = FormData.fromMap({
-      'fullName': fullName,
-      'email': email,
-      'mobileNumber': mobileNumber,
-      'password': password,
-      'passwordConfirm': passwordConfirm,
-      'gender': gender,
-      'age': age,
-      'job': job,
-      'yearsOfExperience': yearsOfExperience,
-      'jobTiltle': jobTiltle, // ✅ تأكد من التسمية
-      'bio': bio,
-      'priceRange': priceRange,
-      if (multipartFile != null) 'identifier': multipartFile, // ✅ تأكد أن الملف موجود
-    });
-
-    // ✅ طباعة البيانات قبل الإرسال
-    print('====================');
-    print('📤 Sending FormData:');
-    formData.fields.forEach((field) {
-      print('📝 ${field.key}: ${field.value}');
-    });
-    formData.files.forEach((file) {
-      print('📸 ${file.key}: ${file.value.filename}');
-    });
-    print('====================');
-
-    // ✅ إرسال البيانات
-    Response response = await apiService.post(
-  endpoint: 'serviceProviderSignUp',
-  data: formData,
-);
-
-print('✅ Response: ${response.data}'); // ✅ طباعة الاستجابة
-
-final responseData = response.data;
-
-// **تحقق من أن الاستجابة تحتوي على البيانات المطلوبة**
-if (responseData == null) {
-  return Left(ServerFailure("❌ API Response is null"));
-}
-if (!responseData.containsKey('data')) {
-  return Left(ServerFailure("❌ API Response does not contain 'data' key"));
-}
-if (!responseData['data'].containsKey('user')) {
-  return Left(ServerFailure("❌ API Response does not contain 'user' key"));
-}
-
-// ✅ مرر الـ `responseData` بالكامل وليس فقط `user`
-return Right(UsersModel.fromJson(responseData));
-
-  } catch (e) {
-    print('❌ Error: $e'); // ✅ طباعة الخطأ
-    return Left(ServerFailure(e.toString()));
   }
-}
-
 
 // ✅ دالة استخراج نوع الصورة تلقائيًا
-String getMimeType(String filePath) {
-  String extension = filePath.split('.').last.toLowerCase();
-  switch (extension) {
-    case 'jpg':
-    case 'jpeg':
-      return 'image/jpeg';
-    case 'png':
-      return 'image/png';
-    case 'gif':
-      return 'image/gif';
-    case 'bmp':
-      return 'image/bmp';
-    case 'webp':
-      return 'image/webp';
-    default:
-      return 'application/octet-stream';
+  String getMimeType(String filePath) {
+    String extension = filePath.split('.').last.toLowerCase();
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      case 'bmp':
+        return 'image/bmp';
+      case 'webp':
+        return 'image/webp';
+      default:
+        return 'application/octet-stream';
+    }
   }
-}
-
-
-
 }

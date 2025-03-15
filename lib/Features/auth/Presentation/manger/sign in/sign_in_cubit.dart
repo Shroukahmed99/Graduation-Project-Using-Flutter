@@ -25,8 +25,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
 
     try {
-       print("Email: ${emailController.text.trim()}");
-    print("Password: ${passwordController.text.trim()}");
+      print("Email: ${emailController.text.trim()}");
+      print("Password: ${passwordController.text.trim()}");
       Either<Failure, UsersModel> result = await usersRepo.loginUser(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
