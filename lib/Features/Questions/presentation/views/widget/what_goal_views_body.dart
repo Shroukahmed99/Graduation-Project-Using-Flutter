@@ -35,8 +35,6 @@ class WhatGoalViewsBody extends StatelessWidget {
             CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
               question: 'What Is Your Goal?',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             ),
             CustomSizedBox(height: 35.h),
             CustomSelectGoal(

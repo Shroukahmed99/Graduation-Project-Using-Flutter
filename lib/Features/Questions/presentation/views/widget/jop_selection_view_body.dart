@@ -25,8 +25,6 @@ class JopSelectionViewBody extends StatelessWidget {
           CustomSizedBox(height: 25.h),
           const CustomQuestionAndAswer(
             question: 'What’s Your Job?',
-            answer:
-                'A service provider can be a Nutritionist, Physiotherapist, or Gym Coach.',
           ),
           const CustomSizedBox(height: 32),
           Padding(

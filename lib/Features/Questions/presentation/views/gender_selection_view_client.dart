@@ -26,8 +26,6 @@ class GenderSelectionViewClient extends StatelessWidget {
               CustomSizedBox(height: 25.h),
               const CustomQuestionAndAswer(
                 question: 'What’s Your Gender',
-                answer:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
               ),
               const CustomSizedBox(height: 15),
               BlocBuilder<GenderCubit, GenderState>(

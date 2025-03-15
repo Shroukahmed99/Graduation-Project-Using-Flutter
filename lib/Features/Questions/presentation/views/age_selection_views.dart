@@ -28,8 +28,6 @@ class AgeSelectionViews extends StatelessWidget {
             CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
               question: 'What’s Your Age?',
-              answer:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             ),
             CustomSizedBox(height: 35.h),
             BlocBuilder<AgeCubit, AgeState>(
