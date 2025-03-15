@@ -14,15 +14,9 @@ class ApiService {
           options.headers['Authorization'] = 'Bearer $token';
         }
 
-        print("📤 Sending request to: ${options.uri}");
-        print("📦 Headers: ${options.headers}");
-
         handler.next(options);
       },
       onResponse: (response, handler) {
-        print("✅ Response Received from: ${response.requestOptions.uri}");
-        print("📦 Response Data: ${response.data}");
-
         // ✅ استخراج التوكن من الكوكيز أو جسم الاستجابة
         String? token;
         String? cookies = response.headers['set-cookie']?.first;
@@ -38,7 +32,7 @@ class ApiService {
                 .split('=')
                 .last;
           } catch (e) {
-            print("⚠️ Error extracting token from cookies: $e");
+            // معالجة الأخطاء بدون طباعة
           }
         }
 
@@ -50,21 +44,11 @@ class ApiService {
         // ✅ حفظ التوكن إذا لم يكن فارغًا
         if (token != null && token.isNotEmpty) {
           CacheHelper.saveData(key: 'token', value: token);
-          print("🔐 Token saved: $token");
         }
 
         handler.next(response);
       },
       onError: (DioException e, handler) {
-        print("❌ API Error: ${e.message}");
-        print("📡 Request: ${e.requestOptions.uri}");
-
-        // ✅ طباعة تفاصيل الخطأ لمساعدتك في التصحيح
-        if (e.response != null) {
-          print("🛑 Error Response Data: ${e.response?.data}");
-          print("🔴 Status Code: ${e.response?.statusCode}");
-        }
-
         handler.next(e);
       },
     ));
@@ -94,23 +78,15 @@ class ApiService {
     }
   }
 
-  Future<Map<String, dynamic>> patch({
-    required String endpoint,
-    required Map<String, dynamic> data,
-  }) async {
-    try {
-      // إرسال الطلب باستخدام dio
-      Response response = await dio.patch(
-        "$baseUrl$endpoint",
-        data: data,
-        options: Options(headers: {"Content-Type": "application/json"}),
-      );
-
-      // إرجاع البيانات المستلمة من الاستجابة
-      return response.data;
-    } catch (e) {
-      // في حال حدوث خطأ، إلقاء استثناء
-      throw Exception("🚨 API Error: $e");
-    }
+  Future<Map<String, dynamic>> patch({required endpoint, required data}) async {
+    Options options = Options(
+      headers: {
+        "Content-Type":
+            (data is FormData) ? "multipart/form-data" : "application/json",
+      },
+    );
+    var response =
+        await dio.patch("$baseUrl$endpoint", data: data, options: options);
+    return response.data;
   }
 }

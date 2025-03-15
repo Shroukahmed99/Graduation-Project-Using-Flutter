@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
-
 import 'package:dartz/dartz.dart';
 import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
@@ -33,13 +32,6 @@ class UsersRepoImpl implements UsersRepo {
     required String height,
   }) async {
     try {
-      print("🚀 Sending Data: {"
-          "fullName: $fullName, email: $email, mobileNumber: $mobileNumber, "
-          "password: $password, passwordConfirm: $passwordConfirm, gender: $gender, "
-          "age: $age, weight: $weight, height: $height, "
-          "goal: $goal, physicalActivityLevel: $physicalActivityLevel}");
-
-      // إرسال الطلب عبر apiService
       var data = await apiService.post(
         endpoint: "clientSignUp",
         data: {
@@ -57,25 +49,18 @@ class UsersRepoImpl implements UsersRepo {
         },
       );
 
-      print("📤 API Response: $data");
-
       if (data["status"] == "success") {
-        // استخراج بيانات المستخدم وتخزين التوكن
         String token = CacheHelper.getData(key: "token") ?? "";
-
         UsersModel signUpModel = UsersModel.fromJson(data["data"]);
-        return Right(signUpModel); // إرجاع النتيجة بنجاح
+        return Right(signUpModel);
       } else {
-        return Left(ServerFailure(
-            data["message"])); // في حال وجود خطأ في الاستجابة من السيرفر
+        return Left(ServerFailure(data["message"]));
       }
     } catch (e) {
-      print("❌ API Error: $e");
       if (e is DioException) {
-        return Left(
-            ServerFailure.fromDioError(e)); // في حال كان الخطأ من نوع Dio
+        return Left(ServerFailure.fromDioError(e));
       }
-      return Left(ServerFailure(e.toString())); // في حال وجود أي خطأ آخر
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -94,11 +79,7 @@ class UsersRepoImpl implements UsersRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
-      return left(
-        ServerFailure(
-          e.toString(),
-        ),
-      );
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -117,17 +98,15 @@ class UsersRepoImpl implements UsersRepo {
       if (responseData["status"] == "success") {
         ForgetPasswordModel forgetPasswordModel =
             ForgetPasswordModel.fromJson(responseData);
-        return Right(forgetPasswordModel); // إرجاع النتيجة بنجاح
+        return Right(forgetPasswordModel);
       } else {
-        return Left(
-            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
+        return Left(ServerFailure(responseData["message"]));
       }
     } catch (e) {
-      // التعامل مع الأخطاء الخاصة بـ Dio
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
-      return Left(ServerFailure(e.toString())); // في حال وجود أي أخطاء أخرى
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -144,21 +123,16 @@ class UsersRepoImpl implements UsersRepo {
 
       if (responseData["status"] == "success") {
         OtpModel otpModel = OtpModel.fromJson(responseData);
-
-        // ✅ حفظ userId في الكاش
         CacheHelper.saveData(key: 'userId', value: otpModel.userId);
-
-        return Right(otpModel); // إرجاع النتيجة بنجاح
+        return Right(otpModel);
       } else {
-        return Left(
-            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
+        return Left(ServerFailure(responseData["message"]));
       }
     } catch (e) {
-      // التعامل مع الأخطاء الخاصة بـ Dio
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
-      return Left(ServerFailure(e.toString())); // في حال وجود أي أخطاء أخرى
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -181,14 +155,15 @@ class UsersRepoImpl implements UsersRepo {
       );
 
       if (responseData["status"] == "success") {
-        return Right(SetPassword.fromJson(responseData)); // إرجاع النتيجة بنجاح
+        return Right(SetPassword.fromJson(responseData));
       } else {
-        return Left(
-            ServerFailure(responseData["message"])); // إرجاع الخطأ من الخادم
+        return Left(ServerFailure(responseData["message"]));
       }
     } catch (e) {
-      // التعامل مع الأخطاء
-      return Left(ServerFailure(e.toString())); // إرجاع الأخطاء
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -208,7 +183,6 @@ class UsersRepoImpl implements UsersRepo {
     required File identifier,
   }) async {
     try {
-      // تجهيز الصورة كـ MultipartFile إذا كانت موجودة
       MultipartFile? multipartFile;
       if (identifier.existsSync()) {
         String mimeType = getMimeType(identifier.path);
@@ -250,13 +224,12 @@ class UsersRepoImpl implements UsersRepo {
             ServerFailure("❌ API Response does not contain 'user' key"));
       }
 
-      return Right(UsersModel.fromJson(responseData)); // إرجاع النتيجة بنجاح
+      return Right(UsersModel.fromJson(responseData));
     } catch (e) {
-      return Left(ServerFailure(e.toString())); // إرجاع الأخطاء
+      return Left(ServerFailure(e.toString()));
     }
   }
 
-// ✅ دالة استخراج نوع الصورة تلقائيًا
   String getMimeType(String filePath) {
     String extension = filePath.split('.').last.toLowerCase();
     switch (extension) {
