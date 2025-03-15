@@ -18,7 +18,7 @@ class JopSelectionViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 32.h, left: 24.w),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           const CustomArrowBack(text: 'Back'),
@@ -26,7 +26,7 @@ class JopSelectionViewBody extends StatelessWidget {
           const CustomQuestionAndAswer(
             question: 'What’s Your Job?',
           ),
-          const CustomSizedBox(height: 32),
+          const CustomSizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(

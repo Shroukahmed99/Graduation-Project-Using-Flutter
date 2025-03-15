@@ -27,9 +27,9 @@ class InsertDataViewBody extends StatelessWidget {
               cubit.clearData(); // مسح البيانات عند الخروج
             }
           },
-          child: Padding(
-            padding: EdgeInsets.only(top: 32.h, left: 24.w),
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
                   const CustomArrowBack(text: 'Back'),

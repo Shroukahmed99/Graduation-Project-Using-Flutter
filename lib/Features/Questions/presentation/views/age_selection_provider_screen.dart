@@ -21,10 +21,7 @@ class AgeSelectionProviderScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 32.h, left: 24.w),
-              child: const CustomArrowBack(text: 'Back'),
-            ),
+            const CustomArrowBack(text: 'Back'),
             CustomSizedBox(height: 25.h),
             const CustomQuestionAndAswer(
               question: 'What’s Your Age?',

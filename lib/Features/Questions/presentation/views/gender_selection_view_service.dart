@@ -19,7 +19,7 @@ class GenderSelectionViewService extends StatelessWidget {
       create: (context) => GenderCubit(),
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.only(top: 32.h, left: 24.w),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               const CustomArrowBack(text: 'Back'),
