@@ -48,11 +48,11 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
               padding: EdgeInsets.only(top: 32.h, left: 24.w),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(height: 25.h),
+            CustomSizedBox(height: 40.h),
             const CustomQuestionAndAswer(
               question: 'Physical Activity Level',
             ),
-            CustomSizedBox(height: 120.h),
+            CustomSizedBox(height: 180.h),
             CustomSelectActivity(
               options: const ['Beginner', 'Intermediate', 'Advance'],
               onSelect: (index) {

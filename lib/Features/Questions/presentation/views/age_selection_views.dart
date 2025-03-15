@@ -25,11 +25,11 @@ class AgeSelectionViews extends StatelessWidget {
               padding: EdgeInsets.only(top: 32.h, left: 24.w),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(height: 25.h),
+            CustomSizedBox(height: 40.h),
             const CustomQuestionAndAswer(
               question: 'What’s Your Age?',
             ),
-            CustomSizedBox(height: 35.h),
+            CustomSizedBox(height: 130.h),
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
                 int selectedAge = state is AgeSelected ? state.age : 25;

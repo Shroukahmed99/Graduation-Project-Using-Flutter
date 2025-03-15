@@ -14,16 +14,19 @@ class CustomQuestionAndAswer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          question,
-          style: TextStyle(
-            fontFamily: 'League Spartan',
-            fontSize: 30.sp,
-            fontWeight: FontWeight.bold,
-            color: kPrimaryColor,
-            height: 1.2,
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            question,
+            style: TextStyle(
+              fontFamily: 'League Spartan',
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+              color: kPrimaryColor,
+              height: 1.2,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
       ],
     );

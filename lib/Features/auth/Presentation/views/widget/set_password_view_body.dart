@@ -29,10 +29,7 @@ class SetPasswordViewBody extends StatelessWidget {
             text: 'Set Password',
           ),
           SizedBox(height: 20.h),
-          const CustomText(
-            subTitle:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          ),
+          const CustomText(),
           SizedBox(height: 60.h),
           CustomTextField(
             width: 320.w,

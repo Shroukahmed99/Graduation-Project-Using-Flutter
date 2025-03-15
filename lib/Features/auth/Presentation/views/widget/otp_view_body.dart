@@ -18,18 +18,15 @@ class OtpViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 25.h),
+      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 50.h),
       child: ListView(
         children: [
           const CustomTextAndIconArrowback(
             text: 'OTP Verification',
           ),
-          SizedBox(height: 20.h),
-          const CustomText(
-            subTitle:
-                'Yorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie,',
-          ),
-          SizedBox(height: 43.h),
+          SizedBox(height: 40.h),
+          const CustomText(),
+          SizedBox(height: 45.h),
           OtpForm(),
           SizedBox(height: 43.h),
           BlocConsumer<OtpCubit, OtpState>(

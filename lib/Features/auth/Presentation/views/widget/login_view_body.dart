@@ -50,8 +50,6 @@ class LoginViewBody extends StatelessWidget {
                 SizedBox(height: 60.h),
                 const CustomText(
                   title: 'Welcome',
-                  subTitle:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                 ),
                 SizedBox(height: 60.h),
                 CustomTextField(

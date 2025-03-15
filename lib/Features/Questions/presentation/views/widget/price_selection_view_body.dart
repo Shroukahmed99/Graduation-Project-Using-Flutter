@@ -48,17 +48,16 @@ class PriceSelectionViewBody extends StatelessWidget {
                   padding: EdgeInsets.only(top: 32.h, left: 24.w),
                   child: const CustomArrowBack(text: 'Back'),
                 ),
-                CustomSizedBox(height: 25.h),
+                CustomSizedBox(height: 40.h),
                 const CustomQuestionAndAswer(
                   question: 'What is your price range?',
                 ),
-                CustomSizedBox(height: 35.h),
+                CustomSizedBox(height: 130.h),
                 CustomSliderWidget(
                   initialValue: 0, // القيمة الابتدائية
                   step: 50, // قيمة التزايد
                   maxValue: 900, // القيمة النهائية
                   selectedDate: selectedPrice,
-                  unitSymbol: '\$',
                   onDateSelected: (price) {
                     CacheHelper.saveData(
                       key: 'priceRange',

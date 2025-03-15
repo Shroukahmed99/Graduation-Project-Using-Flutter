@@ -25,11 +25,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
             text: 'Forgotten Password',
           ),
           SizedBox(height: 60.h),
-          const CustomText(
-            title: "Forgot Password?",
-            subTitle:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          ),
+          const CustomText(title: "Forgot Password?"),
           SizedBox(height: 60.h),
           CustomTextField(
             width: 320.w,

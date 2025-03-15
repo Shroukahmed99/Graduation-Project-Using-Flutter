@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/role%20cubit/role_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/circle_icon_text_widget.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
@@ -29,7 +30,19 @@ class RoleSelectionViews extends StatelessWidget {
               const CustomQuestionAndAswer(
                 question: 'What’s Your Role',
               ),
-              const CustomSizedBox(height: 62),
+              CustomSizedBox(height: 25.h),
+              Text(
+                'A Service Provider can be a Nutritionist , Physiotherapist or Gym Coach',
+                style: TextStyle(
+                  fontFamily: 'League Spartan',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                  color: usedColor.withOpacity(0.6),
+                  height: 1.0,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const CustomSizedBox(height: 100),
               BlocBuilder<RoleCubit, RoleState>(
                 builder: (context, state) {
                   bool isProviderSelected =

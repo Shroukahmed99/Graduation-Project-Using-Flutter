@@ -52,6 +52,7 @@ class SignupViewServiceBody extends StatelessWidget {
             const CustomTextAndIconArrowback(text: 'Create Account'),
             SizedBox(height: 12.h),
             const CustomText(title: "Let's start!"),
+            SizedBox(height: 20.h),
             CustomTextField(
               width: 320.w,
               title: 'Full name',

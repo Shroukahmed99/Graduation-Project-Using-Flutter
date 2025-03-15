@@ -32,11 +32,11 @@ class WhatGoalViewsBody extends StatelessWidget {
               ),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(height: 25.h),
+            CustomSizedBox(height: 40.h),
             const CustomQuestionAndAswer(
               question: 'What Is Your Goal?',
             ),
-            CustomSizedBox(height: 35.h),
+            CustomSizedBox(height: 120.h),
             CustomSelectGoal(
               options: const [
                 'Lose Weight',

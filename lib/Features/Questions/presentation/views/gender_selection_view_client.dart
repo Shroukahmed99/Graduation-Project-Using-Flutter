@@ -23,11 +23,11 @@ class GenderSelectionViewClient extends StatelessWidget {
           child: Column(
             children: [
               const CustomArrowBack(text: 'Back'),
-              CustomSizedBox(height: 25.h),
+              CustomSizedBox(height: 40.h),
               const CustomQuestionAndAswer(
                 question: 'What’s Your Gender',
               ),
-              const CustomSizedBox(height: 15),
+              const CustomSizedBox(height: 80),
               BlocBuilder<GenderCubit, GenderState>(
                 builder: (context, state) {
                   String? selectedGender =
@@ -44,7 +44,7 @@ class GenderSelectionViewClient extends StatelessWidget {
                           context.read<GenderCubit>().selectGender('male');
                         },
                       ),
-                      CustomSizedBox(height: 40.h),
+                      CustomSizedBox(height: 50.h),
                       CircleImageTextWidget(
                         images: const [AssetImage('assets/images/female.png')],
                         text: 'Female',

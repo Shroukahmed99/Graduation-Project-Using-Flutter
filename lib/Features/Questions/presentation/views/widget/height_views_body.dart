@@ -26,11 +26,11 @@ class HeightViewsBody extends StatelessWidget {
               padding: EdgeInsets.only(top: 32.h, left: 24.w),
               child: const CustomArrowBack(text: 'Back'),
             ),
-            CustomSizedBox(height: 25.h),
+            CustomSizedBox(height: 40.h),
             const CustomQuestionAndAswer(
               question: 'What Is Your Height?',
             ),
-            CustomSizedBox(height: 35.h),
+            CustomSizedBox(height: 100.h),
             CustomSliderHeight(
               unitSymbol: "cm",
               dates: List.generate(50, (index) => 120 + index),
