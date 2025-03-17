@@ -45,7 +45,7 @@ class AgeSelectionProviderScreen extends StatelessWidget {
             const Spacer(),
             BlocBuilder<AgeCubit, AgeState>(
               builder: (context, state) {
-                return CustomButton(
+                return CustomButtom(
                   text: 'Continue',
                   onTap: () async {
                     final ageCubit = context.read<AgeCubit>();

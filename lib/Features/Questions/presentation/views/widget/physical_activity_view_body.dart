@@ -70,7 +70,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : CustomButton(
+                    : CustomButtom(
                         text: 'Continue',
                         onTap: () {
                           if (context

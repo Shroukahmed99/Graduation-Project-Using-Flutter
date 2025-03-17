@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 import '../../../../core/widget/Custom_Arrow_Icon.dart';
 
-class IntroductionScreen extends StatelessWidget {
-  const IntroductionScreen({super.key});
+class IntroductionScreenClient extends StatelessWidget {
+  const IntroductionScreenClient({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: Column(
         children: [
           Stack(
@@ -62,10 +63,10 @@ class IntroductionScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               )),
           const Spacer(),
-          CustomButton(
+          CustomButtom(
               text: 'Next',
               onTap: () {
-                //   GoRouter.of(context).push(AppRouter.kGenderSelectionView);
+                GoRouter.of(context).push(AppRouter.kHomeView);
               }),
           SizedBox(height: 40.h),
         ],

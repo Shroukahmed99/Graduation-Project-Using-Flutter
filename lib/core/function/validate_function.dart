@@ -37,3 +37,45 @@ String? validatePassword(String? value) {
   }
   return null;
 }
+
+String? validateAge(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Age is required';
+  }
+  final intValue = int.tryParse(value);
+  if (intValue == null) {
+    return 'Please enter a valid number';
+  }
+  if (intValue <= 0 || intValue > 120) {
+    return 'Please enter a valid age between 1 and 120';
+  }
+  return null;
+}
+
+String? validateWeight(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Weight is required';
+  }
+  final doubleValue = double.tryParse(value);
+  if (doubleValue == null) {
+    return 'Please enter a valid number';
+  }
+  if (doubleValue <= 0 || doubleValue > 500) {
+    return 'Please enter a weight between 1 and 500 kg';
+  }
+  return null;
+}
+
+String? validateHeight(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Height is required';
+  }
+  final doubleValue = double.tryParse(value);
+  if (doubleValue == null) {
+    return 'Please enter a valid number';
+  }
+  if (doubleValue < 30 || doubleValue > 300) {
+    return 'Please enter a height between 30 and 300 cm';
+  }
+  return null;
+}

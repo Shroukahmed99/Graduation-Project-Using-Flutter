@@ -90,7 +90,7 @@ class JopSelectionViewBody extends StatelessWidget {
               String? selectedJob =
                   (state is JobSelected) ? state.selectedJob : null;
 
-              return CustomButton(
+              return CustomButtom(
                 text: 'Continue',
                 onTap: () {
                   if (selectedJob == null || selectedJob.isEmpty) {

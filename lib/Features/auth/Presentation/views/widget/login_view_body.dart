@@ -27,7 +27,7 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginSuccess) {
           customSnackBar(context, 'Login Successful');
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViewClient);
+            GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
           });
         } else if (state is LoginFailure) {
           customSnackBar(
@@ -73,7 +73,7 @@ class LoginViewBody extends StatelessWidget {
                 SizedBox(height: 25.h),
                 state is LoginLoading
                     ? const Center(child: CircularProgressIndicator())
-                    : CustomButton(
+                    : CustomButtom(
                         text: 'Log In',
                         onTap: () {
                           cubit.loginUser();

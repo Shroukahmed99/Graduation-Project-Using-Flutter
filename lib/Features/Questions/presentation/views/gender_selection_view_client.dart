@@ -62,7 +62,7 @@ class GenderSelectionViewClient extends StatelessWidget {
               BlocBuilder<GenderCubit, GenderState>(
                 builder: (context, state) {
                   bool isButtonEnabled = state is GenderSelected;
-                  return CustomButton(
+                  return CustomButtom(
                     text: 'Continue',
                     onTap: isButtonEnabled
                         ? () {

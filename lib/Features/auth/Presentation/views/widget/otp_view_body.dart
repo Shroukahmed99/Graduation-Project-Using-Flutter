@@ -38,7 +38,7 @@ class OtpViewBody extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return CustomButton(
+              return CustomButtom(
                 text: state is OtpLoading ? 'Verifying...' : 'Verify',
                 onTap: state is OtpLoading
                     ? null

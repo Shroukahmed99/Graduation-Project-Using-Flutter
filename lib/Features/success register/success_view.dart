@@ -12,7 +12,7 @@ class SuccessViewClient extends StatelessWidget {
       body: SuccessViewBody(
         text: 'Registered Successfully!\nEnjoy the Application 😄',
         onNavigate: () {
-          GoRouter.of(context).push(AppRouter.kIntroductionScreen);
+          GoRouter.of(context).push(AppRouter.kIntroductionScreenClient);
         },
       ),
     );
@@ -28,7 +28,7 @@ class SuccessViewService extends StatelessWidget {
       body: SuccessViewBody(
         text: 'Registered Successfully!\nEnjoy the Application 😄',
         onNavigate: () {
-          GoRouter.of(context).push(AppRouter.kIntroductionScreen);
+          GoRouter.of(context).push(AppRouter.kIntroductionScreenService);
         },
       ),
     );

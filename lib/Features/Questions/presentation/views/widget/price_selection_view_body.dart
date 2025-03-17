@@ -75,7 +75,7 @@ class PriceSelectionViewBody extends StatelessWidget {
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
-                        : CustomButton(
+                        : CustomButtom(
                             text: 'Continue',
                             onTap: () {
                               if (context

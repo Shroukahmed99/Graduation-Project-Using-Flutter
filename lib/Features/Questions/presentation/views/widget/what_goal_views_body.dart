@@ -49,7 +49,7 @@ class WhatGoalViewsBody extends StatelessWidget {
               onSelect: (goal) => context.read<GoalCubit>().selectGoal(goal),
             ),
             const Spacer(),
-            CustomButton(
+            CustomButtom(
               text: 'Continue',
               onTap: () {
                 if (selectedGoal == null) {

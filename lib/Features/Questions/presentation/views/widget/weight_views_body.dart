@@ -44,7 +44,7 @@ class WeightViewsBody extends StatelessWidget {
                 },
               ),
               const Spacer(),
-              CustomButton(
+              CustomButtom(
                 text: 'Continue',
                 onTap: () {
                   GoRouter.of(context).push(AppRouter.kHieghtViews);

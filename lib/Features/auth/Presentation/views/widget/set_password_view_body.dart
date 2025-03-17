@@ -67,7 +67,7 @@ class SetPasswordViewBody extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return CustomButton(
+              return CustomButtom(
                 text: state is SetPasswordLoading
                     ? 'Resetting...'
                     : 'Reset Password',

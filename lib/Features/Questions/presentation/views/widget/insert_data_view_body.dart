@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,7 +86,7 @@ class InsertDataViewBody extends StatelessWidget {
                   UploadImage(cubit: cubit),
 
                   const SizedBox(height: 20),
-                  CustomButton(
+                  CustomButtom(
                     text: 'Continue',
                     onTap: () {
                       GoRouter.of(context).push(AppRouter.kPriceSelectionView);

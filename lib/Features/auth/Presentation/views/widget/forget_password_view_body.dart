@@ -48,7 +48,7 @@ class ForgetPasswordViewBody extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              return CustomButton(
+              return CustomButtom(
                 text:
                     state is ForgetPasswordLoading ? 'Sending...' : 'Send code',
                 onTap: state is ForgetPasswordLoading

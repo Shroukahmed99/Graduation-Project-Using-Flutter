@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({
+class CustomButtom extends StatelessWidget {
+  const CustomButtom({
     super.key,
     required this.text,
-    this.onTap, // ✅ جعل onTap اختياريًا
+    this.onTap,
+    backgroundColor = backgroundColor, // ✅ جعل onTap اختياريًا
   });
 
   final String text;

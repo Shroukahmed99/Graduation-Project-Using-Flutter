@@ -105,7 +105,7 @@ class SignupViewServiceBody extends StatelessWidget {
             SizedBox(height: 18.h),
             const CustomTextWithSignup(),
             SizedBox(height: 18.h),
-            CustomButton(
+            CustomButtom(
               text: 'Sign Up',
               onTap: () {
                 if (signupKey.currentState!.validate()) {
