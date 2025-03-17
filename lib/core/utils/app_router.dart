@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/setting_profile_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/Introduction_screen_service.dart';
 import 'package:sehatak/Features/Questions/presentation/views/age_selection_provider_screen.dart';
 import 'package:sehatak/Features/Questions/presentation/views/gender_selection_view_service.dart';
@@ -191,18 +194,18 @@ abstract class AppRouter {
         path: kHomeView,
         builder: (context, state) => const HomeView(),
       ),
-      // GoRoute(
-      //   path: kSettingProfileView,
-      //   builder: (context, state) => const SettingProfileView(),
-      // ),
-      // GoRoute(
-      //   path: kProfileView,
-      //   builder: (context, state) => const ProfileView(),
-      // ),
-      // GoRoute(
-      //   path: kPasswordSettingsView,
-      //   builder: (context, state) => const PasswordSettingsView(),
-      // ),
+      GoRoute(
+        path: kSettingProfileView,
+        builder: (context, state) => const SettingProfileView(),
+      ),
+      GoRoute(
+        path: kProfileView,
+        builder: (context, state) => const ProfileView(),
+      ),
+      GoRoute(
+        path: kPasswordSettingsView,
+        builder: (context, state) => const PasswordSettingsView(),
+      ),
     ],
   );
 }

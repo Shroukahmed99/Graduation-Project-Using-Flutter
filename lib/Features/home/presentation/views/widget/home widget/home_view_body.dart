@@ -80,7 +80,7 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-        const CustomBottomNavBar(),
+          CustomBottomNavBar(),
       ],
     );
   }
