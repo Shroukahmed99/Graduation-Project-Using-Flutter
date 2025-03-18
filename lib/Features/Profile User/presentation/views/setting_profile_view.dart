@@ -5,7 +5,6 @@ import 'package:sehatak/Features/Profile%20User/presentation/manger/Bottom%20she
 import 'package:sehatak/Features/Profile%20User/presentation/manger/logout%20cubit/logout_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20cubit/profile_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_setting_body.dart';
-import 'package:sehatak/core/widget/bottom_navigation_bar.dart';
 import 'package:sehatak/core/widget/custom_bottom_home.dart';
 
 class SettingProfileView extends StatelessWidget {

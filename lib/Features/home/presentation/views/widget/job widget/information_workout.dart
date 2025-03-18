@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 
 class InformationWorkout extends StatelessWidget {
   const InformationWorkout({super.key});
@@ -11,7 +13,7 @@ class InformationWorkout extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
             decoration: BoxDecoration(
               color: const Color(0xff222222),
               borderRadius: BorderRadius.circular(20),
@@ -93,7 +95,9 @@ class InformationWorkout extends StatelessWidget {
                     ),
                     const Spacer(),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kDetailsScreenView);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
                         shape: RoundedRectangleBorder(

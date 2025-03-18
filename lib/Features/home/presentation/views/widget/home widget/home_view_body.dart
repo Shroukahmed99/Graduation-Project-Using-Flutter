@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
-import 'package:sehatak/core/widget/bottom_navigation_bar.dart';
 import 'package:sehatak/core/widget/custom_bottom_home.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/category_item.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_app_bar_home.dart';
@@ -80,7 +79,7 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-          CustomBottomNavBar(),
+        CustomBottomNavBar(),
       ],
     );
   }

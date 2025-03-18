@@ -14,6 +14,7 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
+import 'package:sehatak/Features/home/presentation/views/details_screen_view.dart';
 import 'package:sehatak/Features/home/presentation/views/home_view.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
@@ -67,6 +68,7 @@ abstract class AppRouter {
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeView = '/HomeView';
+  static const kDetailsScreenView = '/DetailsScreenView';
 
   static final router = GoRouter(
     routes: [
@@ -205,6 +207,10 @@ abstract class AppRouter {
       GoRoute(
         path: kPasswordSettingsView,
         builder: (context, state) => const PasswordSettingsView(),
+      ),
+      GoRoute(
+        path: kDetailsScreenView,
+        builder: (context, state) => const DetailsScreenView(),
       ),
     ],
   );
