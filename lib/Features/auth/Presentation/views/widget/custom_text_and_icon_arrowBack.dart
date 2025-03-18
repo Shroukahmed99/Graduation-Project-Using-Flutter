@@ -27,7 +27,7 @@ class CustomTextAndIconArrowback extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: colorText,
               fontSize: 20.sp,

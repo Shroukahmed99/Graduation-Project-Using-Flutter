@@ -29,7 +29,7 @@ class HealthMateApp extends StatelessWidget {
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            fontFamily: 'Poppins',
+            fontFamily: 'League Spartan',
             scaffoldBackgroundColor: backgroundColor,
           ),
         ),
