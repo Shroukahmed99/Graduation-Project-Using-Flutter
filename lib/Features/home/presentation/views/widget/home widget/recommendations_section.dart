@@ -18,7 +18,7 @@ class RecommendationsSection extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: List.generate(2, (index) => const RecommendationCard()),
+              children: List.generate(5, (index) => const RecommendationCard()),
             ),
           ),
         ],

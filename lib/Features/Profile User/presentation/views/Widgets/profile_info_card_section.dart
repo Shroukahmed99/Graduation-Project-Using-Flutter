@@ -9,7 +9,7 @@ class ProfileInfoCardSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 1),
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),

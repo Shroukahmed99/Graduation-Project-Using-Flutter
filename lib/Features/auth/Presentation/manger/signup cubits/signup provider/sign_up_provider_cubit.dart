@@ -33,7 +33,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
     String job = CacheHelper.getData(key: 'job')?.toString() ?? '';
     String yearsOfExperience =
         CacheHelper.getData(key: 'yearsOfExperience')?.toString() ?? '';
-    String jobTiltle = CacheHelper.getData(key: 'jobTiltle')?.toString() ?? '';
+    String jobTitle = CacheHelper.getData(key: 'jobTitle')?.toString() ?? '';
     String bio = CacheHelper.getData(key: 'bio')?.toString() ?? '';
     String priceRange =
         CacheHelper.getData(key: 'priceRange')?.toString() ?? '450';
@@ -52,7 +52,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
       age: age,
       job: job,
       yearsOfExperience: yearsOfExperience,
-      jobTiltle: jobTiltle,
+      jobTitle: jobTitle,
       bio: bio,
       priceRange: priceRange,
       identifier: identifier ?? File(''),

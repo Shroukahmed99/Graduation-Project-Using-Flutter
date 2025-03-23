@@ -177,7 +177,7 @@ class UsersRepoImpl implements UsersRepo {
     required String age,
     required String job,
     required String yearsOfExperience,
-    required String jobTiltle,
+    required String jobTitle,
     required String bio,
     required String priceRange,
     required File identifier,
@@ -204,7 +204,7 @@ class UsersRepoImpl implements UsersRepo {
         'age': age,
         'job': job,
         'yearsOfExperience': yearsOfExperience,
-        'jobTiltle': jobTiltle,
+        'jobTitle': jobTitle,
         'bio': bio,
         'priceRange': priceRange,
         if (multipartFile != null) 'identifier': multipartFile,
@@ -224,9 +224,12 @@ class UsersRepoImpl implements UsersRepo {
             ServerFailure("❌ API Response does not contain 'user' key"));
       }
 
-      return Right(UsersModel.fromJson(responseData));
+      return right(UsersModel.fromJson(responseData));
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
     }
   }
 

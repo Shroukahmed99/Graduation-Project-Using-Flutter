@@ -55,7 +55,7 @@ class InsertDataViewBody extends StatelessWidget {
                     width: 146,
                     hintText: 'Add Text',
                     controller: cubit.jobTitleController,
-                    onChanged: (value) => cubit.saveData('jobTiltle', value),
+                    onChanged: (value) => cubit.saveData('jobTitle', value),
                   ),
                   const CustomSizedBox(height: 10),
 

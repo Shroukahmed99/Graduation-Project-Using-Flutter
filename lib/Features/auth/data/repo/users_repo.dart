@@ -38,7 +38,7 @@ abstract class UsersRepo {
     required String passwordConfirm,
     //required String userId,
   });
-   Future<Either<Failure, UsersModel>> signUpProvider({
+  Future<Either<Failure, UsersModel>> signUpProvider({
     required String fullName,
     required String password,
     required String email,
@@ -48,10 +48,9 @@ abstract class UsersRepo {
     required String age,
     required String job,
     required String yearsOfExperience,
-    required String jobTiltle,
+    required String jobTitle,
     required String bio,
-     required String priceRange,
-      required File identifier,
-     
+    required String priceRange,
+    required File identifier,
   });
 }
