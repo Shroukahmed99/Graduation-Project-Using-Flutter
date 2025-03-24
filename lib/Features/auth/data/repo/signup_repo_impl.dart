@@ -33,7 +33,7 @@ class UsersRepoImpl implements UsersRepo {
   }) async {
     try {
       var data = await apiService.post(
-        endpoint: "clientSignUp",
+        endpoint: "users/clientSignUp",
         data: {
           "fullName": fullName,
           "email": email,
@@ -68,7 +68,7 @@ class UsersRepoImpl implements UsersRepo {
       {required email, required password}) async {
     try {
       var data = await apiService.post(
-        endpoint: "login",
+        endpoint: "users/login",
         data: {
           "email": email,
           "password": password,
@@ -89,7 +89,7 @@ class UsersRepoImpl implements UsersRepo {
   }) async {
     try {
       var responseData = await apiService.post(
-        endpoint: "forgetPassword",
+        endpoint: "users/forgetPassword",
         data: {
           "email": email,
         },
@@ -115,7 +115,7 @@ class UsersRepoImpl implements UsersRepo {
   }) async {
     try {
       var responseData = await apiService.post(
-        endpoint: "verifyOTP",
+        endpoint: "users/verifyOTP",
         data: {
           "resetCode": resetCode,
         },
@@ -147,7 +147,7 @@ class UsersRepoImpl implements UsersRepo {
       }
 
       var responseData = await apiService.patch(
-        endpoint: "resetPassword/$userId",
+        endpoint: "users/resetPassword/$userId",
         data: {
           "password": password,
           "passwordConfirm": passwordConfirm,
@@ -211,7 +211,7 @@ class UsersRepoImpl implements UsersRepo {
       });
 
       var responseData = await apiService.post(
-        endpoint: 'serviceProviderSignUp',
+        endpoint: 'users/serviceProviderSignUp',
         data: formData,
       );
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -11,6 +12,8 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.validator,
     required this.width,
+    this.isNumeric = false,
+    this.isAlpha = false,
   });
 
   final String? hintText;
@@ -19,7 +22,9 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  final double width; // ✅ متغير لعرض الحقل
+  final double width;
+  final bool isNumeric;
+  final bool isAlpha;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,13 @@ class CustomTextField extends StatelessWidget {
                     obscureText: obscureText,
                     validator: validator,
                     onChanged: onChanged,
+                    keyboardType:
+                        isNumeric ? TextInputType.number : TextInputType.text,
+                    inputFormatters: isNumeric
+                        ? [FilteringTextInputFormatter.digitsOnly]
+                        : (isAlpha
+                            ? [FilteringTextInputFormatter.deny(RegExp(r'\d'))]
+                            : []),
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
                       hintText: hintText,
