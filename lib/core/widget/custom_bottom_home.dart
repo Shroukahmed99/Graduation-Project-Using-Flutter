@@ -6,14 +6,14 @@ import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/features/home/presentation/manger/navigation/navigation_cubit.dart';
 
 class NavIcon extends StatelessWidget {
-  final IconData icon;
+  final String imagePath;
   final int index;
   final bool isSelected;
   final VoidCallback? onTap;
 
   const NavIcon({
     Key? key,
-    required this.icon,
+    required this.imagePath,
     required this.index,
     required this.isSelected,
     this.onTap,
@@ -28,9 +28,10 @@ class NavIcon extends StatelessWidget {
           onTap!();
         }
       },
-      child: Icon(
-        icon,
-        size: 29,
+      child: Image.asset(
+        imagePath,
+        width: 25,
+        height: 25,
         color: isSelected ? Colors.black : Colors.white,
       ),
     );
@@ -56,7 +57,7 @@ class CustomBottomNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 NavIcon(
-                  icon: Icons.home,
+                  imagePath: 'assets/images/homenav.png',
                   index: 0,
                   isSelected: state == 0,
                   onTap: () {
@@ -64,17 +65,17 @@ class CustomBottomNavBar extends StatelessWidget {
                   },
                 ),
                 NavIcon(
-                  icon: Icons.star,
+                  imagePath: 'assets/images/Favoritesnav.png',
                   index: 1,
                   isSelected: state == 1,
                 ),
                 NavIcon(
-                  icon: Icons.group,
+                  imagePath: 'assets/images/communitynav.png',
                   index: 2,
                   isSelected: state == 2,
                 ),
                 NavIcon(
-                  icon: Icons.person,
+                  imagePath: 'assets/images/settingnav.png',
                   index: 3,
                   isSelected: state == 3,
                   onTap: () {
