@@ -28,7 +28,7 @@ class ProfileSettingBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 50.h),
                   const ProfileSettingsList(),
                   SizedBox(height: 20.h),
                 ],

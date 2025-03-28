@@ -78,7 +78,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   index: 3,
                   isSelected: state == 3,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kProfileView);
+                    GoRouter.of(context).go(AppRouter.kSettingProfileView);
                   },
                 ),
               ],
