@@ -5,7 +5,6 @@ import 'package:sehatak/Features/Profile%20User/presentation/views/password_sett
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/function/validate_function.dart';
-import 'package:sehatak/core/widget/Custom_button.dart';
 
 class ProfileFormWidget extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -17,8 +16,8 @@ class ProfileFormWidget extends StatelessWidget {
   final TextEditingController heightController = TextEditingController();
 
   ProfileFormWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

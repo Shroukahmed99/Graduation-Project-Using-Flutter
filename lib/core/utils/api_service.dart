@@ -66,16 +66,16 @@ class ApiService {
     return response.data;
   }
 
-  Future<Response> get({required String endpoint}) async {
-    try {
-      Response response = await dio.get(
-        "$baseUrl$endpoint",
-        options: Options(headers: {"Content-Type": "application/json"}),
-      );
-      return response;
-    } catch (e) {
-      throw Exception("🚨 API Error: $e");
-    }
+  Future<Map<String, dynamic>> get({required endpoint, required data}) async {
+    Options options = Options(
+      headers: {
+        "Content-Type":
+            (data is FormData) ? "multipart/form-data" : "application/json",
+      },
+    );
+    var response =
+        await dio.post("$baseUrl$endpoint", data: data, options: options);
+    return response.data;
   }
 
   Future<Map<String, dynamic>> patch({required endpoint, required data}) async {
