@@ -8,7 +8,7 @@ import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_fiel
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 
-class ProfileFormWidget extends StatelessWidget {
+class ProfileFormWidget extends StatefulWidget {
   final ClientModel? client;
 
   const ProfileFormWidget({
@@ -17,40 +17,63 @@ class ProfileFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ProfileFormWidget> createState() => _ProfileFormWidgetState();
+}
+
+class _ProfileFormWidgetState extends State<ProfileFormWidget> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController heightController = TextEditingController();
+
+  // State for dropdown values
+  String? selectedActivityLevel;
+  String? selectedFitnessGoal;
+
+  // Dropdown options
+  final List<String> activityLevels = [
+    'Beginner',
+    'Intermediate',
+    'Advanced',
+  ];
+
+  final List<String> fitnessGoals = [
+    'Lose Weight',
+    'Gain muscle',
+    'Maintain fitness',
+    'Others'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.client != null) {
+      fullNameController.text = widget.client?.fullName ?? '';
+      emailController.text = widget.client?.user.email ?? '';
+      phoneController.text = widget.client?.mobileNumber ?? '';
+      ageController.text = widget.client?.age ?? '';
+      weightController.text = widget.client?.weight ?? '';
+      heightController.text = widget.client?.height ?? '';
+
+      // Set dropdown values, ensuring they exist in the options list
+      selectedActivityLevel =
+          activityLevels.contains(widget.client?.physicalActivityLevel)
+              ? widget.client?.physicalActivityLevel
+              : null;
+
+      selectedFitnessGoal = fitnessGoals.contains(widget.client?.goal)
+          ? widget.client?.goal
+          : null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Controller initialization
-    final fullNameController = TextEditingController(text: client?.fullName ?? '');
-    final emailController = TextEditingController(text: client?.user.email ?? '');
-    final phoneController = TextEditingController(text: client?.mobileNumber ?? '');
-    final ageController = TextEditingController(text: client?.age ?? '');
-    final weightController = TextEditingController(text: client?.weight ?? '');
-    final heightController = TextEditingController(text: client?.height ?? '');
-
-    // State for dropdown values
-    String? selectedActivityLevel = client != null && client?.physicalActivityLevel != null
-        ? client!.physicalActivityLevel
-        : null;
-
-    String? selectedFitnessGoal = client != null && client?.goal != null
-        ? client!.goal
-        : null;
-
-    // Dropdown options
-    final List<String> activityLevels = [
-      'Beginner',
-      'Intermediate',
-      'Advanced',
-    ];
-
-    final List<String> fitnessGoals = [
-      'Lose Weight',
-      'Gain muscle',
-      'Maintain fitness',
-      'Others'
-    ];
-
     return Form(
-      key: GlobalKey<FormState>(),
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,7 +126,9 @@ class ProfileFormWidget extends StatelessWidget {
             options: activityLevels,
             selectedValue: selectedActivityLevel,
             onChanged: (value) {
-              selectedActivityLevel = value;
+              setState(() {
+                selectedActivityLevel = value;
+              });
             },
           ),
           // Fitness Goal dropdown
@@ -113,7 +138,9 @@ class ProfileFormWidget extends StatelessWidget {
             options: fitnessGoals,
             selectedValue: selectedFitnessGoal,
             onChanged: (value) {
-              selectedFitnessGoal = value;
+              setState(() {
+                selectedFitnessGoal = value;
+              });
             },
           ),
           SizedBox(height: 20.h),
@@ -121,7 +148,7 @@ class ProfileFormWidget extends StatelessWidget {
             child: CustomButtomProfile(
               text: "Update Profile",
               onPressed: () {
-                if (GlobalKey<FormState>().currentState?.validate() ?? false) {
+                if (formKey.currentState?.validate() ?? false) {
                   // Handle form validation and profile update
                   Navigator.push(
                     context,
@@ -137,4 +164,4 @@ class ProfileFormWidget extends StatelessWidget {
       ),
     );
   }
-}
+} 
