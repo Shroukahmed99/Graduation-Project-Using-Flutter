@@ -26,14 +26,16 @@ class InfoCardWidget extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             title,
             style: TextStyle(
               fontSize: 12.sp,
+                            fontWeight: FontWeight.w300,
+
               color: Colors.black,
             ),
           ),

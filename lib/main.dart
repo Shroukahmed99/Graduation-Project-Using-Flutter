@@ -8,7 +8,7 @@ import 'package:sehatak/features/home/presentation/manger/navigation/navigation_
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheHelper.init(); // ✅ تأكد من تهيئة التخزين المؤقت
+  await CacheHelper.init(); 
   runApp(const HealthMateApp());
 }
 
@@ -23,7 +23,7 @@ class HealthMateApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => NavigationCubit()), // ✅
+          BlocProvider(create: (context) => NavigationCubit()), 
         ],
         child: MaterialApp.router(
           routerConfig: AppRouter.router,

@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http_parser/http_parser.dart';
 import 'package:dartz/dartz.dart';
 import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
@@ -9,12 +7,12 @@ import 'package:sehatak/Features/auth/data/model/set_password.dart';
 import 'package:sehatak/Features/auth/data/repo/users_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class UsersRepoImpl implements UsersRepo {
   final ApiService apiService;
-
   UsersRepoImpl(this.apiService);
 
   @override
@@ -48,10 +46,9 @@ class UsersRepoImpl implements UsersRepo {
           "physicalActivityLevel": physicalActivityLevel,
         },
       );
-
       if (data["status"] == "success") {
-        String token = CacheHelper.getData(key: "token") ?? "";
-        UsersModel signUpModel = UsersModel.fromJson(data["data"]);
+        String extractedToken = data["token"] ?? "";
+        UsersModel signUpModel = UsersModel.fromJson(data, extractedToken);
         return Right(signUpModel);
       } else {
         return Left(ServerFailure(data["message"]));
@@ -64,8 +61,10 @@ class UsersRepoImpl implements UsersRepo {
     }
   }
 
-  Future<Either<Failure, UsersModel>> loginUser(
-      {required email, required password}) async {
+  Future<Either<Failure, UsersModel>> loginUser({
+    required String email,
+    required String password,
+  }) async {
     try {
       var data = await apiService.post(
         endpoint: "users/login",
@@ -74,15 +73,20 @@ class UsersRepoImpl implements UsersRepo {
           "password": password,
         },
       );
-      return right(UsersModel.fromJson(data));
+      if (data["status"] == "success") {
+        String extractedToken = data["token"] ?? "";
+        UsersModel signUpModel = UsersModel.fromJson(data, extractedToken);
+        return Right(signUpModel);
+      } else {
+        return Left(ServerFailure(data["message"]));
+      }
     } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioError(e));
+        return Left(ServerFailure.fromDioError(e));
       }
-      return left(ServerFailure(e.toString()));
+      return Left(ServerFailure(e.toString()));
     }
   }
-
   @override
   Future<Either<Failure, ForgetPasswordModel>> forgetUser({
     required String email,
@@ -215,7 +219,7 @@ class UsersRepoImpl implements UsersRepo {
         data: formData,
       );
 
-      if (responseData == null || !responseData.containsKey('data')) {
+      if ( !responseData.containsKey('data')) {
         return Left(ServerFailure("❌ API Response is null or missing data"));
       }
 
@@ -224,7 +228,9 @@ class UsersRepoImpl implements UsersRepo {
             ServerFailure("❌ API Response does not contain 'user' key"));
       }
 
-      return right(UsersModel.fromJson(responseData));
+     String extractedToken = responseData["token"] ?? "";
+return Right(UsersModel.fromJson(responseData, extractedToken));
+
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

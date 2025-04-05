@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/const.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -37,6 +38,7 @@ class CustomTextField extends StatelessWidget {
             fontFamily: 'League Spartan',
             fontSize: 16.sp,
             fontWeight: FontWeight.w500,
+            color: kPrimaryColor
           ),
         ),
         SizedBox(height: 5.h),

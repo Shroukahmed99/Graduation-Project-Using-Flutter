@@ -1,46 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/Bottom%20sheet%20cubit/bottom_sheet_cubit.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/delete%20cubit/delete_account_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/logout%20cubit/logout_cubit.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/delete_account_bottom_sheet.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/logout_bottomSheet.dart';
+import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+
 import 'navigation_item_widget.dart';
 
 class ProfileSettingsList extends StatelessWidget {
   const ProfileSettingsList({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+ @override
+Widget build(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 24.w),
+    child: SingleChildScrollView( 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NavigationItemWidget(
-            title: "Profile",
-            icon: Icons.person,
-            onTap: () {},
+            title: "Edit Profile",
+            iconPath: IconPaths.profile,
+            onTap: () {
+              context.push(AppRouter.kProfileView);
+            },
           ),
           NavigationItemWidget(
-            title: "Favorite",
-            icon: Icons.star,
-            onTap: () {},
-          ),
-          NavigationItemWidget(
-            title: "Privacy Policy",
-            icon: Icons.lock,
-            onTap: () {},
-          ),
-          NavigationItemWidget(
-            title: "Settings",
-            icon: Icons.settings,
-            onTap: () {},
+            title: "Help",
+            iconPath: IconPaths.help,
+            onTap: () {
+              context.push(AppRouter.kProfileView);
+            },
           ),
           NavigationItemWidget(
             title: "Logout",
-            icon: Icons.logout,
+            iconPath: IconPaths.logout,
             onTap: () {
-              final bottomSheetCubit =
-                  BlocProvider.of<BottomSheetCubit>(context);
+              final bottomSheetCubit = BlocProvider.of<BottomSheetCubit>(context);
               final logoutCubit = BlocProvider.of<LogoutCubit>(context);
 
               bottomSheetCubit.showBottomSheet();
@@ -58,8 +59,46 @@ class ProfileSettingsList extends StatelessWidget {
               });
             },
           ),
+          NavigationItemWidget(
+            title: "Notification Setting",
+            iconPath: IconPaths.notification,
+            onTap: () {
+              context.push(AppRouter.kProfileView);
+            },
+          ),
+          NavigationItemWidget(
+            title: "Password Setting",
+            iconPath: IconPaths.settingPassword,
+            onTap: () {
+              context.push(AppRouter.kPasswordSettingsView);
+            },
+          ),
+          NavigationItemWidget(
+            title: "Delete Account",
+            iconPath: IconPaths.profile,
+            onTap: () {
+              final bottomSheetCubit = BlocProvider.of<BottomSheetCubit>(context);
+              final deleteCubit = BlocProvider.of<DeleteAccountCubit>(context);
+
+              bottomSheetCubit.showBottomSheet();
+
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                builder: (context) => DeleteAccountBottomSheet(
+                  bottomSheetCubit: bottomSheetCubit,
+                  deleteAccountCubit: deleteCubit,
+                ),
+              ).whenComplete(() {
+                bottomSheetCubit.hideBottomSheet();
+              });
+            },
+          ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 }

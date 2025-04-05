@@ -1,11 +1,17 @@
-import 'dart:io';
-import '../../data/models/user_profile_model.dart';
+// profile_repository.dart
+import 'package:dartz/dartz.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/client_response_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/logout_respose_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/password_change_response_model.dart';
+import 'package:sehatak/core/error/failure.dart';
 
-// Repository interface
 abstract class ProfileRepository {
-  Future<UserProfileModel> getProfile();
-  Future<bool> updateProfile(UserProfileModel profile);
-  Future<String?> uploadProfileImage(File image);
-  Future<bool> changePassword(String currentPassword, String newPassword);
-  Future<bool> logout();
+  Future<Either<Failure, LogoutResponseModel>> logout();
+  Future<Either<Failure, bool>> deleteAccount();
+  Future<Either<Failure, PasswordChangeResponseModel>> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String passwordConfirm,
+  });
+  Future<Either<Failure, ClientResponseModel>> getClientById();
 }

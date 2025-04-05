@@ -8,6 +8,7 @@ class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
+  
   final UsersModel usersModel;
 
   LoginSuccess(this.usersModel);

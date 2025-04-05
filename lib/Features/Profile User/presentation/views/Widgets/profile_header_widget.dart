@@ -1,6 +1,9 @@
+// profile_header_widget.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/client_model.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_text_and_icon_inline.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_image_with_icon.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_info_card_section.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_user_info_texts.dart';
@@ -10,11 +13,13 @@ import 'package:sehatak/const.dart';
 class ProfileHeaderWidget extends StatelessWidget {
   final File? pickedImage;
   final Future<void> Function() onPickImage;
+  final ClientModel? client;
 
   const ProfileHeaderWidget({
     Key? key,
     required this.pickedImage,
     required this.onPickImage,
+    this.client,
   }) : super(key: key);
 
   @override
@@ -40,7 +45,7 @@ class ProfileHeaderWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CustomTextAndIconArrowback(
+              const CustomTextAndIconInline(
                 text: "My Profile",
                 colorArrowIcon: Colors.black,
                 colorText: Colors.black,
@@ -51,7 +56,7 @@ class ProfileHeaderWidget extends StatelessWidget {
                 onTap: onPickImage,
               ),
               SizedBox(height: 5.h),
-              const ProfileUserInfoTexts(),
+              ProfileUserInfoTexts(client: client),
               SizedBox(height: 15.h),
             ],
           ),
@@ -60,7 +65,7 @@ class ProfileHeaderWidget extends StatelessWidget {
           bottom: -5.h,
           left: 0,
           right: 0,
-          child: const ProfileInfoCardSection(),
+          child: ProfileInfoCardSection(client: client),
         ),
       ],
     );

@@ -4,16 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/Bottom%20sheet%20cubit/bottom_sheet_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/Bottom%20sheet%20cubit/bottom_sheet_state.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 
 class NavigationItemWidget extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String iconPath; // 🟢 بدل IconData
   final VoidCallback? onTap;
 
   const NavigationItemWidget({
     super.key,
     required this.title,
-    required this.icon,
+    required this.iconPath,
     this.onTap,
   });
 
@@ -38,23 +39,24 @@ class NavigationItemWidget extends StatelessWidget {
                 CircleAvatar(
                   radius: 20.r,
                   backgroundColor: kPrimaryColor,
-                  child: Icon(icon, color: secondaryColor, size: 22.r),
+                  child: Image.asset(
+                    iconPath,
+                    width: 22.r,
+                    height: 22.r,
+                    color: secondaryColor,
+                  ),
                 ),
                 SizedBox(width: 17.w),
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
                     color: textColor,
                   ),
                 ),
                 const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: kPrimaryColor,
-                  size: 20.r,
-                ),
+                CustomArrowIcon(flipToRight: true,),
               ],
             ),
           ),

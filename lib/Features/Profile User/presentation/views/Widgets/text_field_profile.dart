@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/password%20visibility%20cubit/password_visibility_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/password%20visibility%20cubit/password_visibility_state.dart';
-import 'package:sehatak/const.dart';
 
 class TextFieldProfile extends StatelessWidget {
   const TextFieldProfile({
@@ -95,7 +94,8 @@ class TextFieldProfile extends StatelessWidget {
               suffixIcon: IconButton(
                 icon: Icon(
                   isVisible ? Icons.visibility : Icons.visibility_off,
-                  color: kPrimaryColor,
+                  color: Colors.black.withOpacity(0.6),
+                  size: 15,
                 ),
                 onPressed: () => cubit.togglePasswordVisibility(),
               ),

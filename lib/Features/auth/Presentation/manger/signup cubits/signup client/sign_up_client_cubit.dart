@@ -74,13 +74,20 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
     emit(SignupFailure(failure.errorMessage));
   },
-  (usersModel) async {
+ ( usersModel ) async {
     print('✅ SignUp Success');
-    await CacheHelper.saveData(key: 'token', value: usersModel.token);
-    print("✅ Token saved successfully!");
-    print("Token sent to server: ${usersModel.token}");
+//        void testCacheHelper() async {
+//   await CacheHelper.saveData(key: 'test_token', value: '12345');
+//   String? retrievedValue = CacheHelper.getData(key: 'test_token');
+//   print("🔄 Retrieved test_token: $retrievedValue");
+// }
+    String? savedToken = CacheHelper.getData(key: 'token');  // استرجاع التوكن للتحقق
+    print("🔍 Saved Token cubit: $savedToken"); // تأكد أنه ليس فارغًا
+   
+
     emit(SignupSuccess(usersModel));
-  },
+}
+
 );
 
 

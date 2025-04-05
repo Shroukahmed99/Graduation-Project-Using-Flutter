@@ -38,7 +38,7 @@ class LoginCubit extends Cubit<LoginState> {
           emit(LoginFailure(failure.errorMessage));
         },
         (loginModel) async {
-          await CacheHelper.saveData(key: 'token', value: loginModel.token);
+          await CacheHelper.getData(key: 'token');
 
           // ✅ تنظيف الحقول بعد تسجيل الدخول
           emailController.clear();
