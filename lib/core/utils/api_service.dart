@@ -42,8 +42,9 @@ class ApiService {
   }
 
   Future<Map<String, dynamic>> get({required String endpoint}) async {
-    Options options = await _getOptions();
-    var response = await dio.get("$baseUrl$endpoint", options: options);
+    var response = await dio.get(
+      "$baseUrl$endpoint",
+    );
     return response.data;
   }
 
@@ -63,14 +64,15 @@ class ApiService {
     }
 
     try {
-      var response = await dio.delete("$baseUrl$endpoint", options: Options(
-        headers: {
-          "Authorization": "Bearer $token",
-        },
-      ));
+      var response = await dio.delete("$baseUrl$endpoint",
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $token",
+            },
+          ));
 
       print("🚀 API Response Data: ${response.data}");
-      
+
       if (response.statusCode == 200 || response.statusCode == 204) {
         if (response.data == null || response.data == "") {
           return 1;

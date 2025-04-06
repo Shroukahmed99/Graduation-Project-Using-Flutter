@@ -96,7 +96,8 @@ class InformationPhysical extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).push(AppRouter.kDetailsScreenView);
+                        GoRouter.of(context)
+                            .push(AppRouter.kDetailsPhysicalView);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,

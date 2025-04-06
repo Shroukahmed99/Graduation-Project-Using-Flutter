@@ -14,7 +14,9 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
-import 'package:sehatak/Features/home/presentation/views/details_screen_view.dart';
+import 'package:sehatak/Features/home/presentation/views/details_nutrition_view.dart';
+import 'package:sehatak/Features/home/presentation/views/details_physical_view.dart';
+import 'package:sehatak/Features/home/presentation/views/details_workout_view.dart';
 import 'package:sehatak/Features/home/presentation/views/home_view.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
@@ -68,7 +70,10 @@ abstract class AppRouter {
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeView = '/HomeView';
-  static const kDetailsScreenView = '/DetailsScreenView';
+  static const kDetailsNutritionView = '/DetailsNutritionView';
+  static const kDetailsPhysicalView = '/DetailsPhysicalView';
+
+  static const kDetailsWorkoutView = '/DetailsWorkoutView';
 
   static final router = GoRouter(
     routes: [
@@ -209,8 +214,16 @@ abstract class AppRouter {
         builder: (context, state) => const PasswordSettingsView(),
       ),
       GoRoute(
-        path: kDetailsScreenView,
-        builder: (context, state) => const DetailsScreenView(),
+        path: kDetailsNutritionView,
+        builder: (context, state) => const DetailsNutritionView(),
+      ),
+      GoRoute(
+        path: kDetailsWorkoutView,
+        builder: (context, state) => const DetailsWorkoutView(),
+      ),
+      GoRoute(
+        path: kDetailsPhysicalView,
+        builder: (context, state) => const DetailsPhysicalView(),
       ),
     ],
   );

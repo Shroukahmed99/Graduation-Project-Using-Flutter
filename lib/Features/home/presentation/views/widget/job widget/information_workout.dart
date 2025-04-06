@@ -96,7 +96,8 @@ class InformationWorkout extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).push(AppRouter.kDetailsScreenView);
+                        GoRouter.of(context)
+                            .push(AppRouter.kDetailsWorkoutView);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,

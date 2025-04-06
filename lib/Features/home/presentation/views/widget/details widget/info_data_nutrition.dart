@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
 
-class DoctorInfo extends StatelessWidget {
-  const DoctorInfo({super.key});
+class InfoDataNutrition extends StatelessWidget {
+  const InfoDataNutrition({super.key});
 
   @override
   Widget build(BuildContext context) {

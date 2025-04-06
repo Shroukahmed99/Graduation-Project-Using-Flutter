@@ -96,7 +96,8 @@ class InformationNutrition extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context).push(AppRouter.kDetailsScreenView);
+                        GoRouter.of(context)
+                            .push(AppRouter.kDetailsNutritionView);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
