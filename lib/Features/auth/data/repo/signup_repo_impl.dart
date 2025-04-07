@@ -87,6 +87,7 @@ class UsersRepoImpl implements UsersRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, ForgetPasswordModel>> forgetUser({
     required String email,
@@ -219,7 +220,7 @@ class UsersRepoImpl implements UsersRepo {
         data: formData,
       );
 
-      if ( !responseData.containsKey('data')) {
+      if (!responseData.containsKey('data')) {
         return Left(ServerFailure("❌ API Response is null or missing data"));
       }
 
@@ -228,9 +229,8 @@ class UsersRepoImpl implements UsersRepo {
             ServerFailure("❌ API Response does not contain 'user' key"));
       }
 
-     String extractedToken = responseData["token"] ?? "";
-return Right(UsersModel.fromJson(responseData, extractedToken));
-
+      String extractedToken = responseData["token"] ?? "";
+      return Right(UsersModel.fromJson(responseData, extractedToken));
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

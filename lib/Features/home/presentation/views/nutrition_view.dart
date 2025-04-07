@@ -1,4 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/home/data/repo/home_repo_impl.dart';
+import 'package:sehatak/Features/home/presentation/manger/nurtrition/nutrition_cubit.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/nutrition_view_body.dart';
 
 class NutritionView extends StatelessWidget {
@@ -6,8 +11,12 @@ class NutritionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: NutritionViewBody(),
+    return BlocProvider(
+      create: (context) =>
+          NutritionCubit(HomeRepoImpl(ApiService(Dio())))..fetchNutritionists(),
+      child: const Scaffold(
+        body: NutritionViewBody(),
+      ),
     );
   }
 }

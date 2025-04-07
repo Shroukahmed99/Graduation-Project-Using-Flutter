@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home/presentation/manger/navigation/navigation_cubit.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/features/home/presentation/manger/navigation/navigation_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CacheHelper.init(); 
+  await CacheHelper.init();
   runApp(const HealthMateApp());
 }
 
@@ -23,7 +23,7 @@ class HealthMateApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => NavigationCubit()), 
+          BlocProvider(create: (context) => NavigationCubit()),
         ],
         child: MaterialApp.router(
           routerConfig: AppRouter.router,
