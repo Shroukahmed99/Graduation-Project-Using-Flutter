@@ -70,7 +70,8 @@ abstract class AppRouter {
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeView = '/HomeView';
-  static const kDetailsNutritionView = '/DetailsNutritionView';
+  static const kDetailsNutritionView =
+      '/DetailsNutritionView/:id'; // تعديل هنا لدعم الـ id
   static const kDetailsPhysicalView = '/DetailsPhysicalView';
 
   static const kDetailsWorkoutView = '/DetailsWorkoutView';
@@ -214,8 +215,13 @@ abstract class AppRouter {
         builder: (context, state) => const PasswordSettingsView(),
       ),
       GoRoute(
-        path: kDetailsNutritionView,
-        builder: (context, state) => const DetailsNutritionView(),
+        path: '/nutrition/:id', // استخدم :id لتحديد المعامل من الـ URL
+        builder: (context, state) {
+          final nutritionId = state.pathParameters['id'] ??
+              ''; // استخدم state.params لاستخراج الـ id
+          return DetailsNutritionView(
+              id: nutritionId); // تمرير الـ id إلى الـ widget
+        },
       ),
       GoRoute(
         path: kDetailsWorkoutView,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/home/data/models/nutritions_model.dart';
-import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/const.dart';
 
 class InformationNutrition extends StatelessWidget {
@@ -101,10 +100,7 @@ class InformationNutrition extends StatelessWidget {
                       const Spacer(),
                       ElevatedButton(
                         onPressed: () {
-                          GoRouter.of(context).push(
-                            AppRouter.kDetailsNutritionView,
-                            extra: nutrition.id,
-                          );
+                          context.push('/nutrition/${nutrition.id}');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: kPrimaryColor,

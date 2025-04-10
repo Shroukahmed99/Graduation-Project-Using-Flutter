@@ -5,6 +5,7 @@ import 'package:sehatak/Features/home/data/models/nutritions_model.dart';
 import 'package:sehatak/Features/home/data/repo/home_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
@@ -16,7 +17,7 @@ class HomeRepoImpl implements HomeRepo {
       String id) async {
     try {
       final data = await apiService.get(
-        endpoint: 'users/getNutritionistById/$id',
+        endpoint: 'users/getNutritionistById/$id', // استخدام الـ id الممرر
       );
 
       if (data["status"] == "success") {

@@ -1,26 +1,49 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:sehatak/Features/home/data/repo/home_repo.dart';
+import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_state.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_app_bar_details.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_buttom_book_now.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/info_data_nutrition.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section.dart';
+import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeteailsNutritionViewBody extends StatelessWidget {
-  const DeteailsNutritionViewBody({super.key});
+  final String nutritionId;
+
+  const DeteailsNutritionViewBody({super.key, required this.nutritionId});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        CustomAppBarDetails(
-          title: 'Nutrition',
-          image: 'assets/images/category2.png',
-        ),
-        SizedBox(height: 20),
-        InfoDataNutrition(),
-        FeedbackSection(),
-        SizedBox(height: 40),
-        CustomButtomBookNow(text: 'BOOK NOW')
-      ],
+    return BlocBuilder<NutritionMoreCubit, NutritionMoreState>(
+      builder: (context, state) {
+        if (state is NutritionMoreLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is NutritionMoreLoaded) {
+          final nutritionist = state.nutritionistMore;
+
+          return Column(
+            children: [
+              const CustomAppBarDetails(
+                title: 'Nutrition',
+                image: 'assets/images/category2.png',
+              ),
+              const SizedBox(height: 20),
+              InfoDataNutrition(
+                nutritionistMore: nutritionist,
+              ),
+              const FeedbackSection(),
+              const SizedBox(height: 40),
+              const CustomButtomBookNow(text: 'BOOK NOW')
+            ],
+          );
+        } else if (state is NutritionMoreError) {
+          return Center(child: Text(state.message));
+        } else {
+          // حالة البداية أو الخطأ
+          return const Center(child: Text('Unexpected error occurred.'));
+        }
+      },
     );
   }
 }

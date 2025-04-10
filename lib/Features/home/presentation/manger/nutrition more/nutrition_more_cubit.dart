@@ -8,11 +8,16 @@ class NutritionMoreCubit extends Cubit<NutritionMoreState> {
   NutritionMoreCubit(this.homeRepo) : super(NutritionMoreInitial());
 
   Future<void> fetchNutritionistById(String id) async {
-    emit(NutritionMoreLoading());
-    final failureOrSuccess = await homeRepo.fetchNutritionistById(id);
-    failureOrSuccess.fold(
-      (failure) => emit(NutritionMoreError(failure.toString())),
-      (nutritionist) => emit(NutritionMoreLoaded(nutritionist)),
-    );
+    try {
+      emit(NutritionMoreLoading());
+      final failureOrSuccess = await homeRepo.fetchNutritionistById(id);
+      failureOrSuccess.fold(
+        (failure) => emit(NutritionMoreError(failure.toString())),
+        (nutritionistMore) => emit(NutritionMoreLoaded(nutritionistMore)),
+      );
+    } catch (e) {
+      emit(NutritionMoreError(
+          'Error: $e')); // التأكد من وجود أخطاء أثناء الاتصال
+    }
   }
 }

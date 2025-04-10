@@ -9,9 +9,9 @@ class NutritionMoreInitial extends NutritionMoreState {}
 class NutritionMoreLoading extends NutritionMoreState {}
 
 class NutritionMoreLoaded extends NutritionMoreState {
-  final NutritionistMore nutritionist;
+  final NutritionistMore nutritionistMore;
 
-  const NutritionMoreLoaded(this.nutritionist);
+  const NutritionMoreLoaded(this.nutritionistMore);
 }
 
 class NutritionMoreError extends NutritionMoreState {
