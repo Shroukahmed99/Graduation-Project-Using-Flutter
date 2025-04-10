@@ -21,7 +21,7 @@ class MorePhysical {
   }
 }
 
-class PhysicalTherapist {
+class PhysicalTherapistMore {
   final String id;
   final MorePhysical user;
   final String fullName;
@@ -37,7 +37,7 @@ class PhysicalTherapist {
   final String role;
   final String username;
 
-  PhysicalTherapist({
+  PhysicalTherapistMore({
     required this.id,
     required this.user,
     required this.fullName,
@@ -54,8 +54,8 @@ class PhysicalTherapist {
     required this.username,
   });
 
-  factory PhysicalTherapist.fromJson(Map<String, dynamic> json) {
-    return PhysicalTherapist(
+  factory PhysicalTherapistMore.fromJson(Map<String, dynamic> json) {
+    return PhysicalTherapistMore(
       id: json['_id'],
       user: MorePhysical.fromJson(json['userId']),
       fullName: json['fullName'],
@@ -76,7 +76,7 @@ class PhysicalTherapist {
 
 class PhysicalTherapyResponse {
   final String status;
-  final PhysicalTherapist physicalTherapist;
+  final PhysicalTherapistMore physicalTherapist;
 
   PhysicalTherapyResponse({
     required this.status,
@@ -87,7 +87,7 @@ class PhysicalTherapyResponse {
     return PhysicalTherapyResponse(
       status: json['status'],
       physicalTherapist:
-          PhysicalTherapist.fromJson(json['data']['PhysicalTherapy']),
+          PhysicalTherapistMore.fromJson(json['data']['PhysicalTherapy']),
     );
   }
 }

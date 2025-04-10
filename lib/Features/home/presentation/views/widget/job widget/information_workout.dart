@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/home/data/models/workout_model.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/utils/app_router.dart';
 
 class InformationWorkout extends StatelessWidget {
   final CoachModel coaches;
@@ -99,8 +98,7 @@ class InformationWorkout extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kDetailsWorkoutView);
+                        context.push('/coaches/${coaches.id}');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,

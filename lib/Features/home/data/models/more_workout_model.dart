@@ -21,7 +21,7 @@ class MoreCoach {
   }
 }
 
-class Coach {
+class CoachMoreId {
   final String id;
   final MoreCoach user;
   final String fullName;
@@ -37,7 +37,7 @@ class Coach {
   final String role;
   final String username;
 
-  Coach({
+  CoachMoreId({
     required this.id,
     required this.user,
     required this.fullName,
@@ -54,8 +54,8 @@ class Coach {
     required this.username,
   });
 
-  factory Coach.fromJson(Map<String, dynamic> json) {
-    return Coach(
+  factory CoachMoreId.fromJson(Map<String, dynamic> json) {
+    return CoachMoreId(
       id: json['_id'],
       user: MoreCoach.fromJson(json['userId']),
       fullName: json['fullName'],
@@ -76,7 +76,7 @@ class Coach {
 
 class CoachResponse {
   final String status;
-  final Coach coach;
+  final CoachMoreId coach;
 
   CoachResponse({
     required this.status,
@@ -86,7 +86,7 @@ class CoachResponse {
   factory CoachResponse.fromJson(Map<String, dynamic> json) {
     return CoachResponse(
       status: json['status'],
-      coach: Coach.fromJson(json['data']['coach']),
+      coach: CoachMoreId.fromJson(json['data']['coach']),
     );
   }
 }

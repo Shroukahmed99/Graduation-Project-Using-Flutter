@@ -70,167 +70,168 @@ abstract class AppRouter {
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeView = '/HomeView';
-  static const kDetailsNutritionView =
-      '/DetailsNutritionView/:id'; // تعديل هنا لدعم الـ id
+  static const kDetailsNutritionView = '/DetailsNutritionView/:id';
   static const kDetailsPhysicalView = '/DetailsPhysicalView/:id';
 
-  static const kDetailsWorkoutView = '/DetailsWorkoutView';
+  static const kDetailsWorkoutView = '/DetailsWorkoutView:id';
 
-  static final router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const FirstSplashScreen(),
-      ),
-      GoRoute(
-        path: kSecondSplashScreen,
-        builder: (context, state) => const SecondSplashScreen(),
-      ),
-      GoRoute(
-        path: kOnBoardingView,
-        builder: (context, state) => const OnBoardingView(),
-      ),
-      GoRoute(
-        path: kLoginView,
-        builder: (context, state) => const LoginView(),
-      ),
-      GoRoute(
-        path: kGenderSelectionViewClient,
-        builder: (context, state) => const GenderSelectionViewClient(),
-      ),
-      GoRoute(
-        path: kAgeSelectionScreen,
-        builder: (context, state) => const AgeSelectionViews(),
-      ),
-      GoRoute(
-        path: kAgeSelectionProviderScreen,
-        builder: (context, state) => const AgeSelectionProviderScreen(),
-      ),
-      GoRoute(
-        path: kWieghtViews,
-        builder: (context, state) => const WeightViews(),
-      ),
-      GoRoute(
-        path: kHieghtViews,
-        builder: (context, state) => const HeightViews(),
-      ),
-      GoRoute(
-        path: kRoleSelectionScreen,
-        builder: (context, state) => const RoleSelectionViews(),
-      ),
-      GoRoute(
-        path: kWhatGoalViews,
-        builder: (context, state) => const WhatGoalViews(),
-      ),
-      GoRoute(
-        path: kPhysicalActivityView,
-        builder: (context, state) => const PhysicalActivityView(),
-      ),
-      GoRoute(
-        path: kSignupViewClient,
-        builder: (context, state) => const SignupViewClient(),
-      ),
-      GoRoute(
-        path: kSuccessViewClient,
-        builder: (context, state) => const SuccessViewClient(),
-      ),
-      GoRoute(
-        path: kIntroductionScreenClient,
-        builder: (context, state) => const IntroductionScreenClient(),
-      ),
-      GoRoute(
-        path: kIntroductionScreenClient,
-        builder: (context, state) => const IntroductionScreenService(),
-      ),
-      GoRoute(
-        path: kOtpView,
-        builder: (context, state) => const OtpView(),
-      ),
-      GoRoute(
-        path: kSetPasswordViewBody,
-        builder: (context, state) => SetPasswordViewBody(),
-      ),
-      GoRoute(
-        path: kOtpSuccess,
-        builder: (context, state) => const OtpSuccess(),
-      ),
-      GoRoute(
-        path: kSetPasswordView,
-        builder: (context, state) => const SetPasswordView(),
-      ),
-      GoRoute(
-        path: kSetPasswordSuccess,
-        builder: (context, state) => const SetPasswordSuccess(),
-      ),
-      GoRoute(
-        path: kSignupViewService,
-        builder: (context, state) => const SignupViewService(),
-      ),
-      GoRoute(
-        path: kJopSelectionView,
-        builder: (context, state) => const JopSelectionView(),
-      ),
-      GoRoute(
-        path: kGenderSelectionViewService,
-        builder: (context, state) => const GenderSelectionViewService(),
-      ),
-      GoRoute(
-        path: kInsertDataView,
-        builder: (context, state) => const InsertDataView(),
-      ),
-      GoRoute(
-        path: kSuccessViewService,
-        builder: (context, state) => const SuccessViewService(),
-      ),
-      GoRoute(
-        path: kPriceSelectionView,
-        builder: (context, state) => const PriceSelectionView(),
-      ),
-      GoRoute(
-        path: kWorkoutView,
-        builder: (context, state) => const WorkoutView(),
-      ),
-      GoRoute(
-        path: kPhysicalView,
-        builder: (context, state) => const PhysicalView(),
-      ),
-      GoRoute(
-        path: kNutritionView,
-        builder: (context, state) => const NutritionView(),
-      ),
-      GoRoute(
-        path: kHomeView,
-        builder: (context, state) => const HomeView(),
-      ),
-      GoRoute(
-        path: kSettingProfileView,
-        builder: (context, state) => const SettingProfileView(),
-      ),
-      GoRoute(
-        path: kProfileView,
-        builder: (context, state) => const ProfileView(),
-      ),
-      GoRoute(
-        path: kPasswordSettingsView,
-        builder: (context, state) => const PasswordSettingsView(),
-      ),
-      GoRoute(
-        path: '/nutrition/:id', // استخدم :id لتحديد المعامل من الـ URL
-        builder: (context, state) {
-          final nutritionId = state.pathParameters['id'] ??
-              ''; // استخدم state.params لاستخراج الـ id
-          return DetailsNutritionView(
-              id: nutritionId); // تمرير الـ id إلى الـ widget
-        },
-      ),
-      GoRoute(
-        path: kDetailsWorkoutView,
-        builder: (context, state) => const DetailsWorkoutView(),
-      ),
-      GoRoute(
-        path: kDetailsPhysicalView,
-        builder: (context, state) => const DetailsPhysicalView(),
-      ),
-    ],
-  );
+  static final router = GoRouter(routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const FirstSplashScreen(),
+    ),
+    GoRoute(
+      path: kSecondSplashScreen,
+      builder: (context, state) => const SecondSplashScreen(),
+    ),
+    GoRoute(
+      path: kOnBoardingView,
+      builder: (context, state) => const OnBoardingView(),
+    ),
+    GoRoute(
+      path: kLoginView,
+      builder: (context, state) => const LoginView(),
+    ),
+    GoRoute(
+      path: kGenderSelectionViewClient,
+      builder: (context, state) => const GenderSelectionViewClient(),
+    ),
+    GoRoute(
+      path: kAgeSelectionScreen,
+      builder: (context, state) => const AgeSelectionViews(),
+    ),
+    GoRoute(
+      path: kAgeSelectionProviderScreen,
+      builder: (context, state) => const AgeSelectionProviderScreen(),
+    ),
+    GoRoute(
+      path: kWieghtViews,
+      builder: (context, state) => const WeightViews(),
+    ),
+    GoRoute(
+      path: kHieghtViews,
+      builder: (context, state) => const HeightViews(),
+    ),
+    GoRoute(
+      path: kRoleSelectionScreen,
+      builder: (context, state) => const RoleSelectionViews(),
+    ),
+    GoRoute(
+      path: kWhatGoalViews,
+      builder: (context, state) => const WhatGoalViews(),
+    ),
+    GoRoute(
+      path: kPhysicalActivityView,
+      builder: (context, state) => const PhysicalActivityView(),
+    ),
+    GoRoute(
+      path: kSignupViewClient,
+      builder: (context, state) => const SignupViewClient(),
+    ),
+    GoRoute(
+      path: kSuccessViewClient,
+      builder: (context, state) => const SuccessViewClient(),
+    ),
+    GoRoute(
+      path: kIntroductionScreenClient,
+      builder: (context, state) => const IntroductionScreenClient(),
+    ),
+    GoRoute(
+      path: kIntroductionScreenClient,
+      builder: (context, state) => const IntroductionScreenService(),
+    ),
+    GoRoute(
+      path: kOtpView,
+      builder: (context, state) => const OtpView(),
+    ),
+    GoRoute(
+      path: kSetPasswordViewBody,
+      builder: (context, state) => SetPasswordViewBody(),
+    ),
+    GoRoute(
+      path: kOtpSuccess,
+      builder: (context, state) => const OtpSuccess(),
+    ),
+    GoRoute(
+      path: kSetPasswordView,
+      builder: (context, state) => const SetPasswordView(),
+    ),
+    GoRoute(
+      path: kSetPasswordSuccess,
+      builder: (context, state) => const SetPasswordSuccess(),
+    ),
+    GoRoute(
+      path: kSignupViewService,
+      builder: (context, state) => const SignupViewService(),
+    ),
+    GoRoute(
+      path: kJopSelectionView,
+      builder: (context, state) => const JopSelectionView(),
+    ),
+    GoRoute(
+      path: kGenderSelectionViewService,
+      builder: (context, state) => const GenderSelectionViewService(),
+    ),
+    GoRoute(
+      path: kInsertDataView,
+      builder: (context, state) => const InsertDataView(),
+    ),
+    GoRoute(
+      path: kSuccessViewService,
+      builder: (context, state) => const SuccessViewService(),
+    ),
+    GoRoute(
+      path: kPriceSelectionView,
+      builder: (context, state) => const PriceSelectionView(),
+    ),
+    GoRoute(
+      path: kWorkoutView,
+      builder: (context, state) => const WorkoutView(),
+    ),
+    GoRoute(
+      path: kPhysicalView,
+      builder: (context, state) => const PhysicalView(),
+    ),
+    GoRoute(
+      path: kNutritionView,
+      builder: (context, state) => const NutritionView(),
+    ),
+    GoRoute(
+      path: kHomeView,
+      builder: (context, state) => const HomeView(),
+    ),
+    GoRoute(
+      path: kSettingProfileView,
+      builder: (context, state) => const SettingProfileView(),
+    ),
+    GoRoute(
+      path: kProfileView,
+      builder: (context, state) => const ProfileView(),
+    ),
+    GoRoute(
+      path: kPasswordSettingsView,
+      builder: (context, state) => const PasswordSettingsView(),
+    ),
+    GoRoute(
+      path: '/nutrition/:id',
+      builder: (context, state) {
+        final nutritionId = state.pathParameters['id'] ?? '';
+        return DetailsNutritionView(id: nutritionId);
+      },
+    ),
+    GoRoute(
+      path: '/coaches/:id',
+      builder: (context, state) {
+        final coachesId = state.pathParameters['id'] ?? '';
+        return DetailsWorkoutView(id: coachesId);
+      },
+    ),
+    GoRoute(
+      path: '/physical/:id',
+      builder: (context, state) {
+        final physicalId = state.pathParameters['id'] ?? '';
+        return DetailsPhysicalView(id: physicalId);
+      },
+    ),
+  ]);
 }

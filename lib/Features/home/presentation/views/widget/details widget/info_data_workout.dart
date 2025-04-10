@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
 import 'package:sehatak/const.dart';
 
 class InfoDataWorkout extends StatelessWidget {
-  const InfoDataWorkout({super.key});
+  final CoachMoreId coachMoreId;
+  const InfoDataWorkout({super.key, required this.coachMoreId});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,14 @@ class InfoDataWorkout extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 50),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Dr. Eric San",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text("nutrition doctor",
-                      style: TextStyle(color: accentColor)),
+                  Text(coachMoreId.fullName,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(coachMoreId.job,
+                      style: const TextStyle(color: accentColor)),
                 ],
               ),
             ],
@@ -46,11 +48,12 @@ class InfoDataWorkout extends StatelessWidget {
                   height: 20,
                 ),
                 const SizedBox(width: 5),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("COST", style: TextStyle(color: kPrimaryColor)),
-                    Text("\$ 0.80/min", style: TextStyle(color: Colors.black)),
+                    const Text("COST", style: TextStyle(color: kPrimaryColor)),
+                    Text("E£ ${coachMoreId.priceRange} EGP",
+                        style: const TextStyle(color: Colors.black)),
                   ],
                 ),
               ],
@@ -78,9 +81,9 @@ class InfoDataWorkout extends StatelessWidget {
           const Text("Bio",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          const Text(
-            "MBBS (UK), MRCP(UK), Board Certified in Int. Medicine (U.S.A.). .",
-            style: TextStyle(color: Colors.black),
+          Text(
+            coachMoreId.bio,
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(height: 20),
         ],

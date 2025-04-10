@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:sehatak/Features/home/data/models/more_nutrition_model.dart';
+import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
+import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
 import 'package:sehatak/Features/home/data/models/nutritions_model.dart';
 import 'package:sehatak/Features/home/data/models/physical_model.dart';
 import 'package:sehatak/Features/home/data/models/workout_model.dart';
@@ -92,6 +94,49 @@ class HomeRepoImpl implements HomeRepo {
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CoachMoreId>> fetchCoachesById(String id) async {
+    try {
+      final data = await apiService.get(
+        endpoint: 'users/getCoachById/$id',
+      );
+
+      if (data["status"] == "success") {
+        final response = CoachResponse.fromJson(data);
+        return Right(response.coach);
+      } else {
+        return Left(ServerFailure(data["message"] ?? "Unexpected error"));
+      }
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PhysicalTherapistMore>> fetchPhysicalistById(
+      String id) async {
+    try {
+      final data = await apiService.get(
+        endpoint: 'users/getPhysicalTherapyById/$id',
+      );
+
+      if (data["status"] == "success") {
+        final response = PhysicalTherapyResponse.fromJson(data);
+        return Right(response.physicalTherapist);
+      } else {
+        return Left(ServerFailure(data["message"] ?? "Unexpected error"));
+      }
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
       return Left(ServerFailure(e.toString()));
     }
   }
