@@ -72,7 +72,7 @@ abstract class AppRouter {
   static const kHomeView = '/HomeView';
   static const kDetailsNutritionView =
       '/DetailsNutritionView/:id'; // تعديل هنا لدعم الـ id
-  static const kDetailsPhysicalView = '/DetailsPhysicalView';
+  static const kDetailsPhysicalView = '/DetailsPhysicalView/:id';
 
   static const kDetailsWorkoutView = '/DetailsWorkoutView';
 

@@ -1,4 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/home/data/repo/home_repo_impl.dart';
+import 'package:sehatak/Features/home/presentation/manger/physical%20therap/physical_therap_cubit.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/physical_view_body.dart';
 
 class PhysicalView extends StatelessWidget {
@@ -6,8 +11,12 @@ class PhysicalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: PhysicalViewBody(),
+    return BlocProvider(
+      create: (context) => PhysicalTherapCubit(HomeRepoImpl(ApiService(Dio())))
+        ..fetchPhysicalTherap(),
+      child: const Scaffold(
+        body: PhysicalViewBody(),
+      ),
     );
   }
 }

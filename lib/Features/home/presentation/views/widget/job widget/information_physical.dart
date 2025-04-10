@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/home/data/models/physical_model.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/utils/app_router.dart';
 
 class InformationPhysical extends StatelessWidget {
-  const InformationPhysical({super.key});
+  final PhysicalTherapModel physical;
+
+  const InformationPhysical({super.key, required this.physical});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,9 @@ class InformationPhysical extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text(
-                      "D/Bamsi",
-                      style: TextStyle(
+                    Text(
+                      physical.fullName,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Color(0xffFF9F5B),
@@ -36,7 +38,7 @@ class InformationPhysical extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
-                          'assets/images/3.png',
+                          'assets/images/3.png', // يمكنك لاحقًا تغييرها إلى صورة من النت أو من API
                           width: 55,
                           height: 55,
                           fit: BoxFit.cover,
@@ -45,11 +47,11 @@ class InformationPhysical extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Incorporating physical \nexercise into your daily\nroutine can boost...",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    physical.bio,
+                    style: const TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -63,12 +65,13 @@ class InformationPhysical extends StatelessWidget {
                           height: 20,
                         ),
                         const SizedBox(width: 5),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("COST", style: TextStyle(color: Colors.white)),
-                            Text("\$ 0.80/min",
+                            const Text("COST",
                                 style: TextStyle(color: Colors.white)),
+                            Text("E£ ${physical.priceRange} EGP",
+                                style: const TextStyle(color: Colors.white)),
                           ],
                         ),
                       ],
@@ -96,8 +99,7 @@ class InformationPhysical extends StatelessWidget {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.kDetailsPhysicalView);
+                        context.push('/physical/${physical.id}');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,

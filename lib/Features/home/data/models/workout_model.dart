@@ -1,18 +1,18 @@
-class Coach {
+class CoachModel {
   final String id;
   final String fullName;
   final String bio;
   final int priceRange;
 
-  Coach({
+  CoachModel({
     required this.id,
     required this.fullName,
     required this.bio,
     required this.priceRange,
   });
 
-  factory Coach.fromJson(Map<String, dynamic> json) {
-    return Coach(
+  factory CoachModel.fromJson(Map<String, dynamic> json) {
+    return CoachModel(
       id: json['_id'],
       fullName: json['fullName'],
       bio: json['bio'],
@@ -24,7 +24,7 @@ class Coach {
 class CoachesResponse {
   final String status;
   final int results;
-  final List<Coach> coaches;
+  final List<CoachModel> coaches;
 
   CoachesResponse({
     required this.status,
@@ -34,7 +34,7 @@ class CoachesResponse {
 
   factory CoachesResponse.fromJson(Map<String, dynamic> json) {
     var coachesList = (json['data']['coaches'] as List)
-        .map((coach) => Coach.fromJson(coach))
+        .map((coach) => CoachModel.fromJson(coach))
         .toList();
 
     return CoachesResponse(

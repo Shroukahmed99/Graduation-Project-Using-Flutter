@@ -21,26 +21,26 @@ class NutritionModel {
   }
 }
 
-// class NutritionistsResponse {
-//   final String status;
-//   final int results;
-//   final List<NutritionModel> nutritionists;
+class NutritionistsResponse {
+  final String status;
+  final int results;
+  final List<NutritionModel> nutritionists;
 
-//   NutritionistsResponse({
-//     required this.status,
-//     required this.results,
-//     required this.nutritionists,
-//   });
+  NutritionistsResponse({
+    required this.status,
+    required this.results,
+    required this.nutritionists,
+  });
 
-//   factory NutritionistsResponse.fromJson(Map<String, dynamic> json) {
-//     var nutritionistList = (json['data']['Nutritionists'] as List)
-//         .map((item) => NutritionModel.fromJson(item))
-//         .toList();
+  factory NutritionistsResponse.fromJson(Map<String, dynamic> json) {
+    var nutritionistList = (json['data']['Nutritionists'] as List)
+        .map((item) => NutritionModel.fromJson(item))
+        .toList();
 
-//     return NutritionistsResponse(
-//       status: json['status'],
-//       results: json['results'],
-//       nutritionists: nutritionistList,
-//     );
-//   }
-// }
+    return NutritionistsResponse(
+      status: json['status'],
+      results: json['results'],
+      nutritionists: nutritionistList,
+    );
+  }
+}

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/home/data/models/workout_model.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 
 class InformationWorkout extends StatelessWidget {
-  const InformationWorkout({super.key});
+  final CoachModel coaches;
+  const InformationWorkout({super.key, required this.coaches});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,9 @@ class InformationWorkout extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Text(
-                      "D/Bamsi",
-                      style: TextStyle(
+                    Text(
+                      coaches.fullName,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Color(0xffFF9F5B),
@@ -45,11 +47,11 @@ class InformationWorkout extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Incorporating physical \nexercise into your daily\nroutine can boost...",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    coaches.bio,
+                    style: const TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -63,12 +65,13 @@ class InformationWorkout extends StatelessWidget {
                           height: 20,
                         ),
                         const SizedBox(width: 5),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("COST", style: TextStyle(color: Colors.white)),
-                            Text("\$ 0.80/min",
+                            const Text("COST",
                                 style: TextStyle(color: Colors.white)),
+                            Text("E£ ${coaches.priceRange} EGP",
+                                style: const TextStyle(color: Colors.white)),
                           ],
                         ),
                       ],
