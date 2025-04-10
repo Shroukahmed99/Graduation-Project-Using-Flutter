@@ -12,11 +12,11 @@ class NutritionMoreCubit extends Cubit<NutritionMoreState> {
       emit(NutritionMoreLoading());
       final failureOrSuccess = await homeRepo.fetchNutritionistById(id);
       failureOrSuccess.fold(
-        (failure) => emit(NutritionMoreError(failure.toString())),
-        (nutritionistMore) => emit(NutritionMoreLoaded(nutritionistMore)),
+        (failure) => emit(NutritionMoreFailure(failure.toString())),
+        (nutritionistMore) => emit(NutritionMoreSuccess(nutritionistMore)),
       );
     } catch (e) {
-      emit(NutritionMoreError(
+      emit(NutritionMoreFailure(
           'Error: $e')); // التأكد من وجود أخطاء أثناء الاتصال
     }
   }

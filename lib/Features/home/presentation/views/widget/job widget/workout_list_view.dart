@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/home/presentation/manger/workout/workout_cubit.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/information_workout.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class WorkoutListView extends StatelessWidget {
   const WorkoutListView({
@@ -15,7 +16,10 @@ class WorkoutListView extends StatelessWidget {
         if (state is CoachLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is CoachFailure) {
-          return Center(child: Text("Error: ${state.message}"));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            customSnackBar(context, state.message);
+          });
+          return const SizedBox.shrink();
         } else if (state is CoachSuccess) {
           final coaches = state.coaches;
           return ListView.builder(

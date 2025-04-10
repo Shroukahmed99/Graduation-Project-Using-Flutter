@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/home/presentation/manger/physical%20therap/physical_therap_cubit.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/information_physical.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class PhysicalListView extends StatelessWidget {
   const PhysicalListView({super.key});
@@ -13,7 +14,10 @@ class PhysicalListView extends StatelessWidget {
         if (state is PhysicalTherapLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is PhysicalTherapFailure) {
-          return Center(child: Text("Error: ${state.message}"));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            customSnackBar(context, state.message);
+          });
+          return const SizedBox.shrink();
         } else if (state is PhysicalTherapSuccess) {
           final physicalTherapists = state.physicalTherapists;
           return ListView.builder(

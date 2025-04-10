@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/Features/home/data/repo/home_repo.dart';
 import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_state.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_app_bar_details.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_buttom_book_now.dart';
@@ -7,6 +6,7 @@ import 'package:sehatak/Features/home/presentation/views/widget/details%20widget
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section.dart';
 import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class DeteailsNutritionViewBody extends StatelessWidget {
   final String nutritionId;
@@ -19,7 +19,7 @@ class DeteailsNutritionViewBody extends StatelessWidget {
       builder: (context, state) {
         if (state is NutritionMoreLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is NutritionMoreLoaded) {
+        } else if (state is NutritionMoreSuccess) {
           final nutritionist = state.nutritionistMore;
 
           return Column(
@@ -37,10 +37,12 @@ class DeteailsNutritionViewBody extends StatelessWidget {
               const CustomButtomBookNow(text: 'BOOK NOW')
             ],
           );
-        } else if (state is NutritionMoreError) {
-          return Center(child: Text(state.message));
+        } else if (state is NutritionMoreFailure) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            customSnackBar(context, state.message);
+          });
+          return const SizedBox.shrink();
         } else {
-          // حالة البداية أو الخطأ
           return const Center(child: Text('Unexpected error occurred.'));
         }
       },

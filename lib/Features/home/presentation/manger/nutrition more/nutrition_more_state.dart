@@ -8,14 +8,14 @@ class NutritionMoreInitial extends NutritionMoreState {}
 
 class NutritionMoreLoading extends NutritionMoreState {}
 
-class NutritionMoreLoaded extends NutritionMoreState {
+class NutritionMoreSuccess extends NutritionMoreState {
   final NutritionistMore nutritionistMore;
 
-  const NutritionMoreLoaded(this.nutritionistMore);
+  const NutritionMoreSuccess(this.nutritionistMore);
 }
 
-class NutritionMoreError extends NutritionMoreState {
+class NutritionMoreFailure extends NutritionMoreState {
   final String message;
 
-  const NutritionMoreError(this.message);
+  const NutritionMoreFailure(this.message);
 }

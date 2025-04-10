@@ -18,14 +18,12 @@ class HomeRepoImpl implements HomeRepo {
       String id) async {
     try {
       final data = await apiService.get(
-        endpoint: 'users/getNutritionistById/$id', // استخدام الـ id الممرر
+        endpoint: 'users/getNutritionistById/$id',
       );
 
       if (data["status"] == "success") {
-        var nutritionistJson = data["data"]["Nutritionist"];
-        NutritionistMore nutritionist =
-            NutritionistMore.fromJson(nutritionistJson);
-        return Right(nutritionist);
+        final response = NutritionistResponse.fromJson(data);
+        return Right(response.nutritionist);
       } else {
         return Left(ServerFailure(data["message"] ?? "Unexpected error"));
       }

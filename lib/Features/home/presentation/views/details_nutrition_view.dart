@@ -15,9 +15,9 @@ class DetailsNutritionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NutritionMoreCubit(HomeRepoImpl(ApiService(Dio())))
-        ..fetchNutritionistById(id), // تمرير الـ id هنا
+        ..fetchNutritionistById(id),
       child: Scaffold(
-        body: DeteailsNutritionViewBody(nutritionId: id), // تمرير الـ id هنا
+        body: DeteailsNutritionViewBody(nutritionId: id),
       ),
     );
   }
