@@ -32,6 +32,10 @@ class InfoDataWorkout extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold)),
                   Text(coachMoreId.job,
                       style: const TextStyle(color: accentColor)),
+                  Text(
+                    "${coachMoreId.yearsOfExperience} years of experience",
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             ],

@@ -5,6 +5,7 @@ import 'package:sehatak/const.dart';
 class InfoDataNutrition extends StatelessWidget {
   const InfoDataNutrition({super.key, required this.nutritionistMore});
   final NutritionistMore nutritionistMore;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,19 +27,27 @@ class InfoDataNutrition extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(nutritionistMore.fullName,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text(nutritionistMore.job,
-                      style: const TextStyle(color: accentColor)),
+                  Text(
+                    nutritionistMore.fullName,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    nutritionistMore.job,
+                    style: const TextStyle(color: accentColor),
+                  ),
+                  Text(
+                    "${nutritionistMore.yearsOfExperience} years of experience",
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 150,
-            ),
+            padding: const EdgeInsets.only(left: 150),
             child: Row(
               children: [
                 Image.asset(
@@ -50,11 +59,14 @@ class InfoDataNutrition extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("COST", style: TextStyle(color: kPrimaryColor)),
-                    Text("E£ ${nutritionistMore.priceRange} EGP",
-                        style: const TextStyle(
-                          color: Colors.black,
-                        )),
+                    const Text(
+                      "COST",
+                      style: TextStyle(color: kPrimaryColor),
+                    ),
+                    Text(
+                      "E£ ${nutritionistMore.priceRange} EGP",
+                      style: const TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
@@ -72,15 +84,24 @@ class InfoDataNutrition extends StatelessWidget {
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("HAPPY", style: TextStyle(color: kPrimaryColor)),
-                    Text("500+ ratings", style: TextStyle(color: Colors.black)),
+                    Text(
+                      "HAPPY",
+                      style: TextStyle(color: kPrimaryColor),
+                    ),
+                    Text(
+                      "500+ ratings",
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          const Text("Bio",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          const Text(
+            "Bio",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           Text(
             nutritionistMore.bio,

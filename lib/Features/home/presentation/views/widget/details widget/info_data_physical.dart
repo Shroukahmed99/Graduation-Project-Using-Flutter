@@ -35,6 +35,10 @@ class InfoDataPhysical extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold)),
                   Text(physicalTherapistMore.job,
                       style: const TextStyle(color: accentColor)),
+                  Text(
+                    "${physicalTherapistMore.yearsOfExperience} years of experience",
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             ],

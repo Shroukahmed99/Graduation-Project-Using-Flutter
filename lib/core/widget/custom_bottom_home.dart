@@ -30,7 +30,7 @@ class NavIcon extends StatelessWidget {
       },
       child: Image.asset(
         imagePath,
-        width: 25,
+        width: 35,
         height: 25,
         color: isSelected ? Colors.black : Colors.white,
       ),
