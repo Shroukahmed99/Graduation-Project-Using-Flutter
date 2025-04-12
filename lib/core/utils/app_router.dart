@@ -20,6 +20,7 @@ import 'package:sehatak/Features/home/presentation/views/details_workout_view.da
 import 'package:sehatak/Features/home/presentation/views/home_view.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/home_provider_view.dart';
 import 'package:sehatak/Features/home/presentation/views/workout_view.dart';
 import 'package:sehatak/Features/success%20register/otp_success.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
@@ -74,6 +75,7 @@ abstract class AppRouter {
   static const kDetailsPhysicalView = '/DetailsPhysicalView/:id';
 
   static const kDetailsWorkoutView = '/DetailsWorkoutView:id';
+  static const kHomeProviderView = '/HomeProviderView';
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -232,6 +234,11 @@ abstract class AppRouter {
         final physicalId = state.pathParameters['id'] ?? '';
         return DetailsPhysicalView(id: physicalId);
       },
+    ),
+    GoRoute(
+       path: kHomeProviderView,
+      builder: (context, state) => const HomeProviderView(),
+     
     ),
   ]);
 }
