@@ -1,7 +1,7 @@
 // profile_user_info_texts.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/Profile%20User/data/models/client_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/const.dart';
 
 class ProfileUserInfoTexts extends StatelessWidget {

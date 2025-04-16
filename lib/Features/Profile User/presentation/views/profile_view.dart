@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20client%20cubit/client_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20image%20cubit/profile_image_cubit.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_body.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_body.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/core/widget/custom_bottom_home.dart';
+import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -23,7 +23,7 @@ class ProfileView extends StatelessWidget {
       ],
       child: const Scaffold(
         body: SafeArea(child: ProfileBody()),
-        bottomNavigationBar: CustomBottomNavBar(),
+        bottomNavigationBar: CustomBottomNavigationHomeClient(),
       ),
     );
   }

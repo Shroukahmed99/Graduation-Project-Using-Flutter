@@ -1,7 +1,37 @@
-// client_model.dart
-class ClientModel {
+// update_profile_client_model.dart
+
+class UpdateProfileClientModel {
+  final String status;
+  final UpdatedClientData data;
+
+  UpdateProfileClientModel({
+    required this.status,
+    required this.data,
+  });
+
+  factory UpdateProfileClientModel.fromJson(Map<String, dynamic> json) {
+    return UpdateProfileClientModel(
+      status: json['status'],
+      data: UpdatedClientData.fromJson(json['data']),
+    );
+  }
+}
+
+class UpdatedClientData {
+  final UpdatedClient updatedClient;
+
+  UpdatedClientData({required this.updatedClient});
+
+  factory UpdatedClientData.fromJson(Map<String, dynamic> json) {
+    return UpdatedClientData(
+      updatedClient: UpdatedClient.fromJson(json['updatedClient']),
+    );
+  }
+}
+
+class UpdatedClient {
   final String id;
-  final UserModel user;
+  final String userId;
   final String fullName;
   final String mobileNumber;
   final String gender;
@@ -13,9 +43,9 @@ class ClientModel {
   final String role;
   final String username;
 
-  ClientModel({
+  UpdatedClient({
     required this.id,
-    required this.user,
+    required this.userId,
     required this.fullName,
     required this.mobileNumber,
     required this.gender,
@@ -28,10 +58,10 @@ class ClientModel {
     required this.username,
   });
 
-  factory ClientModel.fromJson(Map<String, dynamic> json) {
-    return ClientModel(
+  factory UpdatedClient.fromJson(Map<String, dynamic> json) {
+    return UpdatedClient(
       id: json['_id'],
-      user: UserModel.fromJson(json['userId']),
+      userId: json['userId'],
       fullName: json['fullName'],
       mobileNumber: json['mobileNumber'],
       gender: json['gender'],
@@ -42,29 +72,6 @@ class ClientModel {
       physicalActivityLevel: json['physicalActivityLevel'],
       role: json['role'],
       username: json['username'],
-    );
-  }
-}
-
-class UserModel {
-  final String id;
-  final String email;
-  final String role;
-  final String createdAt;
-
-  UserModel({
-    required this.id,
-    required this.email,
-    required this.role,
-    required this.createdAt,
-  });
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['_id'],
-      email: json['email'],
-      role: json['role'],
-      createdAt: json['createdAt'],
     );
   }
 }

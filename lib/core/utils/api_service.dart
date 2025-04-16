@@ -16,9 +16,11 @@ class ApiService {
             options.headers['Authorization'] = 'Bearer $token';
           }
         }
+        print("📤 Request Data: ${options.data}"); // طباعة البيانات المرسلة
         handler.next(options);
       },
       onResponse: (response, handler) async {
+        print("📥 Response Data: ${response.data}"); // طباعة الـ response data
         try {
           await _extractTokenFromCookies(response);
         } catch (e) {
@@ -27,6 +29,7 @@ class ApiService {
         handler.next(response);
       },
       onError: (DioException e, handler) {
+        print("🚨 Error: ${e.message}"); // طباعة الخطأ إذا حدث
         handler.next(e);
       },
     ));
@@ -35,8 +38,10 @@ class ApiService {
   Future<Map<String, dynamic>> post(
       {required String endpoint, required dynamic data}) async {
     Options options = await _getOptions();
+    print("📤 Sending POST request to: $endpoint with data: $data");
     var response =
         await dio.post("$baseUrl$endpoint", data: data, options: options);
+    print("📥 Response from POST request: ${response.data}");
     await _extractTokenFromCookies(response);
     return response.data;
   }
@@ -45,14 +50,17 @@ class ApiService {
     var response = await dio.get(
       "$baseUrl$endpoint",
     );
+    print("📥 Response from GET request: ${response.data}");
     return response.data;
   }
 
   Future<Map<String, dynamic>> patch(
       {required String endpoint, required dynamic data}) async {
     Options options = await _getOptions();
+    print("📤 Sending PATCH request to: $endpoint with data: $data");
     var response =
         await dio.patch("$baseUrl$endpoint", data: data, options: options);
+    print("📥 Response from PATCH request: ${response.data}");
     return response.data;
   }
 
@@ -64,6 +72,7 @@ class ApiService {
     }
 
     try {
+      print("📤 Sending DELETE request to: $endpoint");
       var response = await dio.delete("$baseUrl$endpoint",
           options: Options(
             headers: {
@@ -71,7 +80,7 @@ class ApiService {
             },
           ));
 
-      print("🚀 API Response Data: ${response.data}");
+      print("📥 Response from DELETE request: ${response.data}");
 
       if (response.statusCode == 200 || response.statusCode == 204) {
         if (response.data == null || response.data == "") {
@@ -86,7 +95,7 @@ class ApiService {
         );
       }
     } catch (e) {
-      print("🚨 Error in delete request: $e");
+      print("🚨 Error in DELETE request: $e");
       rethrow;
     }
   }
@@ -121,7 +130,6 @@ class ApiService {
     return token;
   }
 
-  // This is the method that was missing
   bool _isAuthRequest(String path) {
     return path.contains("login") || path.contains("register");
   }

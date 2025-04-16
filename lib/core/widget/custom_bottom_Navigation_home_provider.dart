@@ -4,42 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/home/presentation/manger/navigation/navigation_cubit.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/widget/icon_navigation_bottom.dart';
 
-class NavIcon extends StatelessWidget {
-  final String imagePath;
-  final int index;
-  final bool isSelected;
-  final VoidCallback? onTap;
 
-  const NavIcon({
-    Key? key,
-    required this.imagePath,
-    required this.index,
-    required this.isSelected,
-    this.onTap,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.read<NavigationCubit>().updateIndex(index);
-        if (onTap != null) {
-          onTap!();
-        }
-      },
-      child: Image.asset(
-        imagePath,
-        width: 35,
-        height: 25,
-        color: isSelected ? Colors.black : Colors.white,
-      ),
-    );
-  }
-}
-
-class CustomBottomNavBar extends StatelessWidget {
-  const CustomBottomNavBar({super.key});
+class CustomBottomNavigationHomeProvider extends StatelessWidget {
+  const CustomBottomNavigationHomeProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,30 +26,30 @@ class CustomBottomNavBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                NavIcon(
+                IconNavigationBottom(
                   imagePath: 'assets/images/homenav.png',
                   index: 0,
                   isSelected: state == 0,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kHomeView);
+                    GoRouter.of(context).go(AppRouter.kHomeProviderView);
                   },
                 ),
-                NavIcon(
+                IconNavigationBottom(
                   imagePath: 'assets/images/Favoritesnav.png',
                   index: 1,
                   isSelected: state == 1,
                 ),
-                NavIcon(
+                IconNavigationBottom(
                   imagePath: 'assets/images/communitynav.png',
                   index: 2,
                   isSelected: state == 2,
                 ),
-                NavIcon(
+                IconNavigationBottom(
                   imagePath: 'assets/images/settingnav.png',
                   index: 3,
                   isSelected: state == 3,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kSettingProfileView);
+                    GoRouter.of(context).go(AppRouter.kSettingProfileProviderView);
                   },
                 ),
               ],

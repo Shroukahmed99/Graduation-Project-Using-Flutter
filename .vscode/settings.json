@@ -11,5 +11,6 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         ".mule": true
-    }
+    },
+    "cmake.sourceDirectory": "C:/Users/old/Desktop/finallyyyyyyyyyyyyyyyyyyyy/Graduation-Project-Using-Flutter/linux/flutter"
 }

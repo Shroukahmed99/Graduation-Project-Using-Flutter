@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/profile_provider_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/setting_profile_provider_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/setting_profile_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/Introduction_screen_service.dart';
 import 'package:sehatak/Features/Questions/presentation/views/age_selection_provider_screen.dart';
@@ -20,7 +22,7 @@ import 'package:sehatak/Features/home/presentation/views/details_workout_view.da
 import 'package:sehatak/Features/home/presentation/views/home_view.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
-import 'package:sehatak/Features/home/presentation/views/widget/home_provider_view.dart';
+import 'package:sehatak/home_provider_view.dart';
 import 'package:sehatak/Features/home/presentation/views/workout_view.dart';
 import 'package:sehatak/Features/success%20register/otp_success.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
@@ -51,12 +53,14 @@ abstract class AppRouter {
   static const kPhysicalActivityView = '/PhysicalActivityView';
   static const kSignupViewClient = '/SignupViewClient';
   static const kSuccessViewClient = '/SuccessViewClient';
+  static const kSuccessViewProvider = '/SuccessViewProvider';
   static const kIntroductionScreenClient = '/IntroductionScreenClient';
   static const kOtpView = '/OtpView';
   static const kSetPasswordViewBody = '/SetPasswordViewBody';
   static const kOtpSuccess = '/OtpSuccess';
   static const kSetPasswordView = '/SetPasswordView';
   static const kSetPasswordSuccess = '/SetPasswordSuccess';
+  static const kSetProviderSuccess = '/SetProviderSuccess';
   static const kSignupViewService = '/SignupViewService';
   static const kJopSelectionView = '/JopSelectionView';
   static const kGenderSelectionViewService = '/GenderSelectionViewService';
@@ -68,6 +72,8 @@ abstract class AppRouter {
   static const kPhysicalView = "/PhysicalView";
   static const kSettingProfileView = "/SettingProfileView";
   static const kProfileView = '/ProfileView';
+  static const kSettingProfileProviderView = "/SettingProfileProviderView";
+  static const kProfileProviderView = '/ProfileProviderView';
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeView = '/HomeView';
@@ -135,11 +141,15 @@ abstract class AppRouter {
       builder: (context, state) => const SuccessViewClient(),
     ),
     GoRoute(
+      path: kSuccessViewProvider,
+      builder: (context, state) => const SuccessViewClient(),
+    ),
+    GoRoute(
       path: kIntroductionScreenClient,
       builder: (context, state) => const IntroductionScreenClient(),
     ),
     GoRoute(
-      path: kIntroductionScreenClient,
+      path: kIntroductionScreenService,
       builder: (context, state) => const IntroductionScreenService(),
     ),
     GoRoute(
@@ -207,9 +217,19 @@ abstract class AppRouter {
       builder: (context, state) => const SettingProfileView(),
     ),
     GoRoute(
+      path: kProfileProviderView,
+      builder: (context, state) => const ProfileProviderView(),
+    ),
+
+    GoRoute(
+      path: kSettingProfileProviderView,
+      builder: (context, state) => const SettingProfileProviderView(),
+    ),
+    GoRoute(
       path: kProfileView,
       builder: (context, state) => const ProfileView(),
     ),
+
     GoRoute(
       path: kPasswordSettingsView,
       builder: (context, state) => const PasswordSettingsView(),

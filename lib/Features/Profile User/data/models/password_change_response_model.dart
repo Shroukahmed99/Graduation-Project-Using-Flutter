@@ -1,4 +1,3 @@
-// password_change_response_model.dart
 class PasswordChangeResponseModel {
   final String status;
   final UserData data;

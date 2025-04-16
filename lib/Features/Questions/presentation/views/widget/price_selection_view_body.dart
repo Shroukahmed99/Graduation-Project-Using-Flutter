@@ -24,12 +24,12 @@ class PriceSelectionViewBody extends StatelessWidget {
         if (state is SignUpProviderSuccess) {
           customSnackBar(context, 'Success');
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViewClient);
+            GoRouter.of(context).pushReplacement(AppRouter.kSuccessViewProvider);
           });
         } else if (state is SignUpProviderFailure) {
           customSnackBar(context, state.errorMessage);
           Future.delayed(const Duration(seconds: 2), () {
-            GoRouter.of(context).pushReplacement(AppRouter.kSignupViewClient);
+            GoRouter.of(context).pushReplacement(AppRouter.kSignupViewService);
           });
         }
       },

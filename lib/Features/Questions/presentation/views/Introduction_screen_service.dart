@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
@@ -63,7 +65,7 @@ class IntroductionScreenService extends StatelessWidget {
           CustomButtom(
               text: 'Next',
               onTap: () {
-                //   GoRouter.of(context).push(AppRouter.kGenderSelectionView);
+                  GoRouter.of(context).push(AppRouter.kHomeProviderView);
               }),
           SizedBox(height: 40.h),
         ],

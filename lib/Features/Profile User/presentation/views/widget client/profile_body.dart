@@ -1,4 +1,4 @@
-// profile_setting_body.dart
+// profile_body.dart
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,20 +6,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20client%20cubit/client_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20image%20cubit/profile_image_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_loading_indicator.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_header_widget.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_settings_list.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_form_Widget.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_header_widget.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
-class ProfileSettingBody extends StatelessWidget {
-  const ProfileSettingBody({Key? key}) : super(key: key);
+class ProfileBody extends StatelessWidget {
+  const ProfileBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileClientCubit, ClientState>(
       listener: (context, state) {
         if (state is ClientFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          customSnackBar(context, (state.message));
         }
       },
       builder: (context, state) {
@@ -28,15 +27,14 @@ class ProfileSettingBody extends StatelessWidget {
         }
 
         if (state is ClientSuccess) {
-          final client = state.client;
+  final client = state.client; // ✅ كده صح
+
 
           return Column(
             children: [
               BlocBuilder<ProfileImageCubit, File?>(
                 builder: (context, pickedImage) {
                   return ProfileHeaderWidget(
-                    pickedImage: pickedImage,
-                    onPickImage: () => context.read<ProfileImageCubit>().pickImage(),
                     client: client,
                   );
                 },
@@ -48,8 +46,8 @@ class ProfileSettingBody extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 50.h),
-                        const ProfileSettingsList(),
+                        SizedBox(height: 30.h),
+                        ProfileFormWidget(client: client),
                         SizedBox(height: 20.h),
                       ],
                     ),
@@ -60,7 +58,7 @@ class ProfileSettingBody extends StatelessWidget {
           );
         }
 
-        // Default or initial state
+        // حالة التحميل أو الفشل الافتراضية
         return const Center(child: CustomLoadingIndicator());
       },
     );

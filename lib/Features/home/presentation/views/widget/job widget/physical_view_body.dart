@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/core/widget/custom_bottom_home.dart';
+import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/custom_app_bar_jop.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/custom_stor_by.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/physical_list_view.dart';
@@ -20,7 +20,7 @@ class PhysicalViewBody extends StatelessWidget {
         Expanded(
           child: PhysicalListView(),
         ),
-        CustomBottomNavBar(),
+        CustomBottomNavigationHomeClient(),
       ],
     );
   }

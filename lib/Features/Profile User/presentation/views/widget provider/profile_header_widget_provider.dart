@@ -1,25 +1,18 @@
-// profile_header_widget.dart
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/Profile%20User/data/models/client_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_text_and_icon_inline.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_image_with_icon.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_info_card_section.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_user_info_texts.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_image_with_icon.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20provider/profile_info_card_section_provider.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20provider/profile_provider_user_info_texts.dart';
 import 'package:sehatak/const.dart';
 
-class ProfileHeaderWidget extends StatelessWidget {
-  final File? pickedImage;
-  final Future<void> Function() onPickImage;
-  final ClientModel? client;
+class ProfileHeaderWidgetProvider extends StatelessWidget {
+  final UpdatedProvider provider;
 
-  const ProfileHeaderWidget({
+  const ProfileHeaderWidgetProvider({
     Key? key,
-    required this.pickedImage,
-    required this.onPickImage,
-    this.client,
+    required this.provider,
   }) : super(key: key);
 
   @override
@@ -52,11 +45,12 @@ class ProfileHeaderWidget extends StatelessWidget {
               ),
               SizedBox(height: 20.h),
               ProfileImageWithIcon(
-                imageFile: pickedImage,
-                onTap: onPickImage,
+                networkImageUrl: provider.identifier.isNotEmpty
+                    ? 'your_base_url_for_images/${provider.identifier}'
+                    : null,
               ),
               SizedBox(height: 5.h),
-              ProfileUserInfoTexts(client: client),
+              ProfileProviderUserInfoTexts(provider: provider),
               SizedBox(height: 15.h),
             ],
           ),
@@ -65,7 +59,7 @@ class ProfileHeaderWidget extends StatelessWidget {
           bottom: -5.h,
           left: 0,
           right: 0,
-          child: ProfileInfoCardSection(client: client),
+          child: ProfileInfoCardSectionProvider(provider: provider),
         ),
       ],
     );
