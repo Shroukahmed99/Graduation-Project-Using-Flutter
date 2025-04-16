@@ -66,7 +66,7 @@ class IntroductionScreenClient extends StatelessWidget {
           CustomButtom(
               text: 'Next',
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kHomeView);
+                GoRouter.of(context).push(AppRouter.kHomeViewClient);
               }),
           SizedBox(height: 40.h),
         ],

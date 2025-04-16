@@ -6,8 +6,6 @@ import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/icon_navigation_bottom.dart';
 
-
-
 class CustomBottomNavigationHomeProvider extends StatelessWidget {
   const CustomBottomNavigationHomeProvider({super.key});
 
@@ -35,11 +33,6 @@ class CustomBottomNavigationHomeProvider extends StatelessWidget {
                   },
                 ),
                 IconNavigationBottom(
-                  imagePath: 'assets/images/Favoritesnav.png',
-                  index: 1,
-                  isSelected: state == 1,
-                ),
-                IconNavigationBottom(
                   imagePath: 'assets/images/communitynav.png',
                   index: 2,
                   isSelected: state == 2,
@@ -49,7 +42,8 @@ class CustomBottomNavigationHomeProvider extends StatelessWidget {
                   index: 3,
                   isSelected: state == 3,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kSettingProfileProviderView);
+                    GoRouter.of(context)
+                        .go(AppRouter.kSettingProfileProviderView);
                   },
                 ),
               ],

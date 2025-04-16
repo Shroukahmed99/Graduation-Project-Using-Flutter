@@ -6,16 +6,16 @@ class CustomButtom extends StatelessWidget {
     super.key,
     required this.text,
     this.onTap,
-    backgroundColor = backgroundColor, // ✅ جعل onTap اختياريًا
+    backgroundColor = backgroundColor,
   });
 
   final String text;
-  final void Function()? onTap; // ✅ دعم الدوال الاختيارية
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap, // ✅ لن يحدث خطأ إذا كان null
+      onTap: onTap,
       child: Center(
         child: Container(
           width: 211,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sehatak/features/home/presentation/views/widget/home%20widget/article_image.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/article_image.dart';
 
 class ArticlesSection extends StatelessWidget {
   const ArticlesSection({super.key});

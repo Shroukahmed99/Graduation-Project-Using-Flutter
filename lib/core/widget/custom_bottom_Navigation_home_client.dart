@@ -6,8 +6,6 @@ import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/icon_navigation_bottom.dart';
 
-
-
 class CustomBottomNavigationHomeClient extends StatelessWidget {
   const CustomBottomNavigationHomeClient({super.key});
 
@@ -31,7 +29,7 @@ class CustomBottomNavigationHomeClient extends StatelessWidget {
                   index: 0,
                   isSelected: state == 0,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kHomeView);
+                    GoRouter.of(context).go(AppRouter.kHomeViewClient);
                   },
                 ),
                 IconNavigationBottom(

@@ -65,7 +65,7 @@ class IntroductionScreenService extends StatelessWidget {
           CustomButtom(
               text: 'Next',
               onTap: () {
-                  GoRouter.of(context).push(AppRouter.kHomeProviderView);
+                GoRouter.of(context).push(AppRouter.kHomeProviderView);
               }),
           SizedBox(height: 40.h),
         ],

@@ -9,13 +9,12 @@ class HomeProviderView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-        Container(
-          color:Colors.yellow,
-        ),
-       
+          Container(
+            color: Colors.yellow,
+          ),
         ],
       ),
-       bottomNavigationBar:CustomBottomNavigationHomeProvider(),
+      bottomNavigationBar: CustomBottomNavigationHomeProvider(),
     );
   }
 }

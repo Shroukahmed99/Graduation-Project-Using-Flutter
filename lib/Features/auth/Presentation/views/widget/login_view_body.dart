@@ -27,12 +27,12 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginSuccess) {
           customSnackBar(context, 'Login Successful');
           Future.delayed(const Duration(seconds: 2), () {
-             final role = state.usersModel.role;
-           if (role == 'client') {
-              GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+            final role = state.usersModel.role;
+            if (role == 'client') {
+              GoRouter.of(context).pushReplacement(AppRouter.kHomeViewClient);
             } else if (role == 'service_provider') {
               GoRouter.of(context).pushReplacement(AppRouter.kHomeProviderView);
-            } 
+            }
           });
         } else if (state is LoginFailure) {
           customSnackBar(
