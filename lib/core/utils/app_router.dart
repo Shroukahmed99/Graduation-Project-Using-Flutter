@@ -23,6 +23,7 @@ import 'package:sehatak/Features/home/presentation/views/details_workout_view.da
 import 'package:sehatak/Features/home/presentation/views/home_view_client.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/image_details_page.dart';
 import 'package:sehatak/Features/success%20register/success_view_service.dart';
 import 'package:sehatak/home_provider_view.dart';
 import 'package:sehatak/Features/home/presentation/views/workout_view.dart';
@@ -84,6 +85,7 @@ abstract class AppRouter {
   static const kDetailsWorkoutView = '/DetailsWorkoutView:id';
   static const kHomeProviderView = '/HomeProviderView';
   static const kArticlesView = '/ArticlesView';
+  static const kArticleDetailsPage = '/ArticleDetailsPage:id';
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -263,5 +265,13 @@ abstract class AppRouter {
       path: kArticlesView,
       builder: (context, state) => const ArticlesView(),
     ),
+    GoRoute(
+        path: '/article/:id',
+        builder: (context, state) {
+          final articleId = state.pathParameters['id'] ?? '';
+          return ArticleDetailsPage(
+            id: articleId,
+          );
+        }),
   ]);
 }

@@ -38,7 +38,7 @@ class InformationPhysical extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
-                          'assets/images/3.png', // يمكنك لاحقًا تغييرها إلى صورة من النت أو من API
+                          'assets/images/3.png',
                           width: 55,
                           height: 55,
                           fit: BoxFit.cover,
@@ -85,13 +85,17 @@ class InformationPhysical extends StatelessWidget {
                           height: 20,
                         ),
                         const SizedBox(width: 5),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("HAPPY",
-                                style: TextStyle(color: Colors.white70)),
-                            Text("500+ ratings",
+                            const Text("Ratings",
                                 style: TextStyle(color: Colors.white)),
+                            Text(
+                              physical.ratingAverage != null
+                                  ? physical.ratingAverage!.toStringAsFixed(1)
+                                  : 'No ratings yet',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         ),
                       ],

@@ -3,12 +3,14 @@ class CoachModel {
   final String fullName;
   final String bio;
   final int priceRange;
+  final double? ratingAverage;
 
   CoachModel({
     required this.id,
     required this.fullName,
     required this.bio,
     required this.priceRange,
+    this.ratingAverage,
   });
 
   factory CoachModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,9 @@ class CoachModel {
       fullName: json['fullName'],
       bio: json['bio'],
       priceRange: json['priceRange'],
+      ratingAverage: json['ratingAverage'] != null
+          ? (json['ratingAverage'] as num).toDouble()
+          : null,
     );
   }
 }

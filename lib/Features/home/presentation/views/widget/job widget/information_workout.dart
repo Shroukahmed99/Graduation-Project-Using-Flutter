@@ -84,13 +84,17 @@ class InformationWorkout extends StatelessWidget {
                           height: 20,
                         ),
                         const SizedBox(width: 5),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("HAPPY",
-                                style: TextStyle(color: Colors.white70)),
-                            Text("500+ ratings",
+                            const Text("Ratings",
                                 style: TextStyle(color: Colors.white)),
+                            Text(
+                              coaches.ratingAverage != null
+                                  ? coaches.ratingAverage!.toStringAsFixed(1)
+                                  : 'No ratings yet',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         ),
                       ],

@@ -3,8 +3,10 @@ class NutritionModel {
   final String fullName;
   final String bio;
   final int priceRange;
+  final double? ratingAverage;
 
   NutritionModel({
+    this.ratingAverage,
     required this.id,
     required this.fullName,
     required this.bio,
@@ -17,6 +19,9 @@ class NutritionModel {
       fullName: json['fullName'],
       bio: json['bio'],
       priceRange: json['priceRange'],
+      ratingAverage: json['ratingAverage'] != null
+          ? (json['ratingAverage'] as num).toDouble()
+          : null,
     );
   }
 }
