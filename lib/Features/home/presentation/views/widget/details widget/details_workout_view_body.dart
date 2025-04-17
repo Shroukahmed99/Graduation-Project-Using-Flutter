@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/home/presentation/manger/coach%20more/coach_more_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_app_bar_details.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_buttom_book_now.dart';
-import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section_workout.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/info_data_workout.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 
@@ -31,8 +31,8 @@ class DeteailsWorkoutViewBody extends StatelessWidget {
               InfoDataWorkout(
                 coachMoreId: coaches,
               ),
-              const FeedbackSection(),
-              const SizedBox(height: 40),
+              FeedbackSectionWorkout(reviews: coaches.reviews),
+              const SizedBox(height: 15),
               const CustomButtomBookNow(text: 'BOOK NOW')
             ],
           );

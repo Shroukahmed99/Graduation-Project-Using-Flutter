@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
 
-class ImageDetailsPage extends StatelessWidget {
-  const ImageDetailsPage({super.key});
+class ArticleDetailsPage extends StatelessWidget {
+  const ArticleDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +99,8 @@ class ImageDetailsPage extends StatelessWidget {
                         "Incorporating Physical Exercise Into Your Daily Routine Can Boost..."
                         "Incorporating Physical Exercise Into Your Daily Routine Can Boost..."
                         "Incorporating Physical Exer.",
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                        style: TextStyle(fontSize: 14, color: Colors.black),
                       ),
-                      SizedBox(height: 30),
                     ],
                   ),
                 ),

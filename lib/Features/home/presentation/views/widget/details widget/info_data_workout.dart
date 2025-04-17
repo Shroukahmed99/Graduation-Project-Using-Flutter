@@ -32,10 +32,6 @@ class InfoDataWorkout extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold)),
                   Text(coachMoreId.job,
                       style: const TextStyle(color: accentColor)),
-                  Text(
-                    "${coachMoreId.yearsOfExperience} years of experience",
-                    style: const TextStyle(color: Colors.black),
-                  ),
                 ],
               ),
             ],
@@ -51,7 +47,7 @@ class InfoDataWorkout extends StatelessWidget {
                   width: 20,
                   height: 20,
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -72,11 +68,38 @@ class InfoDataWorkout extends StatelessWidget {
                   width: 20,
                   height: 20,
                 ),
-                const Column(
+                const SizedBox(width: 10),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("HAPPY", style: TextStyle(color: kPrimaryColor)),
-                    Text("500+ ratings", style: TextStyle(color: Colors.black)),
+                    const Text("Rating",
+                        style: TextStyle(color: kPrimaryColor)),
+                    Text(coachMoreId.ratingQuantity.toString(),
+                        style: const TextStyle(color: Colors.black)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 150,
+            ),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/Experience.png',
+                  width: 20,
+                  height: 20,
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Experience",
+                        style: TextStyle(color: kPrimaryColor)),
+                    Text(coachMoreId.yearsOfExperience,
+                        style: const TextStyle(color: Colors.black)),
                   ],
                 ),
               ],

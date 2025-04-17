@@ -14,7 +14,7 @@ class HomeProviderView extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationHomeProvider(),
+      bottomNavigationBar: const CustomBottomNavigationHomeProvider(),
     );
   }
 }

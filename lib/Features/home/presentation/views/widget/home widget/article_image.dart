@@ -14,7 +14,7 @@ class ArticleImage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ImageDetailsPage(),
+                builder: (context) => const ArticleDetailsPage(),
               ),
             );
           },

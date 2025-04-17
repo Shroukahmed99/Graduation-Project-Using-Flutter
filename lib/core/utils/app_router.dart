@@ -11,6 +11,7 @@ import 'package:sehatak/Features/Questions/presentation/views/insert_data_view.d
 import 'package:sehatak/Features/Questions/presentation/views/jop_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/price_selection_view.dart';
 import 'package:sehatak/Features/Questions/presentation/views/what_goal_views.dart';
+import 'package:sehatak/Features/articles/presentation/views/articles_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/set_password_views.dart';
 import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
@@ -82,6 +83,7 @@ abstract class AppRouter {
 
   static const kDetailsWorkoutView = '/DetailsWorkoutView:id';
   static const kHomeProviderView = '/HomeProviderView';
+  static const kArticlesView = '/ArticlesView';
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -256,6 +258,10 @@ abstract class AppRouter {
     GoRoute(
       path: kHomeProviderView,
       builder: (context, state) => const HomeProviderView(),
+    ),
+    GoRoute(
+      path: kArticlesView,
+      builder: (context, state) => const ArticlesView(),
     ),
   ]);
 }

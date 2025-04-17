@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sehatak/const.dart';
 
 class CustomAppBarHome extends StatelessWidget {
-  const CustomAppBarHome({super.key});
+  const CustomAppBarHome({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,8 @@ class CustomAppBarHome extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10, right: 24, left: 24),
       child: Row(
         children: [
-          const Text(
-            'Hi, Mohamed',
+          Text(
+            title,
             style: TextStyle(
                 color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
           ),

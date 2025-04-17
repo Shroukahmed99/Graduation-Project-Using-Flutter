@@ -3,7 +3,7 @@ import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutri
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_app_bar_details.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_buttom_book_now.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/info_data_nutrition.dart';
-import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/feedback_section_nutrition.dart';
 import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
@@ -32,8 +32,8 @@ class DeteailsNutritionViewBody extends StatelessWidget {
               InfoDataNutrition(
                 nutritionistMore: nutritionist,
               ),
-              const FeedbackSection(),
-              const SizedBox(height: 40),
+              FeedbackSectionNutririon(reviews: nutritionist.reviews),
+              const SizedBox(height: 15),
               const CustomButtomBookNow(text: 'BOOK NOW')
             ],
           );
