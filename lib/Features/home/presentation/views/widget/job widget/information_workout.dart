@@ -10,7 +10,7 @@ class InformationWorkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 18, right: 18, bottom: 10),
+      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
       child: Column(
         children: [
           Container(
@@ -79,21 +79,22 @@ class InformationWorkout extends StatelessWidget {
                     Row(
                       children: [
                         Image.asset(
-                          'assets/images/image 18.png',
-                          width: 20,
-                          height: 20,
+                          color: Colors.white,
+                          'assets/images/reviews.png',
+                          width: 30,
+                          height: 30,
                         ),
                         const SizedBox(width: 5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Ratings",
+                            const Text("Rating",
                                 style: TextStyle(color: Colors.white)),
                             Text(
                               coaches.ratingAverage != null
                                   ? coaches.ratingAverage!.toStringAsFixed(1)
                                   : 'No ratings yet',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ],
                         ),

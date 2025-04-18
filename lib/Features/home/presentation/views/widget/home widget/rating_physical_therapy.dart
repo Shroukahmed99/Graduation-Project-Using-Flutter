@@ -30,13 +30,13 @@ class RatingPhysicalTherapy extends StatelessWidget {
             Icon(
               FontAwesomeIcons.solidStar,
               color: Color(0xffFCD53F),
-              size: 12, // حجم مناسب للنجمة
+              size: 12,
             ),
-            SizedBox(width: 5), // إضافة مسافة بين النجمة والرقم
+            SizedBox(width: 5),
             Text(
-              "00", // مثال للتقييم
+              "00",
               style: TextStyle(
-                fontSize: 12, // جعل الرقم أكثر وضوحًا
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

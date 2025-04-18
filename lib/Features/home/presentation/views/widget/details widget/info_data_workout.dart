@@ -64,9 +64,9 @@ class InfoDataWorkout extends StatelessWidget {
             child: Row(
               children: [
                 Image.asset(
-                  'assets/images/image 18.png',
-                  width: 20,
-                  height: 20,
+                  'assets/images/reviews.png',
+                  width: 30,
+                  height: 30,
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -74,7 +74,10 @@ class InfoDataWorkout extends StatelessWidget {
                   children: [
                     const Text("Rating",
                         style: TextStyle(color: kPrimaryColor)),
-                    Text(coachMoreId.ratingQuantity.toString(),
+                    Text(
+                        coachMoreId.ratingQuantity != 0
+                            ? coachMoreId.ratingQuantity.toStringAsFixed(1)
+                            : 'No ratings yet',
                         style: const TextStyle(color: Colors.black)),
                   ],
                 ),
