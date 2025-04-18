@@ -5,6 +5,7 @@ import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
 import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
 import 'package:sehatak/Features/home/data/models/nutritions_model.dart';
 import 'package:sehatak/Features/home/data/models/physical_model.dart';
+import 'package:sehatak/Features/home/data/models/top_rating_model.dart';
 import 'package:sehatak/Features/home/data/models/workout_model.dart';
 import 'package:sehatak/Features/home/data/repo/home_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
@@ -137,6 +138,25 @@ class HomeRepoImpl implements HomeRepo {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TopProvider>>> topRaring() async {
+    try {
+      final response =
+          await apiService.get(endpoint: 'reviews/topRatedServiceProviders');
+
+      if (response['status'] == 'success') {
+        final topProvidersResponse = TopProvidersResponse.fromJson(response);
+        return Right(topProvidersResponse.data.topProviders);
+      } else {
+        return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
+      }
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }

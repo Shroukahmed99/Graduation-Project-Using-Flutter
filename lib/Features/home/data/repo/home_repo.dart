@@ -4,6 +4,7 @@ import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
 import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
 import 'package:sehatak/Features/home/data/models/nutritions_model.dart';
 import 'package:sehatak/Features/home/data/models/physical_model.dart';
+import 'package:sehatak/Features/home/data/models/top_rating_model.dart';
 import 'package:sehatak/Features/home/data/models/workout_model.dart';
 import 'package:sehatak/core/error/failure.dart';
 
@@ -15,4 +16,5 @@ abstract class HomeRepo {
   Future<Either<Failure, CoachMoreId>> fetchCoachesById(String id);
   Future<Either<Failure, PhysicalTherapistMore>> fetchPhysicalistById(
       String id);
+  Future<Either<Failure, List<TopProvider>>> topRaring();
 }
