@@ -19,6 +19,7 @@ class ArticleDetailsPage extends StatelessWidget {
           GetArticleByIdCubit(ArticleRepoImpl(ApiService(Dio())))
             ..getArticleById(id),
       child: Scaffold(
+        backgroundColor: const Color(0xffFAF3E1),
         body: BlocBuilder<GetArticleByIdCubit, GetArticleByIdState>(
           builder: (context, state) {
             if (state is GetArticleByIdLoading) {
@@ -27,23 +28,32 @@ class ArticleDetailsPage extends StatelessWidget {
               return Center(child: Text(state.message));
             } else if (state is GetArticleByIdSuccess) {
               final article = state.article;
-
               final serviceProvider = article.serviceProviderId;
 
               return Stack(
                 children: [
-                  Positioned.fill(
-                    child: (article.img != null &&
-                            article.img!.isNotEmpty &&
-                            Uri.tryParse(article.img!)?.isAbsolute == true)
-                        ? Image.network(
-                            article.img!,
-                            fit: BoxFit.contain,
-                          )
-                        : Image.asset(
-                            "assets/images/3.png",
-                            fit: BoxFit.contain,
-                          ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: ClipPath(
+                      clipper: BottomCurveClipper(),
+                      child: (article.img != null &&
+                              article.img!.isNotEmpty &&
+                              Uri.tryParse(article.img!)?.isAbsolute == true)
+                          ? Image.network(
+                              article.img!,
+                              width: double.infinity,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              "assets/images/3.png",
+                              width: double.infinity,
+                              height: 300,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
                   ),
                   Positioned(
                     top: 30,
@@ -72,46 +82,55 @@ class ArticleDetailsPage extends StatelessWidget {
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(50)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(50),
+                        ),
                       ),
                       child: SafeArea(
-                        child: SingleChildScrollView(
+                        child: Padding(
                           padding: const EdgeInsets.all(22),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 20,
-                                    backgroundImage:
-                                        AssetImage("assets/images/3.png"),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    serviceProvider?.fullName ?? 'Default Name',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 25),
-                              Text(
-                                article.title.toString(),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: kPrimaryColor,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage:
+                                          AssetImage("assets/images/3.png"),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      serviceProvider?.fullName ??
+                                          'Default Name',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                article.content.toString(),
-                                style: const TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                              ),
-                            ],
+                                const SizedBox(height: 25),
+                                Text(
+                                  article.title.toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+                                Text(
+                                  article.content.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    height: 1.6,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 100),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -128,4 +147,24 @@ class ArticleDetailsPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class BottomCurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height - 50);
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height,
+      size.width,
+      size.height - 50,
+    );
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

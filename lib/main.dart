@@ -1,11 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/articles/data/repo/article_repo_impl.dart';
-import 'package:sehatak/Features/articles/presentation/manger/getArticleById/get_article_by_id_cubit.dart';
 import 'package:sehatak/Features/home/presentation/manger/navigation/navigation_cubit.dart';
-import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/const.dart';

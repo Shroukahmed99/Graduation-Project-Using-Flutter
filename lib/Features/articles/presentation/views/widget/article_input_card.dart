@@ -16,9 +16,8 @@ class ArticleInputCard extends StatelessWidget {
           cubit.clearAll();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('✅ Article added successfully!'),
-              backgroundColor: Colors.green,
-            ),
+                content: Text('✅ Article added successfully!'),
+                backgroundColor: kPrimaryColor),
           );
         }
       },
