@@ -91,7 +91,7 @@ class TopRating extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      provider.ratingAverage.toStringAsFixed(2),
+                      provider.ratingAverage.toStringAsFixed(1),
                       style: const TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w400,

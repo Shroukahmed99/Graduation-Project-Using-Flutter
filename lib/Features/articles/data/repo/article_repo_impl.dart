@@ -16,6 +16,7 @@ class ArticleRepoImpl implements ArticleRepo {
   ArticleRepoImpl(this.apiService);
 
   @override
+  @override
   Future<Either<Failure, AddArticleModel>> addArticle({
     required String title,
     required String content,
@@ -41,11 +42,17 @@ class ArticleRepoImpl implements ArticleRepo {
         if (multipartFile != null) 'img': multipartFile,
       });
 
-      final response =
-          await apiService.post(endpoint: 'articles', data: formData);
+      final response = await apiService.post(
+        endpoint: 'articles/addArticle',
+        data: formData,
+      );
 
       if (response['status'] == 'success') {
-        return Right(AddArticleModel.fromJson(response['data']['article']));
+        if (response['data'] != null && response['data'] is Map) {
+          return Right(AddArticleModel.fromJson(response['data']['article']));
+        } else {
+          return Left(ServerFailure('Data is not in the expected format.'));
+        }
       } else {
         return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
       }

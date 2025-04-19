@@ -1,33 +1,60 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sehatak/Features/articles/data/models/add_article_model.dart';
 import 'package:sehatak/Features/articles/data/repo/article_repo.dart';
-import 'package:sehatak/core/error/failure.dart';
 
 part 'add_article_state.dart';
 
 class AddArticleCubit extends Cubit<AddArticleState> {
   final ArticleRepo articleRepo;
-  bool isPickingImage = false;
+  bool isPicking = false;
 
   AddArticleCubit(this.articleRepo) : super(AddArticleInitial());
 
-  // دالة إضافة المقال
-  Future<void> addArticle({
-    required String title,
-    required String content,
-    required String serviceProviderId,
-    File? image,
-  }) async {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
+
+  File? selectedImage;
+
+  Future<void> pickImage() async {
+    if (isPicking) return;
+    isPicking = true;
     emit(AddArticleLoading());
-    Either<Failure, AddArticleModel> result = await articleRepo.addArticle(
-      title: title,
-      content: content,
+
+    try {
+      final pickedFile =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (pickedFile != null) {
+        selectedImage = File(pickedFile.path);
+        emit(AddArticleImagePicked());
+      } else {
+        emit(AddArticleInitial());
+      }
+    } catch (e) {
+      emit(AddArticleFailure("Error picking image: $e"));
+    } finally {
+      isPicking = false;
+    }
+  }
+
+  void clearAll() {
+    titleController.clear();
+    contentController.clear();
+    selectedImage = null;
+    emit(AddArticleInitial());
+  }
+
+  Future<void> submitArticle(String serviceProviderId) async {
+    emit(AddArticleLoading());
+
+    final result = await articleRepo.addArticle(
+      title: titleController.text,
+      content: contentController.text,
       serviceProviderId: serviceProviderId,
-      image: image,
+      image: selectedImage,
     );
 
     result.fold(
@@ -36,22 +63,10 @@ class AddArticleCubit extends Cubit<AddArticleState> {
     );
   }
 
-  // دالة لاختيار الصورة
-  void selectImage(File image) {
-    emit(AddArticleImageSelected(image));
-  }
-
-  // دالة لاختيار صورة من المعرض
-  Future<void> pickImage() async {
-    if (isPickingImage) return;
-    isPickingImage = true;
-
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    isPickingImage = false;
-
-    if (pickedFile != null) {
-      selectImage(File(pickedFile.path)); // إرسال الصورة التي تم اختيارها
-    }
+  @override
+  Future<void> close() {
+    titleController.dispose();
+    contentController.dispose();
+    return super.close();
   }
 }
