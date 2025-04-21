@@ -1,11 +1,12 @@
-
-      import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/optional%20edit%20profile%20cubit/optional_edit_profile_cubit.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20client%20cubit/client_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/update%20profile%20client%20data.dart/update_client_profile_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/update%20profile%20client%20data.dart/update_client_profile_state.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_bottom.dart';
@@ -16,6 +17,8 @@ import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widgets/custom_dropdown_field.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20image%20cubit/profile_image_cubit.dart';
+import 'package:sehatak/core/utils/app_router.dart'; 
 
 class ProfileFormWidget extends StatelessWidget {
   final ClientModel? client;
@@ -51,36 +54,40 @@ class ProfileFormWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-      create: (_) => UpdateClientProfileCubit(ProfileRepositoryImpl(ApiService(Dio()))),
-    ),
+          create: (_) => UpdateClientProfileCubit(
+            ProfileRepositoryImpl(ApiService(Dio())),
+            ProfileClientCubit(ProfileRepositoryImpl(ApiService(Dio()))),
+          ),
+        ),
         BlocProvider(
           create: (_) => OptionalEditProfileCubit()
-            ..selectedActivityLevel = activityLevels.contains(client?.physicalActivityLevel) 
-                ? client?.physicalActivityLevel 
+            ..selectedActivityLevel = activityLevels.contains(client?.physicalActivityLevel)
+                ? client?.physicalActivityLevel
                 : null
-            ..selectedFitnessGoal = fitnessGoals.contains(client?.goal) 
-                ? client?.goal 
-                : null,
+            ..selectedFitnessGoal = fitnessGoals.contains(client?.goal) ? client?.goal : null,
+        ),
+        BlocProvider(
+          create: (_) => ProfileImageCubit(),
         ),
       ],
       child: BlocConsumer<UpdateClientProfileCubit, UpdateClientProfileState>(
         listener: (context, state) {
-          if (state is UpdateClientProfileSuccess) {
-            customSnackBar(context, 'Profile updated successfully!');
-            
-          }else if (state is UpdateClientProfileFailure) {
-  final errorMessage = state.error.toString();  
-              customSnackBar(context, 'Failed to update profile: $errorMessage');
-
- 
+         if (state is UpdateClientProfileSuccess) {
+  customSnackBar(context, 'Profile updated successfully!');
+          context.read<ProfileClientCubit>().getClientData();
+              GoRouter.of(context).pushReplacement(AppRouter.kSettingProfileView);
 }
-
+else if (state is UpdateClientProfileFailure) {
+            final errorMessage = state.error.toString();
+            customSnackBar(context, 'Failed to update profile: $errorMessage');
+          }
         },
         builder: (context, state) {
           return BlocBuilder<OptionalEditProfileCubit, void>(
             builder: (context, _) {
               final optionalCubit = context.read<OptionalEditProfileCubit>();
               final updateCubit = context.read<UpdateClientProfileCubit>();
+              final imageCubit = context.read<ProfileImageCubit>();
 
               return Stack(
                 children: [
@@ -98,7 +105,6 @@ class ProfileFormWidget extends StatelessWidget {
                             validator: validateFullName,
                             hintText: "Full Name",
                           ),
-                          
                           CustomTextField(
                             title: "Mobile Number",
                             width: double.infinity,
@@ -153,7 +159,6 @@ class ProfileFormWidget extends StatelessWidget {
                               text: "Update Profile",
                               onPressed: () {
                                 if (formKey.currentState?.validate() ?? false) {
-                                  // Make sure the activity level and fitness goal are selected
                                   if (optionalCubit.selectedActivityLevel == null ||
                                       optionalCubit.selectedFitnessGoal == null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -165,7 +170,8 @@ class ProfileFormWidget extends StatelessWidget {
                                     return;
                                   }
 
-                                  // Call the updateClientProfile method from the cubit
+                                  final updatedImageFile = imageCubit.state;
+
                                   updateCubit.updateClientProfile(
                                     fullName: fullNameController.text,
                                     email: emailController.text,
@@ -198,4 +204,3 @@ class ProfileFormWidget extends StatelessWidget {
     );
   }
 }
-    

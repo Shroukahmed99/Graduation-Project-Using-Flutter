@@ -8,10 +8,10 @@ class ProviderInitial extends ProviderState {}
 class ProviderLoading extends ProviderState {}
 
 class ProviderSuccess extends ProviderState {
-  final GetProfileProviderModel provider;
+  final ProviderModel provider;
 
-  ProviderSuccess(this.provider);
-}
+ProviderSuccess({required this.provider});}
+
 
 class ProviderFailure extends ProviderState {
   final String message;

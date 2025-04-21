@@ -1,8 +1,6 @@
-import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
-
 class UpdateProfileProviderModel {
   final String status;
-  final UpdateProviderData data;
+  final UpdatedProviderData data;
 
   UpdateProfileProviderModel({
     required this.status,
@@ -12,73 +10,77 @@ class UpdateProfileProviderModel {
   factory UpdateProfileProviderModel.fromJson(Map<String, dynamic> json) {
     return UpdateProfileProviderModel(
       status: json['status'],
-      data: UpdateProviderData.fromJson(json['data']),
+      data: UpdatedProviderData.fromJson(json['data']),
     );
   }
 }
 
-class UpdateProviderData {
+class UpdatedProviderData {
   final UpdatedProvider updatedProvider;
 
-  UpdateProviderData({
-    required this.updatedProvider,
-  });
+  UpdatedProviderData({required this.updatedProvider});
 
-  factory UpdateProviderData.fromJson(Map<String, dynamic> json) {
-    return UpdateProviderData(
-      updatedProvider: UpdatedProvider.fromJson(json['updatedServiceProvider']),
-    );
+  factory UpdatedProviderData.fromJson(Map<String, dynamic> json) {
+    // التحقق من وجود مفتاح البيانات قبل محاولة الوصول إليه
+    if (json['updatedServiceProvider'] != null) {
+      return UpdatedProviderData(
+        updatedProvider: UpdatedProvider.fromJson(json['updatedServiceProvider']),
+      );
+    } else {
+      throw Exception('بيانات updatedServiceProvider غير موجودة في الاستجابة');
+    }
   }
 }
 
 class UpdatedProvider {
+  final String id;
+  final String userId;
   final String fullName;
+  final String mobileNumber;
+  final String gender;
   final String age;
   final String job;
   final String jobTitle;
   final String bio;
   final String identifier;
   final int priceRange;
-  final String mobileNumber;
   final String yearsOfExperience;
+  final String role;
+  final String username;
 
   UpdatedProvider({
+    required this.id,
+    required this.userId,
     required this.fullName,
+    required this.mobileNumber,
+    required this.gender,
     required this.age,
     required this.job,
     required this.jobTitle,
     required this.bio,
     required this.identifier,
     required this.priceRange,
-    required this.mobileNumber,
     required this.yearsOfExperience,
+    required this.role,
+    required this.username,
   });
 
   factory UpdatedProvider.fromJson(Map<String, dynamic> json) {
     return UpdatedProvider(
-      fullName: json['fullName'],
-      age: json['age'],
-      job: json['job'],
-      jobTitle: json['jobTitle'],
-      bio: json['bio'],
-      identifier: json['identifier'],
-      priceRange: json['priceRange'],
-      mobileNumber: json['mobileNumber'],
-      yearsOfExperience: json['yearsOfExperience'],
-    );
-  }
-
-  factory UpdatedProvider.fromProviderProfile(ProviderProfile provider) {
-    return UpdatedProvider(
-      fullName: provider.fullName,
-      age: provider.age,
-      job: provider.job,
-      jobTitle: provider.jobTitle,
-      bio: provider.bio,
-      identifier: provider.identifier,
-      priceRange: provider.priceRange,
-      mobileNumber: provider.mobileNumber,
-      yearsOfExperience: provider.yearsOfExperience,
+      id: json['_id'] ?? '',
+      userId: json['userId'] ?? '',
+      fullName: json['fullName'] ?? '',
+      mobileNumber: json['mobileNumber'] ?? '',
+      gender: json['gender'] ?? '',
+      age: json['age']?.toString() ?? '',
+      job: json['job'] ?? '',
+      jobTitle: json['jobTitle'] ?? '',
+      bio: json['bio'] ?? '',
+      identifier: json['identifier'] ?? '',
+      priceRange: json['priceRange'] ?? 0,
+      yearsOfExperience: json['yearsOfExperience']?.toString() ?? '',
+      role: json['role'] ?? '',
+      username: json['username'] ?? '',
     );
   }
 }

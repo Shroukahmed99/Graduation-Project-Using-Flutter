@@ -6,7 +6,7 @@ import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20im
 import 'package:sehatak/const.dart';
 class ProfileImageWithIcon extends StatelessWidget {
   final String? networkImageUrl;
-  final bool showEditIcon;
+  final bool showEditIcon; 
 
   const ProfileImageWithIcon({
     Key? key,

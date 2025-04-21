@@ -22,7 +22,7 @@ class CustomTextAndIconArrowback extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        CustomArrowIcon(colorArrowIcon: colorArrowIcon),
+        CustomArrowIcon(colorArrowIcon: colorArrowIcon, onTap: () {  },),
         SizedBox(width: spacing.w),
         Expanded(
           child: Text(

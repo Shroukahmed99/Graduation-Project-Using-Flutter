@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20client%20cubit/client_cubit.dart';
 import 'update_client_profile_state.dart';
 
 class UpdateClientProfileCubit extends Cubit<UpdateClientProfileState> {
   final ProfileRepository profileRepository;
-
-  UpdateClientProfileCubit(this.profileRepository)
+  final ProfileClientCubit profileClientCubit;
+  UpdateClientProfileCubit(this.profileRepository, this.profileClientCubit)
       : super(UpdateClientProfileInitial());
 
   Future<void> updateClientProfile({
@@ -31,26 +32,19 @@ class UpdateClientProfileCubit extends Cubit<UpdateClientProfileState> {
         'goal': goal,
       };
 
-      // Log the request data for debugging
-      print('Sending data to API: $data');
       
       final result = await profileRepository.updateClientProfile(data);
 
       result.fold(
         (failure) {
-          // Log the failure message
-          print('API call failed: ${failure.errorMessage}');
           emit(UpdateClientProfileFailure(failure.errorMessage));
         },
         (updateProfileClientModel) {
-          // Log the success result
-          print('API call success: ${updateProfileClientModel.data.updatedClient}');
           emit(UpdateClientProfileSuccess(updateProfileClientModel.data.updatedClient));
+          profileClientCubit.getClientData(); 
         },
       );
     } catch (e) {
-      // Log the error stack trace
-      print('Error: ${e.toString()}');
       emit(UpdateClientProfileFailure('Something went wrong!'));
     }
   }

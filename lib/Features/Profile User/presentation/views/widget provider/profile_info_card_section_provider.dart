@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provider_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/info_card_widget.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/manger/Update%20Provider%20Profile/update_provider_profile_cubit.dart';
-
 class ProfileInfoCardSectionProvider extends StatelessWidget {
-  final UpdatedProvider provider;
+  final ProviderModel? provider;
 
-  const ProfileInfoCardSectionProvider({Key? key, required this.provider}) : super(key: key);
+  ProfileInfoCardSectionProvider({Key? key, this.provider}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +24,8 @@ class ProfileInfoCardSectionProvider extends StatelessWidget {
             Expanded(
               child: InfoCardWidget(
                 title: "Experience",
-                value: provider.yearsOfExperience != null
-                    ? '${provider.yearsOfExperience} yrs'
+                value: provider?.yearsOfExperience != null
+                    ? '${provider?.yearsOfExperience} yrs'
                     : '-- yrs',
               ),
             ),
@@ -38,8 +35,8 @@ class ProfileInfoCardSectionProvider extends StatelessWidget {
             ),
             Expanded(
               child: InfoCardWidget(
-                title: "age",
-                value: provider.age?? '-- yrs',
+                title: "Age",
+                value: provider?.age ?? '-- yrs',
               ),
             ),
             SizedBox(
@@ -49,8 +46,8 @@ class ProfileInfoCardSectionProvider extends StatelessWidget {
             Expanded(
               child: InfoCardWidget(
                 title: "Price",
-                value: provider.priceRange != null
-                    ? '${provider.priceRange} EGP'
+                value: provider?.priceRange != null
+                    ? '${provider?.priceRange} EGP'
                     : '-- EGP',
               ),
             ),

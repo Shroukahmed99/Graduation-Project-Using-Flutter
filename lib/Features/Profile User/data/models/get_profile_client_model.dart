@@ -10,7 +10,7 @@ class GetProfileClientModel {
   factory GetProfileClientModel.fromJson(Map<String, dynamic> json) {
     return GetProfileClientModel(
       status: json['status'],
-      client: ClientModel.fromJson(json['data']['client'][0]), // أول عنصر فقط
+      client: ClientModel.fromJson(json['data']['client'][0]),  
     );
   }
 }

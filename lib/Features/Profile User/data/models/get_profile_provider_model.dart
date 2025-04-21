@@ -1,27 +1,37 @@
 class GetProfileProviderModel {
   final String status;
-  final ProviderProfile serviceProvider;
+  final ProviderModel? provider;
 
   GetProfileProviderModel({
     required this.status,
-    required this.serviceProvider,
+    required this.provider,
   });
 
   factory GetProfileProviderModel.fromJson(Map<String, dynamic> json) {
-    return GetProfileProviderModel(
-      status: json['status'],
-      serviceProvider: ProviderProfile.fromJson(json['data']['serviceProvider'][0]),  // فقط المزود الأول
-    );
+    if (json['data'] != null && 
+        json['data']['serviceProvider'] != null && 
+        json['data']['serviceProvider'].isNotEmpty) {
+      return GetProfileProviderModel(
+        status: json['status'],
+        provider: ProviderModel.fromJson(json['data']['serviceProvider'][0]),
+      );
+    } else {
+      return GetProfileProviderModel(
+        status: json['status'],
+        provider: null,
+      );
+    }
   }
 }
 
-class ProviderProfile {
+class ProviderModel {
   final String id;
+  final UserModel user;
   final String fullName;
   final String mobileNumber;
-  final String job;
   final String gender;
   final String age;
+  final String job;
   final String yearsOfExperience;
   final String jobTitle;
   final String bio;
@@ -29,15 +39,15 @@ class ProviderProfile {
   final int priceRange;
   final String role;
   final String username;
-  final UserId userId;
 
-  ProviderProfile({
+  ProviderModel({
     required this.id,
+    required this.user,
     required this.fullName,
     required this.mobileNumber,
-    required this.job,
     required this.gender,
     required this.age,
+    required this.job,
     required this.yearsOfExperience,
     required this.jobTitle,
     required this.bio,
@@ -45,155 +55,47 @@ class ProviderProfile {
     required this.priceRange,
     required this.role,
     required this.username,
-    required this.userId,
   });
 
-  factory ProviderProfile.fromJson(Map<String, dynamic> json) {
-    return ProviderProfile(
-      id: json['_id'],
-      fullName: json['fullName'],
-      mobileNumber: json['mobileNumber'],
-      job: json['job'],
-      gender: json['gender'],
-      age: json['age'],
-      yearsOfExperience: json['yearsOfExperience'],
-      jobTitle: json['jobTitle'],
-      bio: json['bio'],
-      identifier: json['identifier'],
-      priceRange: json['priceRange'],
-      role: json['role'],
-      username: json['username'],
-      userId: UserId.fromJson(json['userId']),
+  factory ProviderModel.fromJson(Map<String, dynamic> json) {
+    return ProviderModel(
+      id: json['_id'] ?? '',
+      user: UserModel.fromJson(json['userId'] ?? {}),
+      fullName: json['fullName'] ?? '',
+      mobileNumber: json['mobileNumber'] ?? '',
+      gender: json['gender'] ?? '',
+      age: json['age']?.toString() ?? '',
+      job: json['job'] ?? '',
+      yearsOfExperience: json['yearsOfExperience']?.toString() ?? '',
+      jobTitle: json['jobTitle'] ?? '',
+      bio: json['bio'] ?? '',
+      identifier: json['identifier'] ?? '',
+      priceRange: json['priceRange'] ?? 0,
+      role: json['role'] ?? '',
+      username: json['username'] ?? '',
     );
   }
 }
 
-class UserId {
+class UserModel {
   final String id;
   final String email;
   final String role;
   final String createdAt;
 
-  UserId({
+  UserModel({
     required this.id,
     required this.email,
     required this.role,
     required this.createdAt,
   });
 
-  factory UserId.fromJson(Map<String, dynamic> json) {
-    return UserId(
-      id: json['_id'],
-      email: json['email'],
-      role: json['role'],
-      createdAt: json['createdAt'],
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['_id'] ?? '',
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+      createdAt: json['createdAt'] ?? '',
     );
   }
 }
-
-// class GetProfileProviderModel {
-//   final String status;
-//   final GetProviderData data;
-
-//   GetProfileProviderModel({
-//     required this.status,
-//     required this.data,
-//   });
-
-//   factory GetProfileProviderModel.fromJson(Map<String, dynamic> json) {
-//     return GetProfileProviderModel(
-//       status: json['status'],
-//       data: GetProviderData.fromJson(json['data']),
-//     );
-//   }
-// }
-
-// class GetProviderData {
-//   final List<ProviderProfile> serviceProvider;
-
-//   GetProviderData({required this.serviceProvider});
-
-//   factory GetProviderData.fromJson(Map<String, dynamic> json) {
-//     return GetProviderData(
-//       serviceProvider: List<ProviderProfile>.from(
-//         json['serviceProvider'].map((x) => ProviderProfile.fromJson(x)),
-//       ),
-//     );
-//   }
-// }
-
-// class ProviderProfile {
-//   final String id;
-//   final UserId userId;
-//   final String fullName;
-//   final String mobileNumber;
-//   final String job;
-//   final String gender;
-//   final String age;
-//   final String yearsOfExperience;
-//   final String jobTitle;
-//   final String bio;
-//   final String identifier;
-//   final int priceRange;
-//   final String role;
-//   final String username;
-
-//   ProviderProfile({
-//     required this.id,
-//     required this.userId,
-//     required this.fullName,
-//     required this.mobileNumber,
-//     required this.job,
-//     required this.gender,
-//     required this.age,
-//     required this.yearsOfExperience,
-//     required this.jobTitle,
-//     required this.bio,
-//     required this.identifier,
-//     required this.priceRange,
-//     required this.role,
-//     required this.username,
-//   });
-
-//   factory ProviderProfile.fromJson(Map<String, dynamic> json) {
-//     return ProviderProfile(
-//       id: json['_id'],
-//       userId: UserId.fromJson(json['userId']),
-//       fullName: json['fullName'],
-//       mobileNumber: json['mobileNumber'],
-//       job: json['job'],
-//       gender: json['gender'],
-//       age: json['age'],
-//       yearsOfExperience: json['yearsOfExperience'],
-//       jobTitle: json['jobTitle'],
-//       bio: json['bio'],
-//       identifier: json['identifier'],
-//       priceRange: json['priceRange'],
-//       role: json['role'],
-//       username: json['username'],
-//     );
-//   }
-// }
-
-// class UserId {
-//   final String id;
-//   final String email;
-//   final String role;
-//   final String createdAt;
-
-//   UserId({
-//     required this.id,
-//     required this.email,
-//     required this.role,
-//     required this.createdAt,
-//   });
-
-//   factory UserId.fromJson(Map<String, dynamic> json) {
-//     return UserId(
-//       id: json['_id'],
-//       email: json['email'],
-//       role: json['role'],
-//       createdAt: json['createdAt'],
-//     );
-//   }
-// }

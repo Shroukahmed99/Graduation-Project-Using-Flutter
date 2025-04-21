@@ -8,7 +8,7 @@ import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 
 class NavigationItemWidget extends StatelessWidget {
   final String title;
-  final String iconPath; // 🟢 بدل IconData
+  final String iconPath; 
   final VoidCallback? onTap;
 
   const NavigationItemWidget({
@@ -56,7 +56,7 @@ class NavigationItemWidget extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                CustomArrowIcon(flipToRight: true,),
+                CustomArrowIcon(flipToRight: true, onTap: () {  },),
               ],
             ),
           ),

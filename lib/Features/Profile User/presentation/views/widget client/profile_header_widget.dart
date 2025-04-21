@@ -1,20 +1,22 @@
-// profile_header_widget.dart
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_text_and_icon_inline.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_image_with_icon.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_info_card_section.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/profile_user_info_texts.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_user_info_texts.dart';
 import 'package:sehatak/const.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
   final ClientModel? client;
+  final bool showEditIcon;
+  final VoidCallback onTap;  
 
   const ProfileHeaderWidget({
     Key? key,
     this.client,
+    this.showEditIcon = false,
+   required this.onTap,
   }) : super(key: key);
 
   @override
@@ -40,13 +42,14 @@ class ProfileHeaderWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CustomTextAndIconInline(
+              CustomTextAndIconInlineProfile(
+                onTap: onTap ,
                 text: "My Profile",
                 colorArrowIcon: Colors.black,
                 colorText: Colors.black,
               ),
               SizedBox(height: 20.h),
-              const ProfileImageWithIcon(), 
+              ProfileImageWithIcon(showEditIcon: showEditIcon),
               SizedBox(height: 5.h),
               ProfileUserInfoTexts(client: client),
               SizedBox(height: 15.h),

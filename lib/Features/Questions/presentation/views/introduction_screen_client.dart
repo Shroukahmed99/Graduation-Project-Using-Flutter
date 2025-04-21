@@ -30,8 +30,8 @@ class IntroductionScreenClient extends StatelessWidget {
               Positioned(
                   top: 71.h,
                   left: 35.w,
-                  child: const CustomArrowIcon(
-                    colorArrowIcon: Color(0xffE2F163),
+                  child:  CustomArrowIcon(
+                    colorArrowIcon: Color(0xffE2F163), onTap: () {  },
                   )),
             ],
           ),

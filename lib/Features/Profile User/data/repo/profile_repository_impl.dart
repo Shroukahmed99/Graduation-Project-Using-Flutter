@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -11,6 +10,7 @@ import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provi
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ApiService apiService;
@@ -37,11 +37,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  
   Future<Either<Failure, bool>> deleteAccount() async {
     try {
       final responseData = await apiService.delete(endpoint: 'users/deleteMe');
-
 
       if (responseData == 1 || responseData == "" || responseData == null) {
         return const Right(true);
@@ -115,30 +113,31 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
- Future<Either<Failure, UpdateProfileClientModel>> updateClientProfile(
-    Map<String, dynamic> data) async {
-  try {
+  Future<Either<Failure, UpdateProfileClientModel>> updateClientProfile(
+      Map<String, dynamic> data) async {
+    try {
+      final responseData = await apiService.patch(
+        endpoint: 'users/updateClientProfile',
+        data: data,
+      );
 
-    final responseData = await apiService.patch(
-      endpoint: 'users/updateClientProfile',
-      data: data,
-    );
+      if (responseData["status"] == "success") {
+        return Right(UpdateProfileClientModel.fromJson(responseData));
+      } else {
+        return Left(ServerFailure(responseData["message"] ?? "Update failed"));
+      }
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
 
-
-    if (responseData["status"] == "success") {
-      return Right(UpdateProfileClientModel.fromJson(responseData));
-    } else {
-      return Left(ServerFailure(responseData["message"] ?? "Update failed"));
+      return Left(ServerFailure("Error updating profile: ${e.toString()}"));
     }
-  } catch (e) {
-
-    if (e is DioException) {
-      return Left(ServerFailure.fromDioError(e));
-    }
-
-    return Left(ServerFailure("Error updating profile: ${e.toString()}"));
   }
-}
+
+
+
+  
 
 
   @override
@@ -165,6 +164,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, GetProfileProviderModel>> getProviderById() async {
     try {
+
       final responseData = await apiService.get(
         endpoint: 'users/getServiceProviderById',
       );
@@ -185,4 +185,3 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 }
 
-  

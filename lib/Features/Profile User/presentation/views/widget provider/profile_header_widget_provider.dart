@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provider_model.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_text_and_icon_inline.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_image_with_icon.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20provider/profile_info_card_section_provider.dart';
@@ -8,11 +9,15 @@ import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20prov
 import 'package:sehatak/const.dart';
 
 class ProfileHeaderWidgetProvider extends StatelessWidget {
-  final UpdatedProvider provider;
+  final ProviderModel? provider;
+  final bool showEditIcon;
+  final VoidCallback onTap; 
 
   const ProfileHeaderWidgetProvider({
     Key? key,
-    required this.provider,
+    this.provider,
+    this.showEditIcon = false,
+     required this.onTap, 
   }) : super(key: key);
 
   @override
@@ -38,17 +43,14 @@ class ProfileHeaderWidgetProvider extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CustomTextAndIconInline(
+              CustomTextAndIconInlineProfile(
+                onTap: onTap ,
                 text: "My Profile",
                 colorArrowIcon: Colors.black,
                 colorText: Colors.black,
               ),
               SizedBox(height: 20.h),
-              ProfileImageWithIcon(
-                networkImageUrl: provider.identifier.isNotEmpty
-                    ? 'your_base_url_for_images/${provider.identifier}'
-                    : null,
-              ),
+              ProfileImageWithIcon(showEditIcon: showEditIcon),
               SizedBox(height: 5.h),
               ProfileProviderUserInfoTexts(provider: provider),
               SizedBox(height: 15.h),

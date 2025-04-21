@@ -15,28 +15,22 @@ class ProfileClientCubit extends Cubit<ClientState> {
   GetProfileClientModel? clientData;
 
   Future<void> getClientData() async {
-    print("🚀 Start fetching client data...");
     emit(ClientLoading());
 
     try {
       final Either<Failure, GetProfileClientModel> result =
           await profileRepository.getClientById();
 
-      print("✅ Received result: $result");
-
       result.fold(
         (failure) {
-          print("❌ Failure occurred: ${failure.errorMessage}");
           emit(ClientFailure(failure.errorMessage));
         },
         (data) {
-          print("🎯 Client data fetched successfully: ${data.client}");
           clientData = data;
           emit(ClientSuccess(client: data.client!));
         },
       );
     } catch (e) {
-      print("🛑 Unexpected error: $e");
       emit(ClientFailure("Unexpected error occurred"));
     }
   }

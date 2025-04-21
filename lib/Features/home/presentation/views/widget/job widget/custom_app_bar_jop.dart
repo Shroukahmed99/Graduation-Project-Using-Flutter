@@ -14,7 +14,7 @@ class CustomAppBarJob extends StatelessWidget {
       padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
       child: Row(
         children: [
-          const CustomArrowIcon(),
+           CustomArrowIcon(onTap: () {  },),
           SizedBox(
             width: 30,
             height: 30,
