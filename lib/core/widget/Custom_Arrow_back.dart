@@ -15,7 +15,11 @@ class CustomArrowBack extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-           CustomArrowIcon(onTap: () {  },),
+          CustomArrowIcon(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          ),
           const CustomSizedBox(
             width: 6,
           ),
