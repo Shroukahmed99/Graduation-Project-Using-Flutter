@@ -41,6 +41,9 @@ class CustomBottomNavigationHomeClient extends StatelessWidget {
                   imagePath: 'assets/images/communitynav.png',
                   index: 2,
                   isSelected: state == 2,
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kCommunityView);
+                  },
                 ),
                 IconNavigationBottom(
                   imagePath: 'assets/images/settingnav.png',

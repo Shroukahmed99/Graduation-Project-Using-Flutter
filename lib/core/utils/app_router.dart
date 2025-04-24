@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Community/presentation/views/community_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_provider_view.dart';
@@ -25,7 +26,7 @@ import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/image_details_page.dart';
 import 'package:sehatak/Features/success%20register/success_view_service.dart';
-import 'package:sehatak/home_provider_view.dart';
+import 'package:sehatak/Features/home%20service/presentation/views/home_provider_view.dart';
 import 'package:sehatak/Features/home/presentation/views/workout_view.dart';
 import 'package:sehatak/Features/success%20register/otp_success.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/set_password_view_body.dart';
@@ -85,6 +86,8 @@ abstract class AppRouter {
   static const kDetailsWorkoutView = '/DetailsWorkoutView:id';
   static const kHomeProviderView = '/HomeProviderView';
   static const kArticlesView = '/ArticlesView';
+  static const kCommunityView = '/CommunityView';
+
   static const kArticleDetailsPage = '/ArticleDetailsPage:id';
 
   static final router = GoRouter(routes: [
@@ -264,6 +267,10 @@ abstract class AppRouter {
     GoRoute(
       path: kArticlesView,
       builder: (context, state) => const ArticlesView(),
+    ),
+    GoRoute(
+      path: kCommunityView,
+      builder: (context, state) => const CommunityView(),
     ),
     GoRoute(
         path: '/article/:id',
