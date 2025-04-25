@@ -6,10 +6,20 @@ class CustomButtomBookNow extends StatelessWidget {
     super.key,
     required this.text,
     this.onTap,
+    this.color = kPrimaryColor,
+    this.width = 190,
+    this.height = 48,
+    this.colorText = Colors.white,
+    this.fontSize = 18,
   });
 
   final String text;
   final void Function()? onTap;
+  final Color color;
+  final double? width;
+  final double? height;
+  final Color colorText;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +27,10 @@ class CustomButtomBookNow extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
-          width: 190,
-          height: 48,
+          width: width,
+          height: height,
           decoration: BoxDecoration(
-            color: kPrimaryColor,
+            color: color,
             borderRadius: BorderRadius.circular(100),
             border: Border.all(
               color: backgroundColor,
@@ -30,10 +40,10 @@ class CustomButtomBookNow extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: fontSize,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: colorText,
             ),
           ),
         ),

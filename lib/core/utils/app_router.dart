@@ -18,6 +18,8 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
+import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers.dart';
+import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_new_custmers.dart';
 import 'package:sehatak/Features/home/presentation/views/details_nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/details_physical_view.dart';
 import 'package:sehatak/Features/home/presentation/views/details_workout_view.dart';
@@ -25,6 +27,7 @@ import 'package:sehatak/Features/home/presentation/views/home_view_client.dart';
 import 'package:sehatak/Features/home/presentation/views/nutrition_view.dart';
 import 'package:sehatak/Features/home/presentation/views/physical_view.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/image_details_page.dart';
+import 'package:sehatak/Features/payment/presentation/views/payment_view.dart';
 import 'package:sehatak/Features/success%20register/success_view_service.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/home_provider_view.dart';
 import 'package:sehatak/Features/home/presentation/views/workout_view.dart';
@@ -87,6 +90,9 @@ abstract class AppRouter {
   static const kHomeProviderView = '/HomeProviderView';
   static const kArticlesView = '/ArticlesView';
   static const kCommunityView = '/CommunityView';
+  static const kCustomCustmers = '/CustomCustmers';
+  static const kCustomNewCustmers = '/CustomNewCustmers';
+  static const kPaymentView = '/PaymentView';
 
   static const kArticleDetailsPage = '/ArticleDetailsPage:id';
 
@@ -271,6 +277,22 @@ abstract class AppRouter {
     GoRoute(
       path: kCommunityView,
       builder: (context, state) => const CommunityView(),
+    ),
+    GoRoute(
+      path: kCustomCustmers,
+      builder: (context, state) => const CustomCustmers(),
+    ),
+    GoRoute(
+      path: kCustomNewCustmers,
+      builder: (context, state) => const CustomNewCustmers(),
+    ),
+    GoRoute(
+      path: kPaymentView,
+      builder: (context, state) {
+        final idFromApi = state.extra as String;
+        return PaymentView(
+            priceFromApi: idFromApi); // إرسال الـ id فقط إلى الـ PaymentView
+      },
     ),
     GoRoute(
         path: '/article/:id',
