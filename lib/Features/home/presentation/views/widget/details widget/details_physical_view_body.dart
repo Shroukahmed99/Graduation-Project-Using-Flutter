@@ -40,7 +40,10 @@ class DetailsPhysicalViewBody extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(
                     AppRouter.kPaymentView,
-                    extra: physicalist.priceRange.toString(),
+                    extra: {
+                      'priceRange': physicalist.priceRange.toString(),
+                      'id': physicalist.id,
+                    },
                   );
                 },
               ),

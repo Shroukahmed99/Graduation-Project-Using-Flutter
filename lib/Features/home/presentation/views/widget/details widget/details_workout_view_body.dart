@@ -40,7 +40,10 @@ class DeteailsWorkoutViewBody extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(
                     AppRouter.kPaymentView,
-                    extra: coaches.priceRange.toString(),
+                    extra: {
+                      'priceRange': coaches.priceRange.toString(),
+                      'id': coaches.id,
+                    },
                   );
                 },
               ),

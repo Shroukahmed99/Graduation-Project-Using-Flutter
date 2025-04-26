@@ -289,9 +289,14 @@ abstract class AppRouter {
     GoRoute(
       path: kPaymentView,
       builder: (context, state) {
-        final idFromApi = state.extra as String;
+        final extraData = state.extra as Map<String, dynamic>;
+        final priceRange = extraData['priceRange'];
+        final id = extraData['id'];
+
         return PaymentView(
-            priceFromApi: idFromApi); // إرسال الـ id فقط إلى الـ PaymentView
+          priceFromApi: priceRange,
+          id: id,
+        );
       },
     ),
     GoRoute(

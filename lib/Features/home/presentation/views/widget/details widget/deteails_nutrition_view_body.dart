@@ -41,7 +41,10 @@ class DeteailsNutritionViewBody extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push(
                     AppRouter.kPaymentView,
-                    extra: nutritionist.priceRange.toString(),
+                    extra: {
+                      'priceRange': nutritionist.priceRange.toString(),
+                      'id': nutritionist.id,
+                    },
                   );
                 },
               ),

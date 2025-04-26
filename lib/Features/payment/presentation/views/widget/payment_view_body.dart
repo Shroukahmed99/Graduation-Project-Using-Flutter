@@ -1,11 +1,46 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sehatak/Features/payment/data/repo/strip_repo_impl.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/widget/custom_buttom_book_now.dart';
 import 'package:sehatak/const.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PaymentViewBody extends StatelessWidget {
   final String priceFromApi;
+  final String id;
+  final TextEditingController goalController = TextEditingController();
 
-  const PaymentViewBody({super.key, required this.priceFromApi});
+  PaymentViewBody({super.key, required this.priceFromApi, required this.id});
+
+  Future<void> _startCheckout(
+      BuildContext context, String goal, String duration, String price) async {
+    final repo = StripeRepoImpl(ApiService(Dio()));
+    final result = await repo.createStripeSession(
+      id,
+      goal: goal,
+      duration: duration,
+      price: price,
+    );
+
+    result.fold(
+      (failure) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${failure.errorMessage}')),
+        );
+      },
+      (session) async {
+        final url = 'https://checkout.stripe.com/c/${session.id}';
+        if (await canLaunchUrl(Uri.parse(url))) {
+          await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Could not launch checkout page')),
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,70 +67,87 @@ class PaymentViewBody extends StatelessWidget {
       },
     ];
 
+    String selectedPrice = packages[0]['price']!;
+    String selectedDuration = packages[0]['duration']!;
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             const Text(
               'BOOK NOW',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: accentColor,
+                color: Colors.blueAccent,
               ),
             ),
             const SizedBox(height: 30),
             SizedBox(
-              height: 170,
+              height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: packages.length,
                 itemBuilder: (context, index) {
                   final pkg = packages[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: Container(
-                      width: 150,
-                      decoration: const BoxDecoration(
-                        color: kPrimaryColor,
-                      ),
-                      child: Column(
+                  return GestureDetector(
+                    onTap: () {
+                      selectedPrice = pkg['price']!;
+                      selectedDuration = pkg['duration']!;
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Stack(
                         children: [
-                          const SizedBox(height: 10),
-                          Text(
-                            pkg['title']!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                          Container(
+                            width: 190,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            pkg['price']!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    pkg['title']!,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Text(
+                                    "\$${pkg['price']!}",
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Text(
+                                    pkg['duration']!,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  const Center(
+                                    child: Text(
+                                      'Choose',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            pkg['duration']!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          const CustomButtomBookNow(
-                            colorText: Colors.black,
-                            fontSize: 11,
-                            height: 20,
-                            width: 70,
-                            color: Colors.white,
-                            text: 'BOOK NOW',
                           ),
                         ],
                       ),
@@ -104,7 +156,7 @@ class PaymentViewBody extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 70),
+            const SizedBox(height: 30),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -122,24 +174,60 @@ class PaymentViewBody extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              child: const TextField(
+              child: TextField(
+                controller: goalController,
                 maxLines: 5,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                 ),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Add text...',
                   border: InputBorder.none,
                 ),
               ),
             ),
-            const SizedBox(height: 130),
-            const CustomButtomBookNow(
-              text: 'BOOK NOW',
+            const SizedBox(height: 60),
+            ElevatedButton(
+              onPressed: () {
+                final goal = goalController.text.isEmpty
+                    ? "No specific goal"
+                    : goalController.text;
+                _startCheckout(context, goal, selectedDuration, selectedPrice);
+              },
+              child: const Text('BOOK NOW'),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class FeatureItem extends StatelessWidget {
+  final String text;
+
+  const FeatureItem({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(
+          'assets/images/yes.png',
+          width: 10,
+          height: 10,
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
