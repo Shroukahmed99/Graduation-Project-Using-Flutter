@@ -5,6 +5,7 @@ import 'package:sehatak/Features/payment/data/repo/stip_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 
+/// Implementation of the StripeRepo
 class StripeRepoImpl implements StripeRepo {
   final ApiService apiService;
 
@@ -18,7 +19,7 @@ class StripeRepoImpl implements StripeRepo {
     required String price,
   }) async {
     try {
-      final response = await apiService.post(
+      final Map<String, dynamic> response = await apiService.post(
         endpoint: 'bookings/checkout-session/$id',
         data: {
           'goal': goal,
@@ -26,6 +27,7 @@ class StripeRepoImpl implements StripeRepo {
           'price': price,
         },
       );
+
       if (response['status'] == 'success' && response['session'] != null) {
         final session = CheckoutSession.fromJson(response['session']);
         return Right(session);

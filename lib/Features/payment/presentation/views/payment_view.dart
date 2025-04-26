@@ -6,6 +6,7 @@ import 'package:sehatak/Features/payment/presentation/manger/strip/strip_cubit.d
 import 'package:sehatak/Features/payment/presentation/views/widget/payment_view_body.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 
+/// View for initiating a payment through Stripe
 class PaymentView extends StatelessWidget {
   final String priceFromApi;
   final String id;
@@ -15,7 +16,9 @@ class PaymentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => StripeCubit(StripeRepoImpl(ApiService(Dio()))),
+      create: (context) => StripeCubit(
+        StripeRepoImpl(ApiService(Dio())),
+      ),
       child: Scaffold(
         body: PaymentViewBody(
           priceFromApi: priceFromApi,
