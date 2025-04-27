@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sehatak/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBarHome extends StatelessWidget {
   const CustomAppBarHome({super.key, required this.title});
@@ -9,29 +10,31 @@ class CustomAppBarHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, right: 24, left: 24),
+      padding: EdgeInsets.only(top: 10.h, right: 24.w, left: 24.w),
       child: Row(
         children: [
           Text(
             title,
             style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+                color: Colors.black,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600),
           ),
           const Spacer(),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               color: accentColor,
               FontAwesomeIcons.magnifyingGlass,
-              size: 20,
+              size: 20.sp,
             ),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               color: accentColor,
               Icons.notifications,
-              size: 24,
+              size: 24.sp,
             ),
           ),
         ],

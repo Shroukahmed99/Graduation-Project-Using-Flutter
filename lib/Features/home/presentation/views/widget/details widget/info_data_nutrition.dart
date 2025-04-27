@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/Features/home/data/models/more_nutrition_model.dart';
 import 'package:sehatak/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InfoDataNutrition extends StatelessWidget {
   final NutritionistMore nutritionistMore;
@@ -12,113 +13,122 @@ class InfoDataNutrition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 35, right: 22),
+      padding: EdgeInsets.only(left: 35.w, right: 22.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 100.w,
+                height: 100.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: kPrimaryColor, width: 3),
+                  border: Border.all(color: kPrimaryColor, width: 3.w),
                 ),
               ),
-              const SizedBox(width: 50),
+              SizedBox(width: 50.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(nutritionistMore.fullName,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text(nutritionistMore.job,
-                      style: const TextStyle(color: accentColor)),
+                  Text(
+                    nutritionistMore.fullName,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    nutritionistMore.job,
+                    style: const TextStyle(color: accentColor),
+                  ),
                 ],
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 150,
-            ),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/image 19.png',
-                  width: 20,
-                  height: 20,
+                  width: 20.w,
+                  height: 20.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("COST", style: TextStyle(color: kPrimaryColor)),
-                    Text("E£ ${nutritionistMore.priceRange} EGP",
-                        style: const TextStyle(color: Colors.black)),
+                    Text(
+                      "E£ ${nutritionistMore.priceRange} EGP",
+                      style: const TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 150),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/reviews.png',
-                  width: 30,
-                  height: 30,
+                  width: 30.w,
+                  height: 30.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Rating",
                         style: TextStyle(color: kPrimaryColor)),
                     Text(
-                        nutritionistMore.ratingQuantity != 0
-                            ? nutritionistMore.ratingQuantity.toStringAsFixed(1)
-                            : 'No ratings yet',
-                        style: const TextStyle(color: Colors.black)),
+                      nutritionistMore.ratingQuantity != 0
+                          ? nutritionistMore.ratingQuantity.toStringAsFixed(1)
+                          : 'No ratings yet',
+                      style: const TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 150,
-            ),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/Experience.png',
-                  width: 20,
-                  height: 20,
+                  width: 20.w,
+                  height: 20.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Experience",
                         style: TextStyle(color: kPrimaryColor)),
-                    Text(nutritionistMore.yearsOfExperience,
-                        style: const TextStyle(color: Colors.black)),
+                    Text(
+                      nutritionistMore.yearsOfExperience,
+                      style: const TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          const Text("Bio",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
+          Text(
+            "Bio",
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8.h),
           Text(
             nutritionistMore.bio,
             style: const TextStyle(color: Colors.black),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
       ),
     );

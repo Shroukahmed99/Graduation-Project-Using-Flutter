@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/presentation/manger/addArticle/add_article_cubit.dart';
 import 'package:sehatak/const.dart';
 
@@ -22,13 +23,13 @@ class ArticleInputCard extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(12.w),
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: kPrimaryColor),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +47,7 @@ class ArticleInputCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               TextField(
                 controller: cubit.titleController,
                 decoration: const InputDecoration(
@@ -69,7 +70,7 @@ class ArticleInputCard extends StatelessWidget {
                 ),
                 style: const TextStyle(color: accentColor),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Row(
                 children: [
                   GestureDetector(
@@ -106,18 +107,18 @@ class ArticleInputCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               BlocBuilder<AddArticleCubit, AddArticleState>(
                 builder: (context, state) {
                   final file = cubit.selectedImage;
                   if (file != null) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.only(top: 8.h),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         child: Image.file(
                           file,
-                          height: 150,
+                          height: 150.h,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
@@ -136,7 +137,7 @@ class ArticleInputCard extends StatelessWidget {
                     );
                   } else if (state is AddArticleFailure) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.only(top: 8.h),
                       child: Text(
                         "❌ ${state.message}",
                         style: const TextStyle(color: kPrimaryColor),

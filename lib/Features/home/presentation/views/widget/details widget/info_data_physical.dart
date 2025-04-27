@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
 import 'package:sehatak/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InfoDataPhysical extends StatelessWidget {
   final PhysicalTherapistMore physicalTherapistMore;
@@ -12,114 +13,121 @@ class InfoDataPhysical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 35, right: 22),
+      padding: EdgeInsets.only(left: 35.w, right: 22.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 100.w,
+                height: 100.h,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: kPrimaryColor, width: 3),
+                  border: Border.all(color: kPrimaryColor, width: 3.w),
                 ),
               ),
-              const SizedBox(width: 50),
+              SizedBox(width: 50.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(physicalTherapistMore.fullName,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  Text(physicalTherapistMore.job,
-                      style: const TextStyle(color: accentColor)),
+                  Text(
+                    physicalTherapistMore.fullName,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    physicalTherapistMore.job,
+                    style: TextStyle(color: accentColor),
+                  ),
                 ],
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 150,
-            ),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/image 19.png',
-                  width: 20,
-                  height: 20,
+                  width: 20.w,
+                  height: 20.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("COST", style: TextStyle(color: kPrimaryColor)),
-                    Text("E£ ${physicalTherapistMore.priceRange} EGP",
-                        style: const TextStyle(color: Colors.black)),
+                    Text("COST", style: TextStyle(color: kPrimaryColor)),
+                    Text(
+                      "E£ ${physicalTherapistMore.priceRange} EGP",
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 150),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/reviews.png',
-                  width: 30,
-                  height: 30,
+                  width: 30.w,
+                  height: 30.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Rating",
-                        style: TextStyle(color: kPrimaryColor)),
+                    Text("Rating", style: TextStyle(color: kPrimaryColor)),
                     Text(
-                        physicalTherapistMore.ratingQuantity != 0
-                            ? physicalTherapistMore.ratingQuantity
-                                .toStringAsFixed(1)
-                            : 'No ratings yet',
-                        style: const TextStyle(color: Colors.black)),
+                      physicalTherapistMore.ratingQuantity != 0
+                          ? physicalTherapistMore.ratingQuantity
+                              .toStringAsFixed(1)
+                          : 'No ratings yet',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 150,
-            ),
+            padding: EdgeInsets.only(left: 150.w),
             child: Row(
               children: [
                 Image.asset(
                   'assets/images/Experience.png',
-                  width: 20,
-                  height: 20,
+                  width: 20.w,
+                  height: 20.h,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Experience",
-                        style: TextStyle(color: kPrimaryColor)),
-                    Text(physicalTherapistMore.yearsOfExperience,
-                        style: const TextStyle(color: Colors.black)),
+                    Text("Experience", style: TextStyle(color: kPrimaryColor)),
+                    Text(
+                      physicalTherapistMore.yearsOfExperience,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
-          const Text("Bio",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
+          Text(
+            "Bio",
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8.h),
           Text(
             physicalTherapistMore.bio,
-            style: const TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
         ],
       ),
     );

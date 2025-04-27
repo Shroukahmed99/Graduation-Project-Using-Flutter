@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/home/presentation/manger/top%20rating/top_rating_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/top_rating.dart';
 
@@ -22,7 +23,7 @@ class TopRatingListView extends StatelessWidget {
                 children: List.generate(providers.length, (index) {
                   final provider = providers[index];
                   return Padding(
-                    padding: const EdgeInsets.only(left: 7),
+                    padding: EdgeInsets.only(left: 7.w),
                     child: TopRating(provider: provider),
                   );
                 }),

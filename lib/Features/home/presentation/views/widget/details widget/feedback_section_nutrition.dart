@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedbackSectionNutririon extends StatelessWidget {
   final List<dynamic> reviews;
@@ -9,17 +10,17 @@ class FeedbackSectionNutririon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 35, top: 5, right: 20),
+      padding: EdgeInsets.only(left: 35.w, top: 5.h, right: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Feedback",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 1),
+          SizedBox(height: 1.h),
           SizedBox(
-            height: 270,
+            height: 270.h,
             child: reviews.isEmpty
                 ? const Center(child: Text("No feedback yet."))
                 : ListView.builder(
@@ -32,28 +33,28 @@ class FeedbackSectionNutririon extends StatelessWidget {
                           review['Client']?['fullName'] ?? 'Anonymous';
 
                       return Container(
-                        margin: const EdgeInsets.only(bottom: 25),
-                        padding: const EdgeInsets.all(12),
+                        margin: EdgeInsets.only(bottom: 25.h),
+                        padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
                           color: accentColor,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               username,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5.h),
                             Text(
                               reviewText,
                               style: const TextStyle(color: Colors.black),
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             Row(
                               children: List.generate(5, (starIndex) {
                                 return Icon(
@@ -61,7 +62,7 @@ class FeedbackSectionNutririon extends StatelessWidget {
                                       ? Icons.star
                                       : Icons.star_border,
                                   color: Colors.black,
-                                  size: 18,
+                                  size: 18.sp,
                                 );
                               }),
                             ),

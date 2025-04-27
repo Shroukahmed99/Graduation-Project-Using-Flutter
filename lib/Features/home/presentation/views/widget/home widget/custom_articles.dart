@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getHomeArticle/get_home_aricle_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/article_image.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ArticlesSection extends StatelessWidget {
   const ArticlesSection({super.key});
@@ -10,15 +11,15 @@ class ArticlesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
+      padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Articles & Tips",
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           BlocBuilder<GetHomeAricleCubit, GetHomeAricleState>(
             builder: (context, state) {
               if (state is GetHomeAricleLoading) {
@@ -36,7 +37,7 @@ class ArticlesSection extends StatelessWidget {
                     children: List.generate(articles.length, (index) {
                       final article = articles[index];
                       return Padding(
-                        padding: const EdgeInsets.only(right: 10),
+                        padding: EdgeInsets.only(right: 10.w),
                         child: ArticleImage(article: article),
                       );
                     }),

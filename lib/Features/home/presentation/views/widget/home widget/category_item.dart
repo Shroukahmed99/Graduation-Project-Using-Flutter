@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/const.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryItem extends StatelessWidget {
   final String imagePath;
@@ -21,14 +22,14 @@ class CategoryItem extends StatelessWidget {
         children: [
           Image.asset(
             imagePath,
-            width: 40,
-            height: 40,
+            width: 40.w,
+            height: 40.h,
             color: kPrimaryColor,
           ),
           Text(
             title!,
-            style: const TextStyle(
-                fontSize: 12,
+            style: TextStyle(
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w300,
                 color: kPrimaryColor),
           ),

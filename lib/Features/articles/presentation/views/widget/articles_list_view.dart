@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getAllArticle/get_all_article_cubit.dart';
 import 'package:sehatak/Features/articles/presentation/views/widget/article_card.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
@@ -24,7 +25,7 @@ class ArticlesListView extends StatelessWidget {
             itemCount: articles.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             itemBuilder: (context, index) {
               final article = articles[index];
               return ArticleCard(article: article);

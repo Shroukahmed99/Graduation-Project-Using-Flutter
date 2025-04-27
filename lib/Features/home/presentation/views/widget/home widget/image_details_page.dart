@@ -6,6 +6,7 @@ import 'package:sehatak/Features/articles/presentation/manger/getArticleById/get
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ArticleDetailsPage extends StatelessWidget {
   final String id;
@@ -44,38 +45,38 @@ class ArticleDetailsPage extends StatelessWidget {
                           ? Image.network(
                               article.img!,
                               width: double.infinity,
-                              height: 300,
+                              height: 300.h,
                               fit: BoxFit.cover,
                             )
                           : Image.asset(
                               "assets/images/3.png",
                               width: double.infinity,
-                              height: 300,
+                              height: 300.h,
                               fit: BoxFit.cover,
                             ),
                     ),
                   ),
                   Positioned(
-                    top: 30,
-                    right: 20,
+                    top: 30.h,
+                    right: 20.w,
                     child: GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: EdgeInsets.all(6.sp),
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black54,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.close,
                           color: Colors.white,
-                          size: 15,
+                          size: 15.sp,
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 250,
+                    top: 250.h,
                     left: 0,
                     right: 0,
                     bottom: 0,
@@ -88,47 +89,48 @@ class ArticleDetailsPage extends StatelessWidget {
                       ),
                       child: SafeArea(
                         child: Padding(
-                          padding: const EdgeInsets.all(22),
+                          padding: EdgeInsets.all(22.sp),
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
-                                    const CircleAvatar(
-                                      radius: 20,
-                                      backgroundImage:
-                                          AssetImage("assets/images/3.png"),
+                                    CircleAvatar(
+                                      radius: 20.sp,
+                                      backgroundImage: const AssetImage(
+                                          "assets/images/3.png"),
                                     ),
-                                    const SizedBox(width: 10),
+                                    SizedBox(width: 10.w),
                                     Text(
                                       serviceProvider?.fullName ??
                                           'Default Name',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontSize: 18.sp,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 25),
+                                SizedBox(height: 25.h),
                                 Text(
                                   article.title.toString(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                     color: kPrimaryColor,
                                   ),
                                 ),
-                                const SizedBox(height: 15),
+                                SizedBox(height: 15.h),
                                 Text(
                                   article.content.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
                                     height: 1.6,
                                     color: Colors.black,
                                   ),
                                 ),
-                                const SizedBox(height: 100),
+                                SizedBox(height: 100.h),
                               ],
                             ),
                           ),
@@ -153,12 +155,12 @@ class BottomCurveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    path.lineTo(0, size.height - 50);
+    path.lineTo(0, size.height - 50.h);
     path.quadraticBezierTo(
       size.width / 2,
       size.height,
       size.width,
-      size.height - 50,
+      size.height - 50.h,
     );
     path.lineTo(size.width, 0);
     path.close();

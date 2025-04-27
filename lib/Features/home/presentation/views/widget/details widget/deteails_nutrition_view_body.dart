@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/home/presentation/manger/nutrition%20more/nutrition_more_state.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/details%20widget/custom_app_bar_details.dart';
@@ -24,31 +25,37 @@ class DeteailsNutritionViewBody extends StatelessWidget {
         } else if (state is NutritionMoreSuccess) {
           final nutritionist = state.nutritionistMore;
 
-          return Column(
-            children: [
-              const CustomAppBarDetails(
-                title: 'Nutrition',
-                image: 'assets/images/category2.png',
-              ),
-              const SizedBox(height: 20),
-              InfoDataNutrition(
-                nutritionistMore: nutritionist,
-              ),
-              FeedbackSectionNutririon(reviews: nutritionist.reviews),
-              const SizedBox(height: 10),
-              CustomButtomBookNow(
-                text: 'BOOK NOW',
-                onTap: () {
-                  GoRouter.of(context).push(
-                    AppRouter.kPaymentView,
-                    extra: {
-                      'priceRange': nutritionist.priceRange.toString(),
-                      'id': nutritionist.id,
-                    },
-                  );
-                },
-              ),
-            ],
+          return Padding(
+            padding: EdgeInsets.only(top: 15.h),
+            child: Column(
+              children: [
+                const CustomAppBarDetails(
+                  title: 'Nutrition',
+                  image: 'assets/images/category2.png',
+                ),
+                SizedBox(height: 20.h),
+                InfoDataNutrition(
+                  nutritionistMore: nutritionist,
+                ),
+                FeedbackSectionNutririon(reviews: nutritionist.reviews),
+                const Spacer(),
+                CustomButtomBookNow(
+                  text: 'BOOK NOW',
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kPaymentView,
+                      extra: {
+                        'priceRange': nutritionist.priceRange.toString(),
+                        'id': nutritionist.id,
+                      },
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 10.h,
+                )
+              ],
+            ),
           );
         } else if (state is NutritionMoreFailure) {
           WidgetsBinding.instance.addPostFrameCallback((_) {

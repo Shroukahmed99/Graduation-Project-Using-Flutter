@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/custom_app_bar_jop.dart';
 import 'package:sehatak/features/home/presentation/views/widget/job%20widget/custom_stor_by.dart';
@@ -9,18 +10,18 @@ class WorkoutViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        CustomAppBarJob(
+        const CustomAppBarJob(
           title: 'Work Out',
           image: 'assets/images/catgory1.png',
         ),
-        SizedBox(height: 20),
-        CustomStorBy(),
-        Expanded(
+        SizedBox(height: 20.h),
+        const CustomStorBy(),
+        const Expanded(
           child: WorkoutListView(),
         ),
-        CustomBottomNavigationHomeClient(),
+        const CustomBottomNavigationHomeClient(),
       ],
     );
   }

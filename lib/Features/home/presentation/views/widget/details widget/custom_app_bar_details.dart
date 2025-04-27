@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBarDetails extends StatelessWidget {
-  const CustomAppBarDetails(
-      {super.key, required this.title, required this.image});
+  const CustomAppBarDetails({
+    super.key,
+    required this.title,
+    required this.image,
+  });
   final String title;
   final String image;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
+      padding: EdgeInsets.only(top: 40.h, right: 24.w, left: 24.w),
       child: Row(
         children: [
           CustomArrowIcon(
@@ -19,18 +23,18 @@ class CustomAppBarDetails extends StatelessWidget {
             },
           ),
           SizedBox(
-            width: 30,
-            height: 30,
+            width: 30.w,
+            height: 30.h,
             child: Image.asset(
               image,
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10.w),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.w700,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/home/data/models/physical_model.dart';
 import 'package:sehatak/const.dart';
 
@@ -11,14 +12,14 @@ class InformationPhysical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+      padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 10.h),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
             decoration: BoxDecoration(
               color: const Color(0xff222222),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             child: Column(
               children: [
@@ -26,21 +27,21 @@ class InformationPhysical extends StatelessWidget {
                   children: [
                     Text(
                       physical.fullName,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                        color: Color(0xffFF9F5B),
+                        color: const Color(0xffFF9F5B),
                       ),
                     ),
                     const Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 10.h),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                         child: Image.asset(
                           'assets/images/3.png',
-                          width: 55,
-                          height: 55,
+                          width: 55.w,
+                          height: 55.h,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -51,20 +52,20 @@ class InformationPhysical extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     physical.bio,
-                    style: const TextStyle(color: Colors.white70, fontSize: 14),
+                    style: TextStyle(color: Colors.white70, fontSize: 14.sp),
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 Row(
                   children: [
                     Row(
                       children: [
                         Image.asset(
                           'assets/images/image 19.png',
-                          width: 20,
-                          height: 20,
+                          width: 20.w,
+                          height: 20.h,
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -76,16 +77,16 @@ class InformationPhysical extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 20),
+                    SizedBox(width: 20.w),
                     Row(
                       children: [
                         Image.asset(
-                          color: Colors.white,
                           'assets/images/reviews.png',
-                          width: 30,
-                          height: 30,
+                          width: 30.w,
+                          height: 30.h,
+                          color: Colors.white,
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -109,14 +110,14 @@ class InformationPhysical extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         "MORE...",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/data/models/get_all_article_model.dart';
 import 'package:sehatak/const.dart';
 
@@ -10,15 +11,15 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.only(bottom: 16.h),
       child: GestureDetector(
         onTap: () {
           context.push('/article/${article.id}');
         },
         child: Container(
-          height: 180,
+          height: 180.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             image: DecorationImage(
               image: article.image != null
                   ? NetworkImage(article.image!)
@@ -27,19 +28,19 @@ class ArticleCard extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.w),
             child: Stack(
               children: [
                 Positioned(
-                  top: 8,
-                  left: 8,
-                  right: 8,
+                  top: 8.h,
+                  left: 8.w,
+                  right: 8.w,
                   child: Text(
                     article.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
