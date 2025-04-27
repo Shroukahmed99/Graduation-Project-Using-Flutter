@@ -5,7 +5,6 @@ import 'package:sehatak/Features/payment/data/repo/stip_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 
-/// Implementation of the StripeRepo
 class StripeRepoImpl implements StripeRepo {
   final ApiService apiService;
 
