@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home%20service/presentation/manger/bookingId/booking_id_cubit.dart';
 import 'package:sehatak/const.dart';
 
 class AcceptButtons extends StatelessWidget {
-  const AcceptButtons({super.key});
+  final String clientId;
+
+  const AcceptButtons({super.key, required this.clientId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +20,18 @@ class AcceptButtons extends StatelessWidget {
             width: 60.w,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: kPrimaryColor,
+                backgroundColor: Colors.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 padding: EdgeInsets.zero,
               ),
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<BookingIdCubit>(context).respondToBooking(
+                  id: clientId,
+                  status: 'reject',
+                );
+              },
               child: Text(
                 'Reject',
                 style: TextStyle(
@@ -48,7 +57,12 @@ class AcceptButtons extends StatelessWidget {
                 ),
                 padding: EdgeInsets.zero,
               ),
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<BookingIdCubit>(context).respondToBooking(
+                  id: clientId,
+                  status: 'accept',
+                );
+              },
               child: Text(
                 'Accept',
                 style: TextStyle(

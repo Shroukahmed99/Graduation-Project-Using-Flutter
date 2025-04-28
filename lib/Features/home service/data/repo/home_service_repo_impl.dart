@@ -13,10 +13,6 @@ class HomeServiceRepoImpl implements HomeServiceRepo {
   HomeServiceRepoImpl(this.apiService);
 
   @override
-  Future<Either<Failure, BookingResponse>> bokingById(String id) {
-    throw UnimplementedError();
-  }
-
   @override
   Future<Either<Failure, List<PaymentData>>> fetchCustemr() async {
     try {
@@ -55,6 +51,33 @@ class HomeServiceRepoImpl implements HomeServiceRepo {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, BookingResponse>> bookingById({
+    required String id,
+    required String status,
+  }) async {
+    try {
+      final Map<String, dynamic> response = await apiService.patch(
+        endpoint: 'bookings/respondOfBooking/$id',
+        data: {
+          'status': status,
+        },
+      );
+
+      if (response['status'] == 'success') {
+        final bookingResponse = BookingResponse.fromJson(response['session']);
+        return Right(bookingResponse);
+      } else {
+        final errorMessage = response['message'] ?? 'Unknown error';
+        return Left(ServerFailure(errorMessage));
+      }
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }

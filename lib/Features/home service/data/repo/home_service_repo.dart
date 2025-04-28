@@ -7,5 +7,8 @@ import 'package:sehatak/core/error/failure.dart';
 abstract class HomeServiceRepo {
   Future<Either<Failure, List<PaymentData>>> fetchCustemr();
   Future<Either<Failure, List<ClientData>>> fetchNewCustemr();
-  Future<Either<Failure, BookingResponse>> bokingById(String id);
+  Future<Either<Failure, BookingResponse>> bookingById({
+    required String id,
+    required String status,
+  });
 }
