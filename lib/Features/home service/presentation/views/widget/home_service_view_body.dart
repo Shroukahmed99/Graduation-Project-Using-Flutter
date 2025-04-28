@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home%20service/data/repo/home_service_repo_impl.dart';
+import 'package:sehatak/Features/home%20service/presentation/manger/custmer/custmer_cubit.dart';
+import 'package:sehatak/Features/home%20service/presentation/manger/newCustmer/new_custmer_cubit.dart';
 import 'package:sehatak/Features/home%20service/presentation/manger/select_customer/home_service_tab_cubit_cubit.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers_list_view.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_new_custmers_list_view.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/select_custmers_request.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_app_bar_home.dart';
 
 class HomeServiceViewBody extends StatelessWidget {
@@ -31,8 +36,18 @@ class HomeServiceViewBody extends StatelessWidget {
         BlocBuilder<HomeServiceTabCubit, bool>(
           builder: (context, showNewCustomers) {
             return showNewCustomers
-                ? const CustomNewCustmersListView()
-                : const CustomCustmersListView();
+                ? BlocProvider(
+                    create: (context) =>
+                        NewCustmerCubit(HomeServiceRepoImpl(ApiService(Dio())))
+                          ..fetchNewCustemr(),
+                    child: const CustomNewCustmersListView(),
+                  )
+                : BlocProvider(
+                    create: (context) => CustmerCubit(
+                      HomeServiceRepoImpl(ApiService(Dio())),
+                    )..fetchCustemr(),
+                    child: const CustomCustmersListView(),
+                  );
           },
         ),
       ],

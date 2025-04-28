@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home%20service/data/models/custmer_new_model.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/accept_buttons.dart';
 import 'package:sehatak/const.dart';
 
 class CustomNewCustmers extends StatelessWidget {
-  const CustomNewCustmers({super.key});
+  const CustomNewCustmers({super.key, required this.data});
+  final ClientData data;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class CustomNewCustmers extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ahmed Talat',
+                      data.client.fullName,
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
@@ -59,7 +61,7 @@ class CustomNewCustmers extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 30.w),
               child: Text(
-                'Incorporating physical exercise into your ...',
+                data.goal,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 13.sp,
@@ -86,7 +88,7 @@ class CustomNewCustmers extends StatelessWidget {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        '20',
+                        data.client.age,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 13.sp,
@@ -108,7 +110,7 @@ class CustomNewCustmers extends StatelessWidget {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        '120',
+                        data.client.weight,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 13.sp,
@@ -130,7 +132,7 @@ class CustomNewCustmers extends StatelessWidget {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        '20',
+                        data.client.height,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14.sp,

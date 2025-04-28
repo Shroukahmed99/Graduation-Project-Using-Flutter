@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_model.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/core/widget/custom_stack_honty.dart';
 
 class CustomCustmers extends StatelessWidget {
   final PaymentData data;
@@ -79,53 +78,25 @@ class CustomCustmers extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Spacer(),
-                  Padding(
-                    padding: EdgeInsets.only(right: 20.w),
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          height: 17.h,
-                          width: 60.w,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "OPEN",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 8.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                  SizedBox(
+                    width: 130.w,
+                  ),
+                  Container(
+                    height: 17.h,
+                    width: 60.w,
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(5.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "OPEN",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Positioned(
-                          top: -10.h,
-                          right: -10.w,
-                          child: ClipPath(
-                            clipper: CustomStackHonty(),
-                            child: Container(
-                              height: 16.h,
-                              width: 16.w,
-                              color: accentColor,
-                              child: Center(
-                                child: Text(
-                                  '5',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
