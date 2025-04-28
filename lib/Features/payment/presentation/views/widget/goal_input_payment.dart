@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GoalInputWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -8,10 +9,10 @@ class GoalInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(15.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         border: Border.all(
           color: Colors.white,
         ),
@@ -19,8 +20,8 @@ class GoalInputWidget extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: 5,
-        style: const TextStyle(
-          fontSize: 16,
+        style: TextStyle(
+          fontSize: 16.sp,
         ),
         decoration: const InputDecoration(
           hintText: 'Add text...',

@@ -18,6 +18,7 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
+import 'package:sehatak/Features/home%20service/data/models/custmer_model.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_new_custmers.dart';
 import 'package:sehatak/Features/home/presentation/views/details_nutrition_view.dart';
@@ -280,7 +281,10 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: kCustomCustmers,
-      builder: (context, state) => const CustomCustmers(),
+      builder: (context, state) {
+        final paymentData = state.extra as PaymentData;
+        return CustomCustmers(data: paymentData);
+      },
     ),
     GoRoute(
       path: kCustomNewCustmers,

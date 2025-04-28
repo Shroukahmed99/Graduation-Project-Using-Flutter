@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/home%20service/presentation/manger/select_customer/home_service_tab_cubit_cubit.dart';
 import 'package:sehatak/const.dart';
 
@@ -11,27 +12,28 @@ class SelectCustomersTab extends StatelessWidget {
     final showNew = context.watch<HomeServiceTabCubit>().state;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding: EdgeInsets.symmetric(horizontal: 50.w),
       child: Row(
         children: [
           GestureDetector(
             onTap: () => context.read<HomeServiceTabCubit>().showCustomers(),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 4.h),
               decoration: BoxDecoration(
                 color: !showNew ? kPrimaryColor : accentColor,
-                borderRadius: BorderRadius.circular(23),
+                borderRadius: BorderRadius.circular(23.r),
               ),
-              child: const Text(
+              child: Text(
                 "custmers",
                 style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
-          const SizedBox(width: 60),
+          SizedBox(width: 60.w),
           Stack(
             clipBehavior: Clip.none,
             children: [
@@ -40,28 +42,29 @@ class SelectCustomersTab extends StatelessWidget {
                     context.read<HomeServiceTabCubit>().showNewCustomers(),
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: showNew ? kPrimaryColor : accentColor,
-                    borderRadius: BorderRadius.circular(23),
+                    borderRadius: BorderRadius.circular(23.r),
                   ),
-                  child: const Text(
+                  child: Text(
                     "new custemrs",
                     style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
-              const Positioned(
-                top: -10,
-                right: -8,
+              Positioned(
+                top: -10.h,
+                right: -8.w,
                 child: SizedBox(
-                  height: 16,
-                  width: 16,
+                  height: 16.h,
+                  width: 16.w,
                   child: DecoratedBox(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: accentColor,
                       shape: BoxShape.circle,
                     ),
@@ -69,9 +72,10 @@ class SelectCustomersTab extends StatelessWidget {
                       child: Text(
                         '5',
                         style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

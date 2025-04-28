@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/home%20service/presentation/manger/select_customer/home_service_tab_cubit_cubit.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers_list_view.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_new_custmers_list_view.dart';
@@ -14,19 +15,19 @@ class HomeServiceViewBody extends StatelessWidget {
     return ListView(
       children: [
         const CustomAppBarHome(title: 'Hi, Mohamed'),
-        const Padding(
-          padding: EdgeInsets.only(left: 24),
+        Padding(
+          padding: EdgeInsets.only(left: 24.w),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
               "It's time to challenge your limits.",
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
         ),
-        const SizedBox(height: 28),
+        SizedBox(height: 28.h),
         const SelectCustomersTab(),
-        const SizedBox(height: 24),
+        SizedBox(height: 24.h),
         BlocBuilder<HomeServiceTabCubit, bool>(
           builder: (context, showNewCustomers) {
             return showNewCustomers

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home%20service/presentation/views/widget/accept_buttons.dart';
 import 'package:sehatak/const.dart';
 
 class CustomNewCustmers extends StatelessWidget {
@@ -7,45 +9,44 @@ class CustomNewCustmers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
       child: Container(
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.all(15.w),
         decoration: BoxDecoration(
           color: const Color(0xff222222),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Row
             Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
+                  borderRadius: BorderRadius.circular(60.r),
                   child: Image.asset(
                     'assets/images/2.png',
-                    width: 35,
-                    height: 35,
+                    width: 35.w,
+                    height: 35.h,
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(width: 12),
-                const Column(
+                SizedBox(width: 12.w),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Ahmed Talat',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(height: 2),
+                    SizedBox(height: 2.h),
                     Text(
                       'Goals',
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 11.sp,
                         color: kPrimaryColor,
                         fontWeight: FontWeight.w500,
                       ),
@@ -54,112 +55,91 @@ class CustomNewCustmers extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Incorporating physical exercise into your daily routine can boost...',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 13,
-                height: 1.4,
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.only(left: 30.w),
+              child: Text(
+                'Incorporating physical exercise into your ...',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 13.sp,
+                  height: 1.4,
+                ),
               ),
             ),
-            const SizedBox(height: 18),
+            SizedBox(height: 18.h),
             Padding(
-              padding: const EdgeInsets.only(left: 30),
+              padding: EdgeInsets.only(left: 30.w),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'Age',
                         style: TextStyle(
                           color: kPrimaryColor,
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         '20',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 13.sp,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10),
-                  const Column(
+                  SizedBox(width: 10.w),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'weight',
                         style: TextStyle(
                           color: kPrimaryColor,
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         '120',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 13.sp,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10),
-                  const Column(
+                  SizedBox(width: 10.w),
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         'length',
                         style: TextStyle(
                           color: kPrimaryColor,
-                          fontSize: 13,
+                          fontSize: 13.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         '20',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
                   ),
                   const Spacer(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: SizedBox(
-                      height: 20,
-                      width: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.zero,
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          'Accept',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  const AcceptButtons()
                 ],
               ),
             )

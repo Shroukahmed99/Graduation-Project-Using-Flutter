@@ -15,6 +15,8 @@ class ProfileProviderCubit extends Cubit<ProviderState> {
 
   Future<void> getProviderData() async {
     try {
+      if (isClosed) return;
+
       emit(ProviderLoading());
 
       final Either<Failure, GetProfileProviderModel> result =
@@ -22,20 +24,32 @@ class ProfileProviderCubit extends Cubit<ProviderState> {
 
       result.fold(
         (failure) {
-          emit(ProviderFailure(failure.errorMessage));
+          if (!isClosed) {
+            emit(ProviderFailure(failure.errorMessage));
+          }
         },
         (data) {
           providerData = data;
-          if (data.provider != null) {
-            emit(ProviderSuccess(provider: data.provider!));
-          } else {
-emit(ProviderFailure('No data available for the service provider'));
+          if (!isClosed) {
+            if (data.provider != null) {
+              emit(ProviderSuccess(provider: data.provider!));
+            } else {
+              emit(ProviderFailure(
+                  'No data available for the service provider'));
+            }
           }
         },
       );
     } catch (e) {
       print('🚨 Exception in getProviderData: ${e.toString()}');
-emit(ProviderFailure('An unexpected error occurred: ${e.toString()}'));
+      if (!isClosed) {
+        emit(ProviderFailure('An unexpected error occurred: ${e.toString()}'));
+      }
     }
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeatureItem extends StatelessWidget {
   final String text;
@@ -11,15 +12,15 @@ class FeatureItem extends StatelessWidget {
       children: [
         Image.asset(
           'assets/images/yes.png',
-          width: 10,
-          height: 10,
+          width: 10.w,
+          height: 10.h,
         ),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: 12.sp,
               color: Colors.white,
             ),
           ),

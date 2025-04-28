@@ -18,7 +18,6 @@ class StripeFailure extends StripeState {
   StripeFailure(this.errorMessage);
 }
 
-// جديد: حالة اختيار الباقة
 class StripePackageSelected extends StripeState {
   final int selectedIndex;
   final String selectedPrice;

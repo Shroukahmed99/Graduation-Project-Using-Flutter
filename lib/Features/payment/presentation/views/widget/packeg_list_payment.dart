@@ -9,7 +9,7 @@ import 'package:sehatak/core/widget/custom_buttom_book_now.dart';
 class PackageListWidget extends StatelessWidget {
   final List<Map<String, String>> packages;
 
-  const PackageListWidget({Key? key, required this.packages}) : super(key: key);
+  const PackageListWidget({super.key, required this.packages});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +111,7 @@ class PackageListWidget extends StatelessWidget {
                         top: 15,
                         right: -18,
                         child: Transform.rotate(
-                          angle: 0.785398, // 45 degrees
+                          angle: 0.785398,
                           child: Container(
                             color: Colors.black,
                             padding: const EdgeInsets.symmetric(

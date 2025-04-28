@@ -91,17 +91,18 @@ class ArticleInputCard extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(kPrimaryColor),
                       shape: WidgetStateProperty.all(
-                        const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.r)),
                         ),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text("Share", style: TextStyle(color: Colors.white)),
-                        SizedBox(width: 6),
-                        Icon(Icons.check, color: Colors.white, size: 20),
+                        const Text("Share",
+                            style: TextStyle(color: Colors.white)),
+                        SizedBox(width: 6.w),
+                        Icon(Icons.check, color: Colors.white, size: 20.sp),
                       ],
                     ),
                   ),
@@ -131,9 +132,9 @@ class ArticleInputCard extends StatelessWidget {
               BlocBuilder<AddArticleCubit, AddArticleState>(
                 builder: (context, state) {
                   if (state is AddArticleLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: LinearProgressIndicator(),
+                    return Padding(
+                      padding: EdgeInsets.only(top: 8.0.h),
+                      child: const LinearProgressIndicator(),
                     );
                   } else if (state is AddArticleFailure) {
                     return Padding(
