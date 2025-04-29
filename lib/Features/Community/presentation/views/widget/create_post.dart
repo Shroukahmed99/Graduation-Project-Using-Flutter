@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CreatePost extends StatelessWidget {
@@ -7,22 +8,22 @@ class CreatePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: kPrimaryColor),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
-                CircleAvatar(radius: 20),
-                SizedBox(width: 8),
-                Text(
+                CircleAvatar(radius: 20.r),
+                SizedBox(width: 8.w),
+                const Text(
                   "MOHAMED KHALED",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ class CreatePost extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             const TextField(
               maxLines: null,
               decoration: InputDecoration(
@@ -41,7 +42,7 @@ class CreatePost extends StatelessWidget {
               ),
               style: TextStyle(color: accentColor),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 const Icon(
@@ -55,17 +56,24 @@ class CreatePost extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(kPrimaryColor),
                     shape: WidgetStateProperty.all(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.r)),
                       ),
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Share", style: TextStyle(color: Colors.white)),
-                      SizedBox(width: 6),
-                      Icon(Icons.check, color: Colors.white, size: 20),
+                      Text(
+                        "Share",
+                        style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                      ),
+                      SizedBox(width: 6.w),
+                      const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ],
                   ),
                 ),
