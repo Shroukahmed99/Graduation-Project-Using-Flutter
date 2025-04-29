@@ -17,6 +17,30 @@ class HomeServiceViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeServiceTabCubit(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              NewCustmerCubit(HomeServiceRepoImpl(ApiService(Dio()))),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CustmerCubit(HomeServiceRepoImpl(ApiService(Dio()))),
+        ),
+      ],
+      child: const HomeServiceViewContent(),
+    );
+  }
+}
+
+class HomeServiceViewContent extends StatelessWidget {
+  const HomeServiceViewContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       children: [
         const CustomAppBarHome(title: 'Hi, Mohamed'),
@@ -35,19 +59,13 @@ class HomeServiceViewBody extends StatelessWidget {
         SizedBox(height: 24.h),
         BlocBuilder<HomeServiceTabCubit, bool>(
           builder: (context, showNewCustomers) {
-            return showNewCustomers
-                ? BlocProvider(
-                    create: (context) =>
-                        NewCustmerCubit(HomeServiceRepoImpl(ApiService(Dio())))
-                          ..fetchNewCustemr(),
-                    child: const CustomNewCustmersListView(),
-                  )
-                : BlocProvider(
-                    create: (context) => CustmerCubit(
-                      HomeServiceRepoImpl(ApiService(Dio())),
-                    )..fetchCustemr(),
-                    child: const CustomCustmersListView(),
-                  );
+            if (showNewCustomers) {
+              context.read<NewCustmerCubit>().fetchNewCustemr();
+              return const CustomNewCustmersListView();
+            } else {
+              context.read<CustmerCubit>().fetchCustemr();
+              return const CustomCustmersListView();
+            }
           },
         ),
       ],

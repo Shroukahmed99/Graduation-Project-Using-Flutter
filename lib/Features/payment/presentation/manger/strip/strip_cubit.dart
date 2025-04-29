@@ -15,6 +15,9 @@ class StripeCubit extends Cubit<StripeState> {
   }) async {
     emit(StripeLoading());
 
+    print('Creating Stripe session with ID: $id');
+    print('Goal: $goal, Duration: $duration, Price: $price');
+
     final result = await stripeRepo.createStripeSession(
       id,
       goal: goal,
@@ -23,8 +26,14 @@ class StripeCubit extends Cubit<StripeState> {
     );
 
     result.fold(
-      (failure) => emit(StripeFailure(failure.errorMessage)),
-      (checkoutSession) => emit(StripeSuccess(checkoutSession)),
+      (failure) {
+        print('Stripe session creation failed: ${failure.errorMessage}');
+        emit(StripeFailure(failure.errorMessage));
+      },
+      (checkoutSession) {
+        print('Stripe session created successfully: ${checkoutSession.id}');
+        emit(StripeSuccess(checkoutSession));
+      },
     );
   }
 
@@ -33,6 +42,8 @@ class StripeCubit extends Cubit<StripeState> {
     required String selectedPrice,
     required String selectedDuration,
   }) {
+    print(
+        'Package selected: Index: $selectedIndex, Price: $selectedPrice, Duration: $selectedDuration');
     emit(StripePackageSelected(
       selectedIndex: selectedIndex,
       selectedPrice: selectedPrice,

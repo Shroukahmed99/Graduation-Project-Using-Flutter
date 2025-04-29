@@ -12,9 +12,15 @@ class TopRatingCubit extends Cubit<TopRatingState> {
     emit(TopRatingLoding());
     final result = await homeRepo.topRaring();
 
+    if (isClosed) return;
+
     result.fold(
-      (failure) => emit(TopRatingFailure(failure.errorMessage)),
-      (providers) => emit(TopRatingSuccess(providers)),
+      (failure) {
+        if (!isClosed) emit(TopRatingFailure(failure.errorMessage));
+      },
+      (providers) {
+        if (!isClosed) emit(TopRatingSuccess(providers));
+      },
     );
   }
 }

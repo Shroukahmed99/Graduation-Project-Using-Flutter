@@ -18,6 +18,10 @@ class StripeRepoImpl implements StripeRepo {
     required String price,
   }) async {
     try {
+      // Printing the request data being sent
+      print('Requesting Stripe session with ID: $id');
+      print('Goal: $goal, Duration: $duration, Price: $price');
+
       final Map<String, dynamic> response = await apiService.post(
         endpoint: 'bookings/checkout-session/$id',
         data: {
@@ -27,16 +31,22 @@ class StripeRepoImpl implements StripeRepo {
         },
       );
 
+      print('Response received: $response');
+
       if (response['status'] == 'success' && response['session'] != null) {
         final session = CheckoutSession.fromJson(response['session']);
+        print('Stripe session created successfully: ${session.id}');
         return Right(session);
       } else {
         final errorMessage = response['message'] ?? 'Unknown error';
+        print('Error from server: $errorMessage');
         return Left(ServerFailure(errorMessage));
       }
     } on DioException catch (e) {
+      print('Dio exception occurred: ${e.message}');
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
+      print('Unexpected error: $e');
       return Left(ServerFailure(e.toString()));
     }
   }
