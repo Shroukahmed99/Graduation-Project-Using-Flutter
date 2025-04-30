@@ -20,7 +20,6 @@ class ArticleRepoImpl implements ArticleRepo {
   Future<Either<Failure, AddArticleModel>> addArticle({
     required String title,
     required String content,
-    required String serviceProviderId,
     File? image,
   }) async {
     try {
@@ -38,7 +37,6 @@ class ArticleRepoImpl implements ArticleRepo {
       FormData formData = FormData.fromMap({
         'title': title,
         'content': content,
-        'serviceproviderId': serviceProviderId,
         if (multipartFile != null) 'img': multipartFile,
       });
 

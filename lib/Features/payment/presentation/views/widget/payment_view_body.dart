@@ -54,22 +54,26 @@ class PaymentViewBody extends StatelessWidget {
       {
         'title': 'Starter Plan',
         'price': priceFromApi,
-        'duration': '1 Month Access',
+        'duration': '1',
+        'label': '1 Month Access',
       },
       {
         'title': 'Standard Plan',
         'price': (int.parse(priceFromApi) * 2).toString(),
-        'duration': '3 Months Access',
+        'duration': '3',
+        'label': '3 Months Access',
       },
       {
         'title': 'Premium Plan',
         'price': (int.parse(priceFromApi) * 6).toString(),
-        'duration': '6 Months Access',
+        'duration': '6',
+        'label': '6 Months Access',
       },
       {
         'title': 'Annual Plan',
         'price': (int.parse(priceFromApi) * 12).toString(),
-        'duration': '1 Year Access',
+        'duration': '12',
+        'label': '1 Year Access',
       },
     ]);
 

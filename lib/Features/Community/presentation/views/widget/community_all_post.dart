@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/Community/data/models/get_all_post.dart';
+import 'package:sehatak/Features/Community/presentation/manger/likePost/like_post_cubit.dart';
 import 'package:sehatak/const.dart';
 
 class CommunityAllPost extends StatelessWidget {
   final VoidCallback onCommentTap;
+  final GetCommunity post;
 
-  const CommunityAllPost({super.key, required this.onCommentTap});
+  const CommunityAllPost({
+    super.key,
+    required this.onCommentTap,
+    required this.post,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final String postId = post.id;
+
     return Padding(
       padding: EdgeInsets.only(left: 35.w, right: 35.w, bottom: 14.h),
       child: Container(
@@ -27,9 +37,9 @@ class CommunityAllPost extends StatelessWidget {
                   backgroundImage: const AssetImage("assets/images/4.png"),
                 ),
                 SizedBox(width: 8.w),
-                const Text(
-                  "KHALED",
-                  style: TextStyle(
+                Text(
+                  post.clientId.fullName,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kPrimaryColor,
                   ),
@@ -37,23 +47,49 @@ class CommunityAllPost extends StatelessWidget {
               ],
             ),
             SizedBox(height: 12.h),
-            const Text(
-              "Lorem ipsum dolor sit amet consectetur. Tortor aenean suspendisse pretium nunc non facilisi.",
-              style: TextStyle(fontSize: 12, color: Colors.black),
+            Text(
+              post.content,
+              style: const TextStyle(fontSize: 12, color: Colors.black),
             ),
             SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.favorite, color: kPrimaryColor, size: 18.sp),
-                    SizedBox(width: 4.w),
-                    const Text(
-                      "30,254",
-                      style: TextStyle(color: kPrimaryColor),
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    context.read<LikePostCubit>().likePost(postId);
+                  },
+                  child: BlocBuilder<LikePostCubit, LikePostState>(
+                    builder: (context, state) {
+                      int likes = post.likesCount;
+                      bool isLiked = false;
+
+                      if (state is LikePostSuccess && state.postId == post.id) {
+                        likes = state.updatedLikesCount;
+                        isLiked = state.isLiked;
+                      }
+
+                      return Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              context.read<LikePostCubit>().likePost(postId);
+                            },
+                            child: Icon(
+                              Icons.favorite,
+                              color: isLiked ? Colors.red : kPrimaryColor,
+                              size: 18.sp,
+                            ),
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            likes.toString(),
+                            style: const TextStyle(color: kPrimaryColor),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
                 GestureDetector(
                   onTap: onCommentTap,
@@ -61,9 +97,9 @@ class CommunityAllPost extends StatelessWidget {
                     children: [
                       Icon(Icons.sms, color: kPrimaryColor, size: 18.sp),
                       SizedBox(width: 4.w),
-                      const Text(
-                        "1,254",
-                        style: TextStyle(color: kPrimaryColor),
+                      Text(
+                        post.commentCount.toString(),
+                        style: const TextStyle(color: kPrimaryColor),
                       ),
                     ],
                   ),

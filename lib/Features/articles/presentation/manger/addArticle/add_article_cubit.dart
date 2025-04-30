@@ -53,7 +53,6 @@ class AddArticleCubit extends Cubit<AddArticleState> {
     final result = await articleRepo.addArticle(
       title: titleController.text,
       content: contentController.text,
-      serviceProviderId: serviceProviderId,
       image: selectedImage,
     );
 

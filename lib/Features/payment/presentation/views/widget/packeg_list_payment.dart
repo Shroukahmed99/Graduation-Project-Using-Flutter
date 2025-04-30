@@ -72,7 +72,7 @@ class PackageListWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 14),
                               Text(
-                                pkg['duration']!,
+                                pkg['label']!,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,

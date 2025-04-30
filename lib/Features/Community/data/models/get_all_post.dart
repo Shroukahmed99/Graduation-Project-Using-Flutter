@@ -19,7 +19,7 @@ class CommunityListResponse {
 }
 
 class CommunityListData {
-  final List<Community> communities;
+  final List<GetCommunity> communities;
 
   CommunityListData({
     required this.communities,
@@ -27,14 +27,14 @@ class CommunityListData {
 
   factory CommunityListData.fromJson(Map<String, dynamic> json) {
     return CommunityListData(
-      communities: List<Community>.from(
-        json['communities'].map((x) => Community.fromJson(x)),
+      communities: List<GetCommunity>.from(
+        json['communities'].map((x) => GetCommunity.fromJson(x)),
       ),
     );
   }
 }
 
-class Community {
+class GetCommunity {
   final String id;
   final String content;
   final String? img;
@@ -44,7 +44,7 @@ class Community {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  Community({
+  GetCommunity({
     required this.id,
     required this.content,
     this.img,
@@ -55,8 +55,8 @@ class Community {
     required this.updatedAt,
   });
 
-  factory Community.fromJson(Map<String, dynamic> json) {
-    return Community(
+  factory GetCommunity.fromJson(Map<String, dynamic> json) {
+    return GetCommunity(
       id: json['_id'],
       content: json['content'],
       img: json['img'],

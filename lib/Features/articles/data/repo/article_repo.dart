@@ -11,7 +11,6 @@ abstract class ArticleRepo {
   Future<Either<Failure, AddArticleModel>> addArticle({
     required String title,
     required String content,
-    required String serviceProviderId,
     File? image,
   });
 
