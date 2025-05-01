@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/payment/presentation/manger/strip/strip_cubit.dart';
 import 'package:sehatak/Features/payment/presentation/manger/strip/strip_state.dart';
 import 'package:sehatak/Features/payment/presentation/views/widget/goal_input_payment.dart';
@@ -91,32 +92,33 @@ class PaymentViewBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: [
-                const SizedBox(height: 30),
-                const Text(
+                SizedBox(height: 40.h),
+                Text(
                   'BOOK NOW',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                     color: accentColor,
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 PackageListWidget(
                   packages: packages,
                 ),
-                const SizedBox(height: 30),
-                const Align(
+                SizedBox(height: 30.h),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'What\'s Your Goal?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 30.h),
                 GoalInputWidget(
                   controller: goalController,
                 ),
-                const SizedBox(height: 60),
+                SizedBox(height: 70.h),
                 CustomButtomBookNow(
                   text: state is StripeLoading ? 'Processing...' : 'BOOK NOW',
                   onTap: () => _bookNow(context, state),

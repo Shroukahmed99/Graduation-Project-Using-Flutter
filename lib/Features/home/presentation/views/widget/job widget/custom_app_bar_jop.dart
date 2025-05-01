@@ -5,9 +5,14 @@ import 'package:sehatak/core/widget/Custom_Arrow_Icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBarJob extends StatelessWidget {
-  const CustomAppBarJob({super.key, required this.title, required this.image});
+  const CustomAppBarJob({
+    super.key,
+    required this.title,
+    this.image,
+  });
+
   final String title;
-  final String image;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +25,14 @@ class CustomAppBarJob extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          SizedBox(
-            width: 30.w,
-            height: 30.h,
-            child: Image.asset(
-              image,
+          if (image != null) ...[
+            SizedBox(width: 10.w),
+            SizedBox(
+              width: 30.w,
+              height: 30.h,
+              child: Image.asset(image!),
             ),
-          ),
+          ],
           SizedBox(width: 10.w),
           Text(
             title,

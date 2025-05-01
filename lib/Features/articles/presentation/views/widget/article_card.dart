@@ -24,7 +24,7 @@ class ArticleCard extends StatelessWidget {
               image: article.image != null
                   ? NetworkImage(article.image!)
                   : const AssetImage('assets/images/3.png') as ImageProvider,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           child: Padding(

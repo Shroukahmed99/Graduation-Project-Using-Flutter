@@ -33,7 +33,7 @@ class CustomBottomNavigationHomeProvider extends StatelessWidget {
                   },
                 ),
                 IconNavigationBottom(
-                  imagePath: 'assets/images/communitynav.png',
+                  imagePath: 'assets/images/si_library-books-fill.png',
                   index: 2,
                   isSelected: state == 2,
                   onTap: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/payment/presentation/manger/strip/strip_cubit.dart';
 import 'package:sehatak/Features/payment/presentation/manger/strip/strip_state.dart';
 import 'package:sehatak/Features/payment/presentation/views/widget/feature_item.dart';
@@ -21,7 +22,7 @@ class PackageListWidget extends StatelessWidget {
         }
 
         return SizedBox(
-          height: 300,
+          height: 330.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: packages.length,
@@ -38,67 +39,67 @@ class PackageListWidget extends StatelessWidget {
                   );
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding: EdgeInsets.only(right: 16.w),
                   child: Stack(
                     children: [
                       Container(
-                        width: 190,
+                        width: 190.w,
                         decoration: BoxDecoration(
                           color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(16.0.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 5),
+                              SizedBox(height: 5.h),
                               Text(
                                 pkg['title']!,
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 14),
+                              SizedBox(height: 14.h),
                               Text(
-                                "\$${pkg['price']!}",
-                                style: const TextStyle(
-                                  fontSize: 22,
+                                "${pkg['price']!} EGP",
+                                style: TextStyle(
+                                  fontSize: 22.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 14),
+                              SizedBox(height: 14.h),
                               Text(
                                 pkg['label']!,
-                                style: const TextStyle(
-                                  fontSize: 16,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(height: 14),
+                              SizedBox(height: 14.h),
                               const FeatureItem(text: "Customized Plan"),
-                              const SizedBox(height: 3),
+                              SizedBox(height: 3.h),
                               const FeatureItem(text: "Chat for communication"),
-                              const SizedBox(height: 3),
+                              SizedBox(height: 3.h),
                               const FeatureItem(text: "Important Advices"),
-                              const SizedBox(height: 3),
+                              SizedBox(height: 3.h),
                               const FeatureItem(text: "Continuous follow-up"),
                               const Spacer(),
                               Center(
                                 child: isSelected
-                                    ? const Icon(
+                                    ? Icon(
                                         Icons.check_circle,
                                         color: Colors.white,
-                                        size: 30,
+                                        size: 30.sp,
                                       )
-                                    : const CustomButtomBookNow(
+                                    : CustomButtomBookNow(
                                         colorText: Colors.black,
-                                        fontSize: 11,
-                                        height: 30,
-                                        width: 70,
+                                        fontSize: 11.sp,
+                                        height: 30.h,
+                                        width: 70.w,
                                         color: Colors.white,
                                         text: 'CHOOSE',
                                       ),
@@ -108,19 +109,21 @@ class PackageListWidget extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: 15,
-                        right: -18,
+                        top: 15.h,
+                        right: -18.w,
                         child: Transform.rotate(
                           angle: 0.785398,
                           child: Container(
                             color: Colors.black,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 1, horizontal: 20),
-                            child: const Text(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 1.h,
+                              horizontal: 20.w,
+                            ),
+                            child: Text(
                               'Best Offer',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 10,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

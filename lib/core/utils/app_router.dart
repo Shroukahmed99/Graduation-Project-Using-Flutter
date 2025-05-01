@@ -18,6 +18,7 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
+import 'package:sehatak/Features/chat/presentation/views/chat_view.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_model.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_new_model.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers.dart';
@@ -97,6 +98,7 @@ abstract class AppRouter {
   static const kPaymentView = '/PaymentView';
 
   static const kArticleDetailsPage = '/ArticleDetailsPage:id';
+  static const kChatView = '/ChatView';
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -315,5 +317,9 @@ abstract class AppRouter {
             id: articleId,
           );
         }),
+    GoRoute(
+      path: kChatView,
+      builder: (context, state) => const ChatView(),
+    ),
   ]);
 }

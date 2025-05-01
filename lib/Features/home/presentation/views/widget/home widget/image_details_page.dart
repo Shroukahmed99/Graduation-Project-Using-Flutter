@@ -46,13 +46,13 @@ class ArticleDetailsPage extends StatelessWidget {
                               article.img!,
                               width: double.infinity,
                               height: 300.h,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             )
                           : Image.asset(
                               "assets/images/3.png",
                               width: double.infinity,
                               height: 300.h,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                     ),
                   ),
@@ -99,7 +99,8 @@ class ArticleDetailsPage extends StatelessWidget {
                                     CircleAvatar(
                                       radius: 20.sp,
                                       backgroundImage: const AssetImage(
-                                          "assets/images/3.png"),
+                                        "assets/images/3.png",
+                                      ),
                                     ),
                                     SizedBox(width: 10.w),
                                     Text(

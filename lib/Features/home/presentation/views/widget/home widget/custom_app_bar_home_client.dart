@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sehatak/Features/chat/presentation/views/all_chat_client_view.dart';
 import 'package:sehatak/const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,7 +31,13 @@ class CustomAppBarHomeClient extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AllChatClientView()),
+              );
+            },
             icon: Icon(
               color: accentColor,
               Icons.chat_bubble,

@@ -85,7 +85,7 @@ class _CommunityAllPostState extends State<CommunityAllPost> {
                 ),
                 child: Image.network(
                   widget.post.img!,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
