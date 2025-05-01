@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/presentation/views/widget/article_input_card.dart';
 import 'package:sehatak/Features/articles/presentation/views/widget/articles_list_view.dart';
-import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/custom_app_bar_home.dart';
+import 'package:sehatak/core/widget/custom_app_bar_home.dart';
 import 'package:sehatak/const.dart';
 
 class ArticlesViewBody extends StatelessWidget {

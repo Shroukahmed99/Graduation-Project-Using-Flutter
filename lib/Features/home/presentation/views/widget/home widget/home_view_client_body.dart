@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/custom_app_bar_home_client.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/category_item.dart';
-import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_app_bar_home.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_articles.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_rating_section.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/recommendations_section.dart';
@@ -18,7 +18,7 @@ class HomeViewClientBody extends StatelessWidget {
       padding: EdgeInsets.only(top: 25.h),
       child: Column(
         children: [
-          const CustomAppBarHome(
+          const CustomAppBarHomeClient(
             title: 'Hi, Mohamed',
           ),
           Padding(

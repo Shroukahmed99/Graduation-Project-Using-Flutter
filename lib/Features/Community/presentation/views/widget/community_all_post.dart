@@ -37,96 +37,102 @@ class _CommunityAllPostState extends State<CommunityAllPost> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 35.w, right: 35.w, bottom: 14.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // جزء الصورة واسم الشخص خارج الكونتينر
           Row(
             children: [
               CircleAvatar(
-                radius: 15.r,
+                radius: 18.r,
                 backgroundImage: const AssetImage("assets/images/4.png"),
               ),
-              SizedBox(width: 8.w),
+              SizedBox(width: 10.w),
               Text(
                 widget.post.clientId.fullName,
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryColor,
-                    fontSize: 10),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: kPrimaryColor,
+                  fontSize: 12.sp,
+                ),
               ),
             ],
           ),
-          SizedBox(height: 12.h),
-
-          // النص
+          SizedBox(height: 10.h),
           Text(
             widget.post.content,
-            style: const TextStyle(fontSize: 12, color: Colors.black),
-          ),
-
-          Container(
-            height: 200.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-              border: Border.all(color: kPrimaryColor),
-              image: DecorationImage(
-                image: NetworkImage(widget.post.img.toString()),
-                fit: BoxFit.fill,
-              ),
+            style: TextStyle(
+              fontSize: 13.sp,
+              color: Colors.black87,
+              height: 1.4,
             ),
           ),
-
-          Column(
+          SizedBox(height: 12.h),
+          if ((widget.post.img ?? '').isNotEmpty)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Container(
+                height: 200.h,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Image.network(
+                  widget.post.img!,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          SizedBox(height: 14.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: 16.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BlocListener<LikePostCubit, LikePostState>(
-                    listener: (context, state) {
-                      if (state is LikePostSuccess &&
-                          state.postId == widget.post.id) {
-                        setState(() {
-                          likes = state.updatedLikesCount;
-                          isLiked = state.isLiked;
-                        });
-                      }
-                    },
-                    child: GestureDetector(
-                      onTap: _toggleLike,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.favorite,
-                            color: isLiked ? Colors.red : kPrimaryColor,
-                            size: 18.sp,
-                          ),
-                          SizedBox(width: 4.w),
-                          Text(
-                            likes.toString(),
-                            style: const TextStyle(color: kPrimaryColor),
-                          ),
-                        ],
+              BlocListener<LikePostCubit, LikePostState>(
+                listener: (context, state) {
+                  if (state is LikePostSuccess &&
+                      state.postId == widget.post.id) {
+                    setState(() {
+                      likes = state.updatedLikesCount;
+                      isLiked = state.isLiked;
+                    });
+                  }
+                },
+                child: GestureDetector(
+                  onTap: _toggleLike,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: isLiked ? Colors.red : kPrimaryColor,
+                        size: 20.sp,
                       ),
-                    ),
+                      SizedBox(width: 5.w),
+                      Text(
+                        likes.toString(),
+                        style: const TextStyle(color: kPrimaryColor),
+                      ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () => widget.onCommentTap(widget.post.id),
-                    child: Row(
-                      children: [
-                        Icon(Icons.sms, color: kPrimaryColor, size: 18.sp),
-                        SizedBox(width: 4.w),
-                        Text(
-                          widget.post.commentCount.toString(),
-                          style: const TextStyle(color: kPrimaryColor),
-                        ),
-                      ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () => widget.onCommentTap(widget.post.id),
+                child: Row(
+                  children: [
+                    Icon(Icons.sms, color: kPrimaryColor, size: 20.sp),
+                    SizedBox(width: 5.w),
+                    Text(
+                      widget.post.commentCount.toString(),
+                      style: const TextStyle(color: kPrimaryColor),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

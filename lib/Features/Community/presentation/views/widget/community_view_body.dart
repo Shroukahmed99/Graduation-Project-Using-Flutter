@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Community/presentation/views/widget/community_all_post_list_view.dart';
 import 'package:sehatak/Features/Community/presentation/views/widget/create_post.dart';
 import 'package:sehatak/const.dart';
-import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_app_bar_home.dart';
+import 'package:sehatak/core/widget/custom_app_bar_home.dart';
 
 class CommunityViewBody extends StatelessWidget {
   const CommunityViewBody({super.key});
