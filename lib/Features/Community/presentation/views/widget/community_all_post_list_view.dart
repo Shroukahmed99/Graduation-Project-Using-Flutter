@@ -27,7 +27,7 @@ class CommunityAllPostListView extends StatelessWidget {
               final post = posts[index];
               return CommunityAllPost(
                 post: post,
-                onCommentTap: () => showCommentSheet(context),
+                onCommentTap: (postId) => showCommentSheet(context, postId),
               );
             },
           );

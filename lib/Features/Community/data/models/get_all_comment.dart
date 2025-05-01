@@ -19,7 +19,7 @@ class CommentListResponse {
 }
 
 class CommentListData {
-  final List<Comment> comments;
+  final List<CommentAll> comments;
 
   CommentListData({
     required this.comments,
@@ -27,14 +27,14 @@ class CommentListData {
 
   factory CommentListData.fromJson(Map<String, dynamic> json) {
     return CommentListData(
-      comments: List<Comment>.from(
-        json['comments'].map((x) => Comment.fromJson(x)),
+      comments: List<CommentAll>.from(
+        json['comments'].map((x) => CommentAll.fromJson(x)),
       ),
     );
   }
 }
 
-class Comment {
+class CommentAll {
   final String id;
   final String content;
   final String postId;
@@ -43,7 +43,7 @@ class Comment {
   final String fullName;
   final DateTime createdAt;
 
-  Comment({
+  CommentAll({
     required this.id,
     required this.content,
     required this.postId,
@@ -53,8 +53,8 @@ class Comment {
     required this.createdAt,
   });
 
-  factory Comment.fromJson(Map<String, dynamic> json) {
-    return Comment(
+  factory CommentAll.fromJson(Map<String, dynamic> json) {
+    return CommentAll(
       id: json['_id'],
       content: json['content'],
       postId: json['postId'],

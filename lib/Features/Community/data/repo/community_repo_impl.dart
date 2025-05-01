@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:sehatak/Features/Community/data/models/create_comment.dart';
 import 'package:sehatak/Features/Community/data/models/create_post.dart';
+import 'package:sehatak/Features/Community/data/models/get_all_comment.dart';
 import 'package:sehatak/Features/Community/data/models/get_all_post.dart';
 import 'package:sehatak/Features/Community/data/models/likes.dart';
 import 'package:sehatak/Features/Community/data/repo/community_repo.dart';
@@ -106,6 +108,45 @@ class CommunityRepoImpl implements CommunityRepo {
 
       if (response['status'] == 'success') {
         return Right(LikePostResponse.fromJson(response));
+      } else {
+        return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
+      }
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AddCommentResponse>> addComment(
+      {required String postId, required String content}) async {
+    try {
+      final response = await apiService.post(
+        endpoint: 'community/$postId/createComment',
+        data: {'content': content},
+      );
+
+      if (response['status'] == 'success') {
+        return Right(AddCommentResponse.fromJson(response));
+      } else {
+        return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
+      }
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CommentAll>>> getAllComment(String postId) async {
+    try {
+      final response =
+          await apiService.get(endpoint: 'community/$postId/allComments');
+      if (response['status'] == 'success') {
+        final commentListResponse = CommentListResponse.fromJson(response);
+        return Right(commentListResponse.data.comments);
       } else {
         return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
       }

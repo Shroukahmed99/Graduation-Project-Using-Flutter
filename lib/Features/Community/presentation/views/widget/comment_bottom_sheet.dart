@@ -1,10 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/Community/data/repo/community_repo_impl.dart';
+import 'package:sehatak/Features/Community/presentation/manger/getAllComment/get_all_comment_cubit.dart';
 import 'package:sehatak/Features/Community/presentation/views/widget/get_all_comment_list_view.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 
 class CommentBottomSheet extends StatelessWidget {
-  const CommentBottomSheet({super.key});
+  final String postId;
+
+  const CommentBottomSheet({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +32,10 @@ class CommentBottomSheet extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12.h),
-          const Expanded(
-            child: GetAllCommentListView(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: GetAllCommentListView(postId: postId),
+            ),
           ),
           SizedBox(height: 12.h),
           Row(
@@ -67,11 +76,16 @@ class CommentBottomSheet extends StatelessWidget {
   }
 }
 
-void showCommentSheet(BuildContext context) {
+void showCommentSheet(BuildContext context, String postId) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => const CommentBottomSheet(),
+    builder: (_) => BlocProvider(
+      create: (context) =>
+          GetAllCommentCubit(CommunityRepoImpl(ApiService(Dio())))
+            ..getAllComment(postId),
+      child: CommentBottomSheet(postId: postId),
+    ),
   );
 }

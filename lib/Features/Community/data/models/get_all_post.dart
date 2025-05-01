@@ -43,6 +43,7 @@ class GetCommunity {
   final int commentCount;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final bool isLiked; // ✅ أضف هذا السطر
 
   GetCommunity({
     required this.id,
@@ -53,6 +54,7 @@ class GetCommunity {
     required this.commentCount,
     required this.createdAt,
     required this.updatedAt,
+    required this.isLiked, // ✅ أضف هذا السطر
   });
 
   factory GetCommunity.fromJson(Map<String, dynamic> json) {
@@ -65,6 +67,7 @@ class GetCommunity {
       commentCount: json['commentCount'],
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
+      isLiked: json['isLiked'] ?? false,
     );
   }
 }
