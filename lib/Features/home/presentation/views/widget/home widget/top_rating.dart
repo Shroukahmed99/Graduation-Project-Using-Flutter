@@ -25,6 +25,7 @@ class TopRating extends StatelessWidget {
         }
       },
       child: Container(
+        height: 70,
         width: 121.w,
         decoration: BoxDecoration(
           color: const Color(0xffFAF3E1),
@@ -57,6 +58,9 @@ class TopRating extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       provider.job,
                       style: TextStyle(
@@ -71,10 +75,10 @@ class TopRating extends StatelessWidget {
             ),
             SizedBox(height: 1.h),
             Divider(
-              endIndent: 50,
-              height: 1.h,
+              endIndent: 35,
+              height: 10.h,
               color: const Color(0xFFD9D4C3),
-              thickness: 1,
+              thickness: 2,
             ),
             SizedBox(height: 1.h),
             Row(

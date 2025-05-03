@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Community/presentation/views/community_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
@@ -18,7 +19,9 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
-import 'package:sehatak/Features/chat/presentation/views/chat_view.dart';
+import 'package:sehatak/Features/chat/data/repo/chat_repo_impl.dart';
+import 'package:sehatak/Features/chat/presentation/views/chat_view_client.dart';
+import 'package:sehatak/Features/chat/presentation/views/chat_view_service.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_model.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_new_model.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers.dart';
@@ -48,6 +51,7 @@ import 'package:sehatak/Features/Splash/Presentation/views/second_splash_screen.
 import 'package:sehatak/Features/success%20register/set_password_success.dart';
 import 'package:sehatak/Features/success%20register/success_view_client.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
+import 'package:sehatak/core/utils/api_service.dart';
 
 abstract class AppRouter {
   static const kSecondSplashScreen = "/SecondSplashScreen";
@@ -98,7 +102,8 @@ abstract class AppRouter {
   static const kPaymentView = '/PaymentView';
 
   static const kArticleDetailsPage = '/ArticleDetailsPage:id';
-  static const kChatView = '/ChatView';
+  static const kChatViewClient = '/ChatViewClient';
+  static const kChatViewService = '/ChatViewService';
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -318,8 +323,42 @@ abstract class AppRouter {
           );
         }),
     GoRoute(
-      path: kChatView,
-      builder: (context, state) => const ChatView(),
+      path: kChatViewClient,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+
+        final id = extra['id'];
+        final senderId = extra['senderId'];
+        final receiverId = extra['receiverId'];
+
+        final chatRepo = ChatRepoImpl(ApiService(Dio()));
+
+        return ChatViewClient(
+          bookingId: id,
+          chatRepo: chatRepo,
+          senderId: senderId,
+          receiverId: receiverId,
+        );
+      },
+    ),
+    GoRoute(
+      path: kChatViewService,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        final id = extra['id'];
+        final senderId = extra['senderId'];
+
+        final receiverId = extra['receiverId'];
+
+        final chatRepo = ChatRepoImpl(ApiService(Dio()));
+
+        return ChatViewService(
+          bookingId: id,
+          chatRepo: chatRepo,
+          senderId: senderId,
+          receiverId: receiverId,
+        );
+      },
     ),
   ]);
 }

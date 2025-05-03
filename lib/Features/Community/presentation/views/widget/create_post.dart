@@ -40,7 +40,7 @@ class CreatePost extends StatelessWidget {
                   CircleAvatar(radius: 20.r),
                   SizedBox(width: 8.w),
                   const Text(
-                    "MOHAMED KHALED",
+                    "Client",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: kPrimaryColor,

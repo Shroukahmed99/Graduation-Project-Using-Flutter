@@ -9,7 +9,7 @@ class RatingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.h,
+      height: 120.h,
       width: 393.w,
       color: kPrimaryColor,
       child: Column(

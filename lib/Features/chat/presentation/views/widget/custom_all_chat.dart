@@ -99,7 +99,14 @@ class CustomAllChat extends StatelessWidget {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kChatView);
+                      GoRouter.of(context).push(
+                        AppRouter.kChatViewClient,
+                        extra: {
+                          'id': data.id,
+                          'senderId': data.client,
+                          'receiverId': data.serviceProvider.userId,
+                        },
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),

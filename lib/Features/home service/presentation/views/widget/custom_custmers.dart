@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sehatak/Features/home%20service/data/models/custmer_model.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/utils/app_router.dart';
 
 class CustomCustmers extends StatelessWidget {
   final PaymentData data;
@@ -81,20 +83,32 @@ class CustomCustmers extends StatelessWidget {
                   SizedBox(
                     width: 130.w,
                   ),
-                  Container(
-                    height: 17.h,
-                    width: 60.w,
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(5.r),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "OPEN",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8.sp,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push(
+                        AppRouter.kChatViewService,
+                        extra: {
+                          'id': data.id,
+                          'senderId': data.serviceProvider,
+                          'receiverId': data.client.userId,
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 17.h,
+                      width: 60.w,
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "OPEN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
