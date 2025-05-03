@@ -27,49 +27,37 @@ class MessageResponse {
 }
 
 class Message {
-  // final String? id;
   final String bookingId;
   final String senderId;
   final String receiverId;
   final String senderType;
   final String text;
-  // final DateTime? createdAt;
-  // final int? v;
 
   Message({
-    // this.id,
     required this.bookingId,
     required this.senderId,
     required this.receiverId,
     required this.senderType,
     required this.text,
-    // this.createdAt,
-    // this.v,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      // id: json['_id'],
       bookingId: json['bookingId'],
       senderId: json['senderId'],
       receiverId: json['receiverId'],
       senderType: json['senderType'],
       text: json['text'],
-      // createdAt: DateTime.parse(json['createdAt']),
-      // v: json['__v'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      // '_id': id,
       'bookingId': bookingId,
       'senderId': senderId,
       'receiverId': receiverId,
       'senderType': senderType,
       'text': text,
-      // 'createdAt': createdAt!.toIso8601String(),
-      // '__v': v,
     };
   }
 }

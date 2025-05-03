@@ -5,7 +5,7 @@ import 'package:sehatak/features/home/presentation/views/widget/job%20widget/cus
 class ChatViewBodyClient extends StatelessWidget {
   final String bookingId;
   final String senderId;
-  final String receiverId; // ✅ أضفنا هذا
+  final String receiverId;
 
   const ChatViewBodyClient({
     super.key,
@@ -19,7 +19,7 @@ class ChatViewBodyClient extends StatelessWidget {
     return Column(
       children: [
         const CustomAppBarJob(title: 'Chats'),
-        const SizedBox(height: 20),
+        const SizedBox(height: 1),
         Expanded(
           child: ChatMessageClient(
             bookingId: bookingId,

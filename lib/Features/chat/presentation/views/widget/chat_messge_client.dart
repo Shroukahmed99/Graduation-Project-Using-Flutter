@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/chat/data/models/message.dart';
-import 'package:sehatak/Features/chat/presentation/manger/cubit/chat_cubit.dart';
+import 'package:sehatak/Features/chat/presentation/manger/chatCubit/chat_cubit.dart';
+import 'package:sehatak/Features/chat/presentation/views/widget/chat_bubble.dart';
 import 'package:sehatak/const.dart';
 
 class ChatMessageClient extends StatefulWidget {
   final String bookingId;
   final String senderId;
-  final String receiverId; // ✅ أضفنا هذا
+  final String receiverId;
 
   const ChatMessageClient({
     super.key,
     required this.bookingId,
     required this.senderId,
-    required this.receiverId, // ✅
+    required this.receiverId,
   });
 
   @override
@@ -22,77 +24,126 @@ class ChatMessageClient extends StatefulWidget {
 
 class _ChatViewBodyState extends State<ChatMessageClient> {
   final TextEditingController _messageController = TextEditingController();
+  bool _isSending = false;
 
   @override
   void initState() {
     super.initState();
-    print('Initializing chat for bookingId: ${widget.bookingId}');
     context.read<ChatCubit>().initChat(widget.bookingId);
+  }
+
+  void _sendMessage() async {
+    if (_isSending) return;
+
+    final text = _messageController.text.trim();
+    if (text.isEmpty) return;
+
+    setState(() {
+      _isSending = true;
+    });
+
+    final message = Message(
+      bookingId: widget.bookingId,
+      senderId: widget.senderId,
+      receiverId: widget.receiverId,
+      senderType: 'client',
+      text: text,
+    );
+
+    await context.read<ChatCubit>().sendMessage(message);
+    _messageController.clear();
+
+    setState(() {
+      _isSending = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        print('Current state: $state');
         if (state is ChatLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ChatLoaded) {
+          final messages = state.messages.reversed.toList();
+
+          final welcomeMessage = messages.isNotEmpty ? messages.last : null;
+          final chatMessages = messages.length > 1
+              ? messages.sublist(0, messages.length - 1)
+              : [];
+
           return Column(
             children: [
+              if (welcomeMessage != null)
+                Container(
+                  padding: EdgeInsets.all(12.h),
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Text(
+                    welcomeMessage.text,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 12.sp,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              SizedBox(height: 10.h),
               Expanded(
-                child: ListView.builder(
-                  reverse: true,
-                  padding: const EdgeInsets.all(12),
-                  itemCount: state.messages.length,
-                  itemBuilder: (context, index) {
-                    final message = state.messages.reversed.toList()[index];
-                    return ChatBubble(
-                      message: message,
-                      isMine: message.senderId == widget.senderId,
-                    );
-                  },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16.r),
+                    border: Border.all(color: kPrimaryColor),
+                  ),
+                  child: ListView.builder(
+                    reverse: true,
+                    padding: EdgeInsets.all(1.w),
+                    itemCount: chatMessages.length,
+                    itemBuilder: (context, index) {
+                      final message = chatMessages[index];
+                      return ChatBubble(
+                        message: message,
+                        isMine: message.senderId == widget.senderId,
+                      );
+                    },
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: EdgeInsets.all(12.w),
                 child: Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: _messageController,
                         decoration: InputDecoration(
-                          hintText: 'Type message...',
+                          hintText: 'Type a message...',
                           filled: true,
                           fillColor: Colors.grey.shade100,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 8.h,
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     CircleAvatar(
+                      radius: 20.r,
                       backgroundColor: kPrimaryColor,
                       child: IconButton(
-                        icon: const Icon(Icons.send, color: Colors.white),
-                        onPressed: () {
-                          final text = _messageController.text.trim();
-                          if (text.isNotEmpty) {
-                            final message = Message(
-                              bookingId: widget.bookingId,
-                              senderId: widget.senderId,
-                              receiverId: widget.receiverId,
-                              senderType: 'client',
-                              text: text,
-                            );
-                            context.read<ChatCubit>().sendMessage(message);
-                            _messageController.clear();
-                          }
-                        },
+                        icon:
+                            Icon(Icons.send, color: Colors.white, size: 20.sp),
+                        onPressed: _isSending ? null : _sendMessage,
                       ),
                     ),
                   ],
@@ -101,39 +152,19 @@ class _ChatViewBodyState extends State<ChatMessageClient> {
             ],
           );
         } else if (state is ChatFailure) {
-          return Center(child: Text('Error: ${state.message}'));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: kPrimaryColor,
+              ),
+            );
+          });
+          return const SizedBox();
         } else {
           return const SizedBox();
         }
       },
-    );
-  }
-}
-
-class ChatBubble extends StatelessWidget {
-  final Message message;
-  final bool isMine;
-
-  const ChatBubble({super.key, required this.message, required this.isMine});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-        decoration: BoxDecoration(
-          color: isMine ? kPrimaryColor : const Color(0xffEEEFEF),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          message.text,
-          style: TextStyle(
-            color: isMine ? Colors.white : Colors.black87,
-          ),
-        ),
-      ),
     );
   }
 }

@@ -2,10 +2,14 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
   late IO.Socket socket;
+  bool _isConnected = false; // ✅ فلاغ لمنع الاتصال المتكرر
 
   void connect(String bookingId) {
+    if (_isConnected) return; // ✅ لو متصل خلاص ما تتصلش تاني
+    _isConnected = true;
+
     socket = IO.io(
-      'https://graduation-project-production-e386.up.railway.app', // ✅ رابط السيرفر فقط
+      'https://graduation-project-production-e386.up.railway.app',
       <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': false,
@@ -15,9 +19,9 @@ class SocketService {
     socket.connect();
 
     socket.onConnect((_) {
-      print('🔌 Socket connected'); // برنت للتأكد من الاتصال
-      socket.emit('joinRoom', bookingId); // ✅ انضمام للروم الصحيح
-      print('Joined room: $bookingId'); // برنت عند الانضمام للروم
+      print('🔌 Socket connected');
+      socket.emit('joinRoom', bookingId);
+      print('Joined room: $bookingId');
     });
 
     socket.onDisconnect((_) {
@@ -26,11 +30,12 @@ class SocketService {
   }
 
   void sendMessage(Map<String, dynamic> message) {
-    print('Sending message: $message'); // برنت عند إرسال الرسالة
-    socket.emit('sendMessage', message); // ✅ نفس الاسم في السيرفر
+    print('Sending message: $message');
+    socket.emit('sendMessage', message);
   }
 
   void onMessage(Function(Map<String, dynamic>) callback) {
+    socket.off('receiveMessage'); // ✅ مهم جداً
     socket.on('receiveMessage', (data) {
       print('Received message in onMessage: $data');
       callback(data);
@@ -38,7 +43,8 @@ class SocketService {
   }
 
   void dispose() {
-    socket.disconnect(); // ✅ استخدام disconnect بدل dispose
+    socket.disconnect();
+    _isConnected = false;
     print('Socket disconnected');
   }
 }

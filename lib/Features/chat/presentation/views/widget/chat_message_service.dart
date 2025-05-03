@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/chat/data/models/message.dart';
-import 'package:sehatak/Features/chat/presentation/manger/cubit/chat_cubit.dart';
+import 'package:sehatak/Features/chat/presentation/manger/chatCubit/chat_cubit.dart';
 import 'package:sehatak/const.dart';
 
 class ChatMessageService extends StatefulWidget {
@@ -22,83 +23,110 @@ class ChatMessageService extends StatefulWidget {
 
 class _ChatMessageServiceState extends State<ChatMessageService> {
   final TextEditingController _messageController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
+  bool _isSending = false;
 
-  void _sendMessage(List<Message> messages) {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatCubit>().initChat(widget.bookingId);
+  }
+
+  void _sendMessage() async {
+    if (_isSending) return;
+
     final text = _messageController.text.trim();
     if (text.isEmpty) return;
 
-    final receiverId = messages
-        .firstWhere(
-          (m) => m.senderId != widget.senderId,
-          orElse: () => Message(
-            bookingId: '',
-            senderId: '',
-            receiverId: '',
-            text: '',
-            senderType: '',
-          ),
-        )
-        .senderId;
-
-    if (receiverId.isEmpty) {
-      print('❌ Cannot send message: receiverId is empty');
-      return;
-    }
+    setState(() {
+      _isSending = true;
+    });
 
     final message = Message(
       bookingId: widget.bookingId,
       senderId: widget.senderId,
-      receiverId: receiverId,
+      receiverId: widget.receiverId,
       senderType: 'service_provider',
       text: text,
     );
 
-    print('📤 Sending message from UI: ${message.text}');
-    print('📤 Message Details: $message');
-
-    context.read<ChatCubit>().sendMessage(message);
+    await context.read<ChatCubit>().sendMessage(message);
     _messageController.clear();
+
+    setState(() {
+      _isSending = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: BlocBuilder<ChatCubit, ChatState>(
-        builder: (context, state) {
-          if (state is ChatLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ChatLoaded) {
-            final messages = state.messages.reversed.toList();
+    return BlocBuilder<ChatCubit, ChatState>(
+      builder: (context, state) {
+        if (state is ChatLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ChatLoaded) {
+          final messages = state.messages.reversed.toList();
 
-            return Column(
-              children: [
-                Expanded(
+          final welcomeMessage = messages.isNotEmpty ? messages.last : null;
+          final chatMessages = messages.length > 1
+              ? messages.sublist(0, messages.length - 1)
+              : [];
+
+          return Column(
+            children: [
+              if (welcomeMessage != null)
+                Container(
+                  padding: EdgeInsets.all(12.h),
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Text(
+                    welcomeMessage.text,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      fontSize: 12.sp,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              SizedBox(height: 10.h),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16.r),
+                    border: Border.all(color: kPrimaryColor),
+                  ),
                   child: ListView.builder(
-                    controller: _scrollController,
                     reverse: true,
-                    padding: const EdgeInsets.all(12),
-                    itemCount: messages.length,
+                    padding: EdgeInsets.all(1.w),
+                    itemCount: chatMessages.length,
                     itemBuilder: (context, index) {
-                      final message = messages[index];
+                      final message = chatMessages[index];
                       final isMine = message.senderId == widget.senderId;
                       return Align(
                         alignment: isMine
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         child: Container(
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          padding: EdgeInsets.all(10.w),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 4.h,
+                            horizontal: 8.w,
+                          ),
                           decoration: BoxDecoration(
                             color: isMine
                                 ? kPrimaryColor
                                 : const Color(0xffEEEFEF),
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12.r),
                           ),
                           child: Text(
                             message.text,
                             style: TextStyle(
                               color: isMine ? Colors.white : Colors.black87,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ),
@@ -106,48 +134,58 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _messageController,
-                          decoration: InputDecoration(
-                            hintText: 'Type message...',
-                            filled: true,
-                            fillColor: Colors.grey.shade100,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(12.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _messageController,
+                        decoration: InputDecoration(
+                          hintText: 'Type a message...',
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.r),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 8.h,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      CircleAvatar(
-                        backgroundColor: kPrimaryColor,
-                        child: IconButton(
-                          icon: const Icon(Icons.send, color: Colors.white),
-                          onPressed: () => _sendMessage(state.messages),
-                        ),
+                    ),
+                    SizedBox(width: 8.w),
+                    CircleAvatar(
+                      radius: 20.r,
+                      backgroundColor: kPrimaryColor,
+                      child: IconButton(
+                        icon:
+                            Icon(Icons.send, color: Colors.white, size: 20.sp),
+                        onPressed: _isSending ? null : _sendMessage,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          );
+        } else if (state is ChatFailure) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: kPrimaryColor,
+              ),
             );
-          } else if (state is ChatFailure) {
-            return Center(child: Text('Error: ${state.message}'));
-          } else {
-            return const SizedBox();
-          }
-        },
-      ),
+          });
+          return const SizedBox();
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }
