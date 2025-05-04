@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/custom_app_bar_home_client.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -8,6 +9,7 @@ import 'package:sehatak/features/home/presentation/views/widget/home%20widget/ca
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_articles.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_rating_section.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/recommendations_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeViewClientBody extends StatelessWidget {
   const HomeViewClientBody({super.key});
@@ -18,8 +20,14 @@ class HomeViewClientBody extends StatelessWidget {
       padding: EdgeInsets.only(top: 25.h),
       child: Column(
         children: [
-          const CustomAppBarHomeClient(
-            title: 'Hi, Mohamed',
+          BlocBuilder<SaveNameCubit, SaveNameState>(
+            builder: (context, state) {
+              return CustomAppBarHomeClient(
+                title: state is SaveNameClientLoaded
+                    ? "Hi, ${state.client.fullName.split(' ')[0]}"
+                    : "Hi, Loading...",
+              );
+            },
           ),
           Padding(
             padding: EdgeInsets.only(left: 24.w),

@@ -9,6 +9,7 @@ import 'package:sehatak/Features/home%20service/presentation/manger/select_custo
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_custmers_list_view.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/custom_new_custmers_list_view.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/select_custmers_request.dart';
+import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/core/widget/custom_app_bar_home.dart';
 
@@ -43,7 +44,15 @@ class HomeServiceViewContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const CustomAppBarHome(title: 'Hi, Mohamed'),
+        BlocBuilder<SaveNameCubit, SaveNameState>(
+          builder: (context, state) {
+            return CustomAppBarHome(
+              title: state is SaveNameProviderLoaded
+                  ? "Hi, ${state.provider.fullName.split(' ')[0]}"
+                  : "Hi, Loading...",
+            );
+          },
+        ),
         Padding(
           padding: EdgeInsets.only(left: 24.w),
           child: Align(

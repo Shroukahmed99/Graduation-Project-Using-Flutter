@@ -16,6 +16,10 @@ class CustomNewCustmersListView extends StatelessWidget {
           return Center(child: Text(state.message));
         } else if (state is NewCustmerSuccess) {
           final customers = state.data;
+          if (customers.isEmpty) {
+            return const Center(child: Text("No Customers yet."));
+          }
+
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

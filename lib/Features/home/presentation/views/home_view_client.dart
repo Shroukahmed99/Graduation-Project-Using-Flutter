@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
 import 'package:sehatak/Features/articles/data/repo/article_repo_impl.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getHomeArticle/get_home_aricle_cubit.dart';
 import 'package:sehatak/Features/home/data/repo/home_repo_impl.dart';
+import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/Features/home/presentation/manger/top%20rating/top_rating_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/home_view_client_body.dart';
 import 'package:sehatak/core/utils/api_service.dart';
@@ -24,6 +26,11 @@ class HomeViewClient extends StatelessWidget {
         BlocProvider(
           create: (context) => TopRatingCubit(HomeRepoImpl(ApiService(Dio())))
             ..fetchTopProviders(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SaveNameCubit(ProfileRepositoryImpl(ApiService(Dio())))
+                ..fetchClientProfile(),
         ),
       ],
       child: const Scaffold(
