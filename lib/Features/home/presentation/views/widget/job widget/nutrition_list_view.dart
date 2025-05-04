@@ -22,6 +22,8 @@ class NutritionListView extends StatelessWidget {
         } else if (state is NutritionSuccess) {
           final nutritionists = state.nutritionists;
           return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: nutritionists.length,
             itemBuilder: (context, index) {
               final nutritionist = nutritionists[index];

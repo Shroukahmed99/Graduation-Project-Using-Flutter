@@ -33,7 +33,7 @@ class HeightViewsBody extends StatelessWidget {
             CustomSizedBox(height: 100.h),
             CustomSliderHeight(
               unitSymbol: "cm",
-              dates: List.generate(50, (index) => 120 + index),
+              dates: List.generate(181, (index) => 70 + index),
               selectedDate: selectedHeight,
               onDateSelected: (height) {
                 context.read<HeightCubit>().selectHeight(height);

@@ -89,7 +89,8 @@ class PasswordSettingBody extends StatelessWidget {
                 child: BlocBuilder<PasswordChangeCubit, PasswordChangeState>(
                   builder: (context, state) {
                     if (state is PasswordChangeLoading) {
-                      return const CircularProgressIndicator(color: kPrimaryColor);
+                      return const CircularProgressIndicator(
+                          color: kPrimaryColor);
                     }
                     return CustomButtomProfile(
                       text: "Change Password",
@@ -98,7 +99,8 @@ class PasswordSettingBody extends StatelessWidget {
                           context.read<PasswordChangeCubit>().changePassword(
                                 currentPassword: passwordController.text,
                                 newPassword: newPasswordController.text,
-                                passwordConfirm: confirmNewPasswordController.text,
+                                passwordConfirm:
+                                    confirmNewPasswordController.text,
                               );
                         }
                       },

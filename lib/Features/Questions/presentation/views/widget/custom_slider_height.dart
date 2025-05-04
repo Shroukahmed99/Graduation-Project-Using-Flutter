@@ -48,27 +48,27 @@ class _CustomSliderHeightState extends State<CustomSliderHeight> {
 
   void _updateSelectedDate() {
     final double itemHeight = 60.h;
-    final double middlePosition = _scrollController.offset + (150.h);
-    int closestDate = widget.dates[0];
-    double minDistance = (middlePosition - (0 + itemHeight / 2)).abs();
+    final double middlePosition = _scrollController.offset + (300.h / 2);
+    int closestIndex = 0;
+    double minDistance = double.infinity;
 
-    for (int i = 1; i < widget.dates.length; i++) {
-      final double datePosition = i * itemHeight;
-      final double distance =
-          (middlePosition - (datePosition + itemHeight / 2)).abs();
+    for (int i = 0; i < widget.dates.length; i++) {
+      final double itemCenter = i * itemHeight + itemHeight / 2;
+      final double distance = (itemCenter - middlePosition).abs();
 
       if (distance < minDistance) {
         minDistance = distance;
-        closestDate = widget.dates[i];
+        closestIndex = i;
       }
     }
 
-    setState(() {
-      _currentSelectedDate = closestDate;
-      if (widget.onDateSelected != null) {
-        widget.onDateSelected!(_currentSelectedDate);
-      }
-    });
+    final newSelected = widget.dates[closestIndex];
+    if (newSelected != _currentSelectedDate) {
+      setState(() {
+        _currentSelectedDate = newSelected;
+        widget.onDateSelected?.call(newSelected);
+      });
+    }
   }
 
   @override
@@ -144,11 +144,12 @@ class _CustomSliderHeightState extends State<CustomSliderHeight> {
                 ),
               ),
             ),
-            Positioned(
+            // ✅ تم تعديل مكان المربع الأبيض ليكون في المنتصف تمامًا
+            Align(
+              alignment: Alignment.center,
               child: Container(
                 width: 100.w,
                 height: 60.h,
-                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.white,

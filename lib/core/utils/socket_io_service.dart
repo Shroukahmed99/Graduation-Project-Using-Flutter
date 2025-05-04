@@ -2,10 +2,10 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
   late IO.Socket socket;
-  bool _isConnected = false; // ✅ فلاغ لمنع الاتصال المتكرر
+  bool _isConnected = false;
 
   void connect(String bookingId) {
-    if (_isConnected) return; // ✅ لو متصل خلاص ما تتصلش تاني
+    if (_isConnected) return;
     _isConnected = true;
 
     socket = IO.io(
@@ -16,35 +16,36 @@ class SocketService {
       },
     );
 
-    socket.connect();
-
     socket.onConnect((_) {
-      print('🔌 Socket connected');
       socket.emit('joinRoom', bookingId);
-      print('Joined room: $bookingId');
     });
 
-    socket.onDisconnect((_) {
-      print('❌ Socket disconnected');
-    });
+    socket.onDisconnect((_) {});
+
+    socket.onConnectError((data) {});
+
+    socket.onError((data) {});
+
+    socket.connect();
   }
 
   void sendMessage(Map<String, dynamic> message) {
-    print('Sending message: $message');
     socket.emit('sendMessage', message);
   }
 
   void onMessage(Function(Map<String, dynamic>) callback) {
-    socket.off('receiveMessage'); // ✅ مهم جداً
+    socket.off('receiveMessage');
     socket.on('receiveMessage', (data) {
-      print('Received message in onMessage: $data');
-      callback(data);
+      try {
+        callback(data);
+      } catch (_) {}
     });
   }
 
   void dispose() {
-    socket.disconnect();
-    _isConnected = false;
-    print('Socket disconnected');
+    if (_isConnected) {
+      socket.disconnect();
+      _isConnected = false;
+    }
   }
 }

@@ -38,19 +38,16 @@ class ChatCubit extends Cubit<ChatState> {
                     ..add(newMessage);
               emit(ChatLoaded(messages: updatedMessages));
             }
-          } catch (_) {}
+          } catch (e, s) {
+            print('⚠️ Error parsing message: $e');
+            print(s);
+          }
         });
       },
     );
   }
 
   Future<void> sendMessage(Message message) async {
-    if (state is ChatLoaded) {
-      final updatedMessages = List<Message>.from((state as ChatLoaded).messages)
-        ..add(message);
-      emit(ChatLoaded(messages: updatedMessages));
-    }
-
     socketService.sendMessage(message.toJson());
   }
 

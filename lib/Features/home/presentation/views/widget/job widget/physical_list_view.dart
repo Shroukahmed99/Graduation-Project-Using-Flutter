@@ -21,6 +21,8 @@ class PhysicalListView extends StatelessWidget {
         } else if (state is PhysicalTherapSuccess) {
           final physicalTherapists = state.physicalTherapists;
           return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: physicalTherapists.length,
             itemBuilder: (context, index) {
               final physicalTherapist = physicalTherapists[index];

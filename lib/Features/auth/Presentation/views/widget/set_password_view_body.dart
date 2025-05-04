@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/text_field_profile.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/set%20password/set_password_cubit.dart';
 import 'package:sehatak/Features/auth/Presentation/manger/set%20password/set_password_state.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
+import 'package:sehatak/const.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
@@ -31,7 +32,9 @@ class SetPasswordViewBody extends StatelessWidget {
           SizedBox(height: 20.h),
           const CustomText(),
           SizedBox(height: 60.h),
-          CustomTextField(
+          TextFieldProfile(
+            titleColor: kPrimaryColor,
+            isPassword: true,
             width: 320.w,
             controller: passwordController,
             title: 'Password',
@@ -40,7 +43,9 @@ class SetPasswordViewBody extends StatelessWidget {
             validator: validatePassword,
           ),
           SizedBox(height: 10.h),
-          CustomTextField(
+          TextFieldProfile(
+            titleColor: kPrimaryColor,
+            isPassword: true,
             width: 320.w,
             controller: confirmPasswordController,
             title: 'Confirm Password',

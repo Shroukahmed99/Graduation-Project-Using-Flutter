@@ -5,9 +5,7 @@ import 'package:sehatak/features/home/presentation/views/widget/job%20widget/inf
 import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class WorkoutListView extends StatelessWidget {
-  const WorkoutListView({
-    super.key,
-  });
+  const WorkoutListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +21,8 @@ class WorkoutListView extends StatelessWidget {
         } else if (state is CoachSuccess) {
           final coaches = state.coaches;
           return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: coaches.length,
             itemBuilder: (context, index) {
               final coach = coaches[index];
