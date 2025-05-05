@@ -12,44 +12,43 @@ class UpdateProviderProfileCubit extends Cubit<UpdateProviderProfileState> {
     this.profileRepositoryImpl,
     this.profileProviderCubit,
   ) : super(UpdateProviderProfileInitial());
-
-  Future<void> updateProviderProfile({
-    required String fullName,
-    required String mobileNumber,
-    required String age,
-    required String yearsOfExperience,
-    required String jobTitle,
-    required String bio,
-    required int priceRange,
-  }) async {
-    emit(UpdateProviderProfileLoading());
-
-    try {
-      Map<String, dynamic> data = {
-        'fullName': fullName,
-        'mobileNumber': mobileNumber,
-        'age': age,
-        'yearsOfExperience': yearsOfExperience,
-        'jobTitle': jobTitle,
-        'bio': bio,
-        'priceRange': priceRange,
-      };
+Future<void> updateProviderProfile({
+  required String fullName,
+  required String mobileNumber,
+  required String age,
+  required String yearsOfExperience,
+  required String jobTitle,
+  required String bio,
+  required int priceRange,
+}) async {
+  emit(UpdateProviderProfileLoading());
 
 
-      final result = await profileRepositoryImpl.updateProviderProfile(data);
+  try {
+    Map<String, dynamic> data = {
+      'fullName': fullName,
+      'mobileNumber': mobileNumber,
+      'age': age,
+      'yearsOfExperience': yearsOfExperience,
+      'jobTitle': jobTitle,
+      'bio': bio,
+      'priceRange': priceRange,
+    };
 
-      result.fold(
-        (failure) {
-          emit(UpdateProviderProfileFailure(failure.errorMessage));
-        },
-        (response) {
-          emit(UpdateProviderProfileSuccess());
-          
-          profileProviderCubit.getProviderData();
-        },
-      );
-    } catch (e) {
-emit(UpdateProviderProfileFailure('An unexpected error occurred: ${e.toString()}'));
-    }
+    final result = await profileRepositoryImpl.updateProviderProfile(data);
+
+    result.fold(
+      (failure) {
+        emit(UpdateProviderProfileFailure(failure.errorMessage));
+      },
+      (response) {
+        emit(UpdateProviderProfileSuccess());
+        profileProviderCubit.getProviderData();
+      },
+    );
+  } catch (e) {
+    emit(UpdateProviderProfileFailure('An unexpected error occurred: ${e.toString()}'));
   }
+}
+
 }

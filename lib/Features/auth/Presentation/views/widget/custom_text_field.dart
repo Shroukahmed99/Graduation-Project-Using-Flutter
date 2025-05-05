@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     required this.width,
     this.isNumeric = false,
     this.isAlpha = false,
+    this.enabled,
   });
 
   final String? hintText;
@@ -26,9 +27,12 @@ class CustomTextField extends StatelessWidget {
   final double width;
   final bool isNumeric;
   final bool isAlpha;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
+    final isEditable = enabled ?? true;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,7 +42,7 @@ class CustomTextField extends StatelessWidget {
             fontFamily: 'League Spartan',
             fontSize: 16.sp,
             fontWeight: FontWeight.w500,
-            color: kPrimaryColor
+            color: kPrimaryColor,
           ),
         ),
         SizedBox(height: 5.h),
@@ -56,6 +60,7 @@ class CustomTextField extends StatelessWidget {
                     obscureText: obscureText,
                     validator: validator,
                     onChanged: onChanged,
+                    enabled: enabled,
                     keyboardType:
                         isNumeric ? TextInputType.number : TextInputType.text,
                     inputFormatters: isNumeric
@@ -64,6 +69,9 @@ class CustomTextField extends StatelessWidget {
                             ? [FilteringTextInputFormatter.deny(RegExp(r'\d'))]
                             : []),
                     textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.black, // لون النص دائمًا أسود
+                    ),
                     decoration: InputDecoration(
                       hintText: hintText,
                       border: OutlineInputBorder(

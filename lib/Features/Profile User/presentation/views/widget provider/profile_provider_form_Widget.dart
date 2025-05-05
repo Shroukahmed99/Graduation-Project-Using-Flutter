@@ -138,10 +138,12 @@ Widget build(BuildContext context) {
                       hintText: "Price Range",
                     ),
                     SizedBox(height: 20.h),
-                    Center(
-                      child: CustomButtomProfile(
-                        text: "Update Profile",
-                        onPressed: () {
+                     Center(
+                        child: CustomButtomProfile(
+                          text: state is UpdateProviderProfileLoading
+                              ? "Updating Data..."
+                              : "Update Profile", 
+                          onPressed: () {
                           if (formKey.currentState?.validate() ?? false) {
                             updateCubit.updateProviderProfile(
                               fullName: fullNameController.text,
@@ -151,7 +153,7 @@ Widget build(BuildContext context) {
                               jobTitle: jobTitleController.text,
                               bio: bioController.text,
                               priceRange: int.tryParse(priceRangeController.text) ?? 0,
-                            );
+                         );
                           }
                         },
                         backgroundColor: accentColor,

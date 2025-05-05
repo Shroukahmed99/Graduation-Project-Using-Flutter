@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Community/presentation/views/community_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/display_client_profile_details_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/display_provider_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_provider_view.dart';
@@ -87,6 +89,8 @@ abstract class AppRouter {
   static const kProfileView = '/ProfileView';
   static const kSettingProfileProviderView = "/SettingProfileProviderView";
   static const kProfileProviderView = '/ProfileProviderView';
+  static const kDisplayProviderProfileDetailsView = '/DisplayProviderProfileDetailsView';
+  static const kDisplayClientProfileDetailsView = '/DisplayClientProfileDetailsView';
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeViewClient = '/HomeViewClient';
@@ -250,6 +254,17 @@ abstract class AppRouter {
       path: kProfileView,
       builder: (context, state) => const ProfileView(),
     ),
+
+    GoRoute(
+      path: kDisplayProviderProfileDetailsView,
+      builder: (context, state) => const DisplayProviderProfileDetailsView(),
+    ), 
+
+ GoRoute(
+      path: kDisplayClientProfileDetailsView,
+      builder: (context, state) => const DisplayClientProfileDetailsView(),
+    ),  
+
     GoRoute(
       path: kPasswordSettingsView,
       builder: (context, state) => const PasswordSettingsView(),

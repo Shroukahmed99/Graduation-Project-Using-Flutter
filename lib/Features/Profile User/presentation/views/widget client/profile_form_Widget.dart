@@ -156,7 +156,9 @@ else if (state is UpdateClientProfileFailure) {
                           SizedBox(height: 20.h),
                           Center(
                             child: CustomButtomProfile(
-                              text: "Update Profile",
+                             text: state is UpdateClientProfileLoading
+                              ? "Updating Data..."
+                              : "Update Profile", 
                               onPressed: () {
                                 if (formKey.currentState?.validate() ?? false) {
                                   if (optionalCubit.selectedActivityLevel == null ||

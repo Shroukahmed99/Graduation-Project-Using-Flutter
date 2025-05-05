@@ -27,7 +27,7 @@ Widget build(BuildContext context) {
             title: "Edit Profile",
             iconPath: IconPaths.profile,
             onTap: () {
-              context.push(AppRouter.kProfileView);
+              context.push(AppRouter.kDisplayClientProfileDetailsView);
             },
           ),
           NavigationItemWidget(

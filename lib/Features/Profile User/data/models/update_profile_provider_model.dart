@@ -21,7 +21,6 @@ class UpdatedProviderData {
   UpdatedProviderData({required this.updatedProvider});
 
   factory UpdatedProviderData.fromJson(Map<String, dynamic> json) {
-    // التحقق من وجود مفتاح البيانات قبل محاولة الوصول إليه
     if (json['updatedServiceProvider'] != null) {
       return UpdatedProviderData(
         updatedProvider: UpdatedProvider.fromJson(json['updatedServiceProvider']),
@@ -37,7 +36,6 @@ class UpdatedProvider {
   final String userId;
   final String fullName;
   final String mobileNumber;
-  final String gender;
   final String age;
   final String job;
   final String jobTitle;
@@ -48,12 +46,12 @@ class UpdatedProvider {
   final String role;
   final String username;
 
+
   UpdatedProvider({
     required this.id,
     required this.userId,
     required this.fullName,
     required this.mobileNumber,
-    required this.gender,
     required this.age,
     required this.job,
     required this.jobTitle,
@@ -63,6 +61,7 @@ class UpdatedProvider {
     required this.yearsOfExperience,
     required this.role,
     required this.username,
+   
   });
 
   factory UpdatedProvider.fromJson(Map<String, dynamic> json) {
@@ -71,7 +70,6 @@ class UpdatedProvider {
       userId: json['userId'] ?? '',
       fullName: json['fullName'] ?? '',
       mobileNumber: json['mobileNumber'] ?? '',
-      gender: json['gender'] ?? '',
       age: json['age']?.toString() ?? '',
       job: json['job'] ?? '',
       jobTitle: json['jobTitle'] ?? '',
@@ -81,6 +79,7 @@ class UpdatedProvider {
       yearsOfExperience: json['yearsOfExperience']?.toString() ?? '',
       role: json['role'] ?? '',
       username: json['username'] ?? '',
+      
     );
   }
 }

@@ -50,7 +50,7 @@ class CustomBottomNavigationHomeClient extends StatelessWidget {
                   index: 3,
                   isSelected: state == 3,
                   onTap: () {
-                    GoRouter.of(context).go(AppRouter.kSettingProfileView);
+                    GoRouter.of(context).push(AppRouter.kSettingProfileView);
                   },
                 ),
               ],

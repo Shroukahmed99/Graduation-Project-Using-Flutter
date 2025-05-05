@@ -27,14 +27,14 @@ Widget build(BuildContext context) {
             title: "Edit Profile",
             iconPath: IconPaths.profile,
             onTap: () {
-              context.push(AppRouter.kProfileProviderView);
+              context.push(AppRouter.kDisplayProviderProfileDetailsView);
             },
           ),
           NavigationItemWidget(
             title: "Help",
             iconPath: IconPaths.help,
             onTap: () {
-              context.push(AppRouter.kProfileView);
+              // context.push(AppRouter.kProfileView);
             },
           ),
           NavigationItemWidget(
@@ -63,7 +63,7 @@ Widget build(BuildContext context) {
             title: "Notification Setting",
             iconPath: IconPaths.notification,
             onTap: () {
-              context.push(AppRouter.kProfileView);
+              // context.push(AppRouter.kProfileView);
             },
           ),
           NavigationItemWidget(
