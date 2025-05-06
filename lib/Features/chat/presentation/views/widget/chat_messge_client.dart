@@ -19,10 +19,10 @@ class ChatMessageClient extends StatefulWidget {
   });
 
   @override
-  _ChatViewBodyState createState() => _ChatViewBodyState();
+  _ChatMessageClientState createState() => _ChatMessageClientState();
 }
 
-class _ChatViewBodyState extends State<ChatMessageClient> {
+class _ChatMessageClientState extends State<ChatMessageClient> {
   final TextEditingController _messageController = TextEditingController();
   bool _isSending = false;
 
@@ -67,15 +67,26 @@ class _ChatViewBodyState extends State<ChatMessageClient> {
         } else if (state is ChatLoaded) {
           final messages = state.messages.reversed.toList();
 
-          final welcomeMessage = messages.isNotEmpty ? messages.last : null;
-          final chatMessages = messages.length > 1
-              ? messages.sublist(0, messages.length - 1)
-              : [];
+          final welcomeMessage = messages.firstWhere(
+            (msg) => msg.text.contains('مرحب') || msg.text.contains('أهلاً'),
+            orElse: () => Message(
+              bookingId: '',
+              senderId: '',
+              receiverId: '',
+              senderType: '',
+              text: '',
+            ),
+          );
+
+          final chatMessages =
+              messages.where((msg) => msg.text != welcomeMessage.text).toList();
 
           return Column(
             children: [
-              if (welcomeMessage != null)
-                Container(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                child: Container(
+                  width: double.infinity,
                   padding: EdgeInsets.all(12.h),
                   decoration: BoxDecoration(
                     color: kPrimaryColor,
@@ -91,7 +102,7 @@ class _ChatViewBodyState extends State<ChatMessageClient> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              SizedBox(height: 10.h),
+              ),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.w),

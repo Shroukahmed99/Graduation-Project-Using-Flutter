@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
+import 'package:sehatak/Features/home%20service/data/repo/home_service_repo_impl.dart';
+import 'package:sehatak/Features/home%20service/presentation/manger/custmer/custmer_cubit.dart';
+import 'package:sehatak/Features/home%20service/presentation/manger/newCustmer/new_custmer_cubit.dart';
 import 'package:sehatak/Features/home%20service/presentation/manger/select_customer/home_service_tab_cubit_cubit.dart';
 import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/Features/home%20service/presentation/views/widget/home_service_view_body.dart';
@@ -22,6 +25,19 @@ class HomeProviderView extends StatelessWidget {
             create: (context) =>
                 SaveNameCubit(ProfileRepositoryImpl(ApiService(Dio())))
                   ..fetchProviderProfile()),
+        BlocProvider(
+          create: (context) => HomeServiceTabCubit(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              NewCustmerCubit(HomeServiceRepoImpl(ApiService(Dio())))
+                ..fetchNewCustemr(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CustmerCubit(HomeServiceRepoImpl(ApiService(Dio())))
+                ..fetchCustemr(),
+        ),
       ],
       child: const Scaffold(
         body: HomeServiceViewBody(),

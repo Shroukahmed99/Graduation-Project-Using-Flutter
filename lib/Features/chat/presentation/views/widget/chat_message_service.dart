@@ -64,22 +64,39 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
         if (state is ChatLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ChatLoaded) {
-          final messages = state.messages.reversed.toList();
+          // كل الرسائل بترجع من السيرفر
+          final allMessages = state.messages.reversed.toList();
 
-          final welcomeMessage = messages.isNotEmpty ? messages.last : null;
-          final chatMessages = messages.length > 1
-              ? messages.sublist(0, messages.length - 1)
-              : [];
+          // نحاول نلاقي الرسالة الترحيبية بناءً على النص
+          final welcomeMessage = allMessages.firstWhere(
+            (msg) => msg.text.contains('مرحب') || msg.text.contains('أهلاً'),
+            orElse: () => Message(
+              bookingId: '',
+              senderId: '',
+              receiverId: '',
+              senderType: '',
+              text: '',
+            ),
+          );
+
+          // فلترة الرسائل لاستبعاد الرسالة الترحيبية
+          final chatMessages = allMessages
+              .where(
+                (msg) => msg.text != welcomeMessage.text,
+              )
+              .toList();
 
           return Column(
             children: [
-              if (welcomeMessage != null)
+              if (welcomeMessage.text.isNotEmpty)
                 Container(
                   padding: EdgeInsets.all(12.h),
                   decoration: BoxDecoration(
                     color: kPrimaryColor,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Text(
                     welcomeMessage.text,
                     style: TextStyle(
@@ -90,7 +107,6 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              SizedBox(height: 10.h),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
