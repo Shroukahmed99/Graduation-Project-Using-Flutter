@@ -15,12 +15,10 @@ class DisplayProviderProfileDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // توفير ProfileProviderCubit
         BlocProvider(
           create: (_) => ProfileProviderCubit(ProfileRepositoryImpl(ApiService(Dio())))
             ..getProviderData(),
         ),
-        // توفير ProfileImageCubit
         BlocProvider(
           create: (_) => ProfileImageCubit(),
         ),

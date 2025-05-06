@@ -79,7 +79,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
                               .currentState!
                               .validate()) {
                             if (selectedIndex != null) {
-                              context.read<SignUpCubit>().signUpUser();
+                              context.read<SignUpCubit>().signUpUser(context);
                             } else {
                               customSnackBar(
                                   context, 'Please select activity level');

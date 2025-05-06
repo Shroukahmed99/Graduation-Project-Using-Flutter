@@ -36,7 +36,7 @@ class DisplayProviderProfileDetailsBody extends StatelessWidget {
                   return ProfileHeaderWidgetProvider(
                     provider: provider,
                     onTap: () {
-                      GoRouter.of(context).pop(); // 👈 راجعي التوجيه حسب الحاجة
+                      GoRouter.of(context).pop(); 
                     },
                   );
                 },
@@ -49,7 +49,7 @@ class DisplayProviderProfileDetailsBody extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 30.h),
-                        DisplayProfileProviderFormWidget(provider: provider), // 👈 ويدجيت العرض فقط
+                        DisplayProfileProviderFormWidget(provider: provider),
                         SizedBox(height: 20.h),
                       ],
                     ),

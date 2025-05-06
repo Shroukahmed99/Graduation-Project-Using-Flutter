@@ -12,20 +12,39 @@ class ProfileImageCubit extends Cubit<File?> {
     if (pickedFile != null) {
       final file = File(pickedFile.path);
       await _saveImagePath(file.path);
-      emit(file); 
+      await _setNotNewUser(); // المستخدم اختار صورة، لم يعد جديد
+      emit(file);
     }
   }
 
   Future<void> loadSavedImage() async {
     final prefs = await SharedPreferences.getInstance();
+    final isNewUser = prefs.getBool('is_new_user') ?? true;
+
+    if (isNewUser) {
+      emit(null); // لا يتم تحميل صورة ← تظهر أيقونة الشخص فقط
+      return;
+    }
+
     final imagePath = prefs.getString('profile_image_path');
     if (imagePath != null) {
-      emit(File(imagePath)); 
+      emit(File(imagePath));
     }
   }
 
   Future<void> _saveImagePath(String path) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('profile_image_path', path);
+  }
+
+  Future<void> _setNotNewUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('is_new_user', false);
+  }
+
+  /// ✅ هذه هي الدالة اللي كانت ناقصة وتسبب الخطأ
+  Future<void> setAsNewUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('is_new_user', true);
   }
 }

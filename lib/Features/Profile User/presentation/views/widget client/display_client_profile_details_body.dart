@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20client%20cubit/client_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_loading_indicator.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/display_profile_client_form_widget.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widget%20client/profile_header_widget.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
-import 'package:sehatak/core/utils/app_router.dart';
 
 class DisplayClientProfileDetailsBody extends StatelessWidget {
   const DisplayClientProfileDetailsBody({super.key});
