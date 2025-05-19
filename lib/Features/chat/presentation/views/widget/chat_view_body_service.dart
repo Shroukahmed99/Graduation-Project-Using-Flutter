@@ -27,7 +27,7 @@ class ChatViewBodyService extends StatelessWidget {
           child: ChatMessageService(
             bookingId: bookingId,
             senderId: senderId,
-            receiverId: receiverId, // لازم تجيبه من الـ Auth
+            receiverId: receiverId,
           ),
         )
       ],

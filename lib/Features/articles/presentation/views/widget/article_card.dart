@@ -23,7 +23,9 @@ class ArticleCard extends StatelessWidget {
             image: DecorationImage(
               image: article.image != null
                   ? NetworkImage(article.image!)
-                  : const AssetImage('assets/images/3.png') as ImageProvider,
+                  : const AssetImage(
+                          'assets/images/WhatsApp Image 2025-05-19 at 16.17.18_5b069c19.jpg')
+                      as ImageProvider,
               fit: BoxFit.fill,
             ),
           ),

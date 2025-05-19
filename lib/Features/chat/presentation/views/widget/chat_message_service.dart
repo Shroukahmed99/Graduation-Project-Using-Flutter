@@ -64,10 +64,8 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
         if (state is ChatLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ChatLoaded) {
-          // كل الرسائل بترجع من السيرفر
           final allMessages = state.messages.reversed.toList();
 
-          // نحاول نلاقي الرسالة الترحيبية بناءً على النص
           final welcomeMessage = allMessages.firstWhere(
             (msg) => msg.text.contains('مرحب') || msg.text.contains('أهلاً'),
             orElse: () => Message(
@@ -79,7 +77,6 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
             ),
           );
 
-          // فلترة الرسائل لاستبعاد الرسالة الترحيبية
           final chatMessages = allMessages
               .where(
                 (msg) => msg.text != welcomeMessage.text,
@@ -196,7 +193,7 @@ class _ChatMessageServiceState extends State<ChatMessageService> {
                 backgroundColor: kPrimaryColor,
               ),
             );
-          });
+          }); 
           return const SizedBox();
         } else {
           return const SizedBox();
