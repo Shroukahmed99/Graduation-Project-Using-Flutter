@@ -95,6 +95,14 @@ Widget build(BuildContext context) {
               });
             },
           ),
+          NavigationItemWidget(
+  title: "Chatbot",
+  iconPath: IconPaths.chatbot, 
+  onTap: () {
+    context.push(AppRouter.kChatBotIntroView);
+  },
+),
+
         ],
       ),
     ),

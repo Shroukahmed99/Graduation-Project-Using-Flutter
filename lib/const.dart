@@ -16,4 +16,5 @@ class IconPaths {
   static const String settingPassword = '$basePathIcons/settingPassword.png';
   static const String help = '$basePathIcons/help.png';
   static const String profile = '$basePathIcons/profile.png';
+  static const String chatbot = 'assets/images/chatpot icons/cc.png';
 }

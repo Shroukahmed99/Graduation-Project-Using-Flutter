@@ -16,6 +16,7 @@ import 'package:sehatak/const.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -25,14 +26,17 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
-          customSnackBar(context, 'Login Successful');
-          Future.delayed(const Duration(seconds: 2), () {
-            final role = state.usersModel.role;
-            if (role == 'client') {
-              GoRouter.of(context).pushReplacement(AppRouter.kHomeViewClient);
-            } else if (role == 'service_provider') {
-              GoRouter.of(context).pushReplacement(AppRouter.kHomeProviderView);
+       if (state is LoginSuccess) {
+  customSnackBar(context, 'Login Successful');
+
+  CacheHelper.saveData(key: 'email', value: state.usersModel.email);
+
+  Future.delayed(const Duration(seconds: 2), () {
+    final role = state.usersModel.role;
+    if (role == 'client') {
+      GoRouter.of(context).pushReplacement(AppRouter.kHomeViewClient);
+    } else if (role == 'service_provider') {
+      GoRouter.of(context).pushReplacement(AppRouter.kHomeProviderView);
             }
           });
         } else if (state is LoginFailure) {

@@ -21,6 +21,8 @@ import 'package:sehatak/Features/auth/Presentation/views/login_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_client.dart';
 import 'package:sehatak/Features/auth/Presentation/views/signup_view_service.dart';
+import 'package:sehatak/Features/chat%20bot/presentation/views/chat_bot_intro_view.dart';
+import 'package:sehatak/Features/chat%20bot/presentation/views/chatbot_view.dart';
 import 'package:sehatak/Features/chat/data/repo/chat_repo_impl.dart';
 import 'package:sehatak/Features/chat/presentation/views/chat_view_client.dart';
 import 'package:sehatak/Features/chat/presentation/views/chat_view_service.dart';
@@ -108,11 +110,21 @@ abstract class AppRouter {
   static const kArticleDetailsPage = '/ArticleDetailsPage:id';
   static const kChatViewClient = '/ChatViewClient';
   static const kChatViewService = '/ChatViewService';
+  static const kChatBotView = '/ChatBotView';
+   static const kChatBotIntroView = '/ChatBotIntroView';
 
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
       builder: (context, state) => const FirstSplashScreen(),
+    ),
+     GoRoute(
+      path: kChatBotIntroView,
+      builder: (context, state) => const ChatBotIntroView(),
+    ),
+    GoRoute(
+      path: kChatBotView,
+      builder: (context, state) => const ChatBotView(),
     ),
     GoRoute(
       path: kSecondSplashScreen,
