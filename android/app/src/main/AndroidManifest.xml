@@ -6,7 +6,7 @@
 
     
     <application
-        android:label="sehatak"
+        android:label="Nezamk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         
