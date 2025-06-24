@@ -30,6 +30,13 @@ class ProfileProviderSettingsList extends StatelessWidget {
               },
             ),
             NavigationItemWidget(
+              title: "My Feed Back",
+              iconPath: IconPaths.feedback,
+              onTap: () {
+                context.push(AppRouter.kFeedbackView);
+              },
+            ),
+            NavigationItemWidget(
               title: "Help",
               iconPath: IconPaths.help,
               onTap: () {},

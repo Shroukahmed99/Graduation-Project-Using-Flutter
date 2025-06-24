@@ -10,11 +10,18 @@ const String baseUrl = 'https://nezamk.vercel.app/api/v1/';
 class IconPaths {
   static const String basePathIcons = 'assets/images/icon';
 
-  static const String editIcon = '$basePathIcons/editIcon.png';
+
+
+  static const String selectStar = '$basePathIcons/sstar.png';
+    static const String star = '$basePathIcons/star.png';
+
+
   static const String logout = '$basePathIcons/logout.png';
   static const String notification = '$basePathIcons/notification.png';
   static const String settingPassword = '$basePathIcons/settingPassword.png';
   static const String help = '$basePathIcons/help.png';
   static const String profile = '$basePathIcons/profile.png';
   static const String chatbot = 'assets/images/chatpot icons/cc.png';
+    static const String feedback = 'assets/images/icon/feedback.png';
+
 }

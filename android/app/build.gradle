@@ -5,35 +5,35 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-// android {
-//     compileSdk = 35
-//     namespace = "com.example.sehatak"
-//     compileSdk = flutter.compileSdkVersion
-//     ndkVersion = flutter.ndkVersion
-
-//     compileOptions { 
-//          sourceCompatibility = JavaVersion.VERSION_1_8
-//          targetCompatibility = JavaVersion.VERSION_1_8 // تغيير إلى 17
-//     }
-
-//     kotlinOptions {
-//         jvmTarget = JavaVersion.VERSION_1_8  // تغيير إلى 17
-//     }
-
-// delete
 android {
+    compileSdk = 35
     namespace = "com.example.sehatak"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    compileOptions { 
+         sourceCompatibility = JavaVersion.VERSION_1_8
+         targetCompatibility = JavaVersion.VERSION_1_8 // تغيير إلى 17
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = JavaVersion.VERSION_1_8  // تغيير إلى 17
     }
+
+// delete
+// android {
+//     namespace = "com.example.sehatak"
+//     compileSdk = flutter.compileSdkVersion
+//     ndkVersion = flutter.ndkVersion
+
+//     compileOptions {
+//         sourceCompatibility = JavaVersion.VERSION_17
+//         targetCompatibility = JavaVersion.VERSION_17
+//     }
+
+//     kotlinOptions {
+//         jvmTarget = "17"
+//     }
 // dellete
 
     defaultConfig {
