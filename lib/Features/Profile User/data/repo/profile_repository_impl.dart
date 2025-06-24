@@ -5,6 +5,7 @@ import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_m
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/logout_respose_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/password_change_response_model.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/review_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/update_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository.dart';
@@ -183,5 +184,32 @@ class ProfileRepositoryImpl implements ProfileRepository {
           ServerFailure("Error getting provider data: ${e.toString()}"));
     }
   }
+
+
+
+
+
+
+   @override
+  Future<Either<Failure, List<ReviewModel>>> getReviews() async {
+    try {
+      final response = await apiService.get(endpoint: 'reviews/getallReviews');
+      if (response['status'] == 'success') {
+        List<dynamic> data = response['data']['reviews'];
+        List<ReviewModel> reviews =
+            data.map((e) => ReviewModel.fromJson(e)).toList();
+        return Right(reviews);
+      } else {
+        return Left(ServerFailure(response['message'] ?? 'Error'));
+      }
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  
 }
 

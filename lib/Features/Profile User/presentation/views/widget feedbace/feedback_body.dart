@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/review%20cubit/review_cubit.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/manger/review%20cubit/review_state.dart';
 import 'feedback_card.dart';
 
 class FeedbackBody extends StatelessWidget {
@@ -13,13 +16,10 @@ class FeedbackBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 12),
-
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () => Navigator.pop(context),
                   child: Image.asset(
                     'assets/images/Arrow.png',
                     width: 20,
@@ -36,22 +36,32 @@ class FeedbackBody extends StatelessWidget {
                 ),
               ],
             ),
-
             const SizedBox(height: 20),
-
             Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(bottom: 12),
-                    child: FeedbackCard(
-                      name: "Ahmed talat",
-                      feedbackText:
-                          "Lorem ipsum dolor sit amet consectetur. Tortor aenean suspendisse.",
-                      rating: 3,
-                    ),
-                  );
+              child: BlocBuilder<ReviewCubit, ReviewState>(
+                builder: (context, state) {
+                  if (state is ReviewLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is ReviewSuccess) {
+                    return ListView.builder(
+                      itemCount: state.reviews.length,
+                      itemBuilder: (context, index) {
+                        final review = state.reviews[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: FeedbackCard(
+                            name: review.clientName,
+                            feedbackText: review.comment,
+                            rating: review.rating.toInt(),
+                          ),
+                        );
+                      },
+                    );
+                  } else if (state is ReviewFailure) {
+                    return Center(child: Text(state.error));
+                  } else {
+                    return const SizedBox();
+                  }
                 },
               ),
             ),
