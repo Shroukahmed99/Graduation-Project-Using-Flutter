@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/review_model.dart';
 import 'package:sehatak/Features/home/data/models/more_nutrition_model.dart';
 import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
 import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
@@ -160,4 +161,26 @@ class HomeRepoImpl implements HomeRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+
+  Future<Either<Failure, List<ReviewModel>>> getAllReviews() async {
+    try {
+      final response = await apiService.get(endpoint: 'reviews/getallReviews');
+      if (response['status'] == 'success') {
+        List<dynamic> data = response['data']['reviews'];
+        List<ReviewModel> reviews =
+            data.map((e) => ReviewModel.fromJson(e)).toList();
+        return Right(reviews);
+      } else {
+        return Left(ServerFailure(response['message'] ?? 'Error'));
+      }
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
+
+

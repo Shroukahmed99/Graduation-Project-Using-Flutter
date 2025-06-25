@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/review%20cubit/review_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewCubit extends Cubit<ReviewState> {
   final ProfileRepositoryImpl reviewRepository;
@@ -9,10 +10,30 @@ class ReviewCubit extends Cubit<ReviewState> {
 
   void fetchReviews() async {
     emit(ReviewLoading());
-    final result = await reviewRepository.getReviews();
-    result.fold(
-      (failure) => emit(ReviewFailure(failure.errorMessage)),
-      (reviews) => emit(ReviewSuccess(reviews)),
-    );
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId');
+
+      if (userId == null) {
+        emit(ReviewFailure('User ID not found'));
+        return;
+      }
+
+      final result = await reviewRepository.getReviews();
+
+      result.fold(
+        (failure) => emit(ReviewFailure(failure.errorMessage)),
+        (reviews) {
+          final myReviews = reviews
+              .where((review) => review.clientId == userId)
+              .toList();
+
+          emit(ReviewSuccess(myReviews));
+        },
+      );
+    } catch (e) {
+      emit(ReviewFailure('Unexpected error: $e'));
+    }
   }
 }

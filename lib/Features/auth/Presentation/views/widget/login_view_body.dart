@@ -30,6 +30,7 @@ class LoginViewBody extends StatelessWidget {
   customSnackBar(context, 'Login Successful');
 
   CacheHelper.saveData(key: 'email', value: state.usersModel.email);
+  CacheHelper.saveData(key: 'userId', value: state.usersModel.id);
 
   Future.delayed(const Duration(seconds: 2), () {
     final role = state.usersModel.role;

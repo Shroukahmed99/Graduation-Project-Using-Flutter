@@ -4,6 +4,7 @@ class ReviewModel {
   final double rating;
   final String serviceProviderId;
   final String clientName;
+  final String clientId;
 
   ReviewModel({
     required this.id,
@@ -11,6 +12,7 @@ class ReviewModel {
     required this.rating,
     required this.serviceProviderId,
     required this.clientName,
+    required this.clientId,
   });
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class ReviewModel {
       rating: json['rating'].toDouble(),
       serviceProviderId: json['serviceprovider'],
       clientName: json['Client']['fullName'],
+      clientId: json['Client']['_id'],
     );
   }
 }

@@ -65,6 +65,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
       (usersModel) async {
         if (usersModel.token != null) {
           await CacheHelper.saveData(key: 'token', value: usersModel.token);
+          await CacheHelper.saveData(key: 'userId', value: usersModel.id); 
           emit(SignUpProviderSuccess(usersModel));
         } else {
           emit(SignUpProviderFailure("API Response missing token!"));

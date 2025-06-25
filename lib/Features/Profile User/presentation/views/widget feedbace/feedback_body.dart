@@ -43,6 +43,9 @@ class FeedbackBody extends StatelessWidget {
                   if (state is ReviewLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is ReviewSuccess) {
+                    if (state.reviews.isEmpty) {
+                      return const Center(child: Text("No feedback yet."));
+                    }
                     return ListView.builder(
                       itemCount: state.reviews.length,
                       itemBuilder: (context, index) {

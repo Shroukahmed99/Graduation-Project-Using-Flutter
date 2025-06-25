@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/review_model.dart';
 import 'package:sehatak/Features/home/data/models/more_nutrition_model.dart';
 import 'package:sehatak/Features/home/data/models/more_physical_model.dart';
 import 'package:sehatak/Features/home/data/models/more_workout_model.dart';
@@ -17,4 +18,6 @@ abstract class HomeRepo {
   Future<Either<Failure, PhysicalTherapistMore>> fetchPhysicalistById(
       String id);
   Future<Either<Failure, List<TopProvider>>> topRaring();
+
+   Future<Either<Failure, List<ReviewModel>>> getAllReviews();
 }
