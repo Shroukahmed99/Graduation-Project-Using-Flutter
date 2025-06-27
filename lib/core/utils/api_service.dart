@@ -35,12 +35,10 @@ class ApiService {
     ));
   }
 
-  Future<Map<String, dynamic>> post(
-      {required String endpoint, required dynamic data}) async {
+  Future<Map<String, dynamic>> post({required String endpoint, required dynamic data}) async {
     Options options = await _getOptions();
     print("📤 Sending POST request to: $endpoint with data: $data");
-    var response =
-        await dio.post("$baseUrl$endpoint", data: data, options: options);
+    var response = await dio.post("$baseUrl$endpoint", data: data, options: options);
     print("📥 Response from POST request: ${response.data}");
     await _extractTokenFromCookies(response);
     return response.data;
@@ -54,12 +52,10 @@ class ApiService {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> patch(
-      {required String endpoint, required dynamic data}) async {
+  Future<Map<String, dynamic>> patch({required String endpoint, required dynamic data}) async {
     Options options = await _getOptions();
     print("📤 Sending PATCH request to: $endpoint with data: $data");
-    var response =
-        await dio.patch("$baseUrl$endpoint", data: data, options: options);
+    var response = await dio.patch("$baseUrl$endpoint", data: data, options: options);
     print("📥 Response from PATCH request: ${response.data}");
     return response.data;
   }
@@ -124,9 +120,8 @@ class ApiService {
       }
     }
 
-    print(token != null && token.isNotEmpty
-        ? "✅ Extracted Token: $token"
-        : "❌ No token found in Set-Cookie.");
+    print(
+        token != null && token.isNotEmpty ? "✅ Extracted Token: $token" : "❌ No token found in Set-Cookie.");
     return token;
   }
 

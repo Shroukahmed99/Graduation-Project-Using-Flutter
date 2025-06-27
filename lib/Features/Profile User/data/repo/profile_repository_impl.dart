@@ -45,8 +45,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         return const Right(true);
       }
 
-      if (responseData is Map<String, dynamic> &&
-          responseData["status"] == "error") {
+      if (responseData is Map<String, dynamic> && responseData["status"] == "error") {
         return Left(ServerFailure(responseData["message"] ?? "Unknown error"));
       }
 
@@ -80,8 +79,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       if (responseData["status"] == "success") {
         return Right(PasswordChangeResponseModel.fromJson(responseData));
       } else {
-        return Left(ServerFailure(
-            responseData["message"] ?? "Failed to change password"));
+        return Left(ServerFailure(responseData["message"] ?? "Failed to change password"));
       }
     } catch (e) {
       if (e is DioException) {
@@ -101,8 +99,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       if (responseData["status"] == "success") {
         return Right(GetProfileClientModel.fromJson(responseData));
       } else {
-        return Left(ServerFailure(
-            responseData["message"] ?? "Failed to get client data"));
+        return Left(ServerFailure(responseData["message"] ?? "Failed to get client data"));
       }
     } catch (e) {
       if (e is DioException) {
@@ -113,8 +110,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, UpdateProfileClientModel>> updateClientProfile(
-      Map<String, dynamic> data) async {
+  Future<Either<Failure, UpdateProfileClientModel>> updateClientProfile(Map<String, dynamic> data) async {
     try {
       final responseData = await apiService.patch(
         endpoint: 'users/updateClientProfile',
@@ -136,8 +132,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, UpdateProfileProviderModel>> updateProviderProfile(
-      Map<String, dynamic> data) async {
+  Future<Either<Failure, UpdateProfileProviderModel>> updateProviderProfile(Map<String, dynamic> data) async {
     try {
       final responseData = await apiService.patch(
         endpoint: 'users/updateServiceProviderProfile',
@@ -166,15 +161,13 @@ class ProfileRepositoryImpl implements ProfileRepository {
       if (responseData["status"] == "success") {
         return Right(GetProfileProviderModel.fromJson(responseData));
       } else {
-        return Left(ServerFailure(
-            responseData["message"] ?? "Failed to get provider data"));
+        return Left(ServerFailure(responseData["message"] ?? "Failed to get provider data"));
       }
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));
       }
-      return Left(
-          ServerFailure("Error getting provider data: ${e.toString()}"));
+      return Left(ServerFailure("Error getting provider data: ${e.toString()}"));
     }
   }
 
@@ -184,8 +177,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       final response = await apiService.get(endpoint: 'reviews/getallReviews');
       if (response['status'] == 'success') {
         List<dynamic> data = response['data']['reviews'];
-        List<ReviewModel> reviews =
-            data.map((e) => ReviewModel.fromJson(e)).toList();
+        List<ReviewModel> reviews = data.map((e) => ReviewModel.fromJson(e)).toList();
         return Right(reviews);
       } else {
         return Left(ServerFailure(response['message'] ?? 'Error'));
@@ -197,7 +189,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
-
 
 //? -----------------------------------
 
@@ -224,8 +215,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
       } else {
         return Left(ServerFailure(response["message"] ?? "Failed to get data"));
       }
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.response?.data["message"] ?? "Failed to get data"));
     } catch (e) {
-      print(e);
       return Left(ServerFailure("Error getting data: ${e.toString()}"));
     }
   }
@@ -233,13 +225,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, FitnessDataModel>> refreshFitnessData() async {
     try {
-      final response =
-          await apiService.get(endpoint: "/fitness/refresh-my-data");
+      final response = await apiService.get(endpoint: "/fitness/refresh-my-data");
       if (response["status"] == "success") {
         return Right(FitnessDataModel.fromJson(response["data"]));
       } else {
-        return Left(
-            ServerFailure(response["message"] ?? "Failed to refresh data"));
+        return Left(ServerFailure(response["message"] ?? "Failed to refresh data"));
       }
     } catch (e) {
       return Left(ServerFailure("Error refreshing data: ${e.toString()}"));
