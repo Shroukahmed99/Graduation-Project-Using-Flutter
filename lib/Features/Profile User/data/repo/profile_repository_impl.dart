@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/fitness_data_model.dart';
-
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/logout_respose_model.dart';
@@ -12,7 +11,6 @@ import 'package:sehatak/Features/Profile%20User/data/models/update_profile_provi
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/core/utils/cache_helper.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ApiService apiService;
@@ -137,11 +135,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
     }
   }
 
-
-
-  
-
-
   @override
   Future<Either<Failure, UpdateProfileProviderModel>> updateProviderProfile(
       Map<String, dynamic> data) async {
@@ -166,7 +159,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, GetProfileProviderModel>> getProviderById() async {
     try {
-
       final responseData = await apiService.get(
         endpoint: 'users/getServiceProviderById',
       );
@@ -186,12 +178,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
     }
   }
 
-
-
-
-
-
-   @override
+  @override
   Future<Either<Failure, List<ReviewModel>>> getReviews() async {
     try {
       final response = await apiService.get(endpoint: 'reviews/getallReviews');
@@ -212,14 +199,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
 
+//? -----------------------------------
 
-
-
-
-
-
-
- @override
+  @override
   Future<Either<Failure, String>> getFitnessAuthUrl() async {
     try {
       final response = await apiService.get(endpoint: "/fitness/auth-url");
@@ -243,6 +225,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
         return Left(ServerFailure(response["message"] ?? "Failed to get data"));
       }
     } catch (e) {
+      print(e);
       return Left(ServerFailure("Error getting data: ${e.toString()}"));
     }
   }
@@ -250,17 +233,16 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<Either<Failure, FitnessDataModel>> refreshFitnessData() async {
     try {
-      final response = await apiService.get(endpoint: "/fitness/refresh-my-data");
+      final response =
+          await apiService.get(endpoint: "/fitness/refresh-my-data");
       if (response["status"] == "success") {
         return Right(FitnessDataModel.fromJson(response["data"]));
       } else {
-        return Left(ServerFailure(response["message"] ?? "Failed to refresh data"));
+        return Left(
+            ServerFailure(response["message"] ?? "Failed to refresh data"));
       }
     } catch (e) {
       return Left(ServerFailure("Error refreshing data: ${e.toString()}"));
     }
   }
-
-  
 }
-

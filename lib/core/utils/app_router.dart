@@ -4,7 +4,7 @@ import 'package:sehatak/Features/Community/presentation/views/community_view.dar
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_client_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_provider_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/feedback_view.dart';
-import 'package:sehatak/Features/Profile%20User/presentation/views/fitness_link_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widgets%20google%20fit/fitness_link_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_provider_view.dart';
@@ -115,7 +115,7 @@ abstract class AppRouter {
    static const kChatBotIntroView = '/ChatBotIntroView';
    static const kFeedbackView= "/FeedbackView";
    static const kFitnessLinkView= "/FitnessLinkView";
-
+static const kGoogleFitHandlerPage= "/GoogleFitHandlerPage";
    
 
 
@@ -127,6 +127,30 @@ abstract class AppRouter {
       },
     ),
     
+
+
+//  GoRoute(
+//       path: '/fitness-auth',
+//       builder: (context, state) {
+//         final url = state.extra as String;
+//         return FitnessWebViewPage(url: url);
+//       },
+//     ),
+//     GoRoute(
+//       path: '/fitness-data',
+//       builder: (context, state) => const FitnessLinkBody(),
+//     ),
+
+// GoRoute(
+//   path: '/fitness-handler',
+//   builder: (context, state) => const GoogleFitHandlerView(),
+// ),
+
+
+
+
+
+
 
 GoRoute(
       path: kFitnessLinkView,

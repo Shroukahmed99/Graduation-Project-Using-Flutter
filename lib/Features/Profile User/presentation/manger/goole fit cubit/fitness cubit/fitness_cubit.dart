@@ -24,12 +24,14 @@ class FitnessCubit extends Cubit<FitnessState> {
     final result = await profileRepository.getFitnessData();
     result.fold(
       (failure) => emit(FitnessFailure(message: failure.errorMessage)),
-      (data) => emit(FitnessDataLoaded(
-        steps: data.steps,
-        heartRate: data.heartRate,
-        calories: data.calories,
-        sleep: data.sleep,
-      )),
+      (data) {
+        emit(FitnessDataLoaded(
+          steps: data.steps,
+          heartRate: data.heartRate,
+          calories: data.calories,
+          sleep: data.sleep,
+        ));
+      },
     );
   }
 
@@ -39,12 +41,14 @@ class FitnessCubit extends Cubit<FitnessState> {
     final result = await profileRepository.refreshFitnessData();
     result.fold(
       (failure) => emit(FitnessFailure(message: failure.errorMessage)),
-      (data) => emit(FitnessDataLoaded(
-        steps: data.steps,
-        heartRate: data.heartRate,
-        calories: data.calories,
-        sleep: data.sleep,
-      )),
+      (data) {
+        emit(FitnessDataLoaded(
+          steps: data.steps,
+          heartRate: data.heartRate,
+          calories: data.calories,
+          sleep: data.sleep,
+        ));
+      },
     );
   }
 }

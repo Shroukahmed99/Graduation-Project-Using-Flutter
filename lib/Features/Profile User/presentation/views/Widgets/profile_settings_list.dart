@@ -7,6 +7,7 @@ import 'package:sehatak/Features/Profile%20User/presentation/manger/delete%20cub
 import 'package:sehatak/Features/Profile%20User/presentation/manger/logout%20cubit/logout_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/delete_account_bottom_sheet.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/logout_bottomSheet.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/widgets%20google%20fit/google_fit_handler_view.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 
@@ -30,13 +31,17 @@ Widget build(BuildContext context) {
               context.push(AppRouter.kDisplayClientProfileDetailsView);
             },
           ),
-           NavigationItemWidget(
+ NavigationItemWidget(
   title: "Google Fit",
   iconPath: IconPaths.help, 
   onTap: () {
-    context.push(AppRouter.kFitnessLinkView);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const GoogleFitHandlerView()),
+    );
   },
 ),
+
           NavigationItemWidget(
             title: "Help",
             iconPath: IconPaths.help,

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,12 +17,27 @@ class FitnessLinkBody extends StatefulWidget {
   State<FitnessLinkBody> createState() => _FitnessLinkBodyState();
 }
 
-class _FitnessLinkBodyState extends State<FitnessLinkBody> {
+class _FitnessLinkBodyState extends State<FitnessLinkBody>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     context.read<FitnessCubit>().getFitnessData();
     context.read<ProfileImageCubit>().loadSavedImage();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<FitnessCubit>().getFitnessData();
+    }
   }
 
   @override
