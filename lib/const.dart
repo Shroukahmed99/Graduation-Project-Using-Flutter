@@ -23,5 +23,6 @@ class IconPaths {
   static const String profile = '$basePathIcons/profile.png';
   static const String chatbot = 'assets/images/chatpot icons/cc.png';
     static const String feedback = 'assets/images/icon/feedback.png';
+    static const String googlefit = 'assets/images/chatpot icons/fit.png';
 
 }

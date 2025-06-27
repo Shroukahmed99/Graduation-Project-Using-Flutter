@@ -4,6 +4,7 @@ import 'package:sehatak/Features/Community/presentation/views/community_view.dar
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_client_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_provider_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/feedback_view.dart';
+import 'package:sehatak/Features/Profile%20User/presentation/views/fitness_link_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/password_settings_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/profile_provider_view.dart';
@@ -57,7 +58,6 @@ import 'package:sehatak/Features/success%20register/set_password_success.dart';
 import 'package:sehatak/Features/success%20register/success_view_client.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/core/utils/cache_helper.dart';
 abstract class AppRouter {
   static const kSecondSplashScreen = "/SecondSplashScreen";
   static const kOnBoardingView = '/OnBoardingView';
@@ -114,6 +114,10 @@ abstract class AppRouter {
   static const kChatBotView = '/ChatBotView';
    static const kChatBotIntroView = '/ChatBotIntroView';
    static const kFeedbackView= "/FeedbackView";
+   static const kFitnessLinkView= "/FitnessLinkView";
+
+   
+
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -122,6 +126,13 @@ abstract class AppRouter {
         return const FirstSplashScreen();
       },
     ),
+    
+
+GoRoute(
+      path: kFitnessLinkView,
+      builder: (context, state) => const FitnessLinkView(),
+    ),
+
      GoRoute(
       path: kChatBotIntroView,
       builder: (context, state) => const ChatBotIntroView(),

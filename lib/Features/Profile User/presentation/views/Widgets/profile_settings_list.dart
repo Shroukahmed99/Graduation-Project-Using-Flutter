@@ -30,6 +30,13 @@ Widget build(BuildContext context) {
               context.push(AppRouter.kDisplayClientProfileDetailsView);
             },
           ),
+           NavigationItemWidget(
+  title: "Google Fit",
+  iconPath: IconPaths.help, 
+  onTap: () {
+    context.push(AppRouter.kFitnessLinkView);
+  },
+),
           NavigationItemWidget(
             title: "Help",
             iconPath: IconPaths.help,
@@ -95,6 +102,7 @@ Widget build(BuildContext context) {
               });
             },
           ),
+         
           NavigationItemWidget(
   title: "Chatbot",
   iconPath: IconPaths.chatbot, 
@@ -102,6 +110,13 @@ Widget build(BuildContext context) {
     context.push(AppRouter.kChatBotIntroView);
   },
 ),
+
+
+
+
+
+
+
 
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/fitness_data_model.dart';
 
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
@@ -207,6 +208,56 @@ class ProfileRepositoryImpl implements ProfileRepository {
         return Left(ServerFailure.fromDioError(e));
       }
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+
+
+
+
+
+
+
+
+ @override
+  Future<Either<Failure, String>> getFitnessAuthUrl() async {
+    try {
+      final response = await apiService.get(endpoint: "/fitness/auth-url");
+      if (response["status"] == "success") {
+        return Right(response["url"]);
+      } else {
+        return Left(ServerFailure(response["message"] ?? "Unknown error"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Error getting auth URL: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, FitnessDataModel>> getFitnessData() async {
+    try {
+      final response = await apiService.get(endpoint: "/fitness/my-data");
+      if (response["status"] == "success") {
+        return Right(FitnessDataModel.fromJson(response["data"]));
+      } else {
+        return Left(ServerFailure(response["message"] ?? "Failed to get data"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Error getting data: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, FitnessDataModel>> refreshFitnessData() async {
+    try {
+      final response = await apiService.get(endpoint: "/fitness/refresh-my-data");
+      if (response["status"] == "success") {
+        return Right(FitnessDataModel.fromJson(response["data"]));
+      } else {
+        return Left(ServerFailure(response["message"] ?? "Failed to refresh data"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Error refreshing data: ${e.toString()}"));
     }
   }
 

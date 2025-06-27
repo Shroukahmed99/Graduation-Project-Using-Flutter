@@ -1,5 +1,6 @@
 // profile_repository.dart
 import 'package:dartz/dartz.dart';
+import 'package:sehatak/Features/Profile%20User/data/models/fitness_data_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_provider_model.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/logout_respose_model.dart';
@@ -24,5 +25,11 @@ abstract class ProfileRepository {
     
     
  Future<Either<Failure, List<ReviewModel>>> getReviews();
+
+Future<Either<Failure, String>> getFitnessAuthUrl();
+  Future<Either<Failure, FitnessDataModel>> getFitnessData();
+  Future<Either<Failure, FitnessDataModel>> refreshFitnessData();
+
+
 
    }
