@@ -13,30 +13,33 @@ class GetArticleHome {
 
   factory GetArticleHome.fromJson(Map<String, dynamic> json) {
     return GetArticleHome(
-      id: json['_id'],
-      title: json['title'],
+      id: json['_id']?.toString() ?? '',
+      title: json['title'] ?? '',
       image: json['img'] == "null" ? null : json['img'],
-      serviceProvider: ServiceProvider.fromJson(json['serviceproviderId']),
+      serviceProvider: ServiceProvider.fromJson(json['serviceproviderId'] ?? {}),
     );
   }
 }
 
 class ServiceProvider {
-  final String id;
-  final String userId;
-  final String fullName;
+  final String? id;
+  final String? userId;
+  final String? fullName;
+  final String? serviceProviderId;
 
   ServiceProvider({
-    required this.id,
-    required this.userId,
-    required this.fullName,
+    this.id,
+    this.userId,
+    this.fullName,
+    this.serviceProviderId,
   });
 
   factory ServiceProvider.fromJson(Map<String, dynamic> json) {
     return ServiceProvider(
-      id: json['_id'],
-      userId: json['userId'],
+      id: json['_id']?.toString(),
+      userId: json['userId']?.toString(),
       fullName: json['fullName'],
+      serviceProviderId: json['id']?.toString(),
     );
   }
 }
@@ -53,11 +56,22 @@ class ArticleListResponse {
   });
 
   factory ArticleListResponse.fromJson(Map<String, dynamic> json) {
+    final articlesJson = json['articles'];
+
+    if (articlesJson == null || articlesJson is! List) {
+      throw Exception("Invalid or missing 'articles' field");
+    }
+
     return ArticleListResponse(
-      status: json['status'],
-      results: json['results'],
+      status: json['status'] ?? 'error',
+      results: json['results'] ?? 0,
       articles: List<GetArticleHome>.from(
-        json['articles'].map((x) => GetArticleHome.fromJson(x)),
+        articlesJson.map((e) {
+          if (e == null || e is! Map) {
+            throw Exception("Each article must be a JSON object");
+          }
+          return GetArticleHome.fromJson(e as Map<String, dynamic>);
+        }),
       ),
     );
   }

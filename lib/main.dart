@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/home/presentation/manger/navigation/navigation_cubit.dart';
+import 'package:sehatak/app_bloc_observer.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/const.dart';
@@ -9,6 +10,7 @@ import 'package:sehatak/const.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  Bloc.observer = AppBlocObserver();
   runApp(const HealthMateApp());
 }
 
@@ -28,6 +30,7 @@ class HealthMateApp extends StatelessWidget {
         child: MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
+          
           theme: ThemeData(
             fontFamily: 'League Spartan',
             scaffoldBackgroundColor: backgroundColor,

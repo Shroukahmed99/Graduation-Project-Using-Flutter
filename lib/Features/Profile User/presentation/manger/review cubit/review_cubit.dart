@@ -26,7 +26,7 @@ class ReviewCubit extends Cubit<ReviewState> {
         (failure) => emit(ReviewFailure(failure.errorMessage)),
         (reviews) {
           final myReviews = reviews
-              .where((review) => review.clientId == userId)
+              .where((review) => review.serviceProviderId == userId)
               .toList();
 
           emit(ReviewSuccess(myReviews));

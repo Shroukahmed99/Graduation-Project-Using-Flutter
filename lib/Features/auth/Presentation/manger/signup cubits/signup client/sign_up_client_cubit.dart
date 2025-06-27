@@ -75,7 +75,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         print('✅ SignUp Success');
 
         // تعيين أن المستخدم جديد
-        context.read<ProfileImageCubit>().setAsNewUser();
+        // context.read<ProfileImageCubit>().setAsNewUser();
 
         // طباعة التوكن فقط للتأكيد
         String? savedToken = CacheHelper.getData(key: 'token');

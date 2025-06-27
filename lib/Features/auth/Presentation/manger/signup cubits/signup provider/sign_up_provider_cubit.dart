@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
 
   SignUpProviderCubit(this.usersRepo) : super(SignUpProviderInitial());
 
-  Future<void> signUpUser() async {
+  Future<void> signUpProviderUser() async {
     if (formKey.currentState == null || !formKey.currentState!.validate()) {
       return;
     }
@@ -65,7 +66,7 @@ class SignUpProviderCubit extends Cubit<SignUpProviderState> {
       (usersModel) async {
         if (usersModel.token != null) {
           await CacheHelper.saveData(key: 'token', value: usersModel.token);
-          await CacheHelper.saveData(key: 'userId', value: usersModel.id); 
+          await CacheHelper.saveData(key: 'userId', value: usersModel.id);
           emit(SignUpProviderSuccess(usersModel));
         } else {
           emit(SignUpProviderFailure("API Response missing token!"));

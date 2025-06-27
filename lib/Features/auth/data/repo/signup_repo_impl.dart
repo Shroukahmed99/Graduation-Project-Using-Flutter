@@ -1,5 +1,8 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:sehatak/Features/auth/data/model/forget_password_model.dart';
 import 'package:sehatak/Features/auth/data/model/login_model.dart';
 import 'package:sehatak/Features/auth/data/model/otp_model.dart';
@@ -7,8 +10,6 @@ import 'package:sehatak/Features/auth/data/model/set_password.dart';
 import 'package:sehatak/Features/auth/data/repo/users_repo.dart';
 import 'package:sehatak/core/error/failure.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 
 class UsersRepoImpl implements UsersRepo {
@@ -193,7 +194,8 @@ class UsersRepoImpl implements UsersRepo {
         String mimeType = getMimeType(identifier.path);
         multipartFile = await MultipartFile.fromFile(
           identifier.path,
-          filename: identifier.path.split('/').last,
+          filename:
+              '${DateTime.now().toIso8601String()}_${identifier.path.split('/').last}',
           contentType:
               MediaType(mimeType.split('/')[0], mimeType.split('/')[1]),
         );
@@ -229,11 +231,13 @@ class UsersRepoImpl implements UsersRepo {
             ServerFailure("❌ API Response does not contain 'user' key"));
       }
 
-      String extractedToken = responseData["token"] ?? "";
+      String extractedToken = responseData['data']["token"] ?? "";
       return Right(UsersModel.fromJson(responseData, extractedToken));
     } catch (e) {
       if (e is DioException) {
-        return left(ServerFailure.fromDioError(e));
+        print(e);
+        // return left(ServerFailure.fromDioError(e));
+        return left(ServerFailure(e.toString()));
       }
       return left(ServerFailure(e.toString()));
     }
@@ -257,4 +261,101 @@ class UsersRepoImpl implements UsersRepo {
         return 'application/octet-stream';
     }
   }
+
+  // Future<Either<Failure, UsersModel>> signUpProvider({
+  //   required String fullName,
+  //   required String email,
+  //   required String mobileNumber,
+  //   required String password,
+  //   required String passwordConfirm,
+  //   required String gender,
+  //   required String age,
+  //   required String job,
+  //   required String yearsOfExperience,
+  //   required String jobTitle,
+  //   required String bio,
+  //   required String priceRange,
+  //   required File identifier,
+  // }) async {
+  //   try {
+  //     final dio = Dio();
+
+  //     final fileName = identifier.path.split('/').last;
+  //     // final mimeType = lookupMimeType(identifier.path);
+
+  //     // if (mimeType == null || !mimeType.startsWith('image/')) {
+  //     //   throw Exception("Invalid image type. Only image files are allowed.");
+  //     // }
+
+  //     final byteData = await rootBundle.load('assets/images/0.png');
+  //     // Step 2: Create a temporary file
+  //     final tempDir = await getTemporaryDirectory();
+  //     final tempFile = File('${tempDir.path}/license12221.png');
+  //     await tempFile.writeAsBytes(byteData.buffer.asUint8List());
+  //     final mimeType = lookupMimeType(tempFile.path) ?? 'image/png';
+
+  //     final data = FormData.fromMap({
+  //       'fullName': fullName,
+  //       'email': email,
+  //       'mobileNumber': mobileNumber,
+  //       'password': password,
+  //       'passwordConfirm': passwordConfirm,
+  //       'gender': gender,
+  //       'age': age,
+  //       'job': job,
+  //       'yearsOfExperience': yearsOfExperience,
+  //       'jobTitle': jobTitle,
+  //       'bio': bio,
+  //       'priceRange': priceRange,
+  //       'identifier': await MultipartFile.fromFile(
+  //         tempFile.path,
+  //         filename: 'license.png',
+  //         contentType: MediaType.parse(mimeType),
+  //       ),
+  //     });
+
+  //     print("FormData fields:");
+  //     for (var f in data.fields) {
+  //       print("${f.key}: ${f.value}");
+  //     }
+  //     print("File path: ${identifier.path}");
+  //     print("File exists: ${identifier.existsSync()}");
+
+  //     final response = await dio.post(
+  //       '{}serviceProviderSignUp',
+  //       options: Options(
+  //         headers: {'Content-Type': 'multipart/form-data'},
+  //       ),
+  //       data: data,
+  //       onSendProgress: (sent, total) {
+  //         final percent = (sent / total * 100).toStringAsFixed(2);
+  //         print('Upload progress: $percent%');
+  //       },
+  //     );
+
+  //     final responseData = response.data;
+
+  //     if (!responseData.containsKey('data')) {
+  //       return Left(ServerFailure("❌ API Response is null or missing data"));
+  //     }
+
+  //     if (!responseData['data'].containsKey('user')) {
+  //       return Left(
+  //           ServerFailure("❌ API Response does not contain 'user' key"));
+  //     }
+
+  //     String extractedToken = responseData['data']["token"] ?? "";
+  //     return Right(UsersModel.fromJson(responseData, extractedToken));
+  //   } catch (e) {
+  //     print(e);
+  //     if (e is DioException) {
+  //       print("❌ DioException caught:");
+  //       print("Status Code: ${e.response?.statusCode}");
+  //       print("Response Data: ${e.response?.data}");
+  //       print("Headers: ${e.response?.headers}");
+  //       return left(ServerFailure(e.toString()));
+  //     }
+  //     return left(ServerFailure(e.toString()));
+  //   }
+  // }
 }

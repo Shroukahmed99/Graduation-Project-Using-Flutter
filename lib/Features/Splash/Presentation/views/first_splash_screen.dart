@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 
 class FirstSplashScreen extends StatelessWidget {
   const FirstSplashScreen({super.key});
@@ -112,7 +114,19 @@ class FirstSplashScreen extends StatelessWidget {
 }
 
 void goToSecondSplashScreen(BuildContext context) {
-  Future.delayed(const Duration(seconds: 2), () {
-    GoRouter.of(context).push(AppRouter.kSecondSplashScreen);
+  Future.delayed(const Duration(seconds: 2), () async {
+    final String? token = await CacheHelper.getData(key: 'token');
+    print('Token: $token');
+
+    if (token != null && token.isNotEmpty) {
+      final role = JwtDecoder.decode(token)['role'];
+      if (role == 'service_provider') {
+        GoRouter.of(context).push(AppRouter.kHomeProviderView);
+      } else {
+        GoRouter.of(context).push(AppRouter.kHomeViewClient);
+      }
+    } else {
+      GoRouter.of(context).push(AppRouter.kSecondSplashScreen);
+    }
   });
 }

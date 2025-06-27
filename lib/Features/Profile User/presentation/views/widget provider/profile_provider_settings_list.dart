@@ -45,6 +45,7 @@ class ProfileProviderSettingsList extends StatelessWidget {
               title: "Logout",
               iconPath: IconPaths.logout,
               onTap: () {
+                
                 final bottomSheetCubit = BlocProvider.of<BottomSheetCubit>(context);
                 final logoutCubit = BlocProvider.of<LogoutCubit>(context);
 

@@ -22,6 +22,7 @@ class PriceSelectionViewBody extends StatelessWidget {
     return BlocListener<SignUpProviderCubit, SignUpProviderState>(
       listener: (context, state) {
         if (state is SignUpProviderSuccess) {
+
           customSnackBar(context, 'Success');
           Future.delayed(const Duration(seconds: 2), () {
             GoRouter.of(context).pushReplacement(AppRouter.kSuccessViewService);
@@ -86,7 +87,7 @@ class PriceSelectionViewBody extends StatelessWidget {
                                 if (selectedPrice != null) {
                                   context
                                       .read<SignUpProviderCubit>()
-                                      .signUpUser();
+                                      .signUpProviderUser();
                                 } else {
                                   customSnackBar(
                                       context, 'Please select activity level');

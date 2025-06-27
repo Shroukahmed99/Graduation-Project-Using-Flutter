@@ -57,6 +57,7 @@ import 'package:sehatak/Features/success%20register/set_password_success.dart';
 import 'package:sehatak/Features/success%20register/success_view_client.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
 abstract class AppRouter {
   static const kSecondSplashScreen = "/SecondSplashScreen";
   static const kOnBoardingView = '/OnBoardingView';
@@ -117,7 +118,9 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const FirstSplashScreen(),
+      builder: (context, state) {
+        return const FirstSplashScreen();
+      },
     ),
      GoRoute(
       path: kChatBotIntroView,

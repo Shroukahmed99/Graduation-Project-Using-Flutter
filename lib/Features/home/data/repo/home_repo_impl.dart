@@ -163,6 +163,12 @@ class HomeRepoImpl implements HomeRepo {
   }
 
 
+
+
+
+
+
+
   Future<Either<Failure, List<ReviewModel>>> getAllReviews() async {
     try {
       final response = await apiService.get(endpoint: 'reviews/getallReviews');
@@ -181,6 +187,16 @@ class HomeRepoImpl implements HomeRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+
+
+
+
+
+
+
+
+  
 }
 
 

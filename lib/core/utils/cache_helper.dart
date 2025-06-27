@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -11,13 +12,15 @@ class CacheHelper {
   }
 
   // حفظ البيانات
-  static Future<bool> saveData({required String key, required dynamic value}) async {
+  static Future<bool> saveData(
+      {required String key, required dynamic value}) async {
     if (_sharedPreferences == null) await init(); // ضمان التهيئة
 
     bool success = false;
     try {
       if (value is String) {
         success = await _sharedPreferences!.setString(key, value);
+        print('saved');
       } else if (value is int) {
         success = await _sharedPreferences!.setInt(key, value);
       } else if (value is bool) {
