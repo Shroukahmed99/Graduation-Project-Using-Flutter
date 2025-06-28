@@ -89,7 +89,7 @@ class PaymentViewBody extends StatelessWidget {
       builder: (context, state) {
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
                 SizedBox(height: 40.h),
@@ -110,8 +110,10 @@ class PaymentViewBody extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'What\'s Your Goal?',
-                    style:
-                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(height: 30.h),
@@ -122,7 +124,7 @@ class PaymentViewBody extends StatelessWidget {
                 CustomButtomBookNow(
                   text: state is StripeLoading ? 'Processing...' : 'BOOK NOW',
                   onTap: () => _bookNow(context, state),
-                )
+                ),
               ],
             ),
           ),

@@ -7,7 +7,11 @@ class CustomSelectActivity extends StatefulWidget {
   final List<String> options;
   final Function(int)? onSelect;
 
-  const CustomSelectActivity({super.key, required this.options, this.onSelect});
+  const CustomSelectActivity({
+    super.key,
+    required this.options,
+    this.onSelect,
+  });
 
   @override
   _CustomSelectActivityState createState() => _CustomSelectActivityState();
@@ -19,7 +23,9 @@ class _CustomSelectActivityState extends State<CustomSelectActivity> {
   Future<void> saveData() async {
     if (selectedIndex != null) {
       await CacheHelper.saveData(
-          key: 'physicalActivityLevel', value: widget.options[selectedIndex!]);
+        key: 'physicalActivityLevel',
+        value: widget.options[selectedIndex!],
+      );
     }
   }
 
@@ -38,19 +44,20 @@ class _CustomSelectActivityState extends State<CustomSelectActivity> {
           },
           child: Center(
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8),
+              margin: EdgeInsets.symmetric(vertical: 8.h),
               decoration: BoxDecoration(
                 color: selectedIndex == index ? kPrimaryColor : Colors.white,
-                borderRadius: BorderRadius.circular(38),
+                borderRadius: BorderRadius.circular(38.r),
               ),
               height: 64.h,
               width: 320.w,
               alignment: Alignment.center,
               child: Text(
                 widget.options[index],
-                style: const TextStyle(
+                textAlign: TextAlign.center,
+                style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'League Spartan',
                 ),

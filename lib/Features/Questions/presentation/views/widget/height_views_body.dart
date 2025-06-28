@@ -19,35 +19,45 @@ class HeightViewsBody extends StatelessWidget {
       builder: (context, state) {
         int selectedHeight = (state is HeightSelected) ? state.height : 145;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 32.h, left: 24.w),
-              child: const CustomArrowBack(text: 'Back'),
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 32.h),
+                    const CustomArrowBack(text: 'Back'),
+                    CustomSizedBox(height: 40.h),
+                    const CustomQuestionAndAswer(
+                      question: 'What Is Your Height?',
+                    ),
+                    CustomSizedBox(height: 30.h),
+                    CustomSliderHeight(
+                      unitSymbol: "cm",
+                      dates: List.generate(181, (index) => 70 + index),
+                      selectedDate: selectedHeight,
+                      onDateSelected: (height) {
+                        context.read<HeightCubit>().selectHeight(height);
+                      },
+                    ),
+                    const Spacer(),
+                    CustomButtom(
+                      text: 'Continue',
+                      onTap: () {
+                        GoRouter.of(context).push(AppRouter.kWhatGoalViews);
+                      },
+                    ),
+                    CustomSizedBox(height: 40.h),
+                  ],
+                ),
+              ),
             ),
-            CustomSizedBox(height: 40.h),
-            const CustomQuestionAndAswer(
-              question: 'What Is Your Height?',
-            ),
-            CustomSizedBox(height: 100.h),
-            CustomSliderHeight(
-              unitSymbol: "cm",
-              dates: List.generate(181, (index) => 70 + index),
-              selectedDate: selectedHeight,
-              onDateSelected: (height) {
-                context.read<HeightCubit>().selectHeight(height);
-              },
-            ),
-            const Spacer(),
-            CustomButtom(
-              text: 'Continue',
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kWhatGoalViews);
-              },
-            ),
-            CustomSizedBox(height: 40.h),
-          ],
+          ),
         );
       },
     );

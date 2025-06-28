@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
@@ -16,7 +17,6 @@ class ArticleRepoImpl implements ArticleRepo {
   ArticleRepoImpl(this.apiService);
 
   @override
-  @override
   Future<Either<Failure, AddArticleModel>> addArticle({
     required String title,
     required String content,
@@ -28,7 +28,8 @@ class ArticleRepoImpl implements ArticleRepo {
         String mimeType = getMimeType(image.path);
         multipartFile = await MultipartFile.fromFile(
           image.path,
-          filename: image.path.split('/').last,
+          filename:
+              '${DateTime.now().toIso8601String()}_${image.path.split('/').last}',
           contentType:
               MediaType(mimeType.split('/')[0], mimeType.split('/')[1]),
         );
@@ -44,7 +45,6 @@ class ArticleRepoImpl implements ArticleRepo {
         endpoint: 'articles/addArticle',
         data: formData,
       );
-
       if (response['status'] == 'success') {
         if (response['data'] != null && response['data'] is Map) {
           return Right(AddArticleModel.fromJson(response['data']['article']));
@@ -55,15 +55,14 @@ class ArticleRepoImpl implements ArticleRepo {
         return Left(ServerFailure(response['message'] ?? 'Unexpected error'));
       }
     } on DioException catch (e) {
+      print(e.response?.data);
+      print(e.message);
+      print(e.stackTrace);
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
-
-
-
-
 
   @override
   Future<Either<Failure, List<GetAllArticleModel>>> getAllArticle() async {

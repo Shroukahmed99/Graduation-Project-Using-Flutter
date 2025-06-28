@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getAllArticle/get_all_article_cubit.dart';
+import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/Features/articles/presentation/views/widget/article_card.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 
@@ -20,14 +21,38 @@ class ArticlesListView extends StatelessWidget {
           });
           return const SizedBox.shrink();
         } else if (state is GetAllArticleSuccess) {
-          final articles = state.allArticle;
+          final providerState = context.read<SaveNameCubit>().state;
+          String? myId;
+
+          if (providerState is SaveNameProviderLoaded) {
+            myId = providerState.provider.id;
+          }
+
+          final filteredArticles = myId != null
+              ? state.allArticle
+                  .where((article) => article.serviceProvider?.id == myId)
+                  .toList()
+              : [];
+
+          if (filteredArticles.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.only(top: 20.h),
+              child: const Center(
+                child: Text(
+'No articles added by you yet.',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            );
+          }
+
           return ListView.builder(
-            itemCount: articles.length,
+            itemCount: filteredArticles.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             itemBuilder: (context, index) {
-              final article = articles[index];
+              final article = filteredArticles[index];
               return ArticleCard(article: article);
             },
           );

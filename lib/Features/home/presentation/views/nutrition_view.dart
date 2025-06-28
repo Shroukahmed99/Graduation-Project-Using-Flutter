@@ -16,17 +16,24 @@ class NutritionView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => NutritionCubit(HomeRepoImpl(ApiService(Dio())))
-            ..fetchNutritionists(),
+          create: (_) =>
+              NutritionCubit(HomeRepoImpl(ApiService(Dio())))
+                ..fetchNutritionists(),
         ),
         BlocProvider(
           create: (_) => GetAllReviewsCubit(HomeRepoImpl(ApiService(Dio())))
             ..fetchAllReviews(),
         ),
       ],
-      child: const Scaffold(
-        body: NutritionViewBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeClient(),
+      child: Scaffold(
+        body: const SafeArea(
+          bottom: false, // علشان نسيب مكان للـ bottomNavigationBar
+          child: NutritionViewBody(),
+        ),
+        bottomNavigationBar: const SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

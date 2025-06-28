@@ -14,21 +14,26 @@ class PhysicalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-  providers: [
-    BlocProvider(
-      create: (_) => PhysicalTherapCubit(HomeRepoImpl(ApiService(Dio())))
-        ..fetchPhysicalTherap(),
-    ),
-    BlocProvider(
-      create: (_) => GetAllReviewsCubit(HomeRepoImpl(ApiService(Dio())))
-        ..fetchAllReviews(),
-    ),
-  ],
-  child: const Scaffold(
-    body: PhysicalViewBody(),
-    bottomNavigationBar: CustomBottomNavigationHomeClient(),
-  ),
-);
-
+      providers: [
+        BlocProvider(
+          create: (_) => PhysicalTherapCubit(HomeRepoImpl(ApiService(Dio())))
+            ..fetchPhysicalTherap(),
+        ),
+        BlocProvider(
+          create: (_) => GetAllReviewsCubit(HomeRepoImpl(ApiService(Dio())))
+            ..fetchAllReviews(),
+        ),
+      ],
+      child: Scaffold(
+        body: const SafeArea(
+          bottom: false, // علشان نسيب مكان للـ bottom nav
+          child: PhysicalViewBody(),
+        ),
+        bottomNavigationBar: const SafeArea(
+          top: false, // علشان الـ bottom nav يطلع فوق شريط التحكم في بعض الأجهزة
+          child: CustomBottomNavigationHomeClient(),
+        ),
+      ),
+    );
   }
 }

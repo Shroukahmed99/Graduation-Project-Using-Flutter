@@ -28,7 +28,7 @@ class InsertDataViewBody extends StatelessWidget {
           },
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(top: 32.h, left: 24.w),
+              padding: EdgeInsets.only(top: 32.h, left: 24.w, right: 24.w),
               child: Column(
                 children: [
                   const CustomArrowBack(text: 'Back'),
@@ -36,12 +36,12 @@ class InsertDataViewBody extends StatelessWidget {
                   const CustomQuestionAndAswer(
                     question: 'Insert your Data',
                   ),
-                  const CustomSizedBox(height: 50),
+                  CustomSizedBox(height: 50.h),
 
                   /// Years of Experience
                   CustomTextField(
                     title: 'Years of Experience',
-                    width: 77,
+                    width: 77.w,
                     hintText: '00',
                     controller: cubit.yearsController,
                     isNumeric: true,
@@ -49,47 +49,47 @@ class InsertDataViewBody extends StatelessWidget {
                         cubit.saveData('yearsOfExperience', value),
                   ),
 
-                  const CustomSizedBox(height: 10),
+                  CustomSizedBox(height: 10.h),
 
                   /// Job Title
                   CustomTextField(
                     title: 'Job Title',
-                    width: 146,
+                    width: 146.w,
                     hintText: 'Add Text',
                     controller: cubit.jobTitleController,
                     isAlpha: true,
                     onChanged: (value) => cubit.saveData('jobTitle', value),
                   ),
-                  const CustomSizedBox(height: 10),
+                  CustomSizedBox(height: 10.h),
 
                   CustomTextField(
                     title: 'Bio',
-                    width: 320,
+                    width: 320.w,
                     hintText: 'Add Text',
                     controller: cubit.bioController,
                     isAlpha: true,
                     onChanged: (value) => cubit.saveData('bio', value),
                   ),
 
-                  const CustomSizedBox(height: 10),
+                  CustomSizedBox(height: 10.h),
 
                   /// CV Uploader
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "identifier ",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontFamily: 'League Spartan',
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
                   UploadImage(cubit: cubit),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   CustomButtom(
                     text: 'Continue',
                     onTap: () {

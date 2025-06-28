@@ -17,16 +17,17 @@ class JopSelectionViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 32.h, left: 24.w),
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(top: 32.h, left: 24.w, right: 24.w, bottom: 32.h),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CustomArrowBack(text: 'Back'),
           CustomSizedBox(height: 40.h),
           const CustomQuestionAndAswer(
             question: 'What’s Your Job?',
           ),
-          const CustomSizedBox(height: 100),
+          CustomSizedBox(height: 100.h),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
@@ -36,15 +37,12 @@ class JopSelectionViewBody extends StatelessWidget {
                     String selectedJob =
                         (state is JobSelected) ? state.selectedJob : '';
                     return CircleImageTextWidget(
-                      images: const [
-                        AssetImage('assets/images/medical-big.png')
-                      ],
+                      images: const [AssetImage('assets/images/medical-big.png')],
                       text: 'Physical Therapy',
                       isSelected: selectedJob == 'Physical Therapy',
                       onTap: () {
                         context.read<JobCubit>().selectJob('Physical Therapy');
-                        CacheHelper.saveData(
-                            key: 'job', value: 'Physical Therapy');
+                        CacheHelper.saveData(key: 'job', value: 'Physical Therapy');
                       },
                     );
                   },
@@ -69,22 +67,24 @@ class JopSelectionViewBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30.h),
-          BlocBuilder<JobCubit, JobState>(
-            builder: (context, state) {
-              String selectedJob =
-                  (state is JobSelected) ? state.selectedJob : '';
-              return CircleImageTextWidget(
-                images: const [AssetImage('assets/images/Vector-big.png')],
-                text: 'Work Out',
-                isSelected: selectedJob == 'Work Out',
-                onTap: () {
-                  context.read<JobCubit>().selectJob('Work Out');
-                  CacheHelper.saveData(key: 'job', value: 'Work Out');
-                },
-              );
-            },
+          Center(
+            child: BlocBuilder<JobCubit, JobState>(
+              builder: (context, state) {
+                String selectedJob =
+                    (state is JobSelected) ? state.selectedJob : '';
+                return CircleImageTextWidget(
+                  images: const [AssetImage('assets/images/Vector-big.png')],
+                  text: 'Work Out',
+                  isSelected: selectedJob == 'Work Out',
+                  onTap: () {
+                    context.read<JobCubit>().selectJob('Work Out');
+                    CacheHelper.saveData(key: 'job', value: 'Work Out');
+                  },
+                );
+              },
+            ),
           ),
-          const Spacer(),
+          CustomSizedBox(height: 60.h),
           BlocBuilder<JobCubit, JobState>(
             builder: (context, state) {
               String? selectedJob =
@@ -97,8 +97,7 @@ class JopSelectionViewBody extends StatelessWidget {
                     customSnackBar(
                         context, 'Please choose a job before continuing!');
                   } else {
-                    GoRouter.of(context)
-                        .push(AppRouter.kGenderSelectionViewService);
+                    GoRouter.of(context).push(AppRouter.kGenderSelectionViewService);
                   }
                 },
               );

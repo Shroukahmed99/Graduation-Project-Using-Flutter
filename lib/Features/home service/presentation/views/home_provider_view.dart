@@ -22,11 +22,9 @@ class HomeProviderView extends StatelessWidget {
           create: (context) => HomeServiceTabCubit(),
         ),
         BlocProvider(
-            create: (context) =>
-                SaveNameCubit(ProfileRepositoryImpl(ApiService(Dio())))
-                  ..fetchProviderProfile()),
-        BlocProvider(
-          create: (context) => HomeServiceTabCubit(),
+          create: (context) =>
+              SaveNameCubit(ProfileRepositoryImpl(ApiService(Dio())))
+                ..fetchProviderProfile(),
         ),
         BlocProvider(
           create: (context) =>
@@ -40,8 +38,14 @@ class HomeProviderView extends StatelessWidget {
         ),
       ],
       child: const Scaffold(
-        body: HomeServiceViewBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeProvider(),
+        body: SafeArea(
+          bottom: false, // نسيب مساحة فوق بس، مش تحت
+          child: HomeServiceViewBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false, // نسيب مساحة لتحت علشان البوتوم يظهر فوق زر الرجوع
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

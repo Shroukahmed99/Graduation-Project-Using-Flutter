@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class CustomSelectGoal extends StatelessWidget {
@@ -17,8 +18,8 @@ class CustomSelectGoal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.all(16),
-        width: 400,
+        padding: EdgeInsets.all(16.w),
+        width: 400.w,
         decoration: const BoxDecoration(
           color: kPrimaryColor,
         ),
@@ -27,35 +28,35 @@ class CustomSelectGoal extends StatelessWidget {
           children: List.generate(options.length, (index) {
             return GestureDetector(
               onTap: () {
-                onSelect(options[index]); // ✅ استدعاء الدالة عند الاختيار
+                onSelect(options[index]);
               },
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 6),
+                margin: EdgeInsets.symmetric(vertical: 6.h),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(30.r),
                 ),
-                height: 50,
+                height: 50.h,
                 alignment: Alignment.center,
                 child: Row(
                   children: [
-                    const SizedBox(width: 20),
+                    SizedBox(width: 20.w),
                     Text(
                       options[index],
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Spacer(),
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      width: 22,
-                      height: 22,
+                      margin: EdgeInsets.symmetric(horizontal: 16.w),
+                      width: 22.w,
+                      height: 22.h,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.black, width: 2),
+                        border: Border.all(color: Colors.black, width: 2.w),
                         color: selectedOption == options[index]
                             ? Colors.orange
                             : Colors.transparent,

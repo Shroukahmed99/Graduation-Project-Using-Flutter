@@ -19,8 +19,14 @@ class FeedbackView extends StatelessWidget {
       )..fetchReviews(),
       child: const Scaffold(
         backgroundColor: backgroundColor,
-        body: FeedbackBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeProvider(),
+        body: SafeArea(
+          bottom: false,
+          child: FeedbackBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

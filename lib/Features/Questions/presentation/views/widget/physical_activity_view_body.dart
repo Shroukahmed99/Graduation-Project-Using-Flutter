@@ -52,7 +52,7 @@ class _PhysicalActivityViewBodyState extends State<PhysicalActivityViewBody> {
             const CustomQuestionAndAswer(
               question: 'Physical Activity Level',
             ),
-            CustomSizedBox(height: 180.h),
+            CustomSizedBox(height: 120.h),
             CustomSelectActivity(
               options: const ['Beginner', 'Intermediate', 'Advance'],
               onSelect: (index) {

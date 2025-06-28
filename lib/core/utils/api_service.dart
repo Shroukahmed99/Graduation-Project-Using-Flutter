@@ -32,6 +32,7 @@ class ApiService {
         print("🚨 Error: ${e.message}"); // طباعة الخطأ إذا حدث
         handler.next(e);
       },
+      
     ));
   }
 

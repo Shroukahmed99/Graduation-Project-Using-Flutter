@@ -24,9 +24,10 @@ class DetailsPhysicalViewBody extends StatelessWidget {
         } else if (state is PhysicalMoreSuccess) {
           final physicalist = state.physicalTherapistMore;
 
-          return Padding(
-            padding: EdgeInsets.only(top: 15.h),
+          return SingleChildScrollView(
+            padding: EdgeInsets.only(top: 15.h, bottom: 20.h),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomAppBarDetails(
                   title: 'Physical Therapy',
@@ -37,22 +38,21 @@ class DetailsPhysicalViewBody extends StatelessWidget {
                   physicalTherapistMore: physicalist,
                 ),
                 FeedbackSectionPhysical(reviews: physicalist.reviews),
-                const Spacer(),
-                CustomButtomBookNow(
-                  text: 'BOOK NOW',
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kPaymentView,
-                      extra: {
-                        'priceRange': physicalist.priceRange.toString(),
-                        'id': physicalist.id,
-                      },
-                    );
-                  },
+                SizedBox(height: 20.h),
+                Center(
+                  child: CustomButtomBookNow(
+                    text: 'BOOK NOW',
+                    onTap: () {
+                      GoRouter.of(context).push(
+                        AppRouter.kPaymentView,
+                        extra: {
+                          'priceRange': physicalist.priceRange.toString(),
+                          'id': physicalist.id,
+                        },
+                      );
+                    },
+                  ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                )
               ],
             ),
           );

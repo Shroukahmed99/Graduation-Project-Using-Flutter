@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/const.dart';
 
 class FeedbackCard extends StatelessWidget {
@@ -10,49 +11,58 @@ class FeedbackCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.feedbackText,
-    this.rating = 3, 
+    this.rating = 3,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: accentColor,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
+          Text(
+            name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.sp,
+            ),
+          ),
+          SizedBox(height: 6.h),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.message, size: 20, color: Colors.black),
-              const SizedBox(width: 8),
+              Icon(Icons.message, size: 20.sp, color: Colors.black),
+              SizedBox(width: 8.w),
               Expanded(
                 child: Text(
                   feedbackText,
-                  style: const TextStyle(fontSize: 13),
-                  maxLines: 3, 
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                  ),
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(5, (index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  padding: EdgeInsets.symmetric(horizontal: 2.w),
                   child: Image.asset(
                     index < rating
                         ? IconPaths.selectStar
-                        : IconPaths.star, 
-                    width: 16, 
-                    height: 16,
+                        : IconPaths.star,
+                    width: 16.w,
+                    height: 16.h,
                     fit: BoxFit.contain,
                   ),
                 );

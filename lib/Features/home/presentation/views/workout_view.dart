@@ -24,9 +24,15 @@ class WorkoutView extends StatelessWidget {
             ..fetchAllReviews(),
         ),
       ],
-      child: const Scaffold(
-        body: WorkoutViewBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeClient(),
+      child: Scaffold(
+        body: const SafeArea(
+          bottom: false, // نسيب مساحة للـ bottom nav
+          child: WorkoutViewBody(),
+        ),
+        bottomNavigationBar: const SafeArea(
+          top: false, // من غير مساحة من فوق
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

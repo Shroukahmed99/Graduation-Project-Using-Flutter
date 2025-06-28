@@ -27,13 +27,19 @@ class ChatViewClient extends StatelessWidget {
         chatRepo: chatRepo,
         socketService: SocketService(),
       )..initChat(bookingId),
-      child: Scaffold(
-        body: ChatViewBodyClient(
-          bookingId: bookingId,
-          senderId: senderId,
-          receiverId: receiverId,
+      child: const Scaffold(
+        body: SafeArea(
+          bottom: false, // نسيب المساحة لتحت للبار فقط
+          child: ChatViewBodyClient(
+            bookingId: '', // replace if needed
+            senderId: '',
+            receiverId: '',
+          ),
         ),
-        bottomNavigationBar: const CustomBottomNavigationHomeClient(),
+        bottomNavigationBar: SafeArea(
+          top: false, // علشان مانسيبش مساحة زيادة فوق
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

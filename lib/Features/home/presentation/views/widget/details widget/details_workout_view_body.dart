@@ -26,34 +26,37 @@ class DeteailsWorkoutViewBody extends StatelessWidget {
 
           return Padding(
             padding: EdgeInsets.only(top: 15.h),
-            child: Column(
-              children: [
-                const CustomAppBarDetails(
-                  title: 'Workout',
-                  image: 'assets/images/catgory1.png',
-                ),
-                SizedBox(height: 20.h),
-                InfoDataWorkout(
-                  coachMoreId: coaches,
-                ),
-                FeedbackSectionWorkout(reviews: coaches.reviews),
-                const Spacer(),
-                CustomButtomBookNow(
-                  text: 'BOOK NOW',
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kPaymentView,
-                      extra: {
-                        'priceRange': coaches.priceRange.toString(),
-                        'id': coaches.id,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomAppBarDetails(
+                    title: 'Workout',
+                    image: 'assets/images/catgory1.png',
+                  ),
+                  SizedBox(height: 20.h),
+                  InfoDataWorkout(
+                    coachMoreId: coaches,
+                  ),
+                  FeedbackSectionWorkout(reviews: coaches.reviews),
+                  SizedBox(height: 20.h),
+                  Center(
+                    child: CustomButtomBookNow(
+                      text: 'BOOK NOW',
+                      onTap: () {
+                        GoRouter.of(context).push(
+                          AppRouter.kPaymentView,
+                          extra: {
+                            'priceRange': coaches.priceRange.toString(),
+                            'id': coaches.id,
+                          },
+                        );
                       },
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 10.h,
-                )
-              ],
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                ],
+              ),
             ),
           );
         } else if (state is CoachMoreFailuer) {

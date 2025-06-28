@@ -25,9 +25,10 @@ class DeteailsNutritionViewBody extends StatelessWidget {
         } else if (state is NutritionMoreSuccess) {
           final nutritionist = state.nutritionistMore;
 
-          return Padding(
-            padding: EdgeInsets.only(top: 15.h),
+          return SingleChildScrollView(
+            padding: EdgeInsets.only(top: 15.h, bottom: 20.h),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomAppBarDetails(
                   title: 'Nutrition',
@@ -38,22 +39,21 @@ class DeteailsNutritionViewBody extends StatelessWidget {
                   nutritionistMore: nutritionist,
                 ),
                 FeedbackSectionNutririon(reviews: nutritionist.reviews),
-                const Spacer(),
-                CustomButtomBookNow(
-                  text: 'BOOK NOW',
-                  onTap: () {
-                    GoRouter.of(context).push(
-                      AppRouter.kPaymentView,
-                      extra: {
-                        'priceRange': nutritionist.priceRange.toString(),
-                        'id': nutritionist.id,
-                      },
-                    );
-                  },
+                SizedBox(height: 20.h),
+                Center(
+                  child: CustomButtomBookNow(
+                    text: 'BOOK NOW',
+                    onTap: () {
+                      GoRouter.of(context).push(
+                        AppRouter.kPaymentView,
+                        extra: {
+                          'priceRange': nutritionist.priceRange.toString(),
+                          'id': nutritionist.id,
+                        },
+                      );
+                    },
+                  ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                )
               ],
             ),
           );

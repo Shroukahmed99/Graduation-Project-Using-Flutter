@@ -12,17 +12,22 @@ class DisplayClientProfileDetailsView extends StatelessWidget {
   const DisplayClientProfileDetailsView({super.key});
 
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ProfileImageCubit()),
         BlocProvider(
-          create: (_) => ProfileClientCubit(ProfileRepositoryImpl(ApiService(Dio())))..getClientData(),
+          create: (_) => ProfileClientCubit(
+            ProfileRepositoryImpl(ApiService(Dio())),
+          )..getClientData(),
         ),
       ],
       child: const Scaffold(
         body: SafeArea(child: DisplayClientProfileDetailsBody()),
-        bottomNavigationBar: CustomBottomNavigationHomeClient(),
+        bottomNavigationBar: SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

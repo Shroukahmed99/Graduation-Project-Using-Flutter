@@ -10,7 +10,10 @@ import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-class GenderSelectionViewClient extends StatelessWidget {
+
+
+  @override
+ class GenderSelectionViewClient extends StatelessWidget {
   const GenderSelectionViewClient({super.key});
 
   @override
@@ -18,63 +21,70 @@ class GenderSelectionViewClient extends StatelessWidget {
     return BlocProvider(
       create: (context) => GenderCubit(),
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.only(top: 32.h, left: 24.w),
-          child: Column(
-            children: [
-              const CustomArrowBack(text: 'Back'),
-              CustomSizedBox(height: 40.h),
-              const CustomQuestionAndAswer(
-                question: 'What’s Your Gender',
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
               ),
-              const CustomSizedBox(height: 80),
-              BlocBuilder<GenderCubit, GenderState>(
-                builder: (context, state) {
-                  String? selectedGender =
-                      (state is GenderSelected) ? state.gender : null;
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    SizedBox(height: 32.h), // تعويض عن SafeArea
+                    const CustomArrowBack(text: 'Back'),
+                    CustomSizedBox(height: 40.h),
+                    const CustomQuestionAndAswer(
+                      question: 'What’s Your Gender',
+                    ),
+                    const CustomSizedBox(height: 50),
+                    BlocBuilder<GenderCubit, GenderState>(
+                      builder: (context, state) {
+                        String? selectedGender =
+                            (state is GenderSelected) ? state.gender : null;
 
-                  return Column(
-                    children: [
-                      CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/male.png')],
-                        text: 'Male',
-                        isSelected: selectedGender ==
-                            'male', // ✅ لا يكون محدد عند البداية
-                        onTap: () {
-                          context.read<GenderCubit>().selectGender('male');
-                        },
-                      ),
-                      CustomSizedBox(height: 50.h),
-                      CircleImageTextWidget(
-                        images: const [AssetImage('assets/images/female.png')],
-                        text: 'Female',
-                        isSelected: selectedGender ==
-                            'female', // ✅ لا يكون محدد عند البداية
-                        onTap: () {
-                          context.read<GenderCubit>().selectGender('female');
-                        },
-                      ),
-                    ],
-                  );
-                },
+                        return Column(
+                          children: [
+                            CircleImageTextWidget(
+                              images: const [AssetImage('assets/images/male.png')],
+                              text: 'Male',
+                              isSelected: selectedGender == 'male',
+                              onTap: () {
+                                context.read<GenderCubit>().selectGender('male');
+                              },
+                            ),
+                            CustomSizedBox(height: 70.h),
+                            CircleImageTextWidget(
+                              images: const [AssetImage('assets/images/female.png')],
+                              text: 'Female',
+                              isSelected: selectedGender == 'female',
+                              onTap: () {
+                                context.read<GenderCubit>().selectGender('female');
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    const Spacer(),
+                    BlocBuilder<GenderCubit, GenderState>(
+                      builder: (context, state) {
+                        bool isButtonEnabled = state is GenderSelected;
+                        return CustomButtom(
+                          text: 'Continue',
+                          onTap: isButtonEnabled
+                              ? () {
+                                  GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
+                                }
+                              : null,
+                        );
+                      },
+                    ),
+                    CustomSizedBox(height: 40.h),
+                  ],
+                ),
               ),
-              const Spacer(),
-              BlocBuilder<GenderCubit, GenderState>(
-                builder: (context, state) {
-                  bool isButtonEnabled = state is GenderSelected;
-                  return CustomButtom(
-                    text: 'Continue',
-                    onTap: isButtonEnabled
-                        ? () {
-                            GoRouter.of(context)
-                                .push(AppRouter.kAgeSelectionScreen);
-                          }
-                        : null, // ✅ الزر يكون معطلاً حتى يختار المستخدم الجنس
-                  );
-                },
-              ),
-              CustomSizedBox(height: 40.h),
-            ],
+            ),
           ),
         ),
       ),

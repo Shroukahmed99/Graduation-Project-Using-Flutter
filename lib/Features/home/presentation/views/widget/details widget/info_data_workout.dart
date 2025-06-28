@@ -10,10 +10,11 @@ class InfoDataWorkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 35.w, right: 22.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // صورة المدرب و الاسم و الوظيفة
           Row(
             children: [
               Container(
@@ -24,36 +25,42 @@ class InfoDataWorkout extends StatelessWidget {
                   border: Border.all(color: kPrimaryColor, width: 3.w),
                 ),
               ),
-              SizedBox(width: 50.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    coachMoreId.fullName,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
+              SizedBox(width: 20.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      coachMoreId.fullName,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    coachMoreId.job,
-                    style: const TextStyle(color: accentColor),
-                  ),
-                ],
+                    Text(
+                      coachMoreId.job,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: accentColor),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 150.w),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/image 19.png',
-                  width: 20.w,
-                  height: 20.h,
-                ),
-                SizedBox(width: 10.w),
-                Column(
+          SizedBox(height: 16.h),
+
+          // السعر
+          Row(
+            children: [
+              Image.asset(
+                'assets/images/image 19.png',
+                width: 20.w,
+                height: 20.h,
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("COST", style: TextStyle(color: kPrimaryColor)),
@@ -63,20 +70,22 @@ class InfoDataWorkout extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 150.w),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/reviews.png',
-                  width: 30.w,
-                  height: 30.h,
-                ),
-                SizedBox(width: 10.w),
-                Column(
+          SizedBox(height: 10.h),
+
+          // التقييم
+          Row(
+            children: [
+              Image.asset(
+                'assets/images/reviews.png',
+                width: 30.w,
+                height: 30.h,
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Rating",
@@ -89,20 +98,22 @@ class InfoDataWorkout extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 150.w),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/Experience.png',
-                  width: 20.w,
-                  height: 20.h,
-                ),
-                SizedBox(width: 10.w),
-                Column(
+          SizedBox(height: 10.h),
+
+          // عدد سنوات الخبرة
+          Row(
+            children: [
+              Image.asset(
+                'assets/images/Experience.png',
+                width: 20.w,
+                height: 20.h,
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Experience",
@@ -113,9 +124,12 @@ class InfoDataWorkout extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+          SizedBox(height: 20.h),
+
+          // البايو
           Text(
             "Bio",
             style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
@@ -124,6 +138,9 @@ class InfoDataWorkout extends StatelessWidget {
           Text(
             coachMoreId.bio,
             style: const TextStyle(color: Colors.black),
+            // Optional:
+            // maxLines: 5,
+            // overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 20.h),
         ],

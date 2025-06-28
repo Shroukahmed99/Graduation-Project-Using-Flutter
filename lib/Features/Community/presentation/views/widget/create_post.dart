@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Community/presentation/manger/AddPost/add_post_cubit.dart';
+import 'package:sehatak/Features/Community/presentation/manger/getAllPost/get_all_post_cubit.dart';
 import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/const.dart';
 
@@ -16,6 +17,8 @@ class CreatePost extends StatelessWidget {
       listener: (context, state) {
         if (state is AddPostSuccess) {
           cubit.clearAll();
+              context.read<GetAllPostCubit>().getAllPost();
+
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('✅ Post added successfully!'),

@@ -37,8 +37,14 @@ class CommunityView extends StatelessWidget {
         ),
       ],
       child: const Scaffold(
-        body: CommunityViewBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeClient(),
+        body: SafeArea(
+          bottom: false, // نخلي المساحة اللي فوق بس
+          child: CommunityViewBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false, // نفعّل المساحة من تحت علشان البار يبان فوق الزر
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

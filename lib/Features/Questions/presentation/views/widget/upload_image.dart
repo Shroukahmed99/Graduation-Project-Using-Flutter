@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/isert%20data%20cubit/insert_data_cubit.dart';
 import 'package:sehatak/const.dart';
 
@@ -20,11 +21,11 @@ class UploadImage extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Container(
-            width: 320,
-            height: 150,
+            width: 320.w,
+            height: 150.h,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               border: Border.all(color: Colors.grey.shade300),
             ),
             child: _buildContent(),
@@ -41,19 +42,19 @@ class UploadImage extends StatelessWidget {
         alignment: Alignment.topRight,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             child: Image.file(
               cubit.selectedFile!,
               width: double.infinity,
-              height: 150,
+              height: 150.h,
               fit: BoxFit.cover,
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.cancel, color: Colors.red),
+            icon: Icon(Icons.cancel, color: Colors.red, size: 24.sp),
             onPressed: () {
               cubit.selectedFile = null;
-              cubit.emit(InsertDataLoaded()); // تحديث الواجهة
+              cubit.emit(InsertDataLoaded());
             },
           ),
         ],
@@ -62,25 +63,25 @@ class UploadImage extends StatelessWidget {
     // إذا كان يوجد رابط للصورة من الإنترنت
     else if (initialImageUrl != null && initialImageUrl!.isNotEmpty) {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         child: Image.network(
           initialImageUrl!,
           width: double.infinity,
-          height: 150,
+          height: 150.h,
           fit: BoxFit.cover,
         ),
       );
     } 
     // إذا لم يكن هناك أي صورة تم تحميلها أو رابط
     else {
-      return const Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.cloud_upload, size: 50, color: kPrimaryColor),
-          SizedBox(height: 10),
+          Icon(Icons.cloud_upload, size: 50.sp, color: kPrimaryColor),
+          SizedBox(height: 10.h),
           Text(
             "Certificate or Medical license",
-            style: TextStyle(fontSize: 16, color: kPrimaryColor),
+            style: TextStyle(fontSize: 16.sp, color: kPrimaryColor),
           ),
         ],
       );

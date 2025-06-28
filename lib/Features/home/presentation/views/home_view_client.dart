@@ -24,8 +24,9 @@ class HomeViewClient extends StatelessWidget {
                 ..getHomeArticles(),
         ),
         BlocProvider(
-          create: (context) => TopRatingCubit(HomeRepoImpl(ApiService(Dio())))
-            ..fetchTopProviders(),
+          create: (context) =>
+              TopRatingCubit(HomeRepoImpl(ApiService(Dio())))
+                ..fetchTopProviders(),
         ),
         BlocProvider(
           create: (context) =>
@@ -33,9 +34,15 @@ class HomeViewClient extends StatelessWidget {
                 ..fetchClientProfile(),
         ),
       ],
-      child: const Scaffold(
-        body: HomeViewClientBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeClient(),
+      child:const Scaffold(
+        body:  SafeArea(
+          bottom: false, // نسيب المساحة لتحت للـ bottom nav
+          child: HomeViewClientBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false, // مانزودش مساحة فوق للبار
+          child: CustomBottomNavigationHomeClient(),
+        ),
       ),
     );
   }

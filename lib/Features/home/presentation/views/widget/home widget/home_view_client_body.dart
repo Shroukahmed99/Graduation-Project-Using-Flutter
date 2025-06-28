@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/Features/home/presentation/views/widget/home%20widget/custom_app_bar_home_client.dart';
 import 'package:sehatak/const.dart';
@@ -9,16 +9,19 @@ import 'package:sehatak/features/home/presentation/views/widget/home%20widget/ca
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_articles.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/custom_rating_section.dart';
 import 'package:sehatak/features/home/presentation/views/widget/home%20widget/recommendations_section.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeViewClientBody extends StatelessWidget {
   const HomeViewClientBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 25.h),
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(top: screenHeight * 0.03),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BlocBuilder<SaveNameCubit, SaveNameState>(
             builder: (context, state) {
@@ -30,18 +33,15 @@ class HomeViewClientBody extends StatelessWidget {
             },
           ),
           Padding(
-            padding: EdgeInsets.only(left: 24.w),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "It's time to challenge your limits.",
-                style: TextStyle(fontSize: 12.sp),
-              ),
+            padding: EdgeInsets.only(left: screenWidth * 0.06),
+            child: Text(
+              "It's time to challenge your limits.",
+              style: TextStyle(fontSize: screenWidth * 0.035),
             ),
           ),
-          SizedBox(height: 15.h),
+          SizedBox(height: screenHeight * 0.02),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 55.w),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -53,8 +53,8 @@ class HomeViewClientBody extends StatelessWidget {
                   },
                 ),
                 Container(
-                  width: 1.w,
-                  height: 50.h,
+                  width: 1,
+                  height: screenHeight * 0.06,
                   color: kPrimaryColor,
                 ),
                 CategoryItem(
@@ -65,8 +65,8 @@ class HomeViewClientBody extends StatelessWidget {
                   },
                 ),
                 Container(
-                  width: 1.w,
-                  height: 50.h,
+                  width: 1,
+                  height: screenHeight * 0.06,
                   color: kPrimaryColor,
                 ),
                 CategoryItem(
@@ -79,12 +79,13 @@ class HomeViewClientBody extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: screenHeight * 0.03),
           const RecommendationsSection(),
-          SizedBox(height: 30.h),
+          SizedBox(height: screenHeight * 0.03),
           const RatingSection(),
-          SizedBox(height: 20.h),
+          SizedBox(height: screenHeight * 0.02),
           const ArticlesSection(),
-          SizedBox(height: 20.h),
+          SizedBox(height: screenHeight * 0.02),
         ],
       ),
     );

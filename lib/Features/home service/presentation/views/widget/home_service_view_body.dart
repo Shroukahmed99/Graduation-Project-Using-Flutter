@@ -13,38 +13,42 @@ class HomeServiceViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        BlocBuilder<SaveNameCubit, SaveNameState>(
-          builder: (context, state) {
-            return CustomAppBarHome(
-              title: state is SaveNameProviderLoaded
-                  ? "Hi, ${state.provider.fullName.split(' ')[0]}"
-                  : "Hi, Loading...",
-            );
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 24.w),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "It's time to challenge your limits.",
-              style: TextStyle(fontSize: 12.sp),
+    return SafeArea(
+      child: ListView(
+        shrinkWrap: true, // ✅ مهم لتجنب overflow
+        physics: const BouncingScrollPhysics(),
+        children: [
+          BlocBuilder<SaveNameCubit, SaveNameState>(
+            builder: (context, state) {
+              return CustomAppBarHome(
+                title: state is SaveNameProviderLoaded
+                    ? "Hi, ${state.provider.fullName.split(' ')[0]}"
+                    : "Hi, Loading...",
+              );
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 24.w),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "It's time to challenge your limits.",
+                style: TextStyle(fontSize: 12.sp),
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 28.h),
-        const SelectCustomersTab(),
-        SizedBox(height: 24.h),
-        BlocBuilder<HomeServiceTabCubit, bool>(
-          builder: (context, showNewCustomers) {
-            return showNewCustomers
-                ? const CustomNewCustmersListView()
-                : const CustomCustmersListView();
-          },
-        ),
-      ],
+          SizedBox(height: 28.h),
+          const SelectCustomersTab(),
+          SizedBox(height: 24.h),
+          BlocBuilder<HomeServiceTabCubit, bool>(
+            builder: (context, showNewCustomers) {
+              return showNewCustomers
+                  ? const CustomNewCustmersListView()
+                  : const CustomCustmersListView();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

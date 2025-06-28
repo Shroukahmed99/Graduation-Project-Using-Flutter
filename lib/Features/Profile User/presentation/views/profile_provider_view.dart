@@ -17,12 +17,20 @@ class ProfileProviderView extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ProfileImageCubit()),
         BlocProvider(
-          create: (_) => ProfileProviderCubit(ProfileRepositoryImpl(ApiService(Dio())))..getProviderData(),
+          create: (_) => ProfileProviderCubit(
+            ProfileRepositoryImpl(ApiService(Dio())),
+          )..getProviderData(),
         ),
       ],
-      child:const Scaffold(
-        body: SafeArea(child: ProfileProviderBody()),
-        bottomNavigationBar: const CustomBottomNavigationHomeProvider(),
+      child: const Scaffold(
+        body: SafeArea(
+          bottom: false,
+          child: ProfileProviderBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

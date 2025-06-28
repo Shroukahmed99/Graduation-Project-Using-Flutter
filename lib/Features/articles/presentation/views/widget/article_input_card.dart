@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/articles/presentation/manger/addArticle/add_article_cubit.dart';
+import 'package:sehatak/Features/articles/presentation/manger/getAllArticle/get_all_article_cubit.dart';
 import 'package:sehatak/Features/home/presentation/manger/cubit/save_name_cubit.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
 
 class ArticleInputCard extends StatelessWidget {
   const ArticleInputCard({super.key});
@@ -16,12 +18,8 @@ class ArticleInputCard extends StatelessWidget {
       listener: (context, state) {
         if (state is AddArticleSuccess) {
           cubit.clearAll();
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('✅ Article added successfully!'),
-              backgroundColor: kPrimaryColor,
-            ),
-          );
+          customSnackBar(context, '✅ Article added successfully!');
+          context.read<GetAllArticleCubit>().getAllArticles();
         }
       },
       child: Padding(
@@ -37,6 +35,7 @@ class ArticleInputCard extends StatelessWidget {
             builder: (context, state) {
               if (state is SaveNameProviderLoaded) {
                 final name = " ${state.provider.fullName.split(' ')[0]}";
+                final providerId = state.provider.id;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ class ArticleInputCard extends StatelessWidget {
                     TextField(
                       controller: cubit.titleController,
                       decoration: const InputDecoration(
-                        hintText: "Enter Text . . .",
+                        hintText: "Enter title...",
                         hintStyle: TextStyle(color: kPrimaryColor),
                         border: InputBorder.none,
                       ),
@@ -68,6 +67,7 @@ class ArticleInputCard extends StatelessWidget {
                       ),
                     ),
                     TextField(
+                      maxLength: 500,
                       controller: cubit.contentController,
                       maxLines: null,
                       decoration: const InputDecoration(
@@ -93,26 +93,36 @@ class ArticleInputCard extends StatelessWidget {
                         const Spacer(),
                         ElevatedButton(
                           onPressed: () {
-                            cubit.submitArticle("SERVICE_PROVIDER_ID");
+                            final title = cubit.titleController.text.trim();
+                            final content = cubit.contentController.text.trim();
+
+                            if (title.length < 5) {
+                              customSnackBar(context, "❌ Title must be at least 5 characters");
+                              return;
+                            }
+
+                            if (content.length < 50 || content.length > 500) {
+                              customSnackBar(context, "❌ Content must be between 50 and 500 characters");
+                              return;
+                            }
+
+                            cubit.submitArticle(providerId);
                           },
                           style: ButtonStyle(
                             backgroundColor:
                                 WidgetStateProperty.all(kPrimaryColor),
                             shape: WidgetStateProperty.all(
                               RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.r)),
+                                borderRadius: BorderRadius.all(Radius.circular(20.r)),
                               ),
                             ),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Text("Share",
-                                  style: TextStyle(color: Colors.white)),
+                              const Text("Share", style: TextStyle(color: Colors.white)),
                               SizedBox(width: 6.w),
-                              Icon(Icons.check,
-                                  color: Colors.white, size: 20.sp),
+                              Icon(Icons.check, color: Colors.white, size: 20.sp),
                             ],
                           ),
                         ),

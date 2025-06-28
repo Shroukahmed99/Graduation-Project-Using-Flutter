@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/review%20cubit/review_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/review%20cubit/review_state.dart';
 import 'feedback_card.dart';
@@ -11,32 +12,32 @@ class FeedbackBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Row(
               children: [
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Image.asset(
                     'assets/images/Arrow.png',
-                    width: 20,
-                    height: 20,
+                    width: 20.w,
+                    height: 20.h,
                   ),
                 ),
-                const SizedBox(width: 8),
-                const Text(
+                SizedBox(width: 8.w),
+                Text(
                   "My Feed Back",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Expanded(
               child: BlocBuilder<ReviewCubit, ReviewState>(
                 builder: (context, state) {
@@ -51,7 +52,7 @@ class FeedbackBody extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final review = state.reviews[index];
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
+                          padding: EdgeInsets.only(bottom: 12.h),
                           child: FeedbackCard(
                             name: review.clientName,
                             feedbackText: review.comment,

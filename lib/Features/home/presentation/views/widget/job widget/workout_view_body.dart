@@ -11,7 +11,12 @@ class WorkoutViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(bottom: 20.h),
+        padding: EdgeInsets.only(
+          left: 16.w, // تقدر تتحكم هنا حسب المساحة اللي تحبها
+          right: 16.w,
+          bottom: 20.h,
+          top: 16.h,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,6 +26,7 @@ class WorkoutViewBody extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
             const CustomStorBy(),
+            SizedBox(height: 16.h),
             const WorkoutListView(),
           ],
         ),

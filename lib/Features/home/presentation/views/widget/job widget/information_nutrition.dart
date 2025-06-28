@@ -16,7 +16,7 @@ class InformationNutrition extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             decoration: BoxDecoration(
               color: const Color(0xff222222),
               borderRadius: BorderRadius.circular(20.r),
@@ -25,73 +25,76 @@ class InformationNutrition extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      nutrition.fullName,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xffFF9F5B),
+                    Expanded(
+                      child: Text(
+                        nutrition.fullName,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xffFF9F5B),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                    const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.h),
+                      padding: EdgeInsets.only(top: 5.h),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30.r),
+                        borderRadius: BorderRadius.circular(25.r),
                         child: Image.asset(
                           'assets/images/3.png',
-                          width: 55.w,
-                          height: 55.h,
+                          width: 45.w,
+                          height: 45.h,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 8.h),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     nutrition.bio,
-                    style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.white70, fontSize: 13.sp),
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 20.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       children: [
                         Image.asset(
                           'assets/images/image 19.png',
-                          width: 20.w,
-                          height: 20.h,
+                          width: 18.w,
+                          height: 18.h,
                         ),
                         SizedBox(width: 5.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("COST",
-                                style: TextStyle(color: Colors.white)),
-                            Text("E£ ${nutrition.priceRange} EGP",
-                                style: const TextStyle(color: Colors.white)),
+                            const Text("COST", style: TextStyle(color: Colors.white)),
+                            Text("E£ ${nutrition.priceRange} EGP", style: const TextStyle(color: Colors.white)),
                           ],
                         ),
                       ],
                     ),
-                    SizedBox(width: 20.w),
+                    SizedBox(width: 15.w),
                     Row(
                       children: [
                         Image.asset(
                           'assets/images/reviews.png',
-                          width: 30.w,
-                          height: 30.h,
+                          width: 24.w,
+                          height: 24.h,
                           color: Colors.white,
                         ),
                         SizedBox(width: 5.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Rating",
-                                style: TextStyle(color: Colors.white)),
+                            const Text("Rating", style: TextStyle(color: Colors.white)),
                             Text(
                               nutrition.ratingAverage != null
                                   ? nutrition.ratingAverage!.toStringAsFixed(1)
@@ -109,16 +112,19 @@ class InformationNutrition extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                        minimumSize: Size(60.w, 30.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
+                          borderRadius: BorderRadius.circular(15.r),
                         ),
                       ),
                       child: Text(
                         "MORE...",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

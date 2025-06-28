@@ -11,12 +11,14 @@ class ChatViewService extends StatelessWidget {
   final ChatRepo chatRepo;
   final String senderId;
   final String receiverId;
-  const ChatViewService(
-      {super.key,
-      required this.bookingId,
-      required this.chatRepo,
-      required this.senderId,
-      required this.receiverId});
+
+  const ChatViewService({
+    super.key,
+    required this.bookingId,
+    required this.chatRepo,
+    required this.senderId,
+    required this.receiverId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,18 @@ class ChatViewService extends StatelessWidget {
         socketService: SocketService(),
       )..initChat(bookingId),
       child: Scaffold(
-        body: ChatViewBodyService(
-          bookingId: bookingId,
-          senderId: senderId,
-          receiverId: receiverId,
+        body: const SafeArea(
+          bottom: false,
+          child: ChatViewBodyService(
+            bookingId: '', // replace with actual value if needed
+            senderId: '',
+            receiverId: '',
+          ),
         ),
-        bottomNavigationBar: const CustomBottomNavigationHomeProvider(),
+        bottomNavigationBar: const SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

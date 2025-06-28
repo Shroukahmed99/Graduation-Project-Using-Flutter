@@ -33,8 +33,14 @@ class ArticlesView extends StatelessWidget {
         ),
       ],
       child: const Scaffold(
-        body: ArticlesViewBody(),
-        bottomNavigationBar: CustomBottomNavigationHomeProvider(),
+        body: SafeArea(
+          bottom: false, 
+          child: ArticlesViewBody(),
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false, 
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

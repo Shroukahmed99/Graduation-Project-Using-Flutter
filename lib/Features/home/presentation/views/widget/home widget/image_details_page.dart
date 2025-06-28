@@ -5,7 +5,7 @@ import 'package:sehatak/Features/articles/data/repo/article_repo_impl.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getArticleById/get_article_by_id_cubit.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/api_service.dart';
-import 'package:sehatak/core/widget/custom_bottom_Navigation_home_client.dart';
+import 'package:sehatak/core/widget/custom_bottom_Navigation_home_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ArticleDetailsPage extends StatelessWidget {
@@ -146,7 +146,10 @@ class ArticleDetailsPage extends StatelessWidget {
             }
           },
         ),
-        bottomNavigationBar: const CustomBottomNavigationHomeClient(),
+        bottomNavigationBar: const SafeArea(
+          top: false,
+          child: CustomBottomNavigationHomeProvider(),
+        ),
       ),
     );
   }

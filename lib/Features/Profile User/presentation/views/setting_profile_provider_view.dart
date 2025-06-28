@@ -1,4 +1,4 @@
-// setting_profile_view.dart
+// setting_profile_provider_view.dart
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,10 +22,15 @@ class SettingProfileProviderView extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProfileImageCubit()),
         BlocProvider(create: (context) => BottomSheetCubit()),
-        BlocProvider(create: (context) => LogoutCubit(ProfileRepositoryImpl(ApiService(Dio())))),
-        BlocProvider(create: (context) => DeleteAccountCubit(ProfileRepositoryImpl(ApiService(Dio())))),
         BlocProvider(
-          create: (context) => ProfileProviderCubit(ProfileRepositoryImpl(ApiService(Dio())))..getProviderData(),
+            create: (context) =>
+                LogoutCubit(ProfileRepositoryImpl(ApiService(Dio())))),
+        BlocProvider(
+            create: (context) =>
+                DeleteAccountCubit(ProfileRepositoryImpl(ApiService(Dio())))),
+        BlocProvider(
+          create: (context) => ProfileProviderCubit(ProfileRepositoryImpl(ApiService(Dio())))
+            ..getProviderData(),
         ),
       ],
       child: BlocBuilder<BottomSheetCubit, BottomSheetState>(
@@ -37,13 +42,17 @@ class SettingProfileProviderView extends StatelessWidget {
                 ? Colors.black.withOpacity(0.5)
                 : Colors.white,
             body: const SafeArea(
+              bottom: false,
               child: Stack(
                 children: [
                   ProfileSettingProviderBody(),
                 ],
               ),
             ),
-            bottomNavigationBar: const CustomBottomNavigationHomeProvider(),
+            bottomNavigationBar: const SafeArea(
+              top: false,
+              child: CustomBottomNavigationHomeProvider(),
+            ),
           );
         },
       ),

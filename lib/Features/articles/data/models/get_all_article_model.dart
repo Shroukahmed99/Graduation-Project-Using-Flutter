@@ -1,3 +1,4 @@
+
 class GetAllArticleModel {
   final String id;
   final String title;
@@ -15,11 +16,13 @@ class GetAllArticleModel {
 
   factory GetAllArticleModel.fromJson(Map<String, dynamic> json) {
     return GetAllArticleModel(
-      id: json['_id'],
-      title: json['title'],
-      content: json['content'],
-      image: json['img'] == "null" ? null : json['img'],
-      serviceProvider: ServiceProvider.fromJson(json['serviceproviderId']),
+      id: json['_id']?.toString() ?? '',
+      title: json['title']?.toString() ?? '',
+      content: json['content']?.toString() ?? '',
+      image: json['img'] == "null" ? null : json['img']?.toString(),
+      serviceProvider: json['serviceproviderId'] != null
+          ? ServiceProvider.fromJson(json['serviceproviderId'])
+          : ServiceProvider(id: '', userId: '', fullName: ''),
     );
   }
 }
@@ -37,9 +40,9 @@ class ServiceProvider {
 
   factory ServiceProvider.fromJson(Map<String, dynamic> json) {
     return ServiceProvider(
-      id: json['_id'],
-      userId: json['userId'],
-      fullName: json['fullName'],
+      id: json['_id']?.toString() ?? '',
+      userId: json['userId']?.toString() ?? '',
+      fullName: json['fullName']?.toString() ?? '',
     );
   }
 }
@@ -57,10 +60,10 @@ class ArticlesResponse {
 
   factory ArticlesResponse.fromJson(Map<String, dynamic> json) {
     return ArticlesResponse(
-      status: json['status'],
-      results: json['results'],
+      status: json['status']?.toString() ?? '',
+      results: json['results'] ?? 0,
       articles: List<GetAllArticleModel>.from(
-        json['articles']
+        (json['articles'] as List)
             .map((articleJson) => GetAllArticleModel.fromJson(articleJson)),
       ),
     );

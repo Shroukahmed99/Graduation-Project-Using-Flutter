@@ -22,10 +22,14 @@ class SettingProfileView extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProfileImageCubit()),
         BlocProvider(create: (context) => BottomSheetCubit()),
-        BlocProvider(create: (context) => LogoutCubit(ProfileRepositoryImpl(ApiService(Dio())))),
-        BlocProvider(create: (context) => DeleteAccountCubit(ProfileRepositoryImpl(ApiService(Dio())))),
+        BlocProvider(create: (context) =>
+            LogoutCubit(ProfileRepositoryImpl(ApiService(Dio())))),
+        BlocProvider(create: (context) =>
+            DeleteAccountCubit(ProfileRepositoryImpl(ApiService(Dio())))),
         BlocProvider(
-          create: (context) => ProfileClientCubit(ProfileRepositoryImpl(ApiService(Dio())))..getClientData(),
+          create: (context) =>
+              ProfileClientCubit(ProfileRepositoryImpl(ApiService(Dio())))
+                ..getClientData(),
         ),
       ],
       child: BlocBuilder<BottomSheetCubit, BottomSheetState>(
@@ -37,13 +41,17 @@ class SettingProfileView extends StatelessWidget {
                 ? Colors.black.withOpacity(0.5)
                 : Colors.white,
             body: const SafeArea(
+              bottom: false,
               child: Stack(
                 children: [
                   ProfileSettingBody(),
                 ],
               ),
             ),
-            bottomNavigationBar: const CustomBottomNavigationHomeClient(),
+            bottomNavigationBar: const SafeArea(
+              top: false,
+              child: CustomBottomNavigationHomeClient(),
+            ),
           );
         },
       ),

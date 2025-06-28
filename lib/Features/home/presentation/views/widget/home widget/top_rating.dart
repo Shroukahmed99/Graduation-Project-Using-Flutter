@@ -47,29 +47,31 @@ class TopRating extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 5.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      provider.fullName,
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        provider.fullName,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      provider.job,
-                      style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                      SizedBox(height: 5),
+                      Text(
+                        provider.job,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -84,26 +86,30 @@ class TopRating extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    children: [
-                      const TextSpan(text: 'Reviews '),
-                      TextSpan(
-                        text: provider.ratingQuantity.toStringAsFixed(0),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
+                Expanded(
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
                       ),
-                    ],
+                      children: [
+                        const TextSpan(text: 'Reviews '),
+                        TextSpan(
+                          text: provider.ratingQuantity.toStringAsFixed(0),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(9999),

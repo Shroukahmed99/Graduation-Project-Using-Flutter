@@ -24,45 +24,54 @@ class InformationWorkout extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      coaches.fullName,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xffFF9F5B),
+                    Expanded(
+                      child: Text(
+                        coaches.fullName,
+                        style: TextStyle(
+                          fontSize: 15.sp, // قللت الحجم شويه
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xffFF9F5B),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                    const Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.h),
+                      padding: EdgeInsets.only(top: 5.h),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30.r),
+                        borderRadius: BorderRadius.circular(25.r),
                         child: Image.asset(
                           'assets/images/3.png',
-                          width: 55.w,
-                          height: 55.h,
+                          width: 45.w, // قللت الحجم شويه
+                          height: 45.h,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 8.h),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     coaches.bio,
-                    style: TextStyle(color: Colors.white70, fontSize: 14.sp),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13.sp,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    maxLines: 2,
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 20.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       children: [
                         Image.asset(
                           'assets/images/image 19.png',
-                          width: 20.w,
-                          height: 20.h,
+                          width: 18.w,
+                          height: 18.h,
                         ),
                         SizedBox(width: 5.w),
                         Column(
@@ -76,13 +85,13 @@ class InformationWorkout extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(width: 20.w),
+                    SizedBox(width: 15.w),
                     Row(
                       children: [
                         Image.asset(
                           'assets/images/reviews.png',
-                          width: 30.w,
-                          height: 30.h,
+                          width: 24.w,
+                          height: 24.h,
                           color: Colors.white,
                         ),
                         SizedBox(width: 5.w),
@@ -108,16 +117,22 @@ class InformationWorkout extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                          vertical: 5.h,
+                        ),
+                        minimumSize: Size(60.w, 30.h),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.r),
+                          borderRadius: BorderRadius.circular(15.r),
                         ),
                       ),
                       child: Text(
                         "MORE...",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 11.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
