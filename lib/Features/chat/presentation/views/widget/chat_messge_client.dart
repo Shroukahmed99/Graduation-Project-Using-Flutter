@@ -83,26 +83,28 @@ class _ChatMessageClientState extends State<ChatMessageClient> {
 
           return Column(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12.h),
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Text(
-                    welcomeMessage.text,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 12.sp,
+              if (welcomeMessage.text.isNotEmpty)
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(12.h),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(16.r),
                     ),
-                    textAlign: TextAlign.center,
+                    child: Text(
+                      welcomeMessage.text,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 12.sp,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
-              ),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -111,18 +113,29 @@ class _ChatMessageClientState extends State<ChatMessageClient> {
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(color: kPrimaryColor),
                   ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.all(1.w),
-                    itemCount: chatMessages.length,
-                    itemBuilder: (context, index) {
-                      final message = chatMessages[index];
-                      return ChatBubble(
-                        message: message,
-                        isMine: message.senderId == widget.senderId,
-                      );
-                    },
-                  ),
+                  child: chatMessages.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No chats yet',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          reverse: true,
+                          padding: EdgeInsets.all(1.w),
+                          itemCount: chatMessages.length,
+                          itemBuilder: (context, index) {
+                            final message = chatMessages[index];
+                            return ChatBubble(
+                              message: message,
+                              isMine: message.senderId == widget.senderId,
+                            );
+                          },
+                        ),
                 ),
               ),
               Padding(

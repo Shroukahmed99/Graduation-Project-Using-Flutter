@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:sehatak/Features/chat/data/models/all_chat.dart';
+import 'package:sehatak/Features/chat/presentation/views/widget/Feedback_Bottom_Sheet.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 
@@ -10,6 +11,11 @@ class CustomAllChat extends StatelessWidget {
   final BookingData data;
 
   const CustomAllChat({super.key, required this.data});
+  bool isChatExpired(BookingData data) {
+    final now = DateTime.now();
+    final endTime = data.paidAt.add(Duration(minutes: data.duration));
+    return now.isAfter(endTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +105,22 @@ class CustomAllChat extends StatelessWidget {
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push(
-                        AppRouter.kChatViewClient,
-                        extra: {
-                          'id': data.id,
-                          'senderId': data.client,
-                          'receiverId': data.serviceProvider.userId,
-                        },
-                      );
+                      if (isChatExpired(data)) {
+                        showFeedbackBottomSheet(
+                          context,
+                          bookingId: data.id,
+                          serviceProviderId: data.serviceProvider.userId,
+                        );
+                      } else {
+                        GoRouter.of(context).push(
+                          AppRouter.kChatViewClient,
+                          extra: {
+                            'id': data.id,
+                            'senderId': data.client,
+                            'receiverId': data.serviceProvider.userId,
+                          },
+                        );
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20),

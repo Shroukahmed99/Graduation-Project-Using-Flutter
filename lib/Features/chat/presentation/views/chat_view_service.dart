@@ -27,16 +27,16 @@ class ChatViewService extends StatelessWidget {
         chatRepo: chatRepo,
         socketService: SocketService(),
       )..initChat(bookingId),
-      child: Scaffold(
-        body: const SafeArea(
+      child: const Scaffold(
+        body: SafeArea(
           bottom: false,
           child: ChatViewBodyService(
-            bookingId: '', // replace with actual value if needed
+            bookingId: '',
             senderId: '',
             receiverId: '',
           ),
         ),
-        bottomNavigationBar: const SafeArea(
+        bottomNavigationBar: SafeArea(
           top: false,
           child: CustomBottomNavigationHomeProvider(),
         ),

@@ -10,11 +10,18 @@ class ServerFailure extends Failure {
   ServerFailure(super.errorMessage);
 
   factory ServerFailure.fromDioError(DioException dioError) {
-    // التقاط الأخطاء من Dio أو من الـ API
     if (dioError.response != null) {
-      String message = dioError.response?.data?['message'] ??
-          'An unexpected error occurred.';
-      return ServerFailure(message);
+      try {
+        final data = dioError.response!.data;
+
+        if (data is Map<String, dynamic> && data.containsKey('message')) {
+          return ServerFailure(data['message'].toString());
+        } else {
+          return ServerFailure(data.toString());
+        }
+      } catch (e) {
+        return ServerFailure('An unexpected error occurred.');
+      }
     }
 
     switch (dioError.type) {
@@ -34,22 +41,6 @@ class ServerFailure extends Failure {
             'No internet connection. Please check your network.');
       default:
         return ServerFailure('An unexpected error occurred. Please try again.');
-    }
-  }
-
-  factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
-    if (statusCode == 400 ||
-        statusCode == 401 ||
-        statusCode == 403 ||
-        statusCode == 422) {
-      return ServerFailure(
-          'There was an issue with the data you entered. Please check and try again.');
-    } else if (statusCode == 404) {
-      return ServerFailure('The requested page or resource was not found.');
-    } else if (statusCode == 500) {
-      return ServerFailure('Internal server error. Please try again later.');
-    } else {
-      return ServerFailure('An unexpected error occurred. Please try again.');
     }
   }
 }
