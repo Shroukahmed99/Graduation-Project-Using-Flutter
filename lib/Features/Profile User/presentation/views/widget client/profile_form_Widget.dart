@@ -11,14 +11,14 @@ import 'package:sehatak/Features/Profile%20User/presentation/manger/update%20pro
 import 'package:sehatak/Features/Profile%20User/presentation/manger/update%20profile%20client%20data.dart/update_client_profile_state.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_bottom.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_loading_indicator.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/const.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/widgets/custom_dropdown_field.dart';
 import 'package:sehatak/core/utils/api_service.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/manger/profile%20image%20cubit/profile_image_cubit.dart';
-import 'package:sehatak/core/utils/app_router.dart'; 
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class ProfileFormWidget extends StatelessWidget {
   final ClientModel? client;
@@ -34,7 +34,12 @@ class ProfileFormWidget extends StatelessWidget {
   final TextEditingController heightController = TextEditingController();
 
   final List<String> activityLevels = ['Beginner', 'Intermediate', 'Advanced'];
-  final List<String> fitnessGoals = ['Lose Weight', 'Gain muscle', 'Maintain fitness', 'Others'];
+  final List<String> fitnessGoals = [
+    'Lose Weight',
+    'Gain muscle',
+    'Maintain fitness',
+    'Others'
+  ];
 
   void _initializeControllers() {
     if (client != null) {
@@ -61,10 +66,12 @@ class ProfileFormWidget extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => OptionalEditProfileCubit()
-            ..selectedActivityLevel = activityLevels.contains(client?.physicalActivityLevel)
-                ? client?.physicalActivityLevel
-                : null
-            ..selectedFitnessGoal = fitnessGoals.contains(client?.goal) ? client?.goal : null,
+            ..selectedActivityLevel =
+                activityLevels.contains(client?.physicalActivityLevel)
+                    ? client?.physicalActivityLevel
+                    : null
+            ..selectedFitnessGoal =
+                fitnessGoals.contains(client?.goal) ? client?.goal : null,
         ),
         BlocProvider(
           create: (_) => ProfileImageCubit(),
@@ -72,12 +79,11 @@ class ProfileFormWidget extends StatelessWidget {
       ],
       child: BlocConsumer<UpdateClientProfileCubit, UpdateClientProfileState>(
         listener: (context, state) {
-         if (state is UpdateClientProfileSuccess) {
-  customSnackBar(context, 'Profile updated successfully!');
-          context.read<ProfileClientCubit>().getClientData();
-              GoRouter.of(context).pushReplacement(AppRouter.kSettingProfileView);
-}
-else if (state is UpdateClientProfileFailure) {
+          if (state is UpdateClientProfileSuccess) {
+            customSnackBar(context, 'Profile updated successfully!');
+            context.read<ProfileClientCubit>().getClientData();
+            GoRouter.of(context).pushReplacement(AppRouter.kSettingProfileView);
+          } else if (state is UpdateClientProfileFailure) {
             final errorMessage = state.error.toString();
             customSnackBar(context, 'Failed to update profile: $errorMessage');
           }
@@ -140,8 +146,9 @@ else if (state is UpdateClientProfileFailure) {
                             items: activityLevels,
                             selectedValue: optionalCubit.selectedActivityLevel,
                             onChanged: optionalCubit.updateActivityLevel,
-                            validator: (value) =>
-                                value == null || value.isEmpty ? 'Please select Physical Activity Level' : null,
+                            validator: (value) => value == null || value.isEmpty
+                                ? 'Please select Physical Activity Level'
+                                : null,
                           ),
                           SizedBox(height: 12.h),
                           CustomDropdownField(
@@ -150,22 +157,26 @@ else if (state is UpdateClientProfileFailure) {
                             items: fitnessGoals,
                             selectedValue: optionalCubit.selectedFitnessGoal,
                             onChanged: optionalCubit.updateFitnessGoal,
-                            validator: (value) =>
-                                value == null || value.isEmpty ? 'Please select Fitness Goal' : null,
+                            validator: (value) => value == null || value.isEmpty
+                                ? 'Please select Fitness Goal'
+                                : null,
                           ),
                           SizedBox(height: 20.h),
                           Center(
                             child: CustomButtomProfile(
-                             text: state is UpdateClientProfileLoading
-                              ? "Updating Data..."
-                              : "Update Profile", 
+                              text: state is UpdateClientProfileLoading
+                                  ? "Updating Data..."
+                                  : "Update Profile",
                               onPressed: () {
                                 if (formKey.currentState?.validate() ?? false) {
-                                  if (optionalCubit.selectedActivityLevel == null ||
-                                      optionalCubit.selectedFitnessGoal == null) {
+                                  if (optionalCubit.selectedActivityLevel ==
+                                          null ||
+                                      optionalCubit.selectedFitnessGoal ==
+                                          null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content: Text('Please select both Activity Level and Fitness Goal'),
+                                        content: Text(
+                                            'Please select both Activity Level and Fitness Goal'),
                                         backgroundColor: Colors.orange,
                                       ),
                                     );
@@ -181,7 +192,8 @@ else if (state is UpdateClientProfileFailure) {
                                     age: ageController.text,
                                     weight: weightController.text,
                                     height: heightController.text,
-                                    physicalActivityLevel: optionalCubit.selectedActivityLevel!,
+                                    physicalActivityLevel:
+                                        optionalCubit.selectedActivityLevel!,
                                     goal: optionalCubit.selectedFitnessGoal!,
                                   );
                                 }

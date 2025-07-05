@@ -6,9 +6,9 @@ import 'package:sehatak/Features/auth/Presentation/manger/forgetpassword/forget_
 import 'package:sehatak/Features/auth/Presentation/views/otp_view.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/core/function/custom_snacbar.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class ForgetPasswordViewBody extends StatelessWidget {
   ForgetPasswordViewBody({super.key});

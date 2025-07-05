@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:sehatak/Features/Questions/presentation/manger/isert%20data%20cubit/insert_data_cubit.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
 import 'package:sehatak/Features/Questions/presentation/views/widget/upload_image.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class InsertDataViewBody extends StatelessWidget {
   const InsertDataViewBody({super.key});

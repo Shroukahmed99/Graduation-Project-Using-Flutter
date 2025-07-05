@@ -6,7 +6,6 @@ import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/text_
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_icon_buttom.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_and_icon_arrowBack.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_question.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_signUpWith.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_with_signup.dart';
@@ -15,6 +14,7 @@ import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class SignupViewServiceBody extends StatelessWidget {
   SignupViewServiceBody({super.key});

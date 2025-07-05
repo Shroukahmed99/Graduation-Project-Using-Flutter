@@ -9,7 +9,6 @@ import 'package:sehatak/Features/auth/Presentation/manger/sign%20in/sign_in_stat
 import 'package:sehatak/Features/auth/Presentation/views/widget/buttom_text_forget_password.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_icon_buttom.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_question.dart';
 import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_signUpWith.dart';
 import 'package:sehatak/const.dart';
@@ -18,6 +17,7 @@ import 'package:sehatak/core/function/validate_function.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:sehatak/core/utils/cache_helper.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
@@ -26,18 +26,18 @@ class LoginViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-       if (state is LoginSuccess) {
-  customSnackBar(context, 'Login Successful');
+        if (state is LoginSuccess) {
+          customSnackBar(context, 'Login Successful');
 
-  CacheHelper.saveData(key: 'email', value: state.usersModel.email);
-  CacheHelper.saveData(key: 'userId', value: state.usersModel.id);
+          CacheHelper.saveData(key: 'email', value: state.usersModel.email);
+          CacheHelper.saveData(key: 'userId', value: state.usersModel.id);
 
-  Future.delayed(const Duration(seconds: 2), () {
-    final role = state.usersModel.role;
-    if (role == 'client') {
-      GoRouter.of(context).pushReplacement(AppRouter.kHomeViewClient);
-    } else if (role == 'service_provider') {
-      GoRouter.of(context).pushReplacement(AppRouter.kHomeProviderView);
+          Future.delayed(const Duration(seconds: 2), () {
+            final role = state.usersModel.role;
+            if (role == 'client') {
+              GoRouter.of(context).pushReplacement(AppRouter.kHomeViewClient);
+            } else if (role == 'service_provider') {
+              GoRouter.of(context).pushReplacement(AppRouter.kHomeProviderView);
             }
           });
         } else if (state is LoginFailure) {

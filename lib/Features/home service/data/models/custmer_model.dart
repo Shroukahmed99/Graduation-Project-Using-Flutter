@@ -57,15 +57,15 @@ class PaymentData {
       client: Client.fromJson(json['client']),
       serviceProvider: json['serviceProvider'] as String,
       goal: json['goal'] as String,
-      duration: json['duration'] as int,
-      totalPrice: json['totalPrice'] as int,
-      platformFee: json['platformFee'] as int,
-      servicerProviderIncome: json['servicerProviderIncome'] as int,
+      duration: (json['duration'] as num).toInt(),
+      totalPrice: (json['totalPrice'] as num).toInt(),
+      platformFee: (json['platformFee'] as num).toInt(),
+      servicerProviderIncome: (json['servicerProviderIncome'] as num).toInt(),
       isPaid: json['isPaid'] as bool,
       paidAt: DateTime.parse(json['paidAt'] as String),
       status: json['status'] as String,
       paymentIntentId: json['paymentIntentId'] as String,
-      v: json['__v'] as int,
+      v: (json['__v'] as num).toInt(),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:sehatak/Features/chat/data/repo/chat_repo_impl.dart';
 import 'package:sehatak/Features/chat/presentation/manger/allChatClient/all_chat_client_cubit.dart';
 import 'package:sehatak/Features/chat/presentation/views/widget/all_chat_client_view_body.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+import 'package:sehatak/core/widget/custom_bottom_Navigation_home_provider.dart';
 
 class AllChatClientView extends StatelessWidget {
   const AllChatClientView({super.key});
@@ -16,6 +17,7 @@ class AllChatClientView extends StatelessWidget {
           AllChatClientCubit(ChatRepoImpl(ApiService(Dio())))..allChat(),
       child: const Scaffold(
         body: AllChatClientViewBody(),
+        bottomNavigationBar: CustomBottomNavigationHomeProvider(),
       ),
     );
   }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sehatak/Features/Profile%20User/data/models/get_profile_client_model.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/Widgets/custom_bottom.dart';
-import 'package:sehatak/Features/auth/Presentation/views/widget/custom_text_field.dart';
 import 'package:sehatak/core/utils/app_router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sehatak/const.dart';
+import 'package:sehatak/core/widget/custom_text_field.dart';
 
 class DisplayProfileClientFormWidget extends StatelessWidget {
   final ClientModel client;
