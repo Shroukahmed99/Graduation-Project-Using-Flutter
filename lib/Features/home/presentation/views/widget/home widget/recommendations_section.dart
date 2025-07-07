@@ -10,18 +10,113 @@ import 'package:sehatak/core/function/custom_snacbar.dart';
 class RecommendationsSection extends StatelessWidget {
   const RecommendationsSection({super.key});
 
+  void showWorkoutDetails(BuildContext context, WorkoutRecommendation workout) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => Padding(
+        padding: EdgeInsets.all(20.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Exercise Plan: ${workout.exercisePlan}',
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10.h),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Muscle: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: workout.targetMuscleGroup,
+                    style: TextStyle(color: Colors.black, fontSize: 14.sp),
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Calories Burned: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: workout.caloriesBurned,
+                    style: TextStyle(color: Colors.black, fontSize: 14.sp),
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Duration: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${workout.totalPlanDuration} min',
+                    style: TextStyle(color: Colors.black, fontSize: 14.sp),
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Impact Level: ',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: workout.impactLevel,
+                    style: TextStyle(color: Colors.black, fontSize: 14.sp),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Recommendations",
-            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8.h),
+          SizedBox(height: 12.h),
           BlocBuilder<WorkoutCubit, WorkoutState>(
             builder: (context, state) {
               if (state is WorkoutLoading) {
@@ -37,9 +132,54 @@ class RecommendationsSection extends StatelessWidget {
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: workouts.map((workout) {
-                      return RecommendationCard(workout: workout);
-                    }).toList(),
+                    children: List.generate(workouts.length, (index) {
+                      final workout = workouts[index];
+
+                      return Container(
+                        width: 140.w,
+                        margin: EdgeInsets.only(right: 12.w),
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 5,
+                              offset: const Offset(2, 2),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Plan ${index + 1}',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(height: 6.h),
+                            Text(
+                              workout.exercisePlan,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                icon: const Icon(Icons.more_horiz, size: 20),
+                                onPressed: () =>
+                                    showWorkoutDetails(context, workout),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
                   ),
                 );
               } else {
@@ -47,74 +187,6 @@ class RecommendationsSection extends StatelessWidget {
               }
             },
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class RecommendationCard extends StatefulWidget {
-  final WorkoutRecommendation workout;
-
-  const RecommendationCard({super.key, required this.workout});
-
-  @override
-  State<RecommendationCard> createState() => _RecommendationCardState();
-}
-
-class _RecommendationCardState extends State<RecommendationCard> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      width: 180.w,
-      margin: EdgeInsets.only(right: 12.w),
-      padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.r),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.workout.exercisePlan,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-            maxLines: isExpanded ? null : 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          SizedBox(height: 4.h),
-          if (isExpanded) ...[
-            Text('Muscle: ${widget.workout.targetMuscleGroup}',
-                style: TextStyle(fontSize: 12.sp)),
-            Text('Calories: ${widget.workout.caloriesBurned}',
-                style: TextStyle(fontSize: 12.sp)),
-            Text('Duration: ${widget.workout.totalPlanDuration} min',
-                style: TextStyle(fontSize: 12.sp)),
-            Text('Impact: ${widget.workout.impactLevel}',
-                style: TextStyle(fontSize: 12.sp)),
-            SizedBox(height: 6.h),
-            GestureDetector(
-              onTap: () => setState(() => isExpanded = false),
-              child: Text('Less',
-                  style: TextStyle(color: Colors.orange, fontSize: 12.sp)),
-            )
-          ] else ...[
-            GestureDetector(
-              onTap: () => setState(() => isExpanded = true),
-              child: Text('More ....',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 12.sp)),
-            )
-          ]
         ],
       ),
     );

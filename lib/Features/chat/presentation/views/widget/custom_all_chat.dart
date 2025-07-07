@@ -11,6 +11,7 @@ class CustomAllChat extends StatelessWidget {
   final BookingData data;
 
   const CustomAllChat({super.key, required this.data});
+
   bool isChatExpired(BookingData data) {
     final now = DateTime.now();
     final endTime = data.paidAt.add(Duration(minutes: data.duration));
@@ -19,7 +20,8 @@ class CustomAllChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedPaidAt = DateFormat('yyyy-MM-dd').format(data.paidAt);
+    String formattedStartDate = DateFormat('dd/MM/yyyy').format(data.startDate);
+    String formattedEndDate = DateFormat('dd/MM/yyyy').format(data.endDate);
 
     return Padding(
       padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
@@ -72,13 +74,14 @@ class CustomAllChat extends StatelessWidget {
                   ),
                   SizedBox(width: 5.w),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                     decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
-                      formattedPaidAt,
+                      'Start: $formattedStartDate',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 8.sp,
@@ -86,15 +89,16 @@ class CustomAllChat extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 5.w),
+                  SizedBox(width: 8.w),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                     decoration: BoxDecoration(
                       color: kPrimaryColor,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
-                      data.duration.toString(),
+                      'End: $formattedEndDate',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 8.sp,

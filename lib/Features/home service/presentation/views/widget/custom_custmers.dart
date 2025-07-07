@@ -13,7 +13,9 @@ class CustomCustmers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedPaidAt = DateFormat('MMM dd, yyyy').format(data.paidAt);
+    DateFormat('MMM dd, yyyy').format(data.paidAt);
+    String formattedStartDate = DateFormat('dd/MM/yyyy').format(data.startDate);
+    String formattedEndDate = DateFormat('dd/MM/yyyy').format(data.endDate);
 
     return Padding(
       padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 15.h),
@@ -58,60 +60,81 @@ class CustomCustmers extends StatelessWidget {
             SizedBox(height: 10.h),
             Padding(
               padding: EdgeInsets.only(left: 42.w),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/images/data.png',
-                    height: 20.h,
-                  ),
-                  SizedBox(width: 5.w),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Text(
-                      formattedPaidAt,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 8.sp,
-                        fontWeight: FontWeight.bold,
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/data.png',
+                        height: 20.h,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 130.w,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).push(
-                        AppRouter.kChatViewService,
-                        extra: {
-                          'id': data.id,
-                          'senderId': data.serviceProvider,
-                          'receiverId': data.client.userId,
-                        },
-                      );
-                    },
-                    child: Container(
-                      height: 17.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: Center(
+                      SizedBox(width: 5.w),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 2.h),
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
                         child: Text(
-                          "OPEN",
+                          'Start: $formattedStartDate',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 8.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
+                      SizedBox(width: 8.w),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 2.h),
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: Text(
+                          'End: $formattedEndDate',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouter.kChatViewService,
+                            extra: {
+                              'id': data.id,
+                              'senderId': data.serviceProvider,
+                              'receiverId': data.client.userId,
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 17.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(5.r),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "OPEN",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -14,7 +14,8 @@ class BookingResponse {
       status: json['status'],
       results: json['results'],
       data: List<BookingData>.from(
-          json['data'].map((x) => BookingData.fromJson(x))),
+        json['data'].map((x) => BookingData.fromJson(x)),
+      ),
     );
   }
 
@@ -36,6 +37,8 @@ class BookingData {
   final int servicerProviderIncome;
   final bool isPaid;
   final DateTime paidAt;
+  final DateTime startDate;
+  final DateTime endDate;
   final String status;
   final String paymentIntentId;
 
@@ -50,6 +53,8 @@ class BookingData {
     required this.servicerProviderIncome,
     required this.isPaid,
     required this.paidAt,
+    required this.startDate,
+    required this.endDate,
     required this.status,
     required this.paymentIntentId,
   });
@@ -65,6 +70,8 @@ class BookingData {
         servicerProviderIncome: (json['servicerProviderIncome'] as num).toInt(),
         isPaid: json['isPaid'],
         paidAt: DateTime.parse(json['paidAt']),
+        startDate: DateTime.parse(json['startDate']),
+        endDate: DateTime.parse(json['endDate']),
         status: json['status'],
         paymentIntentId: json['paymentIntentId'],
       );
@@ -80,6 +87,8 @@ class BookingData {
         "servicerProviderIncome": servicerProviderIncome,
         "isPaid": isPaid,
         "paidAt": paidAt.toIso8601String(),
+        "startDate": startDate.toIso8601String(),
+        "endDate": endDate.toIso8601String(),
         "status": status,
         "paymentIntentId": paymentIntentId,
       };

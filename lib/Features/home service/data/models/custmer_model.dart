@@ -28,12 +28,14 @@ class PaymentData {
   final int duration;
   final int totalPrice;
   final int platformFee;
-  final int servicerProviderIncome;
+  final int serviceProviderIncome;
   final bool isPaid;
   final DateTime paidAt;
   final String status;
   final String paymentIntentId;
   final int v;
+  final DateTime startDate;
+  final DateTime endDate;
 
   PaymentData({
     required this.id,
@@ -43,12 +45,14 @@ class PaymentData {
     required this.duration,
     required this.totalPrice,
     required this.platformFee,
-    required this.servicerProviderIncome,
+    required this.serviceProviderIncome,
     required this.isPaid,
     required this.paidAt,
     required this.status,
     required this.paymentIntentId,
     required this.v,
+    required this.startDate,
+    required this.endDate,
   });
 
   factory PaymentData.fromJson(Map<String, dynamic> json) {
@@ -60,12 +64,14 @@ class PaymentData {
       duration: (json['duration'] as num).toInt(),
       totalPrice: (json['totalPrice'] as num).toInt(),
       platformFee: (json['platformFee'] as num).toInt(),
-      servicerProviderIncome: (json['servicerProviderIncome'] as num).toInt(),
+      serviceProviderIncome: (json['servicerProviderIncome'] as num).toInt(),
       isPaid: json['isPaid'] as bool,
       paidAt: DateTime.parse(json['paidAt'] as String),
       status: json['status'] as String,
       paymentIntentId: json['paymentIntentId'] as String,
       v: (json['__v'] as num).toInt(),
+      startDate: DateTime.parse(json['startDate'] as String),
+      endDate: DateTime.parse(json['endDate'] as String),
     );
   }
 }
