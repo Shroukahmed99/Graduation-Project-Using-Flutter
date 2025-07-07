@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/core/Custom_button.dart';
-import 'package:sehatak/core/custom_question_and_aswer.dart';
-import 'package:sehatak/core/custom_select_activity.dart';
-import 'package:sehatak/core/custom_snacbar.dart';
-import 'package:sehatak/core/page.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class KneePainViewBody extends StatefulWidget {
   const KneePainViewBody({super.key});
@@ -50,7 +51,12 @@ class _KneePainViewBodyState extends State<KneePainViewBody> {
                 customSnackBar(
                     context, 'Please select an answer about your knee pain');
               } else {
-                GoRouter.of(context).push(AppRouter.kDiabetesView);
+                CacheHelper.saveData(
+                  key: 'kneePain',
+                  value: selectedIndex == 1 ? 1 : 0,
+                ).then((_) {
+                  GoRouter.of(context).push(AppRouter.kDiabetesView);
+                });
               }
             },
           ),

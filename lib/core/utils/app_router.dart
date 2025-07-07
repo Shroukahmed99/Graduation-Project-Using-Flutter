@@ -1,5 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Ai/presentation/views/back_pain_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/blood_sugarv_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/cholesterol_level_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/diabetes_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/diastolic_blood_pressure_view%20copy.dart';
+import 'package:sehatak/Features/Ai/presentation/views/heart_disease_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/hypertension_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/knee_pain_view.dart';
+import 'package:sehatak/Features/Ai/presentation/views/systolic_blood_pressure_view.dart';
 import 'package:sehatak/Features/Community/presentation/views/community_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_client_profile_details_view.dart';
 import 'package:sehatak/Features/Profile%20User/presentation/views/display_provider_profile_details_view.dart';
@@ -58,6 +67,7 @@ import 'package:sehatak/Features/success%20register/set_password_success.dart';
 import 'package:sehatak/Features/success%20register/success_view_client.dart';
 import 'package:sehatak/Features/on%20Boarding/Presentation/views/on_boarding_view.dart';
 import 'package:sehatak/core/utils/api_service.dart';
+
 abstract class AppRouter {
   static const kSecondSplashScreen = "/SecondSplashScreen";
   static const kOnBoardingView = '/OnBoardingView';
@@ -92,8 +102,10 @@ abstract class AppRouter {
   static const kProfileView = '/ProfileView';
   static const kSettingProfileProviderView = "/SettingProfileProviderView";
   static const kProfileProviderView = '/ProfileProviderView';
-  static const kDisplayProviderProfileDetailsView = '/DisplayProviderProfileDetailsView';
-  static const kDisplayClientProfileDetailsView = '/DisplayClientProfileDetailsView';
+  static const kDisplayProviderProfileDetailsView =
+      '/DisplayProviderProfileDetailsView';
+  static const kDisplayClientProfileDetailsView =
+      '/DisplayClientProfileDetailsView';
   static const kPasswordSettingsView = '/PasswordSettingsView';
   static const kNutritionView = "/NutritionView";
   static const kHomeViewClient = '/HomeViewClient';
@@ -112,12 +124,21 @@ abstract class AppRouter {
   static const kChatViewClient = '/ChatViewClient';
   static const kChatViewService = '/ChatViewService';
   static const kChatBotView = '/ChatBotView';
-   static const kChatBotIntroView = '/ChatBotIntroView';
-   static const kFeedbackView= "/FeedbackView";
-   static const kFitnessLinkView= "/FitnessLinkView";
-static const kGoogleFitHandlerPage= "/GoogleFitHandlerPage";
-   
+  static const kChatBotIntroView = '/ChatBotIntroView';
+  static const kFeedbackView = "/FeedbackView";
+  static const kFitnessLinkView = "/FitnessLinkView";
+  static const kGoogleFitHandlerPage = "/GoogleFitHandlerPage";
+  static const kKneePainView = "/KneePainView";
+  static const kHypertensionView = "/HypertensionView";
+  static const kHeartDiseaseView = "/HeartDiseaseView";
+  static const kDiabetesView = "/DiabetesView";
+  static const kBloodSugarView = "/BloodSugarView";
 
+  static const kDiastolicBloodPressureView = "/DiastolicBloodPressureView";
+  static const kSystolicBloodPressureView = "/SystolicBloodPressureView";
+  static const kBackPainView = "/BackPainView";
+
+  static const kCholesterolLevelView = "/CholesterolLevelView";
 
   static final router = GoRouter(routes: [
     GoRoute(
@@ -126,8 +147,6 @@ static const kGoogleFitHandlerPage= "/GoogleFitHandlerPage";
         return const FirstSplashScreen();
       },
     ),
-    
-
 
 //  GoRoute(
 //       path: '/fitness-auth',
@@ -146,18 +165,12 @@ static const kGoogleFitHandlerPage= "/GoogleFitHandlerPage";
 //   builder: (context, state) => const GoogleFitHandlerView(),
 // ),
 
-
-
-
-
-
-
-GoRoute(
+    GoRoute(
       path: kFitnessLinkView,
       builder: (context, state) => const FitnessLinkView(),
     ),
 
-     GoRoute(
+    GoRoute(
       path: kChatBotIntroView,
       builder: (context, state) => const ChatBotIntroView(),
     ),
@@ -305,22 +318,20 @@ GoRoute(
       path: kProfileView,
       builder: (context, state) => const ProfileView(),
     ),
- GoRoute(
+    GoRoute(
       path: kFeedbackView,
       builder: (context, state) => const FeedbackView(),
     ),
 
-
-
     GoRoute(
       path: kDisplayProviderProfileDetailsView,
       builder: (context, state) => const DisplayProviderProfileDetailsView(),
-    ), 
+    ),
 
- GoRoute(
+    GoRoute(
       path: kDisplayClientProfileDetailsView,
       builder: (context, state) => const DisplayClientProfileDetailsView(),
-    ),  
+    ),
 
     GoRoute(
       path: kPasswordSettingsView,
@@ -431,6 +442,42 @@ GoRoute(
           receiverId: receiverId,
         );
       },
+    ),
+    GoRoute(
+      path: kKneePainView,
+      builder: (context, state) => const KneePainView(),
+    ),
+    GoRoute(
+      path: kHypertensionView,
+      builder: (context, state) => const HypertensionView(),
+    ),
+    GoRoute(
+      path: kHeartDiseaseView,
+      builder: (context, state) => const HeartDiseaseView(),
+    ),
+    GoRoute(
+      path: kDiabetesView,
+      builder: (context, state) => const DiabetesView(),
+    ),
+    GoRoute(
+      path: kBloodSugarView,
+      builder: (context, state) => const BloodSugarvView(),
+    ),
+    GoRoute(
+      path: kDiastolicBloodPressureView,
+      builder: (context, state) => const DiastolicBloodPressureView(),
+    ),
+    GoRoute(
+      path: kSystolicBloodPressureView,
+      builder: (context, state) => const SystolicBloodPressureView(),
+    ),
+    GoRoute(
+      path: kCholesterolLevelView,
+      builder: (context, state) => const CholesterolLevelView(),
+    ),
+    GoRoute(
+      path: kBackPainView,
+      builder: (context, state) => const BackPainView(),
     ),
   ]);
 }

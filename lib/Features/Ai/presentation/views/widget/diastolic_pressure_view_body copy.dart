@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/core/Custom_button.dart';
-import 'package:sehatak/core/custom_question_and_aswer.dart';
-import 'package:sehatak/core/custom_snacbar.dart';
-import 'package:sehatak/core/page.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart'; // ✅ تم إضافته
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class DiastolicBloodPressureViewBody extends StatefulWidget {
   const DiastolicBloodPressureViewBody({super.key});
@@ -29,7 +30,7 @@ class _DiastolicBloodPressureViewBodyState
           const Padding(
             padding: EdgeInsets.all(65),
             child: CustomQuestionAndAswer(
-              question: ' Enter diastolic blood pressure',
+              question: 'Enter diastolic blood pressure',
             ),
           ),
           const Spacer(),
@@ -74,8 +75,11 @@ class _DiastolicBloodPressureViewBodyState
               final value = _controller.text.trim();
               if (value.isEmpty || double.tryParse(value) == null) {
                 customSnackBar(
-                    context, 'Please enter a valid blood sugar level');
+                    context, 'Please enter a valid diastolic pressure');
               } else {
+                CacheHelper.saveData(
+                    key: 'diastolicPressure', value: int.parse(value));
+
                 GoRouter.of(context).push(AppRouter.kHypertensionView);
               }
             },

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/core/Custom_button.dart';
-import 'package:sehatak/core/custom_question_and_aswer.dart';
-import 'package:sehatak/core/custom_select_activity.dart';
-import 'package:sehatak/core/custom_snacbar.dart';
-import 'package:sehatak/core/page.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart'; // تأكد من الاستيراد
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class HeartDiseaseViewBody extends StatefulWidget {
   const HeartDiseaseViewBody({super.key});
@@ -32,10 +33,7 @@ class _HeartDiseaseViewBodyState extends State<HeartDiseaseViewBody> {
           ),
           SizedBox(height: 120.h),
           CustomSelectActivity(
-            options: const [
-              'NO',
-              'YES',
-            ],
+            options: const ['NO', 'YES'],
             onSelect: (index) {
               setState(() {
                 selectedIndex = index;
@@ -48,8 +46,13 @@ class _HeartDiseaseViewBodyState extends State<HeartDiseaseViewBody> {
             onTap: () {
               if (selectedIndex == null) {
                 customSnackBar(
-                    context, 'Please select an answer about heart Diabetes');
+                  context,
+                  'Please select an answer about heart Diabetes',
+                );
               } else {
+                CacheHelper.saveData(
+                    key: 'heartDisease', value: selectedIndex == 1 ? 1 : 0);
+
                 if (selectedIndex == 1) {
                   GoRouter.of(context)
                       .push(AppRouter.kSystolicBloodPressureView);

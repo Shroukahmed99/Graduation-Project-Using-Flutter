@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sehatak/core/Custom_button.dart';
-import 'package:sehatak/core/custom_question_and_aswer.dart';
-import 'package:sehatak/core/custom_snacbar.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class CholesterolLevelViewBody extends StatefulWidget {
   const CholesterolLevelViewBody({super.key});
@@ -71,10 +74,14 @@ class _CholesterolLevelViewBodyState extends State<CholesterolLevelViewBody> {
               final value = _controller.text.trim();
               if (value.isEmpty || double.tryParse(value) == null) {
                 customSnackBar(
-                    context, 'Please enter a valid blood sugar level');
+                    context, 'Please enter a valid cholesterol level');
               } else {
-                // proceed to next screen or save value
-                customSnackBar(context, 'Blood sugar level saved');
+                CacheHelper.saveData(
+                  key: 'cholesterol',
+                  value: int.parse(value),
+                ).then((_) {
+                  GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
+                });
               }
             },
           ),

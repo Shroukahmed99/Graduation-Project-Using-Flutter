@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sehatak/core/Custom_button.dart';
-import 'package:sehatak/core/custom_question_and_aswer.dart';
-import 'package:sehatak/core/custom_select_activity.dart';
-import 'package:sehatak/core/custom_snacbar.dart';
-import 'package:sehatak/core/page.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_question_and_aswer.dart';
+import 'package:sehatak/Features/Questions/presentation/views/widget/custom_select_activity.dart';
+import 'package:sehatak/core/function/custom_snacbar.dart';
+import 'package:sehatak/core/utils/app_router.dart';
+import 'package:sehatak/core/utils/cache_helper.dart';
+import 'package:sehatak/core/widget/Custom_button.dart';
 
 class DiabetesViewBody extends StatefulWidget {
   const DiabetesViewBody({super.key});
@@ -50,11 +51,16 @@ class _DiabetesViewBodyState extends State<DiabetesViewBody> {
                 customSnackBar(context,
                     'Please select an answer about your diabetes condition');
               } else {
-                if (selectedIndex == 1) {
-                  GoRouter.of(context).push(AppRouter.kBloodSugarView);
-                } else {
-                  GoRouter.of(context).push(AppRouter.kHeartDiseaseView);
-                }
+                CacheHelper.saveData(
+                  key: 'diabetes',
+                  value: selectedIndex == 1 ? 1 : 0,
+                ).then((_) {
+                  if (selectedIndex == 1) {
+                    GoRouter.of(context).push(AppRouter.kBloodSugarView);
+                  } else {
+                    GoRouter.of(context).push(AppRouter.kHeartDiseaseView);
+                  }
+                });
               }
             },
           ),

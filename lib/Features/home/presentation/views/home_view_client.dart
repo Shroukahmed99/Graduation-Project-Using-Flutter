@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/Features/Ai/data/repo/workout_ai_repo_impl.dart';
+import 'package:sehatak/Features/Ai/presentation/manger/ai/workout_recommended_cubit.dart';
 import 'package:sehatak/Features/Profile%20User/data/repo/profile_repository_impl.dart';
 import 'package:sehatak/Features/articles/data/repo/article_repo_impl.dart';
 import 'package:sehatak/Features/articles/presentation/manger/getHomeArticle/get_home_aricle_cubit.dart';
@@ -24,23 +26,26 @@ class HomeViewClient extends StatelessWidget {
                 ..getHomeArticles(),
         ),
         BlocProvider(
-          create: (context) =>
-              TopRatingCubit(HomeRepoImpl(ApiService(Dio())))
-                ..fetchTopProviders(),
+          create: (context) => TopRatingCubit(HomeRepoImpl(ApiService(Dio())))
+            ..fetchTopProviders(),
         ),
         BlocProvider(
           create: (context) =>
               SaveNameCubit(ProfileRepositoryImpl(ApiService(Dio())))
                 ..fetchClientProfile(),
         ),
+        BlocProvider(
+          create: (context) =>
+              WorkoutCubit(WorkoutRepositoryImpl(Dio()))..getRecommendations(),
+        ),
       ],
-      child:const Scaffold(
-        body:  SafeArea(
-          bottom: false, // نسيب المساحة لتحت للـ bottom nav
+      child: const Scaffold(
+        body: SafeArea(
+          bottom: false,
           child: HomeViewClientBody(),
         ),
         bottomNavigationBar: SafeArea(
-          top: false, // مانزودش مساحة فوق للبار
+          top: false,
           child: CustomBottomNavigationHomeClient(),
         ),
       ),

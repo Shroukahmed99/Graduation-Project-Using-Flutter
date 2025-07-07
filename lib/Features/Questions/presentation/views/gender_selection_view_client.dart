@@ -10,10 +10,8 @@ import 'package:sehatak/core/widget/Custom_Arrow_back.dart';
 import 'package:sehatak/core/widget/Custom_button.dart';
 import 'package:sehatak/core/widget/custom_sized_box.dart';
 
-
-
-  @override
- class GenderSelectionViewClient extends StatelessWidget {
+@override
+class GenderSelectionViewClient extends StatelessWidget {
   const GenderSelectionViewClient({super.key});
 
   @override
@@ -31,7 +29,7 @@ import 'package:sehatak/core/widget/custom_sized_box.dart';
               child: IntrinsicHeight(
                 child: Column(
                   children: [
-                    SizedBox(height: 32.h), // تعويض عن SafeArea
+                    SizedBox(height: 32.h),
                     const CustomArrowBack(text: 'Back'),
                     CustomSizedBox(height: 40.h),
                     const CustomQuestionAndAswer(
@@ -46,20 +44,28 @@ import 'package:sehatak/core/widget/custom_sized_box.dart';
                         return Column(
                           children: [
                             CircleImageTextWidget(
-                              images: const [AssetImage('assets/images/male.png')],
+                              images: const [
+                                AssetImage('assets/images/male.png')
+                              ],
                               text: 'Male',
                               isSelected: selectedGender == 'male',
                               onTap: () {
-                                context.read<GenderCubit>().selectGender('male');
+                                context
+                                    .read<GenderCubit>()
+                                    .selectGender('male');
                               },
                             ),
                             CustomSizedBox(height: 70.h),
                             CircleImageTextWidget(
-                              images: const [AssetImage('assets/images/female.png')],
+                              images: const [
+                                AssetImage('assets/images/female.png')
+                              ],
                               text: 'Female',
                               isSelected: selectedGender == 'female',
                               onTap: () {
-                                context.read<GenderCubit>().selectGender('female');
+                                context
+                                    .read<GenderCubit>()
+                                    .selectGender('female');
                               },
                             ),
                           ],
@@ -74,7 +80,8 @@ import 'package:sehatak/core/widget/custom_sized_box.dart';
                           text: 'Continue',
                           onTap: isButtonEnabled
                               ? () {
-                                  GoRouter.of(context).push(AppRouter.kAgeSelectionScreen);
+                                  GoRouter.of(context)
+                                      .push(AppRouter.kBackPainView);
                                 }
                               : null,
                         );

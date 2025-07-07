@@ -15,6 +15,9 @@ class GenderCubit extends Cubit<GenderState> {
 
   Future<void> selectGender(String gender) async {
     await CacheHelper.saveData(key: 'gender', value: gender);
+    await CacheHelper.saveData(
+        key: 'genderInt', value: gender == 'male' ? 1 : 0);
+
     emit(GenderSelected(gender));
   }
 }
